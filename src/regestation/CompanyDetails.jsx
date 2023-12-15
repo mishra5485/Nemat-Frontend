@@ -46,9 +46,9 @@ const CompanyDetails = () => {
          try {
                await schemaObject.validate(values, { abortEarly: false });
                setnextDiv(false);
-               console.log(values);
+               // console.log(values);
          } catch (error) {
-            console.error('Form validation error:', error.errors);
+            // console.error('Form validation error:', error.errors);
          }
       };
 
@@ -98,7 +98,7 @@ const CompanyDetails = () => {
             ReciveUpdates:values.whatappcheck,
          };
 
-         console.log("values inside sumit -> ",payload)
+         // console.log("values inside sumit -> ",payload)
 
          try {
             
@@ -110,7 +110,7 @@ const CompanyDetails = () => {
             if(response.status === 200){
                setSentReview(true);
 
-               toast.success("register data has been send")
+               toast.success(response.data)
             }
 
          } catch (error) {
@@ -139,7 +139,7 @@ const CompanyDetails = () => {
   };
 
   const MenuPageHandler = () => {
-         console.log("New Page")
+         // console.log("New Page")
   }
 
 
