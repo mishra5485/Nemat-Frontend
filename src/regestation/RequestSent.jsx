@@ -12,7 +12,14 @@ const RequestSent = () => {
       <div className='w-full h-[300px] relative'>
             <div className='relative'>
                            {/* Header section in 3rd div */}
+
                 </div>
+
+                <div className='flex text-xs gap-2'>
+                    <h1 className='text-green-600 gap-x-1 cursor-pointer' ><span className='p-1 text-center border rounded-full ml-1 gap-x-2 bg-green-900'>1 </span> Company Details  {"->"}</h1>
+                    <h1  className="text-green-600 cursor-pointer"><span className= "p-1 text-center border rounded-full ml-1 gap-x-2 bg-green-900">2 </span> Company Details {"->"}</h1>
+                    <h1 className="text-green-600 cursor-pointer" ><span className='p-1 text-center border rounded-full ml-1 gap-x-2 bg-green-900'>3</span> Company Details </h1>
+                  </div>  
                     <div className='relative flex flex-col justify-center items-center'>
                            <span className='p-3 border  rounded-full  bg-green-400'>✔</span>
                            <h1>Request Sent Successfully</h1>

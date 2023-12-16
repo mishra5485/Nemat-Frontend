@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { IoMdEye , IoIosEyeOff } from "react-icons/io";
-import loginBG  from "../assets/loginImages/commonBackgroundImage.png"
+import loginBG  from "../assets/loginImages/loginImage.png"
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import logo from "../assets/loginImages/nematEnterprisesLogo.png"
@@ -10,6 +10,9 @@ import { useDispatch } from 'react-redux';
 import { setUser } from "../slices/profileSlice";
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
+import {LoginObjectSchema} from "../validationSchem/index.js"
+import FlowerPattern from "../assets/loginImages/FlowerPattern.png"
+import InfiniteScrollImage from '../style/InfiniteScrollImage.jsx';
 
 const Login =() => {
 
@@ -44,16 +47,10 @@ const Login =() => {
 
   let Customer_id="";
    
-  //Second Validation Form for Login Only .
-   const object2 = yup.object({
-    email:yup.string().email("Enter the Valid Email id").required("Enter Your Email"),
-    password:yup.string().min(5).required("Enter the Password"),
-   })
-
    //Handling the Data.
    const { values , errors  , handleChange , handleSubmit , touched , handleBlur} = useFormik({
     initialValues,
-    validationSchema:object2,
+    validationSchema:LoginObjectSchema,
     onSubmit: async (values , action) =>{
         const palyload = {
           Email:values.email,
@@ -113,13 +110,14 @@ const Login =() => {
        <Toaster/>
       <div className="grid grid-cols-1 md:grid-cols-2  w- h-full lg:px-0 lg:my-22  ">
         <div className="relative flex items-end  ">
-          <div className="absolute h-[99%] xl:h-[650px] xl:w-[520px] object-cover  w-[100%] -z-10">
+          <div className="absolute h-[99%] xl:h-[650px] xl:w-[520px] object-cover  w-[100%] -z-10 flex">
             <img
               className="h-full w-full object-cover"
               src={loginBG}
               alt="loginImage"
 
             />
+            <InfiniteScrollImage/>
             <div className='absolute flex left-[120px] justify-center items-center  h-[110px] w-[47%] z-10 top-[30px]'>
             <img 
               className='h-[156px] w-[106px] z-10 '
