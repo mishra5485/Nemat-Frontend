@@ -1,0 +1,21 @@
+@keyframes scroll {
+   0% {
+      transform: translateY(-100%);
+   }
+
+   100% {
+      transform: translateY(0%);
+   }
+}
+
+.animate-scrolling {
+   height: 100%;
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+}
+
+.animate-scrolling .animate-img {
+   width: 100%;
+   animation: scroll 10s linear infinite;
+}
