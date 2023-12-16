@@ -37,7 +37,7 @@ function App() {
 
           {/* Error Router  */}
           <Route path="*" element={<Error />} />  
-      </Routes>
+      </Routes> 
     </>
   )
 }
