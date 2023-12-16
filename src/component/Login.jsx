@@ -108,27 +108,28 @@ const Login =() => {
   return (
     <section style={{ height: '100vh' }}>
        <Toaster/>
-      <div className="grid grid-cols-1 md:grid-cols-2  w- h-full lg:px-0 lg:my-22  ">
-        <div className="relative flex items-end  ">
-          <div className="absolute h-[99%] xl:h-[650px] xl:w-[520px] object-cover  w-[100%] -z-10 flex">
+      <div className="grid grid-cols-1 md:grid-cols-2  w-[100%] h-full lg:px-0 lg:my-22  ">
+        <div className="relative flex items-end">
+          <div className="absolute h-[99%] xl:h-[650px] lg:min-w-[35%]  xl:min-w-[30%] w-full object-cover -z-10 flex">
             <img
-              className="h-full w-full object-cover"
+              className="h-[100%] relative w-full object-cover"
               src={loginBG}
               alt="loginImage"
 
             />
-            <InfiniteScrollImage/>
-            <div className='absolute flex left-[120px] justify-center items-center  h-[110px] w-[47%] z-10 top-[30px]'>
+        
+            <div className='absolute flex  justify-center items-center  h-[20%] w-[100%] z-10  mt-8 '>
             <img 
-              className='h-[156px] w-[106px] z-10 '
+              className='h-full w-[20%] z-10 '
               src={logo}
               />
               </div>
+              <InfiniteScrollImage/>
           </div>
         </div>
-        <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-          <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-            <h2 className="text-3xl font-bold leading-tight text-[#642F29] sm:text-5xl font-roxborough">{changePassword ? "Log In" : "Change Default Password"}</h2>
+        <div className="flex items-start justify-evenly px-4 py-10 sm:px-6 sm:py-16 lg:-pl-10 lg:py-24  lg:pr-40 ">
+          <div className="xl:mx-auto lg:min-w-full xl:w-full xl:max-w-sm 2xl:max-w-md ">
+            <h2 className="text-3xl leading-tight text-[#642F29] sm:text-5xl font-roxborough">{changePassword ? "Log in" : "Change Default Password"}</h2>
             {
 
               //if changePassword is True Then Render Login Page.
@@ -136,13 +137,13 @@ const Login =() => {
                    <form action="#" method="POST" className="mt-8" onSubmit={handleSubmit}>
                       <div className="space-y-5">
                         <div>
-                          <label htmlFor="" className="text-base font-medium text-[#642F29]">
+                          <label htmlFor="" className="text-lg font-Marcellus  text-[#642F29]">
                             {' '}
-                            Email address{' '}
+                            Username{' '}
                           </label>
                           <div className="mt-2 ">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
+                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
                               type="email"
                               placeholder="Email"
                               value={values.email}
@@ -150,46 +151,51 @@ const Login =() => {
                               onChange={handleChange}
                               onBlur={handleBlur}
                             ></input>
-                            {errors.email && touched.email ? (<p>{errors.email}</p>) : ("") }
+                            {errors.email && touched.email ? (<p className='font-Marcellus text-red-900'>{errors.email}</p>) : ("") }
                           </div>
                         </div>
                         <div>
-                          
+                        <div>
+                           <label htmlFor="" className="text-lg font-Marcellus  text-[#642F29]">
+                            {' '}
+                            Password{' '}
+                          </label>
                           <div className="mt-2 flex justify-center items-center border-b-2 border-b-[#642F29] ">
                             <input
-                              className="flex h-10 w-full bg-transparent px-3 py-2  placeholder:text-[#642F29] focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50 text-xl "
+                              className="flex h-10 w-full bg-transparent px-3 py-2  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50 text-xl "
                               type=  {showPassword ? "text" : "password"}
                               placeholder="Password"
                               value={values.password}
                               id="password"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                            >
+                              >
                             </input>
 
                             <span className=''>
                                 {
-                                showPassword ? <IoMdEye onClick={showHandler} size={20}/> : <IoIosEyeOff onClick={showHandler} size={20}/>
+                                  showPassword ? <IoMdEye onClick={showHandler} size={20}/> : <IoIosEyeOff onClick={showHandler} size={20}/>
                                 }
                             </span>
+                                </div>
                           </div>
-                            {errors.password && touched.password ? (<p>{errors.password}</p>):("")}
+                            {errors.password && touched.password ? (<p className='font-Marcellus text-red-900'>{errors.password}</p>):("")}
                         </div>
                         <div>
                           <button
                             type="submit"
-                            className="inline-flex w-[179px] h-[43px]  mt-8 items-center justify-center  rounded-3xl bg-[#60713A]  font-semibold leading-7 text-white"
+                            className="inline-flex w-[179px] h-[43px]  mt-8 items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-marcellus text-base  leading-17 tracking-normal text-center"
                           >
                             LOG IN
                           </button>
-                          <p className=" text-sm text-[#642F29] mt-[50px]">
-                      Don&apos;t have an account?{' '}
+                          <p className=" text-sm font-Marcellus text-[#642F29] mt-[50px] gap-6">
+                      Don&apos;t have an account? {''}
                       <a
-                        href="#"
+                        href="/companydetails"
                         title=""
-                        className="font-semibold text-[#642F29] transition-all duration-200 hover:underline"
+                        className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline"
                       >
-                        REQUEST AN ACCOUNT
+                         REQUEST AN ACCOUNT
                       </a>
                     </p>
                         </div>
