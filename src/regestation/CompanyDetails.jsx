@@ -6,12 +6,15 @@ import toast, { Toaster } from "react-hot-toast";
 import {counntryCode} from "../data/data"
 import axios from 'axios';
 import Home from '../component/Home';
+import { useNavigate } from 'react-router-dom';
+import RequestSent from './RequestSent';
 
 const CompanyDetails = () => {
 
    const [nextdiv , setnextDiv] = useState(true);
     const [isChecked, setIsChecked] = useState(0);
-   const [sentReview , setSentReview] = useState(false)
+   const [sentReview , setSentReview] = useState(true)
+   const navigate = useNavigate();
 
    const initialValues = {
       camponeyname:"",
@@ -64,12 +67,12 @@ const CompanyDetails = () => {
          fullname: yup.string().required('Full name is required').matches(/^([a-zA-Z]+ ?){1,4}$/, 'Invalid full name'),
          email:yup.string().email("Enter the Valid Email id").required("Enter Your Email"),
       countryCode:yup.number().typeError("Please enter a valid number").integer("Please enter a valid Mobile number").test(
-      val => val && val.toString().length === 3).min(3).required("Enter the 10 digit no"),
+      val => val && val.toString().length === 3).min(3).required("Enter the 3 digit no"),
       mobileNo:yup.number().typeError("Please enter a valid number").integer("Please enter a valid Mobile number").test(
       val => val && val.toString().length === 10).min(10).required("Enter the 10 digit no"),
       whatappcheck: yup.number().oneOf([0, 1]).required("Select the checkbox value"), 
       countryCode1:yup.number().typeError("Please enter a valid number").integer("Please enter a valid Mobile number").test(
-      val => val && val.toString().length === 3).min(3).required("Enter the 10 digit no"),
+      val => val && val.toString().length === 3).min(3).required("Enter the 3 digit no"),
       landlineNo:yup.number().typeError("Please enter a valid number").integer("Please enter a valid LandLine number").test(
       val => val && val.toString().length === 10).min(10).required("Enter the 10 digit no"),
 
@@ -109,8 +112,9 @@ const CompanyDetails = () => {
 
             if(response.status === 200){
                setSentReview(true);
-
+               navigate('/companydetails/requestsent')
                toast.success(response.data)
+
             }
 
          } catch (error) {
@@ -138,9 +142,6 @@ const CompanyDetails = () => {
     values.whatappcheck = isChecked === 1 ? 0 : 1;
   };
 
-  const MenuPageHandler = () => {
-         // console.log("New Page")
-  }
 
 
   return (
@@ -288,7 +289,7 @@ const CompanyDetails = () => {
                         </label>
                         <div className='mt-2'>
                            <input
-                      className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                      className="flex h-10 w-[50%]  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
                       type="text"
                       placeholder="ZipCode"
                        onChange={handleChange}
@@ -301,14 +302,18 @@ const CompanyDetails = () => {
                      </div>
                   </div>
                </div>
-                <button
-                type="button"
-                onClick={ (event) => onSubmit2(event)}
-                className="relative inline-flex w-[20%] bg-[#60713A] text-center text-white px-2 py-2 font-semibold duration-200"
-              >
-                  Next
-              </button>
-                        </div>
+                     <button
+                     type="button"
+                     onClick={ (event) => onSubmit2(event)}
+                     className="relative inline-flex bg-[#60713A] text-center mt-5 rounded-2xl text-white px-4 py-2 font-semibold duration-200"
+                  > 
+                        <span className='text-center'> Next</span>
+                     </button>
+                      <p className=" text-sm text-[#642F29] mt-[15px]">
+                           Alrady  have an account?{' '}
+                       <a className='text-xl' href="/login">LOGIN</a>
+                    </p>
+               </div>
                   ) : (
                      <div>
                         <div>
@@ -372,15 +377,22 @@ const CompanyDetails = () => {
                                             Country Code <span className='text-red-600'>*</span>{' '}
                                           </label>
                                           <div className='mt-2'>
-                                       <     input
-                                                className="flex h-10 w-[50%]  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
-                                                type=""
-                                                placeholder="Country Code"
+                                             <select
+                                                className="flex h-10 w-[50%] border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
                                                 id="countryCode"
                                                 value={values.countryCode}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                             ></input>
+                                                >
+                                                <option value="" disabled>
+                                                   Select Country Code
+                                                </option>
+                                                {counntryCode.map((country) => (
+                                                   <option key={country.code} value={country.code}>
+                                                   {country.name} ({country.code})
+                                                   </option>
+                                                ))}
+                                             </select>
                                              {errors.countryCode && touched.countryCode ? (<p>{errors.countryCode}</p>):("")}
                                           </div>
                                        </div>
@@ -474,30 +486,6 @@ const CompanyDetails = () => {
                }
              
             </form>
-
-
-               {
-                  sentReview ? (
-                     <div className='w-full h-[300px] relative'>
-                        <div className='relative'>
-                           {/* Header section in 3rd div */}
-                        </div>
-                        <div className='relative flex flex-col justify-center items-center'>
-                           <span className='p-3 border  rounded-full  bg-green-400'>✔</span>
-                           <h1>Request Sent Successfully</h1>
-
-                           <p className='text-center'>
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam quaerat commodi accusamus! Eligendi ea possimus repellendus blanditiis quam. Repudiandae, fuga.
-                           </p>
-
-                           <button className=' bg-green-600 p-3 rounded-2xl' onClick={MenuPageHandler}>
-                              NEXT
-                           </button>
-
-                        </div>
-                     </div>
-                  ) : null
-               }
          
           </div>
         </div>
