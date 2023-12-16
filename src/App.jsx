@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './component/Home'
 import Error from './pages/Error'
 import {PrivateRoute }from './component/auth/PrivateRoute'
+import RequestSent from './regestation/RequestSent'
 
 
 function App() {
@@ -22,6 +23,13 @@ function App() {
         <Route  path='/login/changepassword' element={
           <PrivateRoute>
             <ChangePassword/>
+          </PrivateRoute>  
+          } 
+        />
+
+         <Route  path='/companydetails/requestsent' element={
+          <PrivateRoute>
+              <RequestSent/>
           </PrivateRoute>  
           } 
         />
