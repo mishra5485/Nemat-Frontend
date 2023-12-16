@@ -16,6 +16,6 @@
 }
 
 .animate-scrolling .animate-img {
-   width: 100%;
+   width: 120%;
    animation: scroll 10s linear infinite;
 }

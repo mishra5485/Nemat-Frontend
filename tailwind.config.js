@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roxborough: ["Roxborough", "sans-serif"],
+        roxborough: ["Roxborough  CF Thin"],
+        Marcellus: ["Marcellus"],
       },
     },
   },
