@@ -8,7 +8,7 @@ import axios from 'axios';
 import ChangePassword from './ChangePassword';
 import { useDispatch } from 'react-redux';
 import { setUser } from "../slices/profileSlice";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
 import {LoginObjectSchema} from "../validationSchem/index.js"
 import FlowerPattern from "../assets/loginImages/FlowerPattern.png"
@@ -106,30 +106,29 @@ const Login =() => {
 
 
   return (
-    <section style={{ height: '100vh' }}>
+    <div className='w-full flex h-[100vh] box-border min-h-screen overflow-hidden'>
        <Toaster/>
-      <div className="grid grid-cols-1 md:grid-cols-2  w-[100%] h-full lg:px-0 lg:my-22  ">
-        <div className="relative flex items-end">
-          <div className="absolute h-[99%] xl:h-[650px] lg:min-w-[35%]  xl:min-w-[30%] w-full object-cover -z-10 flex">
-            <img
-              className="h-[100%] relative w-full object-cover"
-              src={loginBG}
-              alt="loginImage"
 
-            />
-        
-            <div className='absolute flex  justify-center items-center  h-[20%] w-[100%] z-10  mt-8 '>
-            <img 
-              className='h-full w-[20%] z-10 '
-              src={logo}
-              />
+        <div className="flex h-full min-w-[45%]">
+            <div className='overflow-hidden flex relative h-[100vh] w-full'>
+              <div style={{ backgroundImage: `url(${loginBG})`  }} className='w-[100vh] object-cover bg-cover  flex-wrap bg-no-repeat bg-center' >
+                 
+                  <div className='flex w-[100%] justify-center items-center mt-5'>
+                      <img src={logo}
+                        className=''
+                      alt="" />
+                  </div>
               </div>
-              <InfiniteScrollImage/>
-          </div>
+            </div>
+            <div className='overflow-hidden'>
+                <InfiniteScrollImage/>
+            </div>
         </div>
-        <div className="flex items-start justify-evenly px-4 py-10 sm:px-6 sm:py-16 lg:-pl-10 lg:py-24  lg:pr-40 ">
+        <div className='w-full min-w-[50%]  h-full'>
+          <div className='w-[100%] h-[100%] flex justify-center items-center'>
+              <div className="flex items-start justify-evenly px-4 py-10 sm:px-6 sm:py-16 lg:-pl-10 lg:py-24  lg:pr-40 ">
           <div className="xl:mx-auto lg:min-w-full xl:w-full xl:max-w-sm 2xl:max-w-md ">
-            <h2 className="text-3xl leading-tight text-[#642F29] sm:text-5xl font-roxborough">{changePassword ? "Log in" : "Change Default Password"}</h2>
+            <h2 className="text-3xl mb-5 leading-tight text-[#642F29] sm:text-4xl font-roxborough">{changePassword ? "Log in" : "Change Default Password"}</h2>
             {
 
               //if changePassword is True Then Render Login Page.
@@ -190,13 +189,13 @@ const Login =() => {
                           </button>
                           <p className=" text-sm font-Marcellus text-[#642F29] mt-[50px] gap-6">
                       Don&apos;t have an account? {''}
-                      <a
-                        href="/companydetails"
+                      <Link
+                        to="/companydetails"
                         title=""
                         className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline"
                       >
                          REQUEST AN ACCOUNT
-                      </a>
+                      </Link>
                     </p>
                         </div>
                       </div>
@@ -211,9 +210,11 @@ const Login =() => {
             }
           </div>
         </div>
+          </div>
         </div>
-        </section>
-        )
+       
+      </div>
+    )
 }
 
 
