@@ -7,6 +7,10 @@ export default {
         roxborough: ["Roxborough  CF Thin"],
         Marcellus: ["Marcellus"],
       },
+      colors: {
+        bg_green: "#60713A",
+        text_Color: "#642F29",
+      },
     },
   },
   plugins: [],
