@@ -20,7 +20,7 @@ function App() {
         <Route  path='/login' element={<Login/>} />
         <Route  path='/companydetails' element={<CompanyDetails/>} />
         
-        <Route  path='/login/changepassword' element={
+        <Route  path='/changepassword' element={
           <PrivateRoute>
             <ChangePassword/>
           </PrivateRoute>  
