@@ -45,9 +45,9 @@ const ChangePassword = ({props}) => {
    
       // Object Schema for Current Password Field Validation 
      const objectSchem = yup.object({
-    curremtPWD:yup.string().min(5).required("Enter the current Password"),
-    newpassword:yup.string().min(5).required("Enter the New Password"),
-    confirmPWD:yup.string().min(5).oneOf([yup.ref('newpassword'), null], 'Passwords must match').required("Confirm the Password"),
+    curremtPWD:yup.string().min(5).required("Please Enter current Password"),
+    newpassword:yup.string().min(5).required("Please Enter New Password"),
+    confirmPWD:yup.string().min(5).oneOf([yup.ref('newpassword'), null], 'Passwords must match').required("Please Enter Confirm Password"),
    })
 
 
@@ -151,18 +151,17 @@ const ChangePassword = ({props}) => {
   return (
       <div className="">
         <Toaster/>
-          <div className="">
 
-                 <form onSubmit={handleSubmit}>
+                 <form onSubmit={handleSubmit} className='mt-2 md:mt-7'>
                       <div>
-                           <div className='my-4'>
-                              <label htmlFor="" className="text-base font-medium text-[#642F29]">
+                           <div className='my-4 sm:my-0 mobile:my-2 md:'>
+                              <label htmlFor="" className="font-Marcellus  text-text_Color md:text-xl ">
                                 {' '}
                                 Current Password{' '}
                               </label>
                               <div className=" flex justify-center items-center border-b-2 border-b-[#642F29]">
                                 <input
-                                  className="flex h-10 w-full   bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
+                                  className="flex mobile:pt-1 w-full   bg-transparent  mobile:py-1 placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                   type=  {showCurrentPassword ? "text" : "password"}
                                   placeholder="Enter Current Password"
                                   id="curremtPWD"
@@ -177,16 +176,16 @@ const ChangePassword = ({props}) => {
                                   </span>
                                 
                               </div>
-                                {errors.curremtPWD && touched.curremtPWD ? (<p className='text-red-800'>{errors.curremtPWD}</p>) : ("") }
+                                {errors.curremtPWD && touched.curremtPWD ? (<p className='font-Marcellus text-[16px] text-red-900'>{errors.curremtPWD}</p>) : null }
                             </div>
-                             <div className='my-4'>
-                              <label htmlFor="" className="text-base font-medium text-[#642F29]">
+                             <div className='my-4 mobile:my-3 md:py-4'>
+                              <label htmlFor="" className="font-Marcellus  text-text_Color md:text-xl">
                                 {' '}
                                 New Password{' '}
                               </label>
                               <div className=" flex justify-center items-center border-b-2 border-b-[#642F29]">
                                 <input
-                                  className="flex h-10 w-full   bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
+                                  className="flex mobile:pt-1 w-full   bg-transparent  mobile:py-1 placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                   type=  {showNewPassword ? "text" : "password"}
                                   placeholder="Enter New Password"
                                   id="newpassword"
@@ -201,16 +200,16 @@ const ChangePassword = ({props}) => {
                                   </span>
                                 
                               </div>
-                                {errors.newpassword && touched.newpassword ? (<p className='text-red-800'>{errors.newpassword}</p>) : ("") }
+                                {errors.newpassword && touched.newpassword ? (<p className='text-red-800'>{errors.newpassword}</p>) : null }
                             </div>
-                             <div className='my-4'>
-                              <label htmlFor="" className="text-base font-medium text-[#642F29]">
+                             <div className='my-4 mobile:my-3'>
+                              <label htmlFor="" className="font-Marcellus  text-text_Color md:text-xl">
                                 {' '}
                                 Confirm New Password{' '}
                               </label>
                               <div className=" flex justify-center items-center border-b-2 border-b-[#642F29]">
                                 <input
-                                  className="flex h-10 w-full bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
+                                  className="flex mobile:pt-1 w-full   bg-transparent  mobile:py-1 placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                   type=  {showConfirmPassword ? "text" : "password"}
                                   placeholder="Confirm New Password"
                                   value={values.confirmPWD}
@@ -225,12 +224,12 @@ const ChangePassword = ({props}) => {
                                   </span>
                                 
                               </div>
-                                {errors.confirmPWD && touched.confirmPWD ? (<p className='text-red-800'>{errors.confirmPWD}</p>) : ("") }
+                                {errors.confirmPWD && touched.confirmPWD ? (<p className='text-red-800'>{errors.confirmPWD}</p>) : null }
                             </div>
                                       
                       </div>
-                       <div className='flex gap-4'>
-                          <button className='p-2 rounded-3xl bg-green-500' type='submit'>
+                       <div className='flex gap-4 mobile:gap-1'>
+                          <button className='p-2 mobile:w-full mobile:text-xl text-center rounded-3xl bg-[#60713A] text-white font-Marcellus text-base  leading-17 md:w-[25%] h-[43px] ' type='submit'>
                             Change
                           </button>
                          </div> 
@@ -238,11 +237,9 @@ const ChangePassword = ({props}) => {
                   </form>
 
                  
-                          <button className= 'p-2 rounded-3xl bg-green-500' onClick={onClickSubmit}>
+                          <button className= 'p-2 rounded-3xl mobile:bg-white mobile:w-full font-Marcellus text-base underline  text-[#642F29] bg-green-500' onClick={onClickSubmit}>
                             Do it Later
                           </button>
-
-          </div>
       </div>
   )
 }
