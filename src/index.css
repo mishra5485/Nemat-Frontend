@@ -18,3 +18,17 @@ html {
   padding: 0;
   overflow: hidden;
 }
+
+@media (max-width: 760px) {
+  * {
+    overflow-y: auto;
+    
+  }
+}
+
+/* For large screens (lg and xl) */
+@media (min-width: 768px) {
+  * {
+    overflow: hidden;
+  }
+}
