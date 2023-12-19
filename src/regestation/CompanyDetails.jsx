@@ -3,10 +3,13 @@ import loginBG  from "../assets/loginImages/loginImage.png"
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
+import logo from "../assets/loginImages/nematEnterprisesLogo.png";
+import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import { counntryCode } from "../CountryCode/data";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {RegisterobjectSchema , CompanyschemaObject} from "../validationSchem/index.js"
+import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
 
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
@@ -112,27 +115,38 @@ const CompanyDetails = () => {
   };
 
   return (
-    <section>
+    <div className="">
       <Toaster />
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="relative flex items-end px-4 pb-10 pt-60 sm:px-6 sm:pb-16 md:justify-center lg:px-8 lg:pb-24">
-          <div className="absolute inset-0">
-            <img
-              className="h-full w-full rounded-md object-cover object-top"
-              src={loginBG}
-              alt=""
-            />
-          </div>
-          <div className="absolute inset-0 "></div>
-          <div className="relative"></div>
-        </div>
+          <div className='w-full  h-full object-cover md:flex md:w-full md:h-[100vh]'>
+            {/* Image section with Logo */}
+            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
+            <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
+                <Link to={"/"}>
+                  <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
+                </Link>
+              </div>  
+            </div>
 
-        <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-          <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-            <div className="flex text-xs gap-2">
-              <h1 className="text-green-600 gap-x-1 cursor-pointer">
-                <span className="p-1 text-center border rounded-full ml-1 gap-x-2 bg-green-900">
-                  1{" "}
+
+            {/* Infinite Scroll section */}
+            <div className=' overflow-hidden mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2'>
+                <img
+                  src={FlowerPattern2}
+                  alt="FlowerPatternImage2"
+                  className="w-full h-[46px] sm:inline-block md:hidden"
+                />
+
+                {/* Show FlowerPattern for md and larger screens */}
+               <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden md:inline-block"/>
+            </div>
+
+
+          <div className="">
+            <div className="xl:mx-auto xl:w-full 2xl:max-w-md">
+              {/* <div className="flex text-xs gap-2">
+                <h1 className="text-bg_green gap-x-1 cursor-pointer">
+                <span className="p-2 sm:rounded-full  text-center border rounded-full ml-1 gap-x-2 bg-green-900">
+                  1
                 </span>{" "}
                 Company Details {"->"}
               </h1>
@@ -159,32 +173,37 @@ const CompanyDetails = () => {
               >
                 <span>3</span> Company Details{" "}
               </h1>
+            </div> */}
+
+            <div>
+
             </div>
+
 
             <form onSubmit={handleSubmit} className="mt-10">
               {nextdiv && sentReview === false ? (
-                <div>
+                <div className="w-[90%] mx-auto justify-center ">
                   <div className="mt-4">
                     <div className="">
-                      <h1 className="text-2xl text-[#642F29]  ">
+                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6 ">
                         Request Your Account
                       </h1>
                     </div>
 
-                    <div className="flex flex-row mt-3">
-                      <div className="flex flex-row gap-x-2">
+                    <div className="flex flex-row mt-8 w-[100%]">
+                      <div className="md:flex md:flex-row gap-x-2 w-[100%]">
                         <div>
                           <label
                             htmlFor=""
-                            className="text-base font-medium text-[#642F29]"
+                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                           >
                             {" "}
                             Camponey name{" "}
                             <span className="text-red-600">*</span>{" "}
                           </label>
-                          <div className="mt-2">
+                          <div className="">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="Camponey name"
                               id="camponeyname"
@@ -193,23 +212,23 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.camponeyname && touched.camponeyname ? (
-                              <p>{errors.camponeyname}</p>
+                              <p className="font-Marcellus text-red-900">{errors.camponeyname}</p>
                             ) : (
-                              ""
+                              null
                             )}
                           </div>
                         </div>
-                        <div>
+                        <div className="mt-7">
                           <label
                             htmlFor=""
-                            className="text-base font-medium text-[#642F29]"
+                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                           >
                             {" "}
                             GST No <span className="text-red-600">*</span>{" "}
                           </label>
-                          <div className="mt-2">
+                          <div className="">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="GST No"
                               id="gstno"
@@ -218,35 +237,35 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.gstno && touched.gstno ? (
-                              <p>{errors.gstno}</p>
+                              <p className="font-Marcellus text-red-900">{errors.gstno}</p>
                             ) : (
-                              ""
+                              null
                             )}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-[30px]">
-                      <h1 className="text-[#642F29]">
-                        ADD GST Address <span className="text-red-600">*</span>
+                    <div className="sm:mt-[50px] mobile:mt-[50px]">
+                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6 ">
+                        ADD GST Address 
                       </h1>
                     </div>
 
-                    <div className="mt-[15px]">
+                    <div className="sm:mt-[30px] mobile:mt-[30px]">
                       <div>
                         <label
                           htmlFor=""
-                          className="text-base font-medium text-[#642F29]"
+                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                         >
                           {" "}
                           Street address <span className="text-red-600">
                             *
                           </span>{" "}
                         </label>
-                        <div className="mt-2">
+                        <div className="">
                           <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
                             type="text"
                             placeholder="Address"
                             id="address"
@@ -255,24 +274,24 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.address && touched.address ? (
-                            <p>{errors.address}</p>
+                            <p className="font-Marcellus text-red-900">{errors.address}</p>
                           ) : (
-                            ""
+                            null
                           )}
                         </div>
                       </div>
-                      <div className="flex flex-row mt-[10px] gap-x-2">
+                      <div className="flex flex-row sm:flex-col mobile:flex-col sm:mt-[30px] mobile:mt-[30px] gap-x-2">
                         <div>
                           <label
                             htmlFor=""
-                            className="text-base font-medium text-[#642F29]"
+                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                           >
                             {" "}
                             City <span className="text-red-600">*</span>{" "}
                           </label>
-                          <div className="mt-2">
+                          <div className="">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                               type="text"
                               placeholder="City"
                               id="city"
@@ -281,23 +300,23 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.city && touched.city ? (
-                              <p>{errors.city}</p>
+                              <p className="font-Marcellus text-red-900"> {errors.city}</p>
                             ) : (
-                              ""
+                              null
                             )}
                           </div>
                         </div>
-                        <div>
+                        <div className="sm:mt-[30px] mobile:mt-[30px]">
                           <label
                             htmlFor=""
-                            className="text-base font-medium text-[#642F29]"
+                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                           >
                             {" "}
                             State<span className="text-red-600">*</span>{" "}
                           </label>
-                          <div className="mt-2">
+                          <div className="">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                               type="text"
                               placeholder="State"
                               id="state"
@@ -306,24 +325,24 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.state && touched.state ? (
-                              <p>{errors.state}</p>
+                              <p className="font-Marcellus text-red-900">{errors.state}</p>
                             ) : (
-                              ""
+                              null
                             )}
                           </div>
                         </div>
                       </div>
-                      <div className="mt-[10px]">
+                      <div className="sm:mt-[30px] mobile:mt-[30px]">
                         <label
                           htmlFor=""
-                          className="text-base font-medium text-[#642F29]"
+                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                         >
                           {" "}
                           ZipCode <span className="text-red-600">*</span>{" "}
                         </label>
-                        <div className="mt-2">
+                        <div className="">
                           <input
-                            className="flex h-10 w-[50%]  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="text"
                             placeholder="ZipCode"
                             onChange={handleChange}
@@ -332,9 +351,9 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.zipcode && touched.zipcode ? (
-                            <p>{errors.zipcode}</p>
+                            <p className="font-Marcellus text-red-900">{errors.zipcode}</p>
                           ) : (
-                            ""
+                            null
                           )}
                         </div>
                       </div>
@@ -343,15 +362,16 @@ const CompanyDetails = () => {
                   <button
                     type="button"
                     onClick={(event) => onSubmit2(event)}
-                    className="relative inline-flex bg-[#60713A] text-center mt-5 rounded-2xl text-white px-4 py-2 font-semibold duration-200"
+                    className="p-2 mobile:mt-[60px] sm:mt-[60px] mobile:w-full mobile:text-xl text-center rounded-3xl bg-[#60713A] text-white font-Marcellus text-base  leading-17 md:w-[25%] h-[43px] overflow-y-hidden"
                   >
                     <span className="text-center"> Next</span>
                   </button>
-                  <p className=" text-sm text-[#642F29] mt-[15px]">
+                  <p className="text-sm font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
                     Alrady have an account?{" "}
-                    <a className="text-xl" href="/login">
+                    <Link className="font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
+                    to={"/login"}>
                       LOGIN
-                    </a>
+                    </Link>
                   </p>
                 </div>
               ) : (
@@ -579,7 +599,7 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
