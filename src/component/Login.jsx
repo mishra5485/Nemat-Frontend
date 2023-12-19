@@ -115,7 +115,7 @@
 
 
             {/* Infinite Scroll section */}
-            <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 '>
+            <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 overflow-hidden '>
                 <img
                   src={FlowerPattern2}
                   alt="FlowerPatternImage2"
