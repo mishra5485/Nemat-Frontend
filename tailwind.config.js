@@ -11,6 +11,9 @@ export default {
         bg_green: "#60713A",
         text_Color: "#642F29",
       },
+      screens:{
+        "mobile":"220px"
+      }
     },
   },
   plugins: [],
