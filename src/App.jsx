@@ -8,6 +8,7 @@ import Home from './component/Home'
 import Error from './pages/Error'
 import {PrivateRoute }from './component/auth/PrivateRoute'
 import RequestSent from './regestation/RequestSent'
+import PasswordUpdated from './component/passwordUpdated'
 
 
 function App() {
@@ -19,10 +20,17 @@ function App() {
         <Route  path='/' element={<Home/>}/>
         <Route  path='/login' element={<Login/>} />
         <Route  path='/companydetails' element={<CompanyDetails/>} />
-        
+    
         <Route  path='/changepassword' element={
           <PrivateRoute>
             <ChangePassword/>
+          </PrivateRoute>  
+          } 
+        />  
+
+        <Route  path='/passwordUpdated' element={
+          <PrivateRoute>
+            <PasswordUpdated/>
           </PrivateRoute>  
           } 
         />

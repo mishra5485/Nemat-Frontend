@@ -11,7 +11,6 @@
   import { Link, useNavigate } from "react-router-dom";
   import toast, { Toaster } from "react-hot-toast";
   import { LoginObjectSchema } from "../validationSchem/index.js";
-  import FlowerPattern from "../assets/loginImages/FlowerPattern.png";
   import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
   import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
   import Btn_Text from "./common/Btn_Text.jsx";
@@ -105,14 +104,18 @@
     return (
           <div className='w-full h-full object-cover md:flex md:w-full md:h-[100vh]'>
             <Toaster/>
-            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[45vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
+            {/* Image section with Logo */}
+            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
             <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
                 <Link to={"/"}>
                   <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
                 </Link>
               </div>  
             </div>
-            <div className='mobile:w-full mobile:h-[50px] sm:w-full sm:h-[50px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 '>
+
+
+            {/* Infinite Scroll section */}
+            <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 '>
                 <img
                   src={FlowerPattern2}
                   alt="FlowerPatternImage2"
@@ -122,9 +125,11 @@
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>
             </div>
-            <div className='sm:w-full  min-h-[65%] flex justify-center items-center'> 
-            <div className='sm:w-[95%] mobile:w-[95%]'>
-            <h2 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-2xl text-3xlleading-tight text-[#642F29]  font-roxborough">
+
+            {/* Form div section for Login Details */}
+            <div className='sm:w-full  min-h-[65%] flex justify-center items-center m-auto'> 
+            <div className='sm:w-[95%] mobile:w-[95%] md:w-[90%] md:h-[100%] '>
+            <h2 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6  ">
                 {changePassword ? "Log in" : "Change Default Password"}
               </h2>
               {
@@ -133,23 +138,23 @@
                   <form
                     action="#"
                     method="POST"
-                    className="mt-2"
+                    className="mt-2 md:mt-7"
                     onSubmit={handleSubmit}
                   >
                     <div className="flex flex-col justify-between">
                       <div>
                         <label
                           htmlFor=""
-                          className="mobile:text-xl font-Marcellus  text-[#642F29]"
+                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl " 
                         >
                           {" "}
-                          Email{" "}
+                          UserName{" "}
                         </label>
                         <div className="mobile:mt-0 ">
                           <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="email"
-                            placeholder="Email"
+                            placeholder="Enter UserName"
                             value={values.email}
                             id="email"
                             onChange={handleChange}
@@ -164,7 +169,7 @@
                           )}
                         </div>
                       </div>
-                      <div className='mt-2'>
+                      <div className='mt-2 md:py-4'>
                         <div>
                           <label
                             htmlFor=""
@@ -198,15 +203,15 @@
                             {errors.password}
                           </p>
                         ) : (
-                          ""
+                          null
                         )}
                       </div>
                       <div className='flex flex-col'>
-                        <p className=" text-sm font-Marcellus text-[#642F29] text-center mt-[20px] gap-6">
+                        <p className=" text-sm font-Marcellus text-[#642F29] text-center md:text-start md:pb-5 mt-[20px] gap-6">
                           <Link
                             to="/companydetails"
                             title=""
-                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline"
+                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl"
                           >
                             FORGOT PASSWORD
                           </Link>
@@ -214,16 +219,16 @@
 
                         <button
                           type="submit"
-                          className=" inline-flex w-full h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-"
+                          className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
                         >
                           LOG IN
                         </button> 
-                        <p className=" text-sm font-Marcellus text-[#642F29] text-center mt-[15px] gap-6">
+                        <p className=" text-sm font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
                           Don&apos;t have an account? {""}
                           <Link
                             to="/companydetails"
                             title=""
-                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline"
+                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
                           >
                             REQUEST AN ACCOUNT
                           </Link>

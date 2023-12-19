@@ -119,7 +119,7 @@ const ChangePassword = ({props}) => {
           // console.log("chnage password -> " , response)
   
           if(response.status === 200){
-              //  console.log("done")
+             navigate("/passwordUpdated")
           }
 
         }catch(error){
@@ -151,7 +151,10 @@ const ChangePassword = ({props}) => {
   return (
       <div className="">
         <Toaster/>
-
+          {
+            
+          }
+              <div>
                  <form onSubmit={handleSubmit} className='mt-2 md:mt-7'>
                       <div>
                            <div className='my-4 sm:my-0 mobile:my-2 md:'>
@@ -240,6 +243,7 @@ const ChangePassword = ({props}) => {
                           <button className= 'p-2 rounded-3xl mobile:bg-white mobile:w-full font-Marcellus text-base underline  text-[#642F29] bg-green-500' onClick={onClickSubmit}>
                             Do it Later
                           </button>
+               </div>                            
       </div>
   )
 }
