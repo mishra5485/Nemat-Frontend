@@ -5,6 +5,7 @@ import { MdDone } from "react-icons/md";
 import InfiniteScrollImage from "../style/InfiniteScrollImage";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import Union from "../assets/loginImages/Union.png"
+import RightToLeftanm from "../style/RightToLeftanm";
 
 const PasswordUpdated = () => {
 
@@ -22,11 +23,7 @@ const PasswordUpdated = () => {
             </div>
 
             <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2  overflow-hidden  '>
-                <img
-                  src={FlowerPattern2}
-                  alt="FlowerPatternImage2"
-                  className="w-full h-[46px] sm:inline-block md:hidden"
-                />
+                <RightToLeftanm/>
 
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage  className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>

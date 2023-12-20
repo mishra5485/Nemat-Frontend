@@ -11,9 +11,9 @@
   import { Link, useNavigate } from "react-router-dom";
   import toast, { Toaster } from "react-hot-toast";
   import { LoginObjectSchema } from "../validationSchem/index.js";
-  import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
   import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
   import Btn_Text from "./common/Btn_Text.jsx";
+import RightToLeftanm from "../style/RightToLeftanm";
 
   const Login = () => {
     const dispatch = useDispatch();
@@ -46,7 +46,6 @@
       confirmPWD: "",
     };
 
-    let Customer_id = "";
 
     //Handling the Data.
     const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
@@ -116,11 +115,7 @@
 
             {/* Infinite Scroll section */}
             <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 overflow-hidden '>
-                <img
-                  src={FlowerPattern2}
-                  alt="FlowerPatternImage2"
-                  className="w-full h-[46px] sm:inline-block md:hidden"
-                />
+                <RightToLeftanm/>
 
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>
