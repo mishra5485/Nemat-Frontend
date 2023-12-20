@@ -4,6 +4,7 @@ import logo from "../assets/loginImages/nematEnterprisesLogo.png";
 import { CiLock } from "react-icons/ci";
 import InfiniteScrollImage from "../style/InfiniteScrollImage";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
+import Union from "../assets/loginImages/Union.png"
 
 const PasswordUpdated = () => {
 
@@ -33,7 +34,14 @@ const PasswordUpdated = () => {
          <div className='w-full h-full relative flex justify-center items-center' >
                 
                     <div className='h-[60%] w-[90%] relative flex flex-col justify-center items-center'>
-                           <span className='p-3 border  rounded-full  bg-bg_green'><CiLock color="white"/></span>
+                           <div className="relative w-[31px] h-[40px]">
+                            <div style={{ backgroundImage: `url(${Union})`}} className={`relative fixed w-[31px] h-[40px] top-0 left-0  bg-[100%_100%]`}>
+                                
+
+                                <span className="absolute w-[28px] h-[30px] top-[10px] left-[2px]"><CiLock className="absolute top-[5px] left-[5px]" color="white"/></span>
+                      
+                            </div>
+                          </div>
                            <h1 className="sm:mt-[26px] mobile:mt-[26px] font-roxborough text-[20px] leading-31 ">Password Updated Successfully</h1>
 
                            <p className='text-center mt-[30px] font-Marcellus text-16 leading-22 tracking-tight'>

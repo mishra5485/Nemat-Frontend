@@ -155,7 +155,7 @@ const ChangePassword = ({props}) => {
             
           }
               <div>
-                 <form onSubmit={handleSubmit} className='mt-2 md:mt-7'>
+                 <form onSubmit={handleSubmit} className='mt-2 md:mt-7 overflow-hidden'>
                       <div>
                            <div className='my-4 sm:my-0 mobile:my-2 md:'>
                               <label htmlFor="" className="font-Marcellus  text-text_Color md:text-xl ">
@@ -240,7 +240,7 @@ const ChangePassword = ({props}) => {
                   </form>
 
                  
-                          <button className= 'p-2 rounded-3xl mobile:bg-white mobile:w-full font-Marcellus text-base underline  text-[#642F29] bg-green-500' onClick={onClickSubmit}>
+                          <button className= 'p-2 rounded-3xl mobile:bg-white mobile:w-full md:text-2xl font-Marcellus text-base underline  text-[#642F29] bg-green-500' onClick={onClickSubmit}>
                             Do it Later
                           </button>
                </div>                            

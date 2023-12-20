@@ -3,21 +3,19 @@ import * as yup from "yup";
 export const RegisterobjectSchema = yup.object({
   camponeyname: yup.string().min(2).required("Enter your Company Name"),
   gstno: yup
-    .number()
-    .typeError("Please enter a valid number")
-    .integer("Please enter a valid number")
+    .string()
+    .matches(/^[a-zA-Z0-9]{15}$/, "Please enter  valid  GST number")
+    .required("Enter the GST NO")
     .test((val) => val && val.toString().length === 15)
     .min(15)
-    .required("Enter the Gst NO"),
-  address: yup.string().required("Please Enter the Company Address"),
-  state: yup.string().min(3).required("Enter the State Name"),
-  city: yup.string().min(3).required("Enter the City Name"),
+    .required("Please Enter valid GST number "),
+  address: yup.string().required("Please Enter  Address"),
+  state: yup.string().min(3).required(" Please Enter State "),
+  city: yup.string().min(3).required(" Please Enter  City Name"),
   zipcode: yup
     .number()
     .typeError("Please enter a valid number")
     .integer("Please enter a valid number")
-    .test((val) => val && val.toString().length === 6)
-    .min(6)
     .required("Enter the Zip Code"),
   fullname: yup
     .string()
@@ -32,15 +30,16 @@ export const RegisterobjectSchema = yup.object({
     .number()
     .typeError("Please enter a valid number")
     .integer("Please enter a valid Mobile number")
-    .test((val) => val && val.toString().length === 3)
-    .min(3)
-    .required("Enter the 3 digit no"),
+    .min(1, "Enter valid Country Code")
+    .max(999, "Enter valid Country Code")
+    .required("Enter the valid Number"),
   mobileNo: yup
     .number()
     .typeError("Please enter a valid number")
     .integer("Please enter a valid Mobile number")
     .test((val) => val && val.toString().length === 10)
-    .min(10)
+    .min(1, "Please Enter 10 digit number")
+    .max(9999999999, "Enter 10 digit number ")
     .required("Enter the 10 digit no"),
   whatappcheck: yup
     .number()
@@ -49,29 +48,23 @@ export const RegisterobjectSchema = yup.object({
   countryCode1: yup
     .number()
     .typeError("Please enter a valid number")
-    .integer("Please enter a valid Mobile number")
-    .test((val) => val && val.toString().length === 3)
-    .min(3)
-    .required("Enter the 3 digit no"),
+    .integer("Please enter a valid Mobile number"),
   landlineNo: yup
     .number()
     .typeError("Please enter a valid number")
-    .integer("Please enter a valid LandLine number")
-    .test((val) => val && val.toString().length === 10)
-    .min(10)
-    .required("Enter the 10 digit no"),
+    .integer("Please enter a valid LandLine number"),
 });
 
 
 export const CompanyschemaObject = yup.object({
-  camponeyname: yup.string().min(2).required("Enter your Company Name"),
+  camponeyname: yup.string().min(2).required("Enter your Company name"),
   gstno: yup
-    .number()
-    .typeError("Please enter a valid number")
-    .integer("Please enter a valid number")
+    .string()
+    .matches(/^[a-zA-Z0-9]{15}$/, "Please enter  valid  GST number")
+    .required("Enter the GST NO")
     .test((val) => val && val.toString().length === 15)
     .min(15)
-    .required("Enter the Gst NO"),
+    .required("Please Enter valid GST number "),
   address: yup.string().required("Please Enter the Company Address"),
   state: yup.string().min(3).required("Enter the State Name"),
   city: yup.string().min(3).required("Enter the City Name"),
@@ -79,8 +72,6 @@ export const CompanyschemaObject = yup.object({
     .number()
     .typeError("Please enter a valid number")
     .integer("Please enter a valid number")
-    .test((val) => val && val.toString().length === 6)
-    .min(6)
     .required("Enter the Zip Code"),
 });
 
@@ -98,7 +89,7 @@ export const PasswordChangeObjectSchema = yup.object({
 export  const LoginObjectSchema = yup.object({
      email: yup
        .string()
-       .email("Enter the Valid Email id")
+       .email("Enter your Valid Email id")
        .required("Enter Your Email"),
      password: yup.string().min(5).required("Enter the Password"),
    });

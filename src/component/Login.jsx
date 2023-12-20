@@ -138,8 +138,9 @@
                   <form
                     action="#"
                     method="POST"
-                    className="mt-2 md:mt-7"
+                    className="mt-2 md:mt-7 overflow-hidden"
                     onSubmit={handleSubmit}
+                    
                   >
                     <div className="flex flex-col justify-between">
                       <div>
@@ -148,13 +149,13 @@
                           className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl " 
                         >
                           {" "}
-                          UserName{" "}
+                          Username{" "}
                         </label>
                         <div className="mobile:mt-0 ">
                           <input
                             className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="email"
-                            placeholder="Enter UserName"
+                            placeholder="Enter Username"
                             value={values.email}
                             id="email"
                             onChange={handleChange}
@@ -165,7 +166,7 @@
                               {errors.email}
                             </p>
                           ) : (
-                            ""
+                            null
                           )}
                         </div>
                       </div>
@@ -180,7 +181,7 @@
                           </label>
                           <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
                             <input
-                              className="flex h-10 w-full bg-transparent placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
+                              className="flex h-10 w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
                               type={showPassword ? "text" : "password"}
                               placeholder="Password"
                               value={values.password}
@@ -223,12 +224,12 @@
                         >
                           LOG IN
                         </button> 
-                        <p className=" text-sm font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
+                        <p className=" text-sm md:text-start font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
                           Don&apos;t have an account? {""}
                           <Link
                             to="/companydetails"
                             title=""
-                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
+                            className=" font-Marcellus  text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
                           >
                             REQUEST AN ACCOUNT
                           </Link>
