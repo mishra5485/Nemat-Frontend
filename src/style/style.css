@@ -19,3 +19,22 @@
    width: 120%;
    animation: scroll 15s linear infinite;
 }
+
+@keyframes slideRight {
+   0% {
+     transform: translateX(0%);
+   }
+   100% {
+     transform: translateX(-100%);
+   }
+ }
+ 
+ .shine{
+   display: flex;
+   overflow: hidden;
+ }
+ 
+ .animate-slide-infinite {
+   animation: slideRight 4s linear infinite;
+   flex-shrink: 0;
+ }
