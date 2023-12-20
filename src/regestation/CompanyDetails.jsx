@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import loginBG  from "../assets/loginImages/loginImage.png"
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../assets/loginImages/nematEnterprisesLogo.png";
-import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
-import { counntryCode } from "../CountryCode/data";
+
+// import { counntryCode } from "../CountryCode/data";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {RegisterobjectSchema , CompanyschemaObject} from "../validationSchem/index.js"
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
+import "../App.css"
+import RightToLeftanm from "../style/RightToLeftanm";
 
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
   const [isChecked, setIsChecked] = useState(0);
-  const [sentReview, setSentReview] = useState(false);
+  const [sentReview, setSentReview] = useState(true);
   const navigate = useNavigate();
 
 
@@ -137,11 +139,7 @@ const CompanyDetails = () => {
 
             {/* Infinite Scroll section */}
             <div className=' overflow-hidden mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2'>
-                <img
-                  src={FlowerPattern2}
-                  alt="FlowerPatternImage2"
-                  className="w-full h-[46px] sm:inline-block md:hidden"
-                />
+                <RightToLeftanm/>
 
                 {/* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden md:inline-block"/>
@@ -150,10 +148,10 @@ const CompanyDetails = () => {
 
           <div className="w-[100%] h-[100%] ">
             <div className="h-full mt-[1%] flex flex-col justify-evenly">
-              {
-                nextdiv && sentReview === false  ? (
-                      <div className="frame_554 flex items-center sm:flex-nowrap sm:justify-evenly md:justify-evenly mt-3   ">
-              <div className="frame_551 gap-2 flex items-end">
+                {
+                  nextdiv && sentReview === false  ? (
+                      <div className="frame_554 flex  items-center sm:w-full md:w-[120%] md:justify-between xl:w-[80%] mobile:w-[150%] mobile:pl-[3%] mobile:flex mobile:justify-start  justify-evenly mt-3   ">
+              <div className="frame_551 gap-2 flex  items-end">
                 <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                   1
                 </div>
@@ -179,46 +177,7 @@ const CompanyDetails = () => {
               </div>
                       </div>
                 ) : (
-                  <>
-                      <div className="inline-flex items-center gap-[30px] relative">
-      <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
-        <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-          <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-            1
-          </div>
-        </div>
-        <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-          Company details
-        </div>
-      </div>
-                <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-              </svg>
-      <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
-        <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[8px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-          <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-            2
-          </div>
-        </div>
-        <div className="relative w-fit font-['Marcellus'] text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-          Contact info
-        </div>
-      </div>
-                  <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-              </svg>
-      <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] opacity-40 font-['Marcellus']">
-        <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-          <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-            3
-          </div>
-        </div>
-        <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-          Request sent
-        </div>
-      </div>
-                      </div>
-                  </>
+                  null
                 )
               }
 
@@ -419,8 +378,49 @@ const CompanyDetails = () => {
               ) : (
                 <div>
                   <div>
-                    <div>{/* Navbar div  */}</div>
-                    <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto mobile:h-[80vh] md:h-[100vh] md:w-[90%] mobile:overflow-y-auto">
+                  
+                    <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto md:flex md:flex-col md:justify-evenly mobile:h-[80vh] md:h-[100vh] md:w-[90%] mobile:overflow-y-auto">
+                      <div>
+                      <div className="inline-flex items-center gap-[30px] md:ml-0 sm:ml-0 mobile:ml-[-40%] relative">
+                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
+                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                              1
+                            </div>
+                          </div>
+                          <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            Company details
+                          </div>
+                        </div>
+                                  <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
+                                </svg>
+                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
+                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[8px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                              2
+                            </div>
+                          </div>
+                          <div className="relative w-fit font-['Marcellus'] text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            Contact info
+                          </div>
+                        </div>
+                                    <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
+                                </svg>
+                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] opacity-40 font-['Marcellus']">
+                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                              3
+                            </div>
+                          </div>
+                          <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            Request sent
+                          </div>
+                      </div>
+                      </div>
+                      </div>
+                      <div className="">
                       <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-8 md:mt-6" >Contact Info</h1>
 
                       <div className="md:flex md:flex-row sm:flex-col mt-6 md:w-[100%] overflow-hidden">
@@ -629,9 +629,10 @@ const CompanyDetails = () => {
                       <button
                         type="submit"
                         className="p-2 mobile:pb-5 mobile:mt-[30px] sm:mt-[30px] mobile:w-full mobile:text-xl text-center rounded-3xl bg-[#60713A] text-white font-Marcellus text-base  leading-17 md:w-[25%] h-[43px] overflow-y-hidden"
-                      >
+                        >
                         Next
                       </button>
+                      </div>
                     </div>
                   </div>
                 </div>
