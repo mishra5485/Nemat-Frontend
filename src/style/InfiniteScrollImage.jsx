@@ -1,4 +1,3 @@
-import React from 'react';
 import FlowerPattern from "../assets/loginImages/FlowerPattern.png"
 import "./style.css"
 

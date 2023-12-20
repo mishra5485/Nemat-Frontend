@@ -151,12 +151,9 @@ const ChangePassword = ({props}) => {
   return (
       <div className="">
         <Toaster/>
-          {
-            
-          }
               <div>
                  <form onSubmit={handleSubmit} className='mt-2 md:mt-7 overflow-hidden'>
-                      <div>
+                      <div className=''>
                            <div className='my-4 sm:my-0 mobile:my-2 md:'>
                               <label htmlFor="" className="font-Marcellus  text-text_Color md:text-xl ">
                                 {' '}
