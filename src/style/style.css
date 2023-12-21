@@ -38,3 +38,27 @@
    animation: slideRight 4s linear infinite;
    flex-shrink: 0;
  }
+
+
+ @keyframes slideRightText {
+   0% {
+         transform: translateX(0%);
+      }
+
+   
+      100% {
+         transform: translateX(-100%);
+      }
+ }
+
+ .shineText {
+    display: flex;
+    overflow: hidden;
+   transition: all;
+   
+ }
+
+ .animate-slide-infiniteText {
+    animation: slideRightText 6s linear infinite;
+    flex-shrink: 0;
+ }

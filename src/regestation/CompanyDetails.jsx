@@ -12,11 +12,12 @@ import {RegisterobjectSchema , CompanyschemaObject} from "../validationSchem/ind
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
 import "../App.css"
 import RightToLeftanm from "../style/RightToLeftanm";
+import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
   const [isChecked, setIsChecked] = useState(0);
-  const [sentReview, setSentReview] = useState(true);
+  const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
 
 
@@ -40,14 +41,7 @@ const CompanyDetails = () => {
   const onSubmit2 = async (event) => {
     event.preventDefault();
 
-    if ( Object.keys(touched).length > 0) {
-      // Form is valid, submit the form
-      onSubmit2(event);
-    } else {
-      // Form is invalid, show error messages
-      toast.error('Please Fill the Form .');
-    }
-
+   
     try {
       await CompanyschemaObject.validate(values, { abortEarly: false });
       setnextDiv(false);
@@ -139,10 +133,10 @@ const CompanyDetails = () => {
 
             {/* Infinite Scroll section */}
             <div className=' overflow-hidden mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2'>
-                <RightToLeftanm/>
+                <RightToLeftanm image={FlowerPattern2}/>
 
                 {/* Show FlowerPattern for md and larger screens */}
-               <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden md:inline-block"/>
+               <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden  md:inline-block"/>
             </div>
 
 

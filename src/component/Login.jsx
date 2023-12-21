@@ -13,6 +13,7 @@
   import { LoginObjectSchema } from "../validationSchem/index.js";
   import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
   import Btn_Text from "./common/Btn_Text.jsx";
+  import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import RightToLeftanm from "../style/RightToLeftanm";
 
   const Login = () => {
@@ -115,7 +116,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
 
             {/* Infinite Scroll section */}
             <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 overflow-hidden '>
-                <RightToLeftanm/>
+                <RightToLeftanm image={FlowerPattern2}/>
 
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>

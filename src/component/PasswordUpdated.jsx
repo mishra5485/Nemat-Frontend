@@ -23,7 +23,7 @@ const PasswordUpdated = () => {
             </div>
 
             <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 '>
-                <RightToLeftanm/>
+                <RightToLeftanm image={FlowerPattern2}/>
 
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage  className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>

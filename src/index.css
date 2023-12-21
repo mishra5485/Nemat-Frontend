@@ -1,5 +1,6 @@
 @import url(https://db.onlinewebfonts.com/c/68b898f6044bbee439423445076f3168?family=Roxborough+CF+Thin);
 @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Marcellus&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +30,6 @@ html {
 /* For large screens (lg and xl) */
 @media (min-width: 768px) {
   * {
-    overflow: hidden;
+    overflow: auto;
   }
 }
