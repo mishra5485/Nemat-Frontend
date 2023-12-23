@@ -9,7 +9,7 @@ export default {
         Abel: ["Abel, sans-serif"],
       },
       colors: {
-        bg_green: "#60713A",
+        bg_green: "#60713a",
         text_Color: "#642F29",
       },
       screens: {
