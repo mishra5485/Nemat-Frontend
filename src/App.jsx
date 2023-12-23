@@ -9,6 +9,7 @@ import Error from './pages/Error'
 import {PrivateRoute }from './component/auth/PrivateRoute'
 import RequestSent from './regestation/RequestSent'
 import PasswordUpdated from './component/passwordUpdated'
+import Cart from './component/Cart'
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route  path='/' element={<Home/>}/>
         <Route  path='/login' element={<Login/>} />
         <Route  path='/companydetails' element={<CompanyDetails/>} />
-
+        <Route  path='/cart' element={<Cart/>} />
+        
         <Route  path='/changepassword' element={
           <PrivateRoute>
             <ChangePassword/>
@@ -34,6 +36,8 @@ function App() {
           </PrivateRoute>  
           } 
         />
+        
+        
 
          <Route  path='/companydetails/requestsent' element={
           <PrivateRoute>
