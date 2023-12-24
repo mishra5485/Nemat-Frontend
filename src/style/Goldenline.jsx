@@ -8,17 +8,17 @@ const Goldenline = ({image}) => {
       <img
         src={image}
         alt="FlowerPatternImage2"
-        className="w-full sm:h-[46px] md:h-[60px] sm:inline-block  animate-slide-infinite "
+        className="w-full sm:h-[46px] md:h-[50px] sm:inline-block  animate-slide-infinite "
       />
       <img
         src={image}
         alt="FlowerPatternImage2"
-        className="w-full sm:h-[46px] md:h-[60px] sm:inline-block animate-slide-infinite"
+        className="w-full sm:h-[46px] md:h-[50px] sm:inline-block animate-slide-infinite"
       />
       <img
         src={image}
         alt="FlowerPatternImage2"
-        className="w-full sm:h-[46px] md:h-[60px] sm:inline-block animate-slide-infinite"
+        className="w-full sm:h-[46px] md:h-[50px] sm:inline-block animate-slide-infinite"
       />
     </div>
     </div>

@@ -14,6 +14,12 @@ import { useMediaQuery } from 'react-responsive';
 import Goldenline from '../style/goldenline';
 import {Link, useNavigate} from "react-router-dom"
 import "../App.css"
+import Discountslabe from './footer/Discountslabe';
+import Attars from './products/Attars';
+import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
+import RightToLeftanm from '../style/RightToLeftanm';
+import Rollons from './products/Rollons';
+import Non_Alcoholic from './products/Non_Alcoholic';
 
 
 
@@ -27,37 +33,37 @@ const Home = () => {
    const [showNavbar , SetShowNavbar] = useState(true)
    const navigate = useNavigate();
 
-  const benerImags = [
-    {
-      id:1,
-      title:"ATTAR 96",
-      description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
-      mobileImage:MobileBG,
-      DesktopImage:DesktopBG,
-    },
-     {
-      id:1,
-      title:"96 MAJMUA",
-      description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
-      mobileImage:MobileBG,
-      DesktopImage:DesktopBG,
-    },
-     {
-      id:1,
-      title:"EHSAAS",
-      description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
-      mobileImage:MobileBG,
-      DesktopImage:DesktopBG,
-    },
-     {
-      id:1,
-      title:"ATTAR 96",
-      description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
-      mobileImage:MobileBG,
-      DesktopImage:DesktopBG,
-    },
+  // const benerImags = [
+  //   {
+  //     id:1,
+  //     title:"ATTAR 96",
+  //     description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
+  //     mobileImage:MobileBG,
+  //     DesktopImage:DesktopBG,
+  //   },
+  //    {
+  //     id:1,
+  //     title:"96 MAJMUA",
+  //     description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
+  //     mobileImage:MobileBG,
+  //     DesktopImage:DesktopBG,
+  //   },
+  //    {
+  //     id:1,
+  //     title:"EHSAAS",
+  //     description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
+  //     mobileImage:MobileBG,
+  //     DesktopImage:DesktopBG,
+  //   },
+  //    {
+  //     id:1,
+  //     title:"ATTAR 96",
+  //     description:"Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.",
+  //     mobileImage:MobileBG,
+  //     DesktopImage:DesktopBG,
+  //   },
 
-  ]
+  // ]
 
 
   const mobileNavbar = () => {
@@ -148,7 +154,7 @@ const Home = () => {
 
   return (
     <div className='mt-0  overflow-auto' >
-    <header className='fixed w-full left-0 z-0 top-0'>
+    <header className=' w-full left-0 z-0 top-0'>
       <div className='w-[100%]'>
          <RightToLeftText/>
       </div>
@@ -290,18 +296,12 @@ const Home = () => {
         <Goldenline image={DottedLineGold}  />
       </div>
     </header>
-      <h1>
-        hello 
-      </h1>
-      <h1>
-        hello 
-      </h1>
-      <h1>
-        hello 
-      </h1>
-      <h1>
-        hello 
-      </h1>
+      <Attars/>
+      <RightToLeftanm image={FlowerPattern2}/>
+      <Rollons/>
+      <Goldenline image={DottedLineGold}  />
+      <Non_Alcoholic/>
+      <Discountslabe/>
     </div>
   )
 }
