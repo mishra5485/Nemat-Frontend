@@ -30,8 +30,8 @@ const Non_Alcoholic = () => {
 
       <ProductHeader title={"NON-ALCOHOLIC SPRAYS"}/>
 
-        <div className="w-full flex justify-center items-center mt-8">
-      <div className="w-[90%] md:w-[70%] lg:w-[50%]  sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+        <div className="w-full flex justify-center  items-center mt-8">
+      <div className="w-[90%] md:w-[70%] lg:w-[50%]  sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 md:flex  lg:grid-cols-5">
         {RollonsData.map((item) => (
           <div key={item.id} className="flex w-full flex-col gap-y-3 items-center mb-2  ">
             
