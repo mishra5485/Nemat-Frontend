@@ -64,9 +64,9 @@ const footer = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${FooterImage})` , backgroundRepeat: 'no-repeat',  }} className="w-full h-[900px] bg-center flex flex-col justify-center items-center bg-Cream bg-cover">
+    <div style={{ backgroundImage: `url(${FooterImage})` , backgroundRepeat: 'no-repeat',  }} className="w-full mobile:h-[900px]  sm:h-[900px] md:h-[600px] bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-Cream bg-cover">
       <div className="w-[90%] h-full overflow-hidden " >
-         <div className='w-full mobile:h-[30%] mobile:mt-[30%] sm:mt-[27%] md:mt-0 mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center '>
+         <div className='w-full mobile:h-[30%] mobile:mt-[30%] sm:mt-[27%] md:mt-[5%] mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center '>
                <img src={logo} className='w-[143px] h-[80px] ' />
          </div>  
 
