@@ -14,12 +14,15 @@ import { useMediaQuery } from 'react-responsive';
 import Goldenline from '../style/goldenline';
 import {Link, useNavigate} from "react-router-dom"
 import "../App.css"
-import Discountslabe from './footer/Discountslabe';
+import Discountslabe from './products/Discountslabe';
 import Attars from './products/Attars';
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import RightToLeftanm from '../style/RightToLeftanm';
 import Rollons from './products/Rollons';
 import Non_Alcoholic from './products/Non_Alcoholic';
+import Agarabtti from './products/Agarabtti';
+import Footer from './footer/footer';
+
 
 
 
@@ -153,7 +156,7 @@ const Home = () => {
 
 
   return (
-    <div className='mt-0  overflow-auto' >
+    <div className='mt-0  overflow-auto custom-scrollbar' >
     <header className=' w-full left-0 z-0 top-0'>
       <div className='w-[100%]'>
          <RightToLeftText/>
@@ -301,10 +304,12 @@ const Home = () => {
       <Rollons/>
       <Goldenline image={DottedLineGold}  />
       <Non_Alcoholic/>
-      <Discountslabe/>
+      <RightToLeftanm image={FlowerPattern2}/>
+      <Agarabtti/>
+      <Discountslabe/>  
+      <Footer/>
     </div>
   )
 }
 
 export default Home
-
