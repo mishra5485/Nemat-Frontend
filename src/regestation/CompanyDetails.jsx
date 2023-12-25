@@ -140,8 +140,8 @@ const CompanyDetails = () => {
             </div>
 
 
-          <div className="w-[100%] h-[100%] ">
-            <div className="h-full mt-[1%] flex flex-col justify-evenly">
+          <div className="w-[100%] h-[100%] overflow-hidden ">
+            <div className="h-full mt-[1%] flex flex-col justify-evenly overflow-x-hidden">
                 {
                   nextdiv && sentReview === false  ? (
                       <div className="frame_554 flex  items-center sm:w-full md:w-[120%] md:justify-between xl:w-[80%] mobile:w-[150%] mobile:pl-[3%] mobile:flex mobile:justify-start  justify-evenly mt-3   ">
