@@ -30,6 +30,6 @@ html {
 /* For large screens (lg and xl) */
 @media (min-width: 768px) {
   * {
-    overflow: auto;
+    overflow-y: inherit;
   }
 }

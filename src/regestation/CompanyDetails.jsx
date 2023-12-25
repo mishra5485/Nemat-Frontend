@@ -17,7 +17,7 @@ import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
   const [isChecked, setIsChecked] = useState(0);
-  const [sentReview, setSentReview] = useState(false);
+  const [sentReview, setSentReview] = useState(true);
   const navigate = useNavigate();
 
 
@@ -178,8 +178,8 @@ const CompanyDetails = () => {
             <form onSubmit={handleSubmit} className="mt-2">
               {nextdiv && sentReview === false ? (
                 <div className="sm:w-[90%] sm:mx-auto mobile:w-[90%] mobile:mx-auto md:h-[100%]">
-                  <div className="mt-[2%]">
-                    <div className="">
+                  <div className="mt-[2%] overflow-hidden">
+                    <div className="overflow-hidden">
                       <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-2 ">
                         Request Your Account
                       </h1>

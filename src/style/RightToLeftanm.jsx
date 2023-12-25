@@ -3,7 +3,7 @@ import "./style.css"
 
 const RightToLeftanm = ({image , }) => {
   return (
-    <div className="flex shine px-1 gap-x-1">
+    <div className="flex shine">
       <img
         src={image}
         alt="FlowerPatternImage2"

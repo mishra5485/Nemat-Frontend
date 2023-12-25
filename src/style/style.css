@@ -35,8 +35,10 @@
  }
  
  .animate-slide-infinite {
-   animation: slideRight 10s linear infinite;
+   animation: slideRight 13s linear infinite;
    flex-shrink:0;
+   transition: all;
+   
  }
 
 
