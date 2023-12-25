@@ -102,7 +102,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
       });
 
     return (
-          <div className='w-full h-full object-cover md:flex md:w-full md:h-[100vh]'>
+          <div className='w-full h-full overflow-hidden object-cover md:flex md:w-full md:h-[100vh]'>
             <Toaster/>
             {/* Image section with Logo */}
             <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
@@ -125,7 +125,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
             {/* Form div section for Login Details */}
             <div className='sm:w-full  min-h-[65%] flex justify-center items-center m-auto'> 
             <div className='sm:w-[95%] mobile:w-[95%] md:w-[90%] md:h-[100%] '>
-            <h2 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6  ">
+            <h2 className="overflow-hidden sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6  ">
                 {changePassword ? "Log in" : "Change Default Password"}
               </h2>
               {
@@ -186,7 +186,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
                               onBlur={handleBlur}
                             ></input>
 
-                            <span className="">
+                            <span className="overflow-hidden">
                               {showPassword ? (
                                 <IoMdEye onClick={showHandler} size={20} />
                               ) : (
