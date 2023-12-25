@@ -11,13 +11,30 @@ export default {
       colors: {
         bg_green: "#60713a",
         text_Color: "#642F29",
+        Cream:"#FEEEE2"
       },
       screens: {
         mobile: "220px",
       },
+      borderRadius:{
+        'iFull':"9999px"
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".custom-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".custom-scrollbar": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+  ],
 };
 
 
