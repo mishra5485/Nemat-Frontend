@@ -11,14 +11,15 @@ export default {
       colors: {
         bg_green: "#60713a",
         text_Color: "#642F29",
-        Cream:"#FEEEE2"
+        Cream: "#FEEEE2",
+        LightCream: "#FFFBF0",
       },
       screens: {
         mobile: "220px",
       },
-      borderRadius:{
-        'iFull':"9999px"
-      }
+      borderRadius: {
+        iFull: "9999px",
+      },
     },
   },
   plugins: [
