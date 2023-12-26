@@ -135,7 +135,7 @@ const Attars = () => {
     </div>
     {!showMore && (
         <div className="flex justify-center mt-4">
-          <button onClick={handleViewMore} className="font-Marcellus text-xl text-bg_green flex items-end ">VIEW ALL <span><FaAngleDown className="animate-bounce"/></span></button>
+          <button onClick={handleViewMore} className="font-Marcellus text-xl text-bg_green flex  items-center ">VIEW ALL <span><FaAngleDown /></span></button>
         </div>
       )}
     </div>
