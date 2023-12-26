@@ -22,6 +22,7 @@ import Rollons from './products/Rollons';
 import Non_Alcoholic from './products/Non_Alcoholic';
 import Agarabtti from './products/Agarabtti';
 import Footer from './footer/footer';
+import "../App.css"
 
 
 
@@ -34,6 +35,7 @@ const Home = () => {
    const [showdata , SetShowData] = useState(false)
    const [showAngle , setShowAngle] = useState({})
    const [showNavbar , SetShowNavbar] = useState(true)
+     const [isShopHovered, setShopHovered] = useState(false);
    const navigate = useNavigate();
 
   // const benerImags = [
@@ -79,6 +81,10 @@ const Home = () => {
       series: 'Attars',
       subSeriesname: [
         { SubSeriesname: '96 Series', link: '' },
+        { SubSeriesname: '96 Medium Series', link: '' },
+        { SubSeriesname: '96 London Series', link: '' },
+        { SubSeriesname: '96 Taj Series', link: '' },
+        { SubSeriesname: '96 Diamond Cut Series', link: '' },
         { SubSeriesname: '726 Series', link: '' },
         { SubSeriesname: 'Shaahi Series', link: '' },
         { SubSeriesname: 'Nazneen Series', link: '' },
@@ -102,7 +108,6 @@ const Home = () => {
       subSeriesname: [
         { SubSeriesname: '50gm Spray Series', link: '' },
         { SubSeriesname: 'Ehsaas Series', link: '' },
-        { SubSeriesname: 'Pocket Perfume Series', link: '' },
       ],
     },
     {
@@ -154,6 +159,7 @@ const Home = () => {
     });
   };
 
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className='mt-0  overflow-auto custom-scrollbar' >
@@ -234,27 +240,27 @@ const Home = () => {
           ) : (
             <div style={{ backgroundImage: `url(${isMobile ? MobileBG : DesktopBG })`,  }} className='w-full h-[90vh]  mobile:bg-cover sm:bg-center'>
         
-            <div  className=' relative py-4 '>
-              <div className=''>
-      
-              </div>
-                <div className='w-[100%] md:w-[90%] flex flex-nowrap justify-between  items-center  m-auto px-5'>
+            <div  className={`relative py-4 check ${isHovered ? 'bg-LightCream' : ''} z-50`} >
+                <div className='w-[100%] md:w-[90%] flex flex-nowrap justify-between  items-center  m-auto px-5 relative ' onS>
                     <div className='md:hidden'>
                         <IoSearchOutline  size={30} color=''/>
                     </div>   
-                    <div className='flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  '>
-
-                      <h1 className='flex items-center'>
+                    <div className='flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  font-Marcellus relative '
+                    >
+                          <h1 className='flex items-center relative hover:underline cursor-pointer'
+                            onMouseEnter={() => setIsHovered(true)}
+                          >
                         SHOP 
-                        <span className='p-1 mt-[2px] animate-bounce'><FaAngleDown size={15}/></span>
+                        <span className='p-1 mt-[2px] '> {isHovered ? <FaAngleUp size={15}/>  : <FaAngleDown size={15} onClick={() => setIsHovered(false)}/>}</span>
                       </h1>
-                      <h1>
+                      <h1 className='hover:underline cursor-pointer'>
                         ABOUT 
                       </h1>
-                      <h1>
+                      <h1 className='hover:underline cursor-pointer'>
                         CONTACT 
                       </h1>
                     </div>
+                    
                     <div className='w-[143px] h-[66px]'>
                         <img src={logo} className='w-full h-full ' />
                       </div>  
@@ -264,25 +270,66 @@ const Home = () => {
                       }
                      
                     </div> 
-                    <div className='flex items-center gap-x-4 sm:hidden mobile:hidden md:flex lg:flex'>
-                      <h1>QUALITY ASSURANCE </h1>
+                    <div className='flex items-center gap-x-4 sm:hidden mobile:hidden md:flex lg:flex font-Marcellus text-text_Color'>
+                      <h1 className='cursor-pointer'>QUALITY ASSURANCE </h1>
+                      <Link>
                       <IoSearchOutline  size={25} color=''/>
-                      <AiOutlineShopping size={25}/>
-                      <CgProfile size={25}/>
+                      </Link>
+                      <Link to={"/cart"}>
+                        <AiOutlineShopping size={25}/>
+                      </Link>
+                      <Link to={"/login"}>
+                        <CgProfile size={25}/>
+                      </Link>
                     </div>        
                 </div>
             </div>
+             {
+                        isHovered ? (
+                          <div className='absolute w-full bg-LightCream  flex justify-center' 
+                             onMouseLeave={() => setIsHovered(false)}
+                          >
+                            <div className='flex w-[90%] justify-between '>
+                              
+                                                    
+                              {seriesData.map((series) => (
+                                <div key={series.id} className='flex  flex-col'>
+                                  <div
+                                    className='flex justify-between items-center p-3 cursor-pointer'
+                                  >
+                                    <h1 className="font-Marcellus text-text_Color text-2xl hover:underline">
+                                      {series.series}
+                                    </h1>
+                                  </div>
+
+                                  
+                                    <div className='pl-3'>
+                                      <ul className='py-2 text-base font-Marcellus text-text_Color'>
+                                        {series.subSeriesname.map((subSeries) => (
+                                          <li key={subSeries.SubSeriesname} className='hover:underline cursor-pointer'>
+                                            {subSeries.SubSeriesname}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+
+                                </div>
+                              ))}
+                                </div>
+                          </div>
+                        ) : ''
+                      }
       
             <div className='mobile:w-[100%] mobile:h-[40%] mobile:flex mobile:flex-col mobile:justify-evenly mobile:items-center md:justify-center md:items-start md:h-[80%] md:w-[80%] md:mx-auto md:text-start md:gap-y-4'>
                 
-                <h1 className='font-Abel  md:text-start font-[25px]'>
+                <h1 className='font-Abel  md:text-start font-[25px] text-2xl'>
                     ATTAR 96
                 </h1>
-                <h1 className='font-Abel font-[35px] '> 
+                <h1 className='font-Abel font-[35px] text-3xl overflow-hidden'> 
                   LONDON SERIES 
                 </h1>
       
-                <p className='w-[80%] md:w-[430px] md:text-start mobile:text-center font-Marcellus'>
+                <p className='w-[80%] md:w-[350px] md:text-start mobile:text-center font-Marcellus text-base'>
                   Most fonts have a particular weight which corresponds to one of the numbers in Common weight name mapping. However some fonts, called variable fonts.
                 </p>
       
