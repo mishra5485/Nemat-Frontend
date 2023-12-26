@@ -17,7 +17,7 @@ import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
   const [isChecked, setIsChecked] = useState(0);
-  const [sentReview, setSentReview] = useState(true);
+  const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
 
 
