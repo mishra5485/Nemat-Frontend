@@ -149,21 +149,21 @@ const CompanyDetails = () => {
                 <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                   1
                 </div>
-                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%]">Company details</div>
+                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">Company details</div>
               </div>
               <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
               </svg>
-              <div className="frame_552 flex gap-2 items-end opacity-[0.4]">
+              <div className="frame_552 flex gap-2 items-end opacity-[0.4] mobile:ml-2">
                 <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                   2
                 </div>
-                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%]">Contact info</div>
+                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">Contact info</div>
               </div>
               <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
               </svg>
-              <div className="frame_553 gap-2 flex items-end opacity-[0.4]">
+              <div className="frame_553 gap-2 flex items-end opacity-[0.4]  mobile:ml-2">
                 <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                   3
                 </div>
