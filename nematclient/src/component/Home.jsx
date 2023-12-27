@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import RightToLeftText from '../style/RightToLeftText'
 import { IoSearchOutline } from "react-icons/io5";
 import { AiOutlineShopping } from "react-icons/ai";
@@ -35,7 +35,10 @@ const Home = () => {
    const [showdata , SetShowData] = useState(false)
    const [showAngle , setShowAngle] = useState({})
    const [showNavbar , SetShowNavbar] = useState(true)
-     const [isShopHovered, setShopHovered] = useState(false);
+   const [isShopHovered, setShopHovered] = useState(false);
+   const [isHovered, setIsHovered] = useState(false);
+   const [isNavVisible, setIsNavVisible] = useState(false);
+   const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
    const navigate = useNavigate();
 
   // const benerImags = [
@@ -159,7 +162,26 @@ const Home = () => {
     });
   };
 
-  const [isHovered, setIsHovered] = useState(false);
+  
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const isScrolledUp = prevScrollPos > currentScrollPos;
+
+      setIsNavVisible(isScrolledUp || currentScrollPos < 0); // Show navbar when at the top
+
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
+
 
   return (
     <div className='mt-0  overflow-auto custom-scrollbar' >

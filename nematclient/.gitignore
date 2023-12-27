@@ -7,19 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-
-nematAdmin/node_modules
-nematAdmin/.env
-nematAdmin/.dist
-
-nematclient/node_modules
-nematclient/.env
-nematclient/.dist
-
-
-
-
-
+node_modules
+.env
 dist
 dist-ssr
 *.local
