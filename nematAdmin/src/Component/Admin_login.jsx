@@ -7,10 +7,12 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAddmin } from "../slice/AdminProfileSlice";
+import { useNavigate } from "react-router-dom";
 
 const  Admin_login = () => {
    
     const dispatch = useDispatch();
+    const navigate = useNavigate();
    const [showPassword , setShowPassword] = useState(false);
 
    const showHandler = () => {
@@ -50,7 +52,7 @@ const  Admin_login = () => {
             if (response.status === 200) {
                 dispatch(setAddmin(response.data))
                 toast.success("Login successfully");
-                navigate("/");
+                navigate("/dashboard");
             }
          
 
@@ -77,8 +79,8 @@ const  Admin_login = () => {
 
    
   return (
-    <section>
-      <div className="grid grid-cols-1 md:grid-cols-2 ">
+    <section className="h-[100%]">
+      <div className="h-full grid grid-cols-1 md:grid-cols-2 ">
         <Toaster/>
         <div className="relative flex items-end px-4 pb-10 pt-60 sm:px-6 sm:pb-16 md:justify-center lg:px-8 lg:pb-24 ">
           <div className="absolute inset-0">

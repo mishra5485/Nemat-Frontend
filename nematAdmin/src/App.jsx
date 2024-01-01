@@ -6,6 +6,10 @@ import Error from './Component/Error'
 import Dashboard from './Component/Dashboard'
 import { PrivateRoute } from './Component/auth/PrivateRoute'
 import Check from './Component/Check'
+import Category from './Component/sidebar/Category'
+import Sub_Category from "./Component/sidebar/Sub_Category"
+import Product from './Component/sidebar/Product'
+import Review from "./Component/sidebar/Review"
 
 function App() {
 
@@ -20,12 +24,17 @@ function App() {
             <Route path='/dashboard' element={<Dashboard/>}> 
 
                 <Route  path='check' element={
-                    <PrivateRoute>
+                  
                       <Check/>
-                    </PrivateRoute>  
                     } 
                   />  
+
+                  <Route path='category' element={<Category/>}/>
+                  <Route path='sub_category' element={<Sub_Category/>}/>
+                  <Route path='product' element={<Product/>}/>
+                  <Route path='product_review' element={<Review/>}/>
            </Route>
+           
       </Routes>  
     </>
   )
