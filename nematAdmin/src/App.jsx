@@ -10,6 +10,7 @@ import Category from './Component/sidebar/Category'
 import Sub_Category from "./Component/sidebar/Sub_Category"
 import Product from './Component/sidebar/Product'
 import Review from "./Component/sidebar/Review"
+import EditCategory from './Component/sidebar/EditCategory'
 
 function App() {
 
@@ -22,14 +23,17 @@ function App() {
 
          
             <Route path='/dashboard' element={<Dashboard/>}> 
-
                 <Route  path='check' element={
                   
                       <Check/>
                     } 
                   />  
+                   
+                    <Route path='category' element={<Category />}/>
 
-                  <Route path='category' element={<Category/>}/>
+
+                      <Route path='category/edit/:_id' element={<EditCategory />} />
+                    
                   <Route path='sub_category' element={<Sub_Category/>}/>
                   <Route path='product' element={<Product/>}/>
                   <Route path='product_review' element={<Review/>}/>
