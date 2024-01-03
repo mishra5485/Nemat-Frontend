@@ -3,26 +3,28 @@ import * as yup from "yup";
 import { useState , useEffect  } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+ 
 const Sub_Category = () => {
 
 
   const [showModal, setShowModal] = useState(false)
 
 
-   
-   
+  
+  const [loading, setLoading] = useState(true); 
   const [categoryData  , setcategoryData] = useState();
+  const [showform , setShowForm] = useState()
   const [quantityData , setQuantityData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
-
+  const navigate  = useNavigate();
 
   useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
       );
 
       const quantityResponse = await axios.get(
@@ -31,7 +33,9 @@ const Sub_Category = () => {
 
       setQuantityData(quantityResponse.data)
       setcategoryData(response.data);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error('Error fetching data:', error);
     }
   };
@@ -39,8 +43,9 @@ const Sub_Category = () => {
   fetchData();
 }, []);
 
-  // console.log("setcategoryData -> " , categoryData)
-  //  console.log("quantityData -> " , quantityData)
+
+  console.log(categoryData)
+
 
   const categoryObjectSchema = yup.object({
       name:yup.string().min(2).required("Enter Category Name"),
@@ -177,17 +182,18 @@ const Sub_Category = () => {
         }
       };
 
+      const handleForm = () => {
+
+      }
+
+      const editHandlerDir = (categoryId) => {
+        setShowForm(categoryId)
+        navigate(`/dashboard/sub_category/sub_edit/${categoryId}`);
+      }
+
   return (
     <div className='text-center'>
       
-           <button
-        className="bg-black text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Create  Sub-Category
-      </button>
-
       
         {showModal ? (
         <>
@@ -416,6 +422,162 @@ const Sub_Category = () => {
         </>
       ) : null}
        
+
+       <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+            <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
+                <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                    
+                    <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+                        <div className="w-full md:w-1/2">
+                            <form className="flex items-center">
+                                <label htmlFor="simple-search" className="sr-only">Search</label>
+                                <div className="relative w-full">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                       
+                                    </div>
+                                    <input type="text" id="simple-search" placeholder="Search for products" required="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
+                                </div>
+                            </form>
+                        </div>
+                        <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                          <button
+                              className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              type="button"
+                              onClick={() => setShowModal(true)}
+                            >
+                              +  Create Slider 
+                          </button>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    <div className="">
+                        {loading ? (
+                          
+                          <p>Loading...</p>
+                        ) : (
+                          <div className="overflow-x-auto">
+                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr className="w-full ">
+                                    <th scope="col" className="p-4">
+                                        <div className="flex items-center">
+                                            <input id="checkbox-all" type="checkbox" className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" className="p-4">Mobile Image </th>
+                                    <th scope="col" className="p-4">Desktop Image</th>
+                                    <th scope="col" className="p-4">Name</th>
+                                    <th scope="col" className="p-4">Ml</th>
+                                    <th scope="col" className="p-4">SGST </th>
+                                    <th scope="col" className="p-4">CGST </th>
+                                    
+                                </tr>
+                            </thead>
+                            
+                            {
+                                categoryData?.map((item) => (
+                                     <tbody key={item._id}>
+                                <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <td className="p-4 w-4">
+                                        <div className="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" onClick={handleForm} className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
+                                    <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div className="flex items-center mr-3">
+                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.MobilebannerImage}`} alt="" className="h-8 w-auto mr-3"/>
+                                            
+                                        </div>
+                                    </th>
+                                     <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div className="flex items-center mr-3">
+                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.DesktopbannerImage}`} className="h-8 w-auto mr-3"/>
+                                        </div>
+                                    </th>
+                                    <td className="px-4 py-3">
+                                        <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{item.Name}</span>
+                                    </td>
+                                    <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.Ml}</td>
+                                     <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.SGST}</td>
+                                    
+                                    <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.CGST}</td>
+                       
+                                    
+                                   
+                                    
+                                    <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div className="flex items-center space-x-4">
+                                            <button type="button" 
+
+                                            onClick={() => editHandlerDir(item._id)}
+                                  
+                                            className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                
+                                                Edit
+                                            </button>
+                                            <button type="button" data-drawer-target="drawer-read-product-advanced" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" className="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                               
+                                                Preview
+                                            </button>
+                                            <button type="button" data-modal-target="delete-modal" data-modal-toggle="delete-modal" className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                               
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                               
+                              
+                            </tbody>
+                                ))
+                            }
+                           
+                        </table>
+                    </div>
+                          
+                        )}
+                    </div>
+
+
+                    <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
+                        
+                        <ul className="inline-flex items-stretch -space-x-px">
+                            <li>
+                                <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span className="sr-only">Previous</span>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                            </li>
+                            <li>
+                                <a href="#" className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                            </li>
+                            <li>
+                                <a href="#" aria-current="page" className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                            </li>
+                            <li>
+                                <a href="#" className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
+                            </li>
+                            <li>
+                                <a href="#" className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
+                            </li>
+                            <li>
+                                <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span className="sr-only">Next</span>
+                                    
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
 
       </div>
   )
