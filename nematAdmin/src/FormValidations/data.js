@@ -7,6 +7,6 @@ export const categoryObjectSchema = yup.object({
   metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
   slugUrl: yup.string().min(2).required("Enter slugUrl"),
   cartDiscount: yup.string().min(2).required("Enter cartDiscount"),
-  bannerImageMobile: yup.string().required("Select the Picture "),
-  bannerImageDesktop: yup.string().required("Select the Picture "),
+  bannerImageMobile: yup.string(),
+  bannerImageDesktop: yup.string(),
 });
