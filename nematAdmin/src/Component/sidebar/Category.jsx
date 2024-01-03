@@ -405,7 +405,7 @@ const Category = () => {
                             </thead>
                             
                             {
-                                allCategoryData.map((item) => (
+                                allCategoryData?.map((item) => (
                                      <tbody key={item._id}>
                                 <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td className="p-4 w-4">
@@ -416,14 +416,13 @@ const Category = () => {
                                     </td>
                                     <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div className="flex items-center mr-3">
-                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.Image}`} alt="" className="h-8 w-auto mr-3"/>
+                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.MobilebannerImage}`} alt="" className="h-8 w-auto mr-3"/>
                                             
                                         </div>
                                     </th>
                                      <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div className="flex items-center mr-3">
-                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.Banner_Image}`} className="h-8 w-auto mr-3"/>
-                                            
+                                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.DesktopbannerImage}`} className="h-8 w-auto mr-3"/>
                                         </div>
                                     </th>
                                     <td className="px-4 py-3">
