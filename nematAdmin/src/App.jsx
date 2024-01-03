@@ -11,6 +11,7 @@ import Sub_Category from "./Component/sidebar/Sub_Category"
 import Product from './Component/sidebar/Product'
 import Review from "./Component/sidebar/Review"
 import EditCategory from './Component/sidebar/EditCategory'
+import EditSub_Category from './Component/sidebar/EditSub_Category'
 
 function App() {
 
@@ -28,13 +29,15 @@ function App() {
                       <Check/>
                     } 
                   />  
-                   
+
+                    {/* Category with Category Edit after Creation  */}
                     <Route path='category' element={<Category />}/>
-
-
                       <Route path='category/edit/:_id' element={<EditCategory />} />
                     
+                   {/* Sub_Category with Category Edit after Creation  */}
                   <Route path='sub_category' element={<Sub_Category/>}/>
+                    <Route path='sub_category/sub_edit/:_id' element={<EditSub_Category/>}/>
+
                   <Route path='product' element={<Product/>}/>
                   <Route path='product_review' element={<Review/>}/>
            </Route>
