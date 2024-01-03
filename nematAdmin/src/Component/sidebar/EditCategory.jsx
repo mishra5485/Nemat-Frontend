@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import * as yup from "yup";
 import { categoryObjectSchema } from "../../FormValidations/data"
 import { useFormik } from "formik";
 
@@ -52,28 +53,37 @@ const EditCategory = () => {
         bannerImageMobile: "",
         bannerImageDesktop: "",
       }
-    : {
+    :{
         name: categoryData.Name,
-        metaTitle: categoryData.MetaTitle,
-        metaDesc: categoryData?.MetaDesc,
-        metaKeyword: categoryData?.MetaKeyWord,
-        slugUrl: categoryData?.SlugUrl,
-        cartDiscount: "",
-        bannerImageMobile: categoryData?.Image,
-        bannerImageDesktop: categoryData?.bannerImage,
+        metaTitle:categoryData.MetaTitle,
+        metaDesc: categoryData.MetaDesc,
+        metaKeyword: categoryData.MetaKeyWord,
+        slugUrl: categoryData.SlugUrl,
+        cartDiscount:categoryData.CartDiscountSlab,
+        bannerImageMobile:null,
+        bannerImageDesktop:null
       };
 
 
+      // console.log(categoryData)
 
+  const categoryObjectSchema = yup.object({
+  name: yup.string().min(2).required("Enter Category Name"),
+  metaTitle: yup.string().min(2).required("Enter Meta Title For Category"),
+  metaDesc: yup.string().min(2).required("Emter Meta Desc for Category"),
+  metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
+  slugUrl: yup.string().min(2).required("Enter slugUrl"),
+  cartDiscount: yup.string().min(2).required("Enter cartDiscount"),
+  bannerImageMobile: yup.string().nullable(),
+  bannerImageDesktop: yup.string().nullable(),
+});
 
    const {values , errors , handleChange, handleSubmit , touched, handleBlur , setFieldValue ,  resetForm,} = useFormik({
       initialValues,
       validationSchema:categoryObjectSchema,
-
-
-      
+      enableReinitialize: true,
       onSubmit:async(values , action) => {
-          console.log('Submitting form:', values);
+         //  console.log('Submitting form:', values);
      
       const formData = new FormData();
       formData.append('Name', values.name);
@@ -81,23 +91,20 @@ const EditCategory = () => {
       formData.append('MetaDesc', values.metaDesc);
       formData.append('MetaKeyWord', values.metaKeyword);
       formData.append('SlugUrl', values.slugUrl);
-      formData.append('image', values.bannerImageMobile);
-      formData.append('bannerImage', values.bannerImageDesktop);
+     
+
+      // Check if imagePreviewMobile is not null before appending to FormData
+         if (imagePreviewMobile !== null) {
+         formData.append('MobilebannerImage', values.bannerImageMobile);
+         }
+
+         // Check if imagePreviewDesktop is not null before appending to FormData
+         if (imagePreviewDesktop !== null) {
+         formData.append('DesktopbannerImage', values.bannerImageDesktop);
+         }
+
       formData.append('CartDiscountSlab', values.cartDiscount);
 
-      const palyload = {
-        Name:values.name,
-        MetaTitle:values.metaTitle,
-        MetaDesc:values.metaDesc,
-        MetaKeyWord:values.metaKeyword,
-        SlugUrl:values.slugUrl,
-        image:values.bannerImageMobile,
-        bannerImage:values.bannerImageDesktop,
-        CartDiscountSlab:values.cartDiscount,
-      }
-
-      //  console.log(" htmlFormData image-> ",formData.image)
-       console.log("PAyload " , palyload)
 
       try {
         
@@ -134,15 +141,15 @@ const EditCategory = () => {
     }
   })
 
-//   console.log(categoryData?.Image)
+
    
  const handleFileChange = (event, field) => {
         const file = event.target.files[0];
 
-        setFieldValue(field, file); // Set the file in the form state
+        setFieldValue(field, file); 
 
         if (file) {
-          // Use FileReader to read the selected file and set the preview
+         
           const reader = new FileReader();
           reader.onloadend = () => {
             if (field === 'bannerImageMobile') {
@@ -205,6 +212,7 @@ const EditCategory = () => {
                                  <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cart Discount Slab</label>
                                  <select
                                     id="cartDiscount"
+                                    key={values.cartDiscount}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     
                                     onChange={handleChange}
@@ -238,13 +246,22 @@ const EditCategory = () => {
                                     onChange={(e) => handleFileChange(e, 'bannerImageMobile')}
                                  className="mt-1 p-2 w-full border rounded-md"
                                  />
-                                 {imagePreviewMobile && (
-                                    <img
-                                       src={imagePreviewMobile}
-                                       alt="Banner Mobile"
-                                       className="mt-2 w-full h-auto"
-                                    />
-                                 )}
+                                 <div className="flex justify-center">
+
+                                   {imagePreviewMobile ? (
+                                      <img
+                                      src={imagePreviewMobile}
+                                      alt="Banner Mobile"
+                                      className="mt-2 w-[90%] h-[250px]"
+                                      />
+                                      ) : (
+                                         <img
+                                         src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${categoryData?.MobilebannerImage}`}
+                                         alt="Banner Mobile"
+                                         className="mt-2 w-[90%] h-[250px]"
+                                         />
+                                         )}
+                                    </div>
                               </div>
                            <div className="mb-4">
                               <label htmlFor="fileInput2" className="block text-sm font-medium text-gray-600">
@@ -256,15 +273,26 @@ const EditCategory = () => {
                               onChange={(e) => handleFileChange(e, 'bannerImageDesktop')}
                               className="mt-1 p-2 w-full border rounded-md"
                               />
-                              {imagePreviewDesktop && (
-                                 <img
+                              <div className="flex justify-center">
+
+                                 {imagePreviewDesktop ? (
+                                    <img
                                     src={imagePreviewDesktop}
-                                    alt="Banner Mobile"
-                                    className="mt-2 w-full h-auto"
-                                 />
-                              )}
+                                    alt="Banner Desktop"
+                                    className="mt-2 w-[90%] h-[250px]"
+                                    />
+                                    ) : (
+                                       <img
+                                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${categoryData?.DesktopbannerImage
+}`}
+                                       alt="Banner Desktop"
+                                       className="mt-2 w-[90%] h-[250px]"
+                                       />
+                                       )}
+                              </div>
+
                            </div>
-                           <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-blue-300">
+                           <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                                  <button
                                     type="submit"
                                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
