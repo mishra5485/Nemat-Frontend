@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineAudit, AiOutlineTable } from "react-icons/ai";
+import { MdOutlineDiscount } from "react-icons/md";
 import { SlLogout } from "react-icons/sl";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -226,9 +227,9 @@ const Sidebar1 = () => {
                   aria-controls="dropdown-example"
                   onClick={AudittoggleDropdown}
                 >
-                  <AiOutlineAudit />
+                  <MdOutlineDiscount />
                   <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    Audit Logs
+                    Discount Slabs
                   </span>
                   <svg
                     className="w-6 h-6"
@@ -251,23 +252,13 @@ const Sidebar1 = () => {
                 >
                   <li>
                     <NavLink
-                      to="userauditlogs"
+                      to="discountSlabe"
                       onClick={handleMenuItemClick}
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                      User AuditLogs
+                      Discount Slabs
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="vendorauditlogs"
-                      onClick={handleMenuItemClick}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      Vendor AuditLogs
-                    </NavLink>
-                  </li>
-            
                 </ul>
               </li>
 
@@ -322,6 +313,7 @@ const Sidebar1 = () => {
                 </ul>
               </li>
             </ul>
+            
             <div className="flex justify-center mt-6">
               <button
                 type="button"
