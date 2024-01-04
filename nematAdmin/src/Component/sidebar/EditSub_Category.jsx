@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from "yup";
 import { useFormik } from "formik";
 
@@ -16,6 +16,7 @@ const EditSub_Category = () => {
    const [loading, setLoading] = useState(true);
    const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
    const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+   const navigate = useNavigate();
 
    useEffect(() => {
       const getCategoryID = async () => {
@@ -142,6 +143,7 @@ const EditSub_Category = () => {
 
         if (response.status === 200) {
               console.log(" Category Updated ")
+               navigate("/dashboard/sub_category")
             }
       } catch (error) {
 
