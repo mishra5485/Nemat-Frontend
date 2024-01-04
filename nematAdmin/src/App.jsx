@@ -12,6 +12,7 @@ import Product from './Component/sidebar/Product'
 import Review from "./Component/sidebar/Review"
 import EditCategory from './Component/sidebar/EditCategory'
 import EditSub_Category from './Component/sidebar/EditSub_Category'
+import DiscountSlabe from './Component/sidebar/DiscountSlabe'
 
 function App() {
 
@@ -40,6 +41,8 @@ function App() {
 
                   <Route path='product' element={<Product/>}/>
                   <Route path='product_review' element={<Review/>}/>
+                  
+                  <Route path='discountSlabe' element={<DiscountSlabe/>}/>
            </Route>
            
       </Routes>  
