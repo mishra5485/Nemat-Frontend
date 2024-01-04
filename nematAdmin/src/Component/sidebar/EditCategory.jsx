@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import * as yup from "yup";
 import { categoryObjectSchema } from "../../FormValidations/data"
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const EditCategory = () => {
    
@@ -13,6 +14,7 @@ const EditCategory = () => {
    const [loading, setLoading] = useState(true);
    const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  const navigate = useNavigate();
  
 
    useEffect(() => {
@@ -117,6 +119,7 @@ const EditCategory = () => {
 
         if (response.status === 200) {
               console.log(" Category Updated ")
+               navigate("/dashboard/category")
             }
       } catch (error) {
 
