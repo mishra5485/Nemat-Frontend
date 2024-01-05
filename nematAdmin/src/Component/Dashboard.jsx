@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className='h-[100%]'>
         <SlideBar/>
                 <div className="p-4 sm:ml-64">
 
