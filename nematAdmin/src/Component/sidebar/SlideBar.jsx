@@ -5,6 +5,7 @@ import { MdOutlineDiscount } from "react-icons/md";
 import { SlLogout } from "react-icons/sl";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { SiWebpack } from "react-icons/si";
 // import { logoutAsync } from "../features/auth.js";
 // import getToken from "../commonfunctions/getToken.js";
 
@@ -81,7 +82,7 @@ const Sidebar1 = () => {
 
   return (
     <>
-      <div className="overflow-y-scroll">
+      <div className="overflow-auto">
         <button
           data-drawer-target="sidebar-multi-level-sidebar"
           data-drawer-toggle="sidebar-multi-level-sidebar"
@@ -112,7 +113,7 @@ const Sidebar1 = () => {
           } sm:translate-x-0`}
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 py-4 overflow-hidden bg-gray-50 dark:bg-gray-800">
+          <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <div className="flex items-center justify-between my-3 ">
               <NavLink
                 onClick={handleMenuItemClick}
@@ -229,7 +230,7 @@ const Sidebar1 = () => {
                 >
                   <MdOutlineDiscount />
                   <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    Discount Slabs
+                    Slabs
                   </span>
                   <svg
                     className="w-6 h-6"
@@ -259,6 +260,15 @@ const Sidebar1 = () => {
                       Discount Slabs
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      to="quantityscheme"
+                      onClick={handleMenuItemClick}
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      Quantity Scheme
+                    </NavLink>
+                  </li>
                 </ul>
               </li>
 
@@ -269,9 +279,9 @@ const Sidebar1 = () => {
                   aria-controls="dropdown-example"
                   onClick={ReporttoggleDropdown}
                 >
-                  <AiOutlineAudit />
+                  <SiWebpack />
                   <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    Reports
+                    Website
                   </span>
                   <svg
                     className="w-6 h-6"
@@ -294,11 +304,11 @@ const Sidebar1 = () => {
                 >
                   <li>
                     <NavLink
-                      to="punboxinspection"
+                      to="website/promoHeader"
                       onClick={handleMenuItemClick}
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                      PunchBox For Inspection
+                      Promo Header
                     </NavLink>
                   </li>
                   <li>
