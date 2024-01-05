@@ -12,7 +12,11 @@ import Product from './Component/sidebar/Product'
 import Review from "./Component/sidebar/Review"
 import EditCategory from './Component/sidebar/EditCategory'
 import EditSub_Category from './Component/sidebar/EditSub_Category'
-import DiscountSlabe from './Component/sidebar/DiscountSlabe'
+import DiscountSlabe from './Component/sidebar/slabs/DiscountSlabe'
+import Edit_DiscountSlabe from './Component/sidebar/slabs/Edit_DiscountSlabe'
+import QuantityScheme from './Component/sidebar/slabs/QuantityScheme'
+import Edit_QuantityScheme from './Component/sidebar/slabs/Edit_QuantityScheme'
+import PromoHeader from './Component/sidebar/website/PromoHeader'
 
 function App() {
 
@@ -43,6 +47,12 @@ function App() {
                   <Route path='product_review' element={<Review/>}/>
                   
                   <Route path='discountSlabe' element={<DiscountSlabe/>}/>
+                    <Route path='discountSlabe/Slabs_edit/:_id' element={<Edit_DiscountSlabe/>}/>
+
+                  <Route path='quantityscheme' element={<QuantityScheme/>}/>
+                    <Route path='quantityscheme/scheme_edit/:_id' element={<Edit_QuantityScheme/>}/>
+
+                  <Route path='website/promoHeader' element={<PromoHeader/>}/>
            </Route>
            
       </Routes>  
