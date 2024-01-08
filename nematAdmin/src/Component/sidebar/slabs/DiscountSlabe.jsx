@@ -319,7 +319,7 @@ const DiscountSlabe = () => {
                   type="button"
                   onClick={() => setShowForm(true)}
                 >
-                  + Create Slider
+                  + Create Discount-Slabs
                 </button>
               </div>
             </div>
