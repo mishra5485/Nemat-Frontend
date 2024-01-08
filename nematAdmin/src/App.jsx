@@ -21,6 +21,8 @@ import VerifyUser from "./Component/sidebar/registerUser/verifyUser";
 import Edit_BannerSlider from "./Component/sidebar/website/Edit_BannerSlider";
 import Fragrance from "./Component/sidebar/slabs/Fragrance";
 import Edit_Fragrance from "./Component/sidebar/slabs/Edit_Fragrance";
+import UserMangement from "./Component/sidebar/userMangement/UserMangement";
+import Edit_UserManagement from "./Component/sidebar/userMangement/Edit_UserManagement";
 
 function App() {
   return (
@@ -66,6 +68,9 @@ function App() {
 
           <Route path="website/bannerSlider" element={<BannerSlider />} />
             <Route path="website/bannerSlider/edit_bannerslider/:_id" element={<Edit_BannerSlider/>}/>
+
+          <Route path="user-mangement" element={<UserMangement/>} />
+            <Route path="user-mangement/user_prev/:_id" element={<Edit_UserManagement/>}/>
         </Route>
       </Routes>
     </>
