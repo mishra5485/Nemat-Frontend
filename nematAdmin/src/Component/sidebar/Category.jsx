@@ -109,6 +109,7 @@ const Category = () => {
 
         if (response.status === 200) {
           console.log("New Category Created ");
+          toast.success("New Category Created")
           slabdata();
           setShowModal(false)
         }
@@ -126,6 +127,7 @@ const Category = () => {
             status === 400
           ) {
             console.log(error.response);
+            toast.error(error.message)
           }
         }
       }
@@ -369,7 +371,7 @@ const Category = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-
+      <Toaster/>
       <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -397,7 +399,7 @@ const Category = () => {
                   type="button"
                   onClick={() => setShowModal(true)}
                 >
-                  + Create Slider
+                  + Create Category
                 </button>
               </div>
             </div>
