@@ -6,6 +6,7 @@ import { SlLogout } from "react-icons/sl";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { SiWebpack } from "react-icons/si";
+import { FaUserPlus } from "react-icons/fa";
 // import { logoutAsync } from "../features/auth.js";
 // import getToken from "../commonfunctions/getToken.js";
 
@@ -18,6 +19,7 @@ const Sidebar1 = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpenAudit, setIsDropdownOpenAudit] = useState(false);
   const [isDropdownOpenReport, setIsDropdownOpenReport] = useState(false);
+  const [userMangementDrop , setUserMangementDrop ] = useState(false)
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,6 +36,10 @@ const Sidebar1 = () => {
   const ReporttoggleDropdown = () => {
     setIsDropdownOpenReport(!isDropdownOpenReport);
   };
+
+  const UserHandler = () => {
+    navigate("")
+  }
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -330,6 +336,22 @@ const Sidebar1 = () => {
                     </NavLink>
                   </li>
                 </ul>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  aria-controls="dropdown-example"
+                >
+                  <FaUserPlus />
+                  <NavLink to={"user-mangement"}>
+
+                  <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                    User Mangement
+                  </span>
+                  </NavLink>
+                 
+                </button>
               </li>
             </ul>
             
