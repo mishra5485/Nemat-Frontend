@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from "yup";
 import { useFormik } from "formik";
+import toast from 'react-hot-toast';
 
 const EditSub_Category = () => {
 
@@ -19,7 +20,10 @@ const EditSub_Category = () => {
    const navigate = useNavigate();
 
    useEffect(() => {
-      const getCategoryID = async () => {
+      getCategoryID();
+   } , [] )
+
+        const getCategoryID = async () => {
 
          try {
 
@@ -45,8 +49,7 @@ const EditSub_Category = () => {
             setLoading(false);
          }
       }
-      getCategoryID();
-   } , [] )
+
 
    //  console.log(Sub_CategoryData)
    // console.log(categorys);
@@ -143,6 +146,7 @@ const EditSub_Category = () => {
 
         if (response.status === 200) {
               console.log(" Category Updated ")
+              toast.success("Sub-Category Updated scessfully")
                navigate("/dashboard/sub_category")
             }
       } catch (error) {
@@ -160,6 +164,7 @@ const EditSub_Category = () => {
                 status === 400
               ) {
                 console.log(error.response);
+                toast.error(error.message)
               }
             }
 
