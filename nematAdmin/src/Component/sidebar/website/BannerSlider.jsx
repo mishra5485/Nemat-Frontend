@@ -217,7 +217,7 @@ const BannerSlider = () => {
                   type="button"
                   onClick={() => setShowForm(false)}
                 >
-                  + Create Slider
+                  + Create New Banner
                 </button>
               </div>
             </div>

@@ -319,7 +319,7 @@ const QuantityScheme = () => {
                     type="button"
                     onClick={() => setShowForm(true)}
                   >
-                    + Create Slider
+                    + Create Quantity Scheme
                   </button>
                 </div>
               </div>

@@ -177,7 +177,7 @@ const Fragrance = () => {
                   type="button"
                   onClick={() => setShowForm(false)}
                 >
-                  + Create Slider
+                  + Create Fragrance
                 </button>
               </div>
             </div>
