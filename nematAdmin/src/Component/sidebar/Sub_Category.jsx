@@ -133,6 +133,7 @@ const Sub_Category = () => {
 
         if (response.status === 200) {
           console.log("New Sub_Category Created ");
+          toast.success("New Sub_Category Created  ")
           fetchData();
           setShowModal(false)
         }
@@ -150,6 +151,7 @@ const Sub_Category = () => {
             status === 400
           ) {
             console.log(error.response);
+            toast.error(error.data)
           }
         }
       }
@@ -192,6 +194,7 @@ const Sub_Category = () => {
 
   return (
     <div className="text-center">
+      <Toaster/>
       {showModal ? (
         <>
           <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -487,7 +490,7 @@ const Sub_Category = () => {
                   type="button"
                   onClick={() => setShowModal(true)}
                 >
-                  + Create Slider
+                  + Create Sub-Category
                 </button>
               </div>
             </div>
