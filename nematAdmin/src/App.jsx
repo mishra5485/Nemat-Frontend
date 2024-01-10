@@ -1,6 +1,6 @@
 import "./App.css";
 import Admin_login from "./Component/Admin_login";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Error from "./Component/Error";
 import Dashboard from "./Component/Dashboard";
 import { PrivateRoute } from "./Component/auth/PrivateRoute";
@@ -23,8 +23,11 @@ import Fragrance from "./Component/sidebar/slabs/Fragrance";
 import Edit_Fragrance from "./Component/sidebar/slabs/Edit_Fragrance";
 import UserMangement from "./Component/sidebar/userMangement/UserMangement";
 import Edit_UserManagement from "./Component/sidebar/userMangement/Edit_UserManagement";
+import { useSelector } from "react-redux";
+import Edit_Product from "./Component/sidebar/Edit_Product";
 
 function App() {
+  const { user } = useSelector((store) => store.profile);
   return (
     <>
       <Routes>
@@ -32,7 +35,17 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route path="verifyuser/:_id" element={<VerifyUser />} />
 
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route
+        path="/dashboard"
+        element={
+          user ? (
+            <Dashboard />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      >
+                
           <Route path="check" element={<Check />} />
 
           {/* Category with Category Edit after Creation  */}
@@ -47,6 +60,7 @@ function App() {
           />
 
           <Route path="product" element={<Product />} />
+            <Route path="product/edit_product/:_id" element={<Edit_Product/>}/>
           <Route path="product_review" element={<Review />} />
 
           <Route path="discountSlabe" element={<DiscountSlabe />} />
@@ -71,6 +85,7 @@ function App() {
 
           <Route path="user-mangement" element={<UserMangement/>} />
             <Route path="user-mangement/user_prev/:_id" element={<Edit_UserManagement/>}/>
+            
         </Route>
       </Routes>
     </>
