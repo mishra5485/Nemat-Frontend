@@ -20,12 +20,11 @@ const Product = () => {
   useEffect(() => {
     if(showModal){
       getAllData();
-    }else{
+      // handlerChangefunction(values.CategoryId);
       getAllProductData()
     }
-
-
-  }, [showModal]);
+     
+  }, [showModal ]);
 
   const getAllData = async () => {
     let allDataLoadedSuccessfully = true;
@@ -37,15 +36,6 @@ const Product = () => {
 
       if (categoryResponse.status === 200) {
         setAllCategoryData(categoryResponse.data);
-      } else {
-        allDataLoadedSuccessfully = false;
-      }
-
-      const subCategoryResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
-      );
-      if (subCategoryResponse.status === 200) {
-        setAllSub_CategoryData(subCategoryResponse.data);
       } else {
         allDataLoadedSuccessfully = false;
       }
@@ -112,6 +102,7 @@ const Product = () => {
           ) {
             console.log(error.response);
             toast.error(error.message)
+            setLoading(false)
           }
         }
     }
@@ -152,7 +143,7 @@ const Product = () => {
     productimg: null,
     productName: "",
     Description: "",
-    CategoryId: "",
+    CategoryId:"",
     sub_CategoryId: "",
     FragranceId: "",
     AutheticStepFlag: 0,
@@ -258,6 +249,38 @@ const Product = () => {
     navigate(`/dashboard/product/edit_product/${categoryId}`);
   };
 
+  const handlerChangefunction = async (event) => {
+  
+
+  console.log("Selected _id:",event);
+
+  const _id = event.target.value
+  console.log("_id" , _id)
+ 
+  try {
+    const subCategoryResponse = await axios.get(
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/getsubcategorybyId/${_id}`
+    );
+
+    console.log("Response:", subCategoryResponse);
+
+    if (subCategoryResponse.status === 200) {
+      setAllSub_CategoryData(subCategoryResponse.data);
+    } else {
+      console.error("Unexpected response status:", subCategoryResponse.status);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+
+    if (error.response) {
+      const { status, data } = error.response;
+      console.error(`Response error - Status: ${status}, Data:`, data);
+    }
+  }
+};
+
+  // console.log("AllSub_CategoryData Data on Change =>" , AllSub_CategoryData)
+
   return (
     <div className="text-center">
       <Toaster />
@@ -340,7 +363,10 @@ const Product = () => {
               id="CategoryId"
               name="CategoryId"
               value={values.CategoryId}
-              onChange={handleChange}
+               onChange={async (event) => {
+                await handleChange(event);
+                handlerChangefunction(event); // removed from here
+              }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="" disabled>
@@ -658,11 +684,11 @@ const Product = () => {
                             </span>
                           </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.CategoryId}
+                            {item.CategoryName}
                           </td>
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.SubCategoryId}
+                            {item.SubCategoryName}
                           </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item.SlugUrl}
