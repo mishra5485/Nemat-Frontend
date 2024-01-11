@@ -17,6 +17,7 @@ const EditSub_Category = () => {
    const [loading, setLoading] = useState(true);
    const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
    const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+   const [seriesImage, setSeriesImage] = useState(null);
    const navigate = useNavigate();
 
    useEffect(() => {
@@ -40,6 +41,7 @@ const EditSub_Category = () => {
             )
 
          setSub_CategoryData(response.data)
+         console.log(response.data)
          setcategory(cartdiscountschemerespose.data)   
          setQuantitySchemeId(QuantitySchemeIdResponse.data)
          setLoading(false);
@@ -51,7 +53,9 @@ const EditSub_Category = () => {
       }
 
 
-   //  console.log(Sub_CategoryData)
+
+
+   console.log(Sub_CategoryData)
    // console.log(categorys);
    // console.log(QuantitySchemeIds)
    
@@ -70,6 +74,7 @@ const EditSub_Category = () => {
         quantity:"",
         bannerImageMobile: "",
         bannerImageDesktop: "",
+        seriesImage:"",
       }
     :{
         name: Sub_CategoryData?.Name,
@@ -83,7 +88,8 @@ const EditSub_Category = () => {
         cgst:Sub_CategoryData.CGST,
         quantity:Sub_CategoryData.QuantitySchemeId,
         bannerImageMobile:null,
-        bannerImageDesktop:null
+        bannerImageDesktop:null,
+        seriesImage:null
       };
 
 
@@ -132,6 +138,10 @@ const EditSub_Category = () => {
          formData.append('DesktopbannerImage', values.bannerImageDesktop);
          }
 
+         if (Image !== null) {
+         formData.append('Image', values.seriesImage);
+         }
+
      
 
 
@@ -142,7 +152,7 @@ const EditSub_Category = () => {
             formData
         )
 
-        console.log(response)
+      //   console.log(response)
 
         if (response.status === 200) {
               console.log(" Category Updated ")
@@ -175,32 +185,35 @@ const EditSub_Category = () => {
 
 
 
-   const handleFileChange = (event, field) => {
-        const file = event.target.files[0];
+    const handleFileChange = (event, field) => {
+    const file = event.target.files[0];
 
-        setFieldValue(field, file); 
+    setFieldValue(field, file); // Set the file in the form state
 
-        if (file) {
-         
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            if (field === 'bannerImageMobile') {
-              setImagePreviewMobile(reader.result);
-            } else if (field === 'bannerImageDesktop') {
-              setImagePreviewDesktop(reader.result);
-            }
-          };
-          reader.readAsDataURL(file);
-        } else {
-          // Reset the preview if no file is selected
-          if (field === 'bannerImageMobile') {
-            setImagePreviewMobile(null);
-          } else if (field === 'bannerImageDesktop') {
-            setImagePreviewDesktop(null);
-          }
+    if (file) {
+      // Use FileReader to read the selected file and set the preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (field === "bannerImageMobile") {
+          setImagePreviewMobile(reader.result);
+        } else if (field === "bannerImageDesktop") {
+          setImagePreviewDesktop(reader.result);
+        }else{
+          setSeriesImage(reader.result)
         }
       };
-
+      reader.readAsDataURL(file);
+    } else {
+      // Reset the preview if no file is selected
+      if (field === "bannerImageMobile") {
+        setImagePreviewMobile(null);
+      } else if (field === "bannerImageDesktop") {
+        setImagePreviewDesktop(null);
+      }else{
+        setSeriesImage(null);
+      }
+    }
+  };
   return (
 
          <div className="overflow-x-hidden">
@@ -308,7 +321,7 @@ const EditSub_Category = () => {
                               
                               <div className="mb-4">
                                  <label htmlFor="fileInput1" className="block text-sm font-medium text-gray-600">
-                                 File Input 1
+                                       Mobile Image
                                  </label>
                                  <input
                                  type="file"
@@ -335,7 +348,7 @@ const EditSub_Category = () => {
                               </div>
                            <div className="mb-4">
                               <label htmlFor="fileInput2" className="block text-sm font-medium text-gray-600">
-                              File Input 2
+                              Desktop Image
                               </label>
                               <input
                               type="file"
@@ -354,6 +367,34 @@ const EditSub_Category = () => {
                                     ) : (
                                        <img
                                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${Sub_CategoryData?.DesktopbannerImage}`}
+                                       alt="Banner Desktop"
+                                       className="mt-2 w-[90%] h-[250px]"
+                                       />
+                                       )}
+                              </div>
+
+                           </div>
+                           <div className="mb-4">
+                              <label htmlFor="fileInput2" className="block text-sm font-medium text-gray-600">
+                                    Series Image
+                              </label>
+                              <input
+                              type="file"
+                              id="seriesImage"   
+                              onChange={(e) => handleFileChange(e, 'seriesImage')}
+                              className="mt-1 p-2 w-full border rounded-md"
+                              />
+                              <div className="flex justify-center">
+
+                                 {seriesImage ? (
+                                    <img
+                                    src={seriesImage}
+                                    alt="Banner Desktop"
+                                    className="mt-2 w-[90%] h-[250px]"
+                                    />
+                                    ) : (
+                                       <img
+                                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${Sub_CategoryData?.Image}`}
                                        alt="Banner Desktop"
                                        className="mt-2 w-[90%] h-[250px]"
                                        />

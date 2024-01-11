@@ -15,10 +15,14 @@ const Sub_Category = () => {
   const [quantityData, setQuantityData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  const [seriesImage, setSeriesImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
+    if (!showModal) {
+      fetchData();
+    }
+      getAllSubCategory();
   }, []);
 
   const fetchData = async () => {
@@ -31,22 +35,53 @@ const Sub_Category = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall`
       );
 
-      const SubCategory = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
-      );
-
       setQuantityData(quantityResponse.data);
-      setcategoryData(SubCategory.data);
       setCategorySelection(response.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      toast.error(response.data)
       console.error("Error fetching data:", error);
     }
   };
 
-  console.log(" categorySelection -> ", categorySelection);
-  console.log("quantityData -> ", quantityData);
+  const getAllSubCategory = async () => {
+    try {
+
+      const SubCategory = await axios.get(
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
+    );
+       if (SubCategory.status === 200) {
+          setcategoryData(SubCategory.data);
+          toast.success(data);
+           setLoading(false);
+        }
+
+    } catch (error) {
+      if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            toast.error(error.response.data);
+            setcategoryData([])
+            setLoading(false);
+          }
+        }
+    }
+    
+  };
+
+  // console.log(" categorySelection -> ", categorySelection);
+  // console.log("quantityData -> ", quantityData);
 
   const categoryObjectSchema = yup.object({
     name: yup.string().min(2).required("Enter Category Name"),
@@ -61,6 +96,7 @@ const Sub_Category = () => {
     sub_category_CGST: yup.string().required("Please Enter CGST"),
     bannerImageMobile: yup.string().required("Select the Picture "),
     bannerImageDesktop: yup.string().required("Select the Picture "),
+    seriesImage: yup.string().required("Select the Picture "),
   });
 
   const initialValues = {
@@ -76,6 +112,7 @@ const Sub_Category = () => {
     sub_category_CGST: "",
     bannerImageMobile: null,
     bannerImageDesktop: null,
+    seriesImage: null,
   };
 
   const {
@@ -104,23 +141,24 @@ const Sub_Category = () => {
       formData.append("CGST", values.sub_category_CGST);
       formData.append("MobilebannerImage", values.bannerImageMobile);
       formData.append("DesktopbannerImage", values.bannerImageDesktop);
+      formData.append("Image", values.seriesImage);
 
-      const payload = {
-        Name: values.name,
-        Category: values.category,
-        MetaTitle: values.metaTitle,
-        MetaDes: values.metaDesc,
-        MetaKeyWor: values.metaKeyword,
-        SlugUrl: values.slugUrl,
-        QuantitySchemeId: values.quantity,
-        Ml: values.sub_category_ML,
-        SGST: values.sub_category_SGST,
-        CGST: values.sub_category_CGST,
-        image: values.bannerImageMobile,
-        bannerImage: values.bannerImageDesktop,
-      };
+      // const payload = {
+      //   Name: values.name,
+      //   Category: values.category,
+      //   MetaTitle: values.metaTitle,
+      //   MetaDes: values.metaDesc,
+      //   MetaKeyWor: values.metaKeyword,
+      //   SlugUrl: values.slugUrl,
+      //   QuantitySchemeId: values.quantity,
+      //   Ml: values.sub_category_ML,
+      //   SGST: values.sub_category_SGST,
+      //   CGST: values.sub_category_CGST,
+      //   image: values.bannerImageMobile,
+      //   bannerImage: values.bannerImageDesktop,
+      // };
 
-      console.log("Payload -> ", payload);
+      // console.log("Payload -> ", payload);
       //  console.log(" formData image-> ",formData)
 
       try {
@@ -133,9 +171,9 @@ const Sub_Category = () => {
 
         if (response.status === 200) {
           console.log("New Sub_Category Created ");
-          toast.success("New Sub_Category Created  ")
+          toast.success("New Sub_Category Created  ");
           fetchData();
-          setShowModal(false)
+          setShowModal(false);
         }
       } catch (error) {
         if (error.response) {
@@ -151,7 +189,7 @@ const Sub_Category = () => {
             status === 400
           ) {
             console.log(error.response);
-            toast.error(error.data)
+            toast.error(error.data);
           }
         }
       }
@@ -172,6 +210,8 @@ const Sub_Category = () => {
           setImagePreviewMobile(reader.result);
         } else if (field === "bannerImageDesktop") {
           setImagePreviewDesktop(reader.result);
+        } else {
+          setSeriesImage(reader.result);
         }
       };
       reader.readAsDataURL(file);
@@ -181,6 +221,8 @@ const Sub_Category = () => {
         setImagePreviewMobile(null);
       } else if (field === "bannerImageDesktop") {
         setImagePreviewDesktop(null);
+      } else {
+        setSeriesImage(null);
       }
     }
   };
@@ -192,9 +234,46 @@ const Sub_Category = () => {
     navigate(`/dashboard/sub_category/sub_edit/${categoryId}`);
   };
 
+  const DeleteHandler = async (categoryId) => {
+    try {
+      const deleteData = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/subcategory/deletebyId/${categoryId}`
+      );
+
+      if (deleteData.status === 200) {
+        toast.success(" Category Deleted");
+        fetchData();
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  };
+
   return (
     <div className="text-center">
-      <Toaster/>
+      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
+          Sub-Category Page
+        </span>
+      </h1>
+      <Toaster />
       {showModal ? (
         <>
           <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -395,7 +474,7 @@ const Sub_Category = () => {
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
                       >
-                        File Input 1
+                        Mobile Banner Image
                       </label>
                       <input
                         type="file"
@@ -419,7 +498,7 @@ const Sub_Category = () => {
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
                       >
-                        File Input 2
+                        Desktop Banner Image
                       </label>
                       <input
                         type="file"
@@ -432,6 +511,28 @@ const Sub_Category = () => {
                       {imagePreviewDesktop && (
                         <img
                           src={imagePreviewDesktop}
+                          alt="Banner Mobile"
+                          className="mt-2 w-full h-auto"
+                        />
+                      )}
+                    </div>
+
+                    <div className="mb-4">
+                      <label
+                        htmlFor="seriesImage"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Sub-Category Series Image
+                      </label>
+                      <input
+                        type="file"
+                        id="seriesImage"
+                        onChange={(e) => handleFileChange(e, "seriesImage")}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      />
+                      {seriesImage && (
+                        <img
+                          src={seriesImage}
                           alt="Banner Mobile"
                           className="mt-2 w-full h-auto"
                         />
@@ -522,6 +623,9 @@ const Sub_Category = () => {
                           Desktop Image
                         </th>
                         <th scope="col" className="p-4">
+                          Series Image
+                        </th>
+                        <th scope="col" className="p-4">
                           Name
                         </th>
                         <th scope="col" className="p-4">
@@ -582,6 +686,19 @@ const Sub_Category = () => {
                               />
                             </div>
                           </th>
+                          <th
+                            scope="row"
+                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            <div className="flex items-center mr-3">
+                              <img
+                                src={`${
+                                  import.meta.env.VITE_REACT_APP_BASE_URL
+                                }/${item?.Image}`}
+                                className="h-8 w-auto mr-3"
+                              />
+                            </div>
+                          </th>
                           <td className="px-4 py-3">
                             <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                               {item.Name}
@@ -610,8 +727,7 @@ const Sub_Category = () => {
 
                               <button
                                 type="button"
-                                data-modal-target="delete-modal"
-                                data-modal-toggle="delete-modal"
+                                onClick={() => DeleteHandler(item._id)}
                                 className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                               >
                                 Delete
