@@ -55,8 +55,8 @@ const EditCategory = () => {
         metaKeyword: categoryData.MetaKeyWord,
         slugUrl: categoryData.SlugUrl,
         cartDiscount: categoryData.CartDiscountSlab,
-        bannerImageMobile: null,
-        bannerImageDesktop: null,
+        // bannerImageMobile: null,
+        // bannerImageDesktop: null,
       };
 
   // console.log(categoryData)
@@ -68,7 +68,7 @@ const EditCategory = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     cartDiscount: yup.string().min(2).required("Enter cartDiscount"),
-    bannerImageMobile: yup.string().nullable(),
+    // bannerImageMobile: yup.string().nullable(),
     bannerImageDesktop: yup.string().nullable(),
   });
 
@@ -88,31 +88,41 @@ const EditCategory = () => {
     onSubmit: async (values, action) => {
       //  console.log('Submitting form:', values);
 
-      const formData = new FormData();
-      formData.append("Name", values.name);
-      formData.append("MetaTitle", values.metaTitle);
-      formData.append("MetaDesc", values.metaDesc);
-      formData.append("MetaKeyWord", values.metaKeyword);
-      formData.append("SlugUrl", values.slugUrl);
+      // const formData = new FormData();
+      // formData.append("Name", values.name);
+      // formData.append("MetaTitle", values.metaTitle);
+      // formData.append("MetaDesc", values.metaDesc);
+      // formData.append("MetaKeyWord", values.metaKeyword);
+      // formData.append("SlugUrl", values.slugUrl);
+      // formData.append("CartDiscountSlab", values.cartDiscount);
 
-      // Check if imagePreviewMobile is not null before appending to FormData
-      if (imagePreviewMobile !== null) {
-        formData.append("MobilebannerImage", values.bannerImageMobile);
+      const payload = {
+        Name:values.name,
+        MetaTitle:values.metaTitle,
+        MetaDesc:values.metaDesc,
+        MetaKeyWord:values.metaKeyword,
+        SlugUrl:values.slugUrl,
+        CartDiscountSlab:values.cartDiscount
       }
 
-      // Check if imagePreviewDesktop is not null before appending to FormData
-      if (imagePreviewDesktop !== null) {
-        formData.append("DesktopbannerImage", values.bannerImageDesktop);
-      }
+      // // Check if imagePreviewMobile is not null before appending to FormData
+      // if (imagePreviewMobile !== null) {
+      //   formData.append("MobilebannerImage", values.bannerImageMobile);
+      // }
 
-      formData.append("CartDiscountSlab", values.cartDiscount);
+      // // Check if imagePreviewDesktop is not null before appending to FormData
+      // if (imagePreviewDesktop !== null) {
+      //   formData.append("DesktopbannerImage", values.bannerImageDesktop);
+      // }
+
+      
 
       try {
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/category/updatebyId/${_id}`,
-          formData
+          payload
         );
 
         console.log(response);
@@ -142,30 +152,30 @@ const EditCategory = () => {
     },
   });
 
-  const handleFileChange = (event, field) => {
-    const file = event.target.files[0];
+  // const handleFileChange = (event, field) => {
+  //   const file = event.target.files[0];
 
-    setFieldValue(field, file);
+  //   setFieldValue(field, file);
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (field === "bannerImageMobile") {
-          setImagePreviewMobile(reader.result);
-        } else if (field === "bannerImageDesktop") {
-          setImagePreviewDesktop(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    } else {
-      // Reset the preview if no file is selected
-      if (field === "bannerImageMobile") {
-        setImagePreviewMobile(null);
-      } else if (field === "bannerImageDesktop") {
-        setImagePreviewDesktop(null);
-      }
-    }
-  };
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       if (field === "bannerImageMobile") {
+  //         setImagePreviewMobile(reader.result);
+  //       } else if (field === "bannerImageDesktop") {
+  //         setImagePreviewDesktop(reader.result);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     // Reset the preview if no file is selected
+  //     if (field === "bannerImageMobile") {
+  //       setImagePreviewMobile(null);
+  //     } else if (field === "bannerImageDesktop") {
+  //       setImagePreviewDesktop(null);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="overflow-x-hidden">
@@ -291,7 +301,7 @@ const EditCategory = () => {
             </div>
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               htmlFor="fileInput1"
               className="block text-sm font-medium text-gray-600"
@@ -321,8 +331,8 @@ const EditCategory = () => {
                 />
               )}
             </div>
-          </div>
-          <div className="mb-4">
+          </div> */}
+          {/* <div className="mb-4">
             <label
               htmlFor="fileInput2"
               className="block text-sm font-medium text-gray-600"
@@ -352,7 +362,7 @@ const EditCategory = () => {
                 />
               )}
             </div>
-          </div>
+          </div> */}
           <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
             <button
               type="submit"

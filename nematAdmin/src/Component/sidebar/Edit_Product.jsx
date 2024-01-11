@@ -12,6 +12,7 @@ const Edit_Product = () => {
   const [AllCategoryData, setAllCategoryData] = useState();
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
   const [AllFragranceData, setAllFragranceData] = useState();
+  const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
 
   useEffect(() => {
     FetchProductDetailId();
@@ -26,9 +27,9 @@ const Edit_Product = () => {
       if (productResponse.status === 200) {
         setProductData(productResponse.data);
 
-            await requiredData();
+        await requiredData();
 
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
       if (error.productResponse) {
@@ -45,14 +46,14 @@ const Edit_Product = () => {
         ) {
           console.log(error.response);
           toast.error(error.message);
-           setLoading(false)
+          setLoading(false);
         }
       }
     }
   };
 
   const requiredData = async () => {
-      let allDataLoadedSuccessfully = true;
+    let allDataLoadedSuccessfully = true;
 
     try {
       const categoryResponse = await axios.get(
@@ -107,16 +108,13 @@ const Edit_Product = () => {
       // Set loading state to false if there's an error
       setLoading(false);
     }
+  };
 
-  }
-  
+  // console.log("Category => " , AllCategoryData)
+  // console.log("AllSub_CategoryData => " , AllSub_CategoryData)
+  // console.log("AllFragranceData => " , AllFragranceData)
 
-  console.log("Category => " , AllCategoryData)
-  console.log("AllSub_CategoryData => " , AllSub_CategoryData)
-  console.log("AllFragranceData => " , AllFragranceData)
-
-
-   const ProductObject = yup.object({
+  const ProductObject = yup.object({
     productName: yup.string().min(2).required("Please Enter Product Name"),
     Description: yup
       .string()
@@ -148,35 +146,35 @@ const Edit_Product = () => {
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
   });
 
-  const initialValues = loading ? {
-    productimg: null,
-    productName: "",
-    Description: "",
-    CategoryId: "",
-    sub_CategoryId: "",
-    FragranceId: "",
-    AutheticStepFlag: "",
-    Price: "",
-    metaTitle: "",
-    metaDesc: "",
-    metaKeyword: "",
-    slugUrl: "",
-  } 
-   : 
-   {
-    productimg: null,
-    productName:ProductData.Name,
-    Description:ProductData.Description,
-    CategoryId: ProductData.CategoryId,
-    sub_CategoryId:ProductData.SubCategoryId,
-    FragranceId:ProductData.FragranceId,
-    AutheticStepFlag:ProductData.AuthenticStepflag,
-    Price:ProductData.Price,
-    metaTitle:ProductData.MetaTitle,
-    metaDesc:ProductData.MetaDesc,
-    metaKeyword:ProductData?.metaKeyword,
-    slugUrl:ProductData.SlugUrl,
-   }
+  const initialValues = loading
+    ? {
+        productimg: null,
+        productName: "",
+        Description: "",
+        CategoryId: "",
+        sub_CategoryId: "",
+        FragranceId: "",
+        AutheticStepFlag: "",
+        Price: "",
+        metaTitle: "",
+        metaDesc: "",
+        metaKeyword: "",
+        slugUrl: "",
+      }
+    : {
+        productimg: null,
+        productName: ProductData.Name,
+        Description: ProductData.Description,
+        CategoryId: ProductData.CategoryId,
+        sub_CategoryId: ProductData.SubCategoryId,
+        FragranceId: ProductData.FragranceId,
+        AutheticStepFlag: ProductData.AuthenticStepflag,
+        Price: ProductData.Price,
+        metaTitle: ProductData.MetaTitle,
+        metaDesc: ProductData.MetaDesc,
+        metaKeyword: ProductData?.metaKeyword,
+        slugUrl: ProductData.SlugUrl,
+      };
 
   const {
     values,
@@ -188,187 +186,319 @@ const Edit_Product = () => {
     setFieldValue,
     resetForm,
   } = useFormik({
-
-  })
+    initialValues,
+    validationSchema:ProductObject
+  });
 
   console.log("ProductData => ", ProductData);
 
+  const handleFileChange = (event, field) => {
+    const file = event.target.files[0];
 
+    setFieldValue(field, file); // Set the file in the form state
 
-  return <div>
-      {
-         loading ? (<p>
-            Loading...
-         </p> ) : (
-            
-            <form  onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}>
-                           <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                              <div>
-                                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                                 <input type="text" 
-                                 name="name" 
-                                 id="name"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                                 onChange={handleChange}
-                                 value={values?.productName} placeholder="Type product name" />
-                              </div>
-                               <div>
-                                 <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                 <select
-                                    id="category"
-                                    key={values.CategoryId}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    
-                                    onChange={handleChange}
-                                    value={values.category} 
-                                 >
-                                    <option value="">Select category</option>
-                                    {AllCategoryData?.map((category) => (
-                                       <option key={category._id} value={category._id}>
-                                             {category.Name}
-                                       </option>
-                                    ))}
-                                 </select>
-                              </div>
-                              <div>
-                                 <label htmlFor="metaTitle" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta Title</label>
-                                 <input type="text" name="metaTitle" id="metaTitle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 value={values.metaTitle} placeholder="Type product name" />
-                              </div>
-                              
-                              <div>
-                                 <label htmlFor="metaKeyword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta Keyword</label>
-                                 <input type="text" name="metaKeyword" id="metaKeyword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 value={values.metaKeyword} placeholder="Type product name" />
-                              </div>
-                              <div>
-                                 <label htmlFor="slugUrl" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug URL</label>
-                                 <input type="text" name="slugUrl" id="slugUrl" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 placeholder="Type product name" value={values.slugUrl} />
-                              </div>
-                               <div>
-                                 <label htmlFor="ml" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ML</label>
-                                 <input type="text" name="ml" id="ml" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 placeholder="Type product name" value={values.ml} />
-                              </div>
-                               <div>
-                                 <label htmlFor="sgst" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SGST </label>
-                                 <input type="text" name="sgst" id="sgst" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 placeholder="Type product name" value={values.sgst} />
-                              </div>
-                               <div>
-                                 <label htmlFor="cgst" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CGST</label>
-                                 <input type="text" name="cgst" id="cgst" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                 onChange={handleChange}
-                                 placeholder="Type product name" value={values.cgst} />
-                              </div>
-                              <div>
-                                 <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity Scheme </label>
-                                 <select
-                                    id="quantity"
-                                    key={values.quantity}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    
-                                    onChange={handleChange}
-                                    value={values.quantity} 
-                                 >
-                                    <option value="">Select category</option>
-                                    {QuantitySchemeIds?.map((QuantitySchemeId) => (
-                                       <option key={QuantitySchemeId._id} value={QuantitySchemeId._id}>
-                                             {QuantitySchemeId.Name}
-                                       </option>
-                                    ))}
-                                 </select>
-                              </div>
-                                       
-                             
-                              
-                              
-                              
-                              <div className="sm:col-span-2"><label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta Description</label><textarea id="metaDesc" name="metaDesc" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                             
-                              onChange={handleChange}
-                              value={values.metaDesc} placeholder="Write product description here"></textarea></div>
-                           </div>
-                           
-                              
-                              <div className="mb-4">
-                                 <label htmlFor="fileInput1" className="block text-sm font-medium text-gray-600">
-                                 File Input 1
-                                 </label>
-                                 <input
-                                 type="file"
-                                    id="bannerImageMobile"
-                                    onChange={(e) => handleFileChange(e, 'bannerImageMobile')}
-                                 className="mt-1 p-2 w-full border rounded-md"
-                                 />
-                                 <div className="flex justify-center">
-
-                                   {imagePreviewMobile ? (
-                                      <img
-                                      src={imagePreviewMobile}
-                                      alt="Banner Mobile"
-                                      className="mt-2 w-[90%] h-[250px]"
-                                      />
-                                      ) : (
-                                         <img
-                                         src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${Sub_CategoryData?.MobilebannerImage}`}
-                                         alt="Banner Mobile"
-                                         className="mt-2 w-[90%] h-[250px]"
-                                         />
-                                         )}
-                                    </div>
-                              </div>
-                           <div className="mb-4">
-                              <label htmlFor="fileInput2" className="block text-sm font-medium text-gray-600">
-                              File Input 2
-                              </label>
-                              <input
-                              type="file"
-                              id="bannerImageDesktop"   
-                              onChange={(e) => handleFileChange(e, 'bannerImageDesktop')}
-                              className="mt-1 p-2 w-full border rounded-md"
-                              />
-                              <div className="flex justify-center">
-
-                                 {imagePreviewDesktop ? (
-                                    <img
-                                    src={imagePreviewDesktop}
-                                    alt="Banner Desktop"
-                                    className="mt-2 w-[90%] h-[250px]"
-                                    />
-                                    ) : (
-                                       <img
-                                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${Sub_CategoryData?.DesktopbannerImage}`}
-                                       alt="Banner Desktop"
-                                       className="mt-2 w-[90%] h-[250px]"
-                                       />
-                                       )}
-                              </div>
-
-                           </div>
-                           <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
-                                 <button
-                                    type="submit"
-                                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                                    >
-                                    Submit
-                                    </button>
-                              
-                              <button data-modal-toggle="createProductModal" type="button" className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 ">
-                                 
-                                 Discard
-                              </button>
-                           </div>
-                     </form>
-         )
+    if (file) {
+      // Use FileReader to read the selected file and set the preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (field === "bannerImageMobile") {
+          setImagePreviewMobile(reader.result);
+        } else if (field === "bannerImageDesktop") {
+          setImagePreviewDesktop(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Reset the preview if no file is selected
+      if (field === "bannerImageMobile") {
+        setImagePreviewMobile(null);
+      } else if (field === "bannerImageDesktop") {
+        setImagePreviewDesktop(null);
       }
-   </div>;
+    }
+  };
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }}
+        >
+          <div className="grid   gap-4 mb-4 sm:grid-cols-2">
+             <div className="mb-4">
+            <label
+              htmlFor="fileInput1"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Product Image
+            </label>
+            <input
+              type="file"
+              id="productimg"
+              onChange={(e) => handleFileChange(e, "productimg")}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            <div className="flex  justify-center">
+              {imagePreviewMobile ? (
+                <img
+                  src={imagePreviewMobile}
+                  alt="Banner Mobile"
+                  className="mt-2 w-[90%] h-[250px]"
+                />
+              ) : (
+                <img
+                  src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
+                    ProductData?.ProductImage
+                  }`}
+                  alt="Banner Mobile"
+                  className="mt-2 w-[90%] h-[250px]"
+                />
+              )}
+            </div>
+          </div>
+          <br/>
+            <div>
+              <label
+                htmlFor="productName"
+                className="block mb-2 text-sm font-medium text-gray-900 "
+              >
+                Product Name
+              </label>
+              <input
+                type="text"
+                name="productName"
+                id="productName"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
+                onChange={handleChange}
+                value={values.productName}
+                placeholder="Type product name"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="category"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Category
+              </label>
+              <select
+                id="CategoryId"
+                key={values.CategoryId}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.CategoryId}
+              >
+                <option value="">Select category</option>
+                {AllCategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+             <div className="sm:col-span-2">
+              <label
+                htmlFor="description"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+              Product  Description
+              </label>
+              <textarea
+                id="Description"
+                name="Description"
+                rows="3"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.Description}
+                placeholder="Write product description here"
+              ></textarea>
+            </div>
+             <div>
+              <label
+                htmlFor="category"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Sub-Category
+              </label>
+              <select
+                id="CategoryId"
+                key={values.CategoryId}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.CategoryId}
+              >
+                <option value="">Select category</option>
+                {AllSub_CategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+             <div>
+              <label
+                htmlFor="category"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Fragrance 
+              </label>
+              <select
+                id="CategoryId"
+                key={values.CategoryId}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.CategoryId}
+              >
+                <option value="">Select category</option>
+                {AllFragranceData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="Price"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Price
+              </label>
+              <input
+                type="text"
+                name="Price"
+                id="Price"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.Price}
+                placeholder="Type product name"
+              />
+            </div>
+            <br/>
+
+             <div className="flex items-start justify-start mb-6">
+            <div className="flex items-start mb-3">
+              <div className="flex items-center h-5">
+                <input
+                  type="checkbox"
+                  id="whatappcheck"
+                  // checked={isChecked === 1}
+                  // onChange={handleCheckboxChange}
+                  className="w-4 h-4 border mt-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                />
+              </div>
+              <label
+                htmlFor="remember"
+                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                <span className="text-blue-600 text-2xl hover:underline dark:text-blue-500">
+                  Authentic Step{" "}
+                </span>
+                .
+              </label>
+            </div>
+          </div>
+          <br/>
+                  
+            <div>
+              <label
+                htmlFor="slugUrl"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Slug URL
+              </label>
+              <input
+                type="text"
+                name="slugUrl"
+                id="slugUrl"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                placeholder="Type product name"
+                value={values.slugUrl}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="metaTitle"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta Title
+              </label>
+              <input
+                type="metaTitle"
+                name="metaTitle"
+                id="metaTitle"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                placeholder="Type product name"
+                value={values.metaTitle}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="metaKeyword"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta KeyWord{" "}
+              </label>
+              <input
+                type="text"
+                name="metaKeyword"
+                id="metaKeyword"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                placeholder="Type product name"
+                value={values.metaKeyword}
+              />
+            </div>
+  
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="description"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta  Description
+              </label>
+              <textarea
+                id="metaDesc"
+                name="metaDesc"
+                rows="3"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.metaDesc}
+                placeholder="Write product description here"
+              ></textarea>
+            </div>
+          </div>
+
+         
+        
+          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              Submit
+            </button>
+
+            <button
+              data-modal-toggle="createProductModal"
+              type="button"
+              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+            >
+              Discard
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
 };
 
 export default Edit_Product;
