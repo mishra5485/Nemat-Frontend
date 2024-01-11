@@ -47,8 +47,8 @@ const Category = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     cartDiscount: yup.string().min(2).nullable(),
-    bannerImageMobile: yup.string().required("Select the Picture "),
-    bannerImageDesktop: yup.string().required("Select the Picture "),
+    // bannerImageMobile: yup.string().required("Select the Picture "),
+    // bannerImageDesktop: yup.string().required("Select the Picture "),
   });
 
   const initialValues = {
@@ -58,8 +58,8 @@ const Category = () => {
     metaKeyword: "",
     slugUrl: "",
     cartDiscount: "",
-    bannerImageMobile: null,
-    bannerImageDesktop: null,
+    // bannerImageMobile: null,
+    // bannerImageDesktop: null,
   };
 
   const {
@@ -75,34 +75,34 @@ const Category = () => {
     initialValues,
     validationSchema: categoryObjectSchema,
     onSubmit: async (values, action) => {
-      const formData = new FormData();
-      formData.append("Name", values.name);
-      formData.append("MetaTitle", values.metaTitle);
-      formData.append("MetaDesc", values.metaDesc);
-      formData.append("MetaKeyWord", values.metaKeyword);
-      formData.append("SlugUrl", values.slugUrl);
-      formData.append("MobilebannerImage", values.bannerImageMobile);
-      formData.append("DesktopbannerImage", values.bannerImageDesktop);
-      formData.append("CartDiscountSlab", values.cartDiscount);
+      // const formData = new FormData();
+      // formData.append("Name", values.name);
+      // formData.append("MetaTitle", values.metaTitle);
+      // formData.append("MetaDesc", values.metaDesc);
+      // formData.append("MetaKeyWord", values.metaKeyword);
+      // formData.append("SlugUrl", values.slugUrl);
+      // // formData.append("MobilebannerImage", values.bannerImageMobile);
+      // // formData.append("DesktopbannerImage", values.bannerImageDesktop);
+      // formData.append("CartDiscountSlab", values.cartDiscount);
 
-      // const palyload = {
-      //   Name:values.name,
-      //   MetaTitle:values.metaTitle,
-      //   MetaDesc:values.metaDesc,
-      //   MetaKeyWord:values.metaKeyword,
-      //   SlugUrl:values.slugUrl,
-      //   image:values.bannerImageMobile,
-      //   bannerImage:values.bannerImageDesktop,
-      //   CartDiscountSlab:values.cartDiscount,
-      // }
+      const palyload = {
+        Name:values.name,
+        MetaTitle:values.metaTitle,
+        MetaDesc:values.metaDesc,
+        MetaKeyWord:values.metaKeyword,
+        SlugUrl:values.slugUrl,
+        CartDiscountSlab:values.cartDiscount,
+        // image:values.bannerImageMobile,
+        // bannerImage:values.bannerImageDesktop,
+      }
 
-      console.log(" formData image-> ", formData.image);
-      //  console.log("PAyload " , palyload)
+      // console.log(" formData image-> ", formData.image);
+      console.log("PAyload " , palyload)
 
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/create`,
-          formData
+            palyload
         );
 
         console.log(response);
@@ -111,6 +111,7 @@ const Category = () => {
           console.log("New Category Created ");
           toast.success("New Category Created")
           slabdata();
+          setFieldValue(null);
           setShowModal(false)
         }
       } catch (error) {
@@ -137,37 +138,36 @@ const Category = () => {
 
   const handleResetClick = () => {
     resetForm();
-    setImagePreviewMobile(null);
-    setImagePreviewDesktop(null);
-    setFieldValue(null);
-    setFieldValue(null);
+    // setImagePreviewMobile(null);
+    // setImagePreviewDesktop(null);
+    
   };
 
-  const handleFileChange = (event, field) => {
-    const file = event.target.files[0];
+  // const handleFileChange = (event, field) => {
+  //   const file = event.target.files[0];
 
-    setFieldValue(field, file); // Set the file in the form state
+  //   setFieldValue(field, file); // Set the file in the form state
 
-    if (file) {
-      // Use FileReader to read the selected file and set the preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (field === "bannerImageMobile") {
-          setImagePreviewMobile(reader.result);
-        } else if (field === "bannerImageDesktop") {
-          setImagePreviewDesktop(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    } else {
-      // Reset the preview if no file is selected
-      if (field === "bannerImageMobile") {
-        setImagePreviewMobile(null);
-      } else if (field === "bannerImageDesktop") {
-        setImagePreviewDesktop(null);
-      }
-    }
-  };
+  //   if (file) {
+  //     // Use FileReader to read the selected file and set the preview
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       if (field === "bannerImageMobile") {
+  //         setImagePreviewMobile(reader.result);
+  //       } else if (field === "bannerImageDesktop") {
+  //         setImagePreviewDesktop(reader.result);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     // Reset the preview if no file is selected
+  //     if (field === "bannerImageMobile") {
+  //       setImagePreviewMobile(null);
+  //     } else if (field === "bannerImageDesktop") {
+  //       setImagePreviewDesktop(null);
+  //     }
+  //   }
+  // };
 
   const handleForm = () => {};
 
@@ -176,10 +176,48 @@ const Category = () => {
     navigate(`/dashboard/category/edit/${categoryId}`);
   };
 
+  const DeleteHandler = async (categoryId) => {
+
+    try {
+
+      const deleteData = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/deletebyId/${categoryId}`,
+      )
+
+        if (deleteData.status === 200) {
+          toast.success(" Category Deleted")
+          slabdata()
+        }
+
+    } catch (error) {
+      if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            toast.error(data)
+          }
+        }
+    }
+  } 
+
   console.log(" send Id in URl", showform);
 
   return (
     <div>
+      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
+            Category Page
+        </span>
+      </h1>
       {showModal ? (
         <>
           <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -299,7 +337,7 @@ const Category = () => {
                     </div>
 
                     {/* File inputs */}
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
@@ -321,9 +359,9 @@ const Category = () => {
                           className="mt-2 w-full h-auto"
                         />
                       )}
-                    </div>
+                    </div> */}
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
@@ -345,7 +383,7 @@ const Category = () => {
                           className="mt-2 w-full h-auto"
                         />
                       )}
-                    </div>
+                    </div> */}
 
                     {/* Submit button */}
                     <div className="flex justify-between mt-4">
@@ -424,20 +462,20 @@ const Category = () => {
                             </label>
                           </div>
                         </th>
-                        <th scope="col" className="p-4">
+                        {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
                         <th scope="col" className="p-4">
                           Desktop Image
-                        </th>
+                        </th> */}
                         <th scope="col" className="p-4">
                           Category
                         </th>
                         <th scope="col" className="p-4">
-                          Meta Title
+                          Cart Discount Name
                         </th>
                         <th scope="col" className="p-4">
-                          Meta Desc
+                          Meta Title
                         </th>
                         <th scope="col" className="p-4">
                           MetaKeyWord
@@ -467,7 +505,7 @@ const Category = () => {
                               </label>
                             </div>
                           </td>
-                          <th
+                          {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -480,8 +518,8 @@ const Category = () => {
                                 className="h-8 w-auto mr-3"
                               />
                             </div>
-                          </th>
-                          <th
+                          </th> */}
+                          {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -493,18 +531,19 @@ const Category = () => {
                                 className="h-8 w-auto mr-3"
                               />
                             </div>
-                          </th>
+                          </th> */}
                           <td className="px-4 py-3">
                             <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                               {item.Name}
                             </span>
                           </td>
+                          <td className="px-4 py-3">
+                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                              {item.CartDiscountName}
+                            </span>
+                          </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item.MetaTitle}
-                          </td>
-
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.MetaDesc}
                           </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item.MetaKeyWord}
@@ -525,8 +564,7 @@ const Category = () => {
 
                               <button
                                 type="button"
-                                data-modal-target="delete-modal"
-                                data-modal-toggle="delete-modal"
+                                onClick={() => DeleteHandler(item._id)}
                                 className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                               >
                                 Delete
