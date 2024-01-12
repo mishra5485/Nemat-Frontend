@@ -5,14 +5,16 @@ import * as yup from "yup";
 import { categoryObjectSchema } from "../../FormValidations/data";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const EditCategory = () => {
   const { _id } = useParams();
   const [categoryData, setCategoryData] = useState();
   const [slabeData, setslabeData] = useState();
   const [loading, setLoading] = useState(true);
-  const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
-  const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  const [storeCategoryName , setStoreCategoryName] = useState()
+  // const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
+  // const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +38,9 @@ const EditCategory = () => {
     };
     getCategoryID();
   }, []);
+
+  let CategoryNameStore = categoryData?.Name
+  
 
   const initialValues = loading
     ? {
@@ -62,7 +67,7 @@ const EditCategory = () => {
   // console.log(categoryData)
 
   const categoryObjectSchema = yup.object({
-    name: yup.string().min(2).required("Enter Category Name"),
+    name: yup.string(),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Category"),
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Category"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
@@ -86,7 +91,7 @@ const EditCategory = () => {
     validationSchema: categoryObjectSchema,
     enableReinitialize: true,
     onSubmit: async (values, action) => {
-      //  console.log('Submitting form:', values);
+      console.log('Submitting form:', values);
 
       // const formData = new FormData();
       // formData.append("Name", values.name);
@@ -96,14 +101,30 @@ const EditCategory = () => {
       // formData.append("SlugUrl", values.slugUrl);
       // formData.append("CartDiscountSlab", values.cartDiscount);
 
-      const payload = {
-        Name:values.name,
-        MetaTitle:values.metaTitle,
-        MetaDesc:values.metaDesc,
-        MetaKeyWord:values.metaKeyword,
-        SlugUrl:values.slugUrl,
-        CartDiscountSlab:values.cartDiscount
+      
+
+        const payload = {
+          Name: values.name,
+          MetaTitle: values.metaTitle,
+          MetaDesc: values.metaDesc,
+          MetaKeyWord: values.metaKeyword,
+          SlugUrl: values.slugUrl,
+          CartDiscountSlab: values.cartDiscount,
+        }
+
+        if(values.name === CategoryNameStore){
+          delete payload.Name
       }
+
+      console.log(payload)
+      // const payload = {
+      //   Name:values.name,
+      //   MetaTitle:values.metaTitle,
+      //   MetaDesc:values.metaDesc,
+      //   MetaKeyWord:values.metaKeyword,
+      //   SlugUrl:values.slugUrl,
+      //   CartDiscountSlab:values.cartDiscount
+      // }
 
       // // Check if imagePreviewMobile is not null before appending to FormData
       // if (imagePreviewMobile !== null) {
@@ -145,10 +166,10 @@ const EditCategory = () => {
             status === 400
           ) {
             console.log(error.response);
+            toast.error(data)
           }
         }
       }
-      handleResetClick();
     },
   });
 
@@ -179,6 +200,7 @@ const EditCategory = () => {
 
   return (
     <div className="overflow-x-hidden">
+      <Toaster/>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -372,8 +394,8 @@ const EditCategory = () => {
             </button>
 
             <button
-              data-modal-toggle="createProductModal"
               type="button"
+              onClick={() => navigate('/dashboard/category')}
               className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
             >
               Discard

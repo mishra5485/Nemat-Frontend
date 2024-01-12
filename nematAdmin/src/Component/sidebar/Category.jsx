@@ -10,8 +10,8 @@ const Category = () => {
   const [showform, setShowForm] = useState();
   const [slabeData, setslabeData] = useState();
   const [allCategoryData, setAllCategoryData] = useState();
-  const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
-  const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  // const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
+  // const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -86,33 +86,34 @@ const Category = () => {
       // formData.append("CartDiscountSlab", values.cartDiscount);
 
       const palyload = {
-        Name:values.name,
-        MetaTitle:values.metaTitle,
-        MetaDesc:values.metaDesc,
-        MetaKeyWord:values.metaKeyword,
-        SlugUrl:values.slugUrl,
-        CartDiscountSlab:values.cartDiscount,
+        Name: values.name,
+        MetaTitle: values.metaTitle,
+        MetaDesc: values.metaDesc,
+        MetaKeyWord: values.metaKeyword,
+        SlugUrl: values.slugUrl,
+        CartDiscountSlab: values.cartDiscount,
         // image:values.bannerImageMobile,
         // bannerImage:values.bannerImageDesktop,
-      }
+      };
 
       // console.log(" formData image-> ", formData.image);
-      console.log("PAyload " , palyload)
+      console.log("PAyload ", palyload);
 
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/create`,
-            palyload
+          palyload
         );
 
         console.log(response);
 
         if (response.status === 200) {
           console.log("New Category Created ");
-          toast.success("New Category Created")
+          toast.success("New Category Created");
           slabdata();
+          resetForm();
           setFieldValue(null);
-          setShowModal(false)
+          setShowModal(false);
         }
       } catch (error) {
         if (error.response) {
@@ -128,21 +129,15 @@ const Category = () => {
             status === 400
           ) {
             console.log(error.response);
-            toast.error(error.message)
+            toast.error(data);
           }
         }
       }
-      handleResetClick();
+      
     },
   });
 
-  const handleResetClick = () => {
-    resetForm();
-    // setImagePreviewMobile(null);
-    // setImagePreviewDesktop(null);
-    
-  };
-
+ 
   // const handleFileChange = (event, field) => {
   //   const file = event.target.files[0];
 
@@ -177,37 +172,40 @@ const Category = () => {
   };
 
   const DeleteHandler = async (categoryId) => {
-
     try {
-
       const deleteData = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/deletebyId/${categoryId}`,
-      )
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/category/deletebyId/${categoryId}`
+      );
 
-        if (deleteData.status === 200) {
-          toast.success(" Category Deleted")
-          slabdata()
-        }
-
+      if (deleteData.status === 200) {
+        toast.success(" Category Deleted");
+        setAllCategoryData([]);
+        slabdata();
+      }
     } catch (error) {
       if (error.response) {
-          const { status, data } = error.response;
+        const { status, data } = error.response;
 
-          if (
-            status === 404 ||
-            status === 403 ||
-            status === 500 ||
-            status === 302 ||
-            status === 409 ||
-            status === 401 ||
-            status === 400
-          ) {
-            console.log(error.response);
-            toast.error(data)
-          }
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
         }
+        else if(status === 403){
+           setAllCategoryData([]);
+        }
+      }
     }
-  } 
+  };
 
   console.log(" send Id in URl", showform);
 
@@ -215,7 +213,7 @@ const Category = () => {
     <div>
       <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-            Category Page
+          Category Page
         </span>
       </h1>
       {showModal ? (
@@ -409,7 +407,7 @@ const Category = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-      <Toaster/>
+      <Toaster />
       <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -486,26 +484,29 @@ const Category = () => {
                       </tr>
                     </thead>
 
-                    {allCategoryData?.map((item) => (
-                      <tbody key={item._id}>
-                        <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                          <td className="p-4 w-4">
-                            <div className="flex items-center">
-                              <input
-                                id="checkbox-table-search-1"
-                                type="checkbox"
-                                onClick={handleForm}
-                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                htmlFor="checkbox-table-search-1"
-                                className="sr-only"
-                              >
-                                checkbox
-                              </label>
-                            </div>
-                          </td>
-                          {/* <th
+                    {!allCategoryData || allCategoryData.length === 0  ? (
+                      <p>NO data Found</p>
+                    ) : (
+                      allCategoryData.map((item) => (
+                        <tbody key={item._id}>
+                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <td className="p-4 w-4">
+                              <div className="flex items-center">
+                                <input
+                                  id="checkbox-table-search-1"
+                                  type="checkbox"
+                                  onClick={handleForm}
+                                  className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                />
+                                <label
+                                  htmlFor="checkbox-table-search-1"
+                                  className="sr-only"
+                                >
+                                  checkbox
+                                </label>
+                              </div>
+                            </td>
+                            {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -519,7 +520,7 @@ const Category = () => {
                               />
                             </div>
                           </th> */}
-                          {/* <th
+                            {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -532,48 +533,49 @@ const Category = () => {
                               />
                             </div>
                           </th> */}
-                          <td className="px-4 py-3">
-                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                              {item.Name}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                              {item.CartDiscountName}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.MetaTitle}
-                          </td>
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.MetaKeyWord}
-                          </td>
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.SlugUrl}
-                          </td>
+                            <td className="px-4 py-3">
+                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                {item.Name}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3">
+                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                {item.CartDiscountName}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.MetaTitle}
+                            </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.MetaKeyWord}
+                            </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.SlugUrl}
+                            </td>
 
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div className="flex items-center space-x-4">
-                              <button
-                                type="button"
-                                onClick={() => editHandlerDir(item._id)}
-                                className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                              >
-                                Edit
-                              </button>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              <div className="flex items-center space-x-4">
+                                <button
+                                  type="button"
+                                  onClick={() => editHandlerDir(item._id)}
+                                  className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                >
+                                  Edit
+                                </button>
 
-                              <button
-                                type="button"
-                                onClick={() => DeleteHandler(item._id)}
-                                className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                                <button
+                                  type="button"
+                                  onClick={() => DeleteHandler(item._id)}
+                                  className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))
+                    )}
                   </table>
                 </div>
               )}
