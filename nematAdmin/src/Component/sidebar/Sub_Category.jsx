@@ -16,13 +16,14 @@ const Sub_Category = () => {
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
   const [seriesImage, setSeriesImage] = useState(null);
+  const [Nodata, setNodata] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!showModal) {
       fetchData();
     }
-      getAllSubCategory();
+    getAllSubCategory();
   }, []);
 
   const fetchData = async () => {
@@ -40,44 +41,42 @@ const Sub_Category = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      toast.error(response.data)
+      toast.error(response.data);
       console.error("Error fetching data:", error);
     }
   };
 
   const getAllSubCategory = async () => {
     try {
-
       const SubCategory = await axios.get(
-      `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
-    );
-       if (SubCategory.status === 200) {
-          setcategoryData(SubCategory.data);
-          toast.success(data);
-           setLoading(false);
-        }
-
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
+      );
+      if (SubCategory.status === 200) {
+        setcategoryData(SubCategory.data);
+        toast.success(data);
+        setLoading(false);
+      }
     } catch (error) {
       if (error.response) {
-          const { status, data } = error.response;
+        const { status, data } = error.response;
 
-          if (
-            status === 404 ||
-            status === 403 ||
-            status === 500 ||
-            status === 302 ||
-            status === 409 ||
-            status === 401 ||
-            status === 400
-          ) {
-            console.log(error.response);
-            toast.error(error.response.data);
-            setcategoryData([])
-            setLoading(false);
-          }
+        if (
+          status === 404 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(error.response.data);
+          setcategoryData([]);
+          setLoading(false);
+        } else if (status === 403) {
+          setNodata(true);
         }
+      }
     }
-    
   };
 
   // console.log(" categorySelection -> ", categorySelection);
@@ -91,9 +90,29 @@ const Sub_Category = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     quantity: yup.string().required("Please Select Any One"),
-    sub_category_ML: yup.string().required("Please Enter sub_category_ML"),
+    sub_category_ML: yup
+      .number()
+      .typeError("Please enter a valid number")
+      .integer("Please enter a valid number")
+      .min(1)
+      .max(999999)
+      .required("Enter the Zip Code"),
     sub_category_SGST: yup.string().required("Please Enter SGST "),
     sub_category_CGST: yup.string().required("Please Enter CGST"),
+    packSizes: yup
+      .array()
+      .of(
+        yup.object().shape({
+          size: yup
+            .number()
+            .typeError("Please enter a valid number")
+            .integer("Please enter a valid number")
+            .min(1)
+            .max(999999)
+            .required("Enter the Pack Size"),
+        })
+      )
+      .min(1, "At least one pack size is required"),
     bannerImageMobile: yup.string().required("Select the Picture "),
     bannerImageDesktop: yup.string().required("Select the Picture "),
     seriesImage: yup.string().required("Select the Picture "),
@@ -107,9 +126,10 @@ const Sub_Category = () => {
     metaKeyword: "",
     slugUrl: "",
     quantity: "",
-    sub_category_ML: "",
+    sub_category_ML: 0,
     sub_category_SGST: "",
     sub_category_CGST: "",
+    packSizes: [0, 0, 0],
     bannerImageMobile: null,
     bannerImageDesktop: null,
     seriesImage: null,
@@ -128,6 +148,8 @@ const Sub_Category = () => {
     initialValues,
     validationSchema: categoryObjectSchema,
     onSubmit: async (values, action) => {
+      console.log("Submitt button here");
+
       const formData = new FormData();
       formData.append("Name", values.name);
       formData.append("Category", values.category);
@@ -139,27 +161,29 @@ const Sub_Category = () => {
       formData.append("Ml", values.sub_category_ML);
       formData.append("SGST", values.sub_category_SGST);
       formData.append("CGST", values.sub_category_CGST);
+      formData.append("PackSizes", JSON.stringify(values.packSizes));
       formData.append("MobilebannerImage", values.bannerImageMobile);
       formData.append("DesktopbannerImage", values.bannerImageDesktop);
       formData.append("Image", values.seriesImage);
 
-      // const payload = {
-      //   Name: values.name,
-      //   Category: values.category,
-      //   MetaTitle: values.metaTitle,
-      //   MetaDes: values.metaDesc,
-      //   MetaKeyWor: values.metaKeyword,
-      //   SlugUrl: values.slugUrl,
-      //   QuantitySchemeId: values.quantity,
-      //   Ml: values.sub_category_ML,
-      //   SGST: values.sub_category_SGST,
-      //   CGST: values.sub_category_CGST,
-      //   image: values.bannerImageMobile,
-      //   bannerImage: values.bannerImageDesktop,
-      // };
+      const payload = {
+        // Name: values.name,
+        // Category: values.category,
+        // MetaTitle: values.metaTitle,
+        // MetaDes: values.metaDesc,
+        // MetaKeyWor: values.metaKeyword,
+        // SlugUrl: values.slugUrl,
+        // QuantitySchemeId: values.quantity,
+        // Ml: values.sub_category_ML,
+        // SGST: values.sub_category_SGST,
+        // CGST: values.sub_category_CGST,
+        packSize:values.packSizes,
+        // image: values.bannerImageMobile,
+        // bannerImage: values.bannerImageDesktop,
+      };
 
-      // console.log("Payload -> ", payload);
-      //  console.log(" formData image-> ",formData)
+      console.log("Payload -> ", payload);
+      // console.log(" formData image-> ", formData);
 
       try {
         let response = await axios.post(
@@ -244,7 +268,7 @@ const Sub_Category = () => {
 
       if (deleteData.status === 200) {
         toast.success(" Category Deleted");
-        fetchData();
+        getAllSubCategory();
       }
     } catch (error) {
       if (error.response) {
@@ -261,11 +285,12 @@ const Sub_Category = () => {
         ) {
           console.log(error.response);
           toast.error(data);
+        } else {
+          setNodata(true);
         }
       }
     }
   };
-
   return (
     <div className="text-center">
       <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
@@ -467,6 +492,27 @@ const Sub_Category = () => {
                         className="mt-1 p-2 w-full border rounded-md"
                       />
                     </div>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="packSizes"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        PackSizes
+                      </label>
+                      <div className="flex gap-2">
+                        {values.packSizes.map((packSize, index) => (
+                          <input
+                            key={index}
+                            type="text"
+                            id={`packSize${index + 1}`}
+                            name={`packSizes[${index}].size`}
+                            value={packSize.size}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md"
+                          />
+                        ))}
+                      </div>
+                    </div>
 
                     {/* File inputs */}
                     <div className="mb-4">
@@ -640,103 +686,107 @@ const Sub_Category = () => {
                       </tr>
                     </thead>
 
-                    {categoryData?.map((item) => (
-                      <tbody key={item._id}>
-                        <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                          <td className="p-4 w-4">
-                            <div className="flex items-center">
-                              <input
-                                id="checkbox-table-search-1"
-                                type="checkbox"
-                                onClick={handleForm}
-                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                htmlFor="checkbox-table-search-1"
-                                className="sr-only"
-                              >
-                                checkbox
-                              </label>
-                            </div>
-                          </td>
-                          <th
-                            scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            <div className="flex items-center mr-3">
-                              <img
-                                src={`${
-                                  import.meta.env.VITE_REACT_APP_BASE_URL
-                                }/${item.MobilebannerImage}`}
-                                alt=""
-                                className="h-8 w-auto mr-3"
-                              />
-                            </div>
-                          </th>
-                          <th
-                            scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            <div className="flex items-center mr-3">
-                              <img
-                                src={`${
-                                  import.meta.env.VITE_REACT_APP_BASE_URL
-                                }/${item.DesktopbannerImage}`}
-                                className="h-8 w-auto mr-3"
-                              />
-                            </div>
-                          </th>
-                          <th
-                            scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            <div className="flex items-center mr-3">
-                              <img
-                                src={`${
-                                  import.meta.env.VITE_REACT_APP_BASE_URL
-                                }/${item?.Image}`}
-                                className="h-8 w-auto mr-3"
-                              />
-                            </div>
-                          </th>
-                          <td className="px-4 py-3">
-                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                              {item.Name}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.Ml}
-                          </td>
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.SGST}
-                          </td>
+                    {Nodata ? (
+                      <p>No data available</p>
+                    ) : (
+                      categoryData?.map((item) => (
+                        <tbody key={item._id}>
+                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <td className="p-4 w-4">
+                              <div className="flex items-center">
+                                <input
+                                  id="checkbox-table-search-1"
+                                  type="checkbox"
+                                  onClick={handleForm}
+                                  className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                />
+                                <label
+                                  htmlFor="checkbox-table-search-1"
+                                  className="sr-only"
+                                >
+                                  checkbox
+                                </label>
+                              </div>
+                            </td>
+                            <th
+                              scope="row"
+                              className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              <div className="flex items-center mr-3">
+                                <img
+                                  src={`${
+                                    import.meta.env.VITE_REACT_APP_BASE_URL
+                                  }/${item.MobilebannerImage}`}
+                                  alt=""
+                                  className="h-8 w-auto mr-3"
+                                />
+                              </div>
+                            </th>
+                            <th
+                              scope="row"
+                              className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              <div className="flex items-center mr-3">
+                                <img
+                                  src={`${
+                                    import.meta.env.VITE_REACT_APP_BASE_URL
+                                  }/${item.DesktopbannerImage}`}
+                                  className="h-8 w-auto mr-3"
+                                />
+                              </div>
+                            </th>
+                            <th
+                              scope="row"
+                              className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              <div className="flex items-center mr-3">
+                                <img
+                                  src={`${
+                                    import.meta.env.VITE_REACT_APP_BASE_URL
+                                  }/${item?.Image}`}
+                                  className="h-8 w-auto mr-3"
+                                />
+                              </div>
+                            </th>
+                            <td className="px-4 py-3">
+                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                {item.Name}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.Ml}
+                            </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.SGST}
+                            </td>
 
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.CGST}
-                          </td>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.CGST}
+                            </td>
 
-                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div className="flex items-center space-x-4">
-                              <button
-                                type="button"
-                                onClick={() => editHandlerDir(item._id)}
-                                className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                              >
-                                Edit
-                              </button>
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              <div className="flex items-center space-x-4">
+                                <button
+                                  type="button"
+                                  onClick={() => editHandlerDir(item._id)}
+                                  className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                >
+                                  Edit
+                                </button>
 
-                              <button
-                                type="button"
-                                onClick={() => DeleteHandler(item._id)}
-                                className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                                <button
+                                  type="button"
+                                  onClick={() => DeleteHandler(item._id)}
+                                  className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))
+                    )}
                   </table>
                 </div>
               )}
