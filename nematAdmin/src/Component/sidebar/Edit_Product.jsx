@@ -13,6 +13,7 @@ const Edit_Product = () => {
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
   const [AllFragranceData, setAllFragranceData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
+  const [isChecked, setIsChecked] = useState();
 
   useEffect(() => {
     FetchProductDetailId();
@@ -28,7 +29,7 @@ const Edit_Product = () => {
         setProductData(productResponse.data);
 
         await requiredData();
-
+        await handlerChangefunction(productResponse.data.CategoryId)
         setLoading(false);
       }
     } catch (error) {
@@ -66,15 +67,6 @@ const Edit_Product = () => {
         allDataLoadedSuccessfully = false;
       }
 
-      const subCategoryResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
-      );
-      if (subCategoryResponse.status === 200) {
-        setAllSub_CategoryData(subCategoryResponse.data);
-      } else {
-        allDataLoadedSuccessfully = false;
-      }
-
       const fragranceResponse = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/fragrances/getall`
       );
@@ -101,7 +93,7 @@ const Edit_Product = () => {
           status === 400
         ) {
           console.log(error.response);
-          toast.error(error.message);
+          toast.error(error.data);
         }
       }
 
@@ -154,7 +146,7 @@ const Edit_Product = () => {
         CategoryId: "",
         sub_CategoryId: "",
         FragranceId: "",
-        AutheticStepFlag: "",
+        AutheticStepFlag: 0,
         Price: "",
         metaTitle: "",
         metaDesc: "",
@@ -172,7 +164,7 @@ const Edit_Product = () => {
         Price: ProductData.Price,
         metaTitle: ProductData.MetaTitle,
         metaDesc: ProductData.MetaDesc,
-        metaKeyword: ProductData?.metaKeyword,
+        metaKeyword: ProductData.MetaKeyWord,
         slugUrl: ProductData.SlugUrl,
       };
 
@@ -185,9 +177,11 @@ const Edit_Product = () => {
     handleBlur,
     setFieldValue,
     resetForm,
+    
   } = useFormik({
     initialValues,
-    validationSchema:ProductObject
+    validationSchema:ProductObject,
+    enableReinitialize: true,
   });
 
   console.log("ProductData => ", ProductData);
@@ -214,6 +208,47 @@ const Edit_Product = () => {
         setImagePreviewMobile(null);
       } else if (field === "bannerImageDesktop") {
         setImagePreviewDesktop(null);
+      }
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
+    setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
+  };
+
+  const handlerChangefunction = async (category_ID ) => {
+    const _id = category_ID
+    // console.log(category_ID === undefined);
+    // const _id = category_ID === undefined ? event.target.value  : category_ID;
+    
+    console.log("_id =>", _id);
+
+   
+
+    try {
+      const subCategoryResponse = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/product/getsubcategorybyId/${_id}`
+      );
+
+      console.log("Response:", subCategoryResponse);
+
+      if (subCategoryResponse.status === 200) {
+        setAllSub_CategoryData(subCategoryResponse.data);
+      } else {
+        console.error(
+          "Unexpected response status:",
+          subCategoryResponse.status
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (error.response) {
+        const { status, data } = error.response;
+        console.error(`Response error - Status: ${status}, Data:`, data);
       }
     }
   };
@@ -290,7 +325,10 @@ const Edit_Product = () => {
                 id="CategoryId"
                 key={values.CategoryId}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                onChange={handleChange}
+                onChange={async (event) => {
+                  await handleChange(event);
+                  handlerChangefunction(event.target.value); 
+                }}
                 value={values.CategoryId}
               >
                 <option value="">Select category</option>
@@ -387,8 +425,8 @@ const Edit_Product = () => {
                 <input
                   type="checkbox"
                   id="whatappcheck"
-                  // checked={isChecked === 1}
-                  // onChange={handleCheckboxChange}
+                  checked={values.AutheticStepFlag === 1 }
+                  onChange={handleCheckboxChange}
                   className="w-4 h-4 border mt-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                 />
               </div>
