@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IoMdEye , IoIosEyeOff } from "react-icons/io";
 import { useFormik } from 'formik';
 import * as yup from "yup"
@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
 
-const ChangePassword = ({props}) => {
+const ChangePassword = () => {
 
 
     const navigate = useNavigate();
@@ -105,7 +105,7 @@ const ChangePassword = ({props}) => {
     const { values , errors  , handleChange , handleSubmit , touched , handleBlur} = useFormik({
     initialValues,
     validationSchema:objectSchem,
-    onSubmit: async (values , action) =>{
+    onSubmit: async (values ) =>{
         const palyload = {
             customer_id:customer_id_Store,
             OldPassword:values.curremtPWD,
