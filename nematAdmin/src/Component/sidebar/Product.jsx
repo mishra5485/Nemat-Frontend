@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState, useEffect } from "react";
@@ -6,21 +6,21 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Multiselect from "multiselect-react-dropdown";
-import ReactImageUploading from 'react-images-uploading';
+import ReactImageUploading from "react-images-uploading";
 
 const Product = () => {
   const [AllCategoryData, setAllCategoryData] = useState();
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
-  const [AllFragranceData, setAllFragranceData] = useState();
   const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isChecked, setIsChecked] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [allProductData, setAllProductData] = useState();
-  const [selectedFragrance, setSelectedFragrance] = useState([]);
   const [images, setImages] = useState([]);
-  const [allImageFile , setAllImageFile] = useState([])
+  const [allImageFile, setAllImageFile] = useState([]);
   const navigate = useNavigate();
+  // const [AllFragranceData, setAllFragranceData] = useState();
+  const [selectedImage, setSelectedImage] = useState(null);
+  // const [isChecked, setIsChecked] = useState(0);
+  // const [selectedFragrance, setSelectedFragrance] = useState([]);
 
   useEffect(() => {
     if (showModal) {
@@ -44,14 +44,14 @@ const Product = () => {
         allDataLoadedSuccessfully = false;
       }
 
-      const fragranceResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/fragrances/getall`
-      );
-      if (fragranceResponse.status === 200) {
-        setAllFragranceData(fragranceResponse.data);
-      } else {
-        allDataLoadedSuccessfully = false;
-      }
+      // const fragranceResponse = await axios.get(
+      //   `${import.meta.env.VITE_REACT_APP_BASE_URL}/fragrances/getall`
+      // );
+      // if (fragranceResponse.status === 200) {
+      //   setAllFragranceData(fragranceResponse.data);
+      // } else {
+      //   allDataLoadedSuccessfully = false;
+      // }
 
       // Set loading state only if all data loaded successfully
       if (allDataLoadedSuccessfully) {
@@ -111,7 +111,7 @@ const Product = () => {
     }
   };
 
-  // console.log(allProductData);
+  console.log(allProductData);
 
   const ProductObject = yup.object({
     productName: yup.string().min(2).required("Please Enter Product Name"),
@@ -121,14 +121,6 @@ const Product = () => {
       .required("Please Enter Product Decription"),
     CategoryId: yup.string().min(2).required("Please Select Any Category "),
     sub_CategoryId: yup.string().min(2).required("Please Select Any Category "),
-     FragranceId: yup
-    .array()
-    .of(yup.string().min(2))
-    .required("Please Select Any Fragrance Name"),
-    AutheticStepFlag: yup
-      .number()
-      .oneOf([0, 1])
-      .required("Select the checkbox value"),
     Price: yup
       .number()
       .typeError("Please enter a valid number")
@@ -140,25 +132,32 @@ const Product = () => {
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Product"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
+    // AutheticStepFlag: yup
+    // .number()
+    // .oneOf([0, 1])
+    //   .required("Select the checkbox value"),
+    //  FragranceId: yup
+    // .array()
+    // .of(yup.string().min(2))
+    // .required("Please Select Any Fragrance Name"),
   });
 
   const initialValues = {
-    productimg: null,
+    // productimg: null,
     productName: "",
     Description: "",
     CategoryId: "",
     sub_CategoryId: "",
-    FragranceId: [],
-    AutheticStepFlag: 0,
     Price: "",
-    productimgmultiple:null,
+    productimgmultiple: null,
     metaTitle: "",
     metaDesc: "",
     metaKeyword: "",
     slugUrl: "",
+    // AutheticStepFlag: 0,
+    // FragranceId: [],
   };
-  
-  
+
   const {
     values,
     errors,
@@ -172,53 +171,44 @@ const Product = () => {
     initialValues,
     validationSchema: ProductObject,
     onSubmit: async (values) => {
-
-
-      // console.log("I am here")
-
       const formData = new FormData();
-      formData.append("ProductImage", values.productimg);
+      // formData.append("ProductImage", values.productimg);
+      [...allImageFile].forEach((image) => {
+        formData.append("ProductOtherImage", image);
+      });
       formData.append("Name", values.productName);
       formData.append("Description", values.Description);
       formData.append("CategoryId", values.CategoryId);
       formData.append("SubCategoryId", values.sub_CategoryId);
-      const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
-      formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
-      formData.append("AuthenticStepflag", values.AutheticStepFlag);
+      // const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
+      // formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
+      // formData.append("AuthenticStepflag", values.AutheticStepFlag);
       formData.append("SlugUrl", values.slugUrl);
       formData.append("MetaTitle", values.metaTitle);
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("Price", values.Price);
-     
-      formData.append("ProductOtherImage " , allImageFile)
-  
-    
 
+      // const payload = {
+      //   ProductImage: values.productimg,
+      //   otherProductIMage: values.productimgmultiple
+      //   // ProductOtherImage:allImageFile
 
-      
-      // console.log("selectedFragranceValues =>" ,  JSON.stringify(selectedFragranceValues))
+      //   // Name: values.productName,
+      //   // Description: values.Description,
+      //   // CategoryId: values.CategoryId,
+      //   // SubCategoryId: values.sub_CategoryId,
+      //   // FragranceId: values.FragranceId,
+      //   // AuthenticStepflag: values.AutheticStepFlag,
+      //   // SlugUrl: values.slugUrl,
+      //   // MetaTitle: values.metaTitle,
+      //   // MetaDesc: values.metaDesc,
+      //   // MetaKeyWord: values.metaKeyword,
+      //   //  Price: values.Price,
+      //   // FragranceId: selectedFragranceValues,
+      // };
 
-      const payload = {
-        ProductImage: values.productimg,
-        otherProductIMage: allImageFile
-        // ProductOtherImage:allImageFile
-
-        // Name: values.productName,
-        // Description: values.Description,
-        // CategoryId: values.CategoryId,
-        // SubCategoryId: values.sub_CategoryId,
-        // FragranceId: values.FragranceId,
-        // AuthenticStepflag: values.AutheticStepFlag,
-        // SlugUrl: values.slugUrl,
-        // MetaTitle: values.metaTitle,
-        // MetaDesc: values.metaDesc,
-        // MetaKeyWord: values.metaKeyword,
-        //  Price: values.Price,
-        // FragranceId: selectedFragranceValues,
-      };
-
-      console.log("Payload => ", payload);
+      // console.log("Payload => ", payload);
 
       // console.log(values.productimg)
       try {
@@ -255,34 +245,49 @@ const Product = () => {
     },
   });
 
-  const handleFileChange = (e) => {
-    const File = e.target.files[0];
-    console.log( "File ==========>" , File)
-    setSelectedImage(URL.createObjectURL(File));
-    setFieldValue("productimg", File);
+    // const handleFileChange = (e) => {
+    //   const File = e.target.files[0];
+    //   console.log( "File ==========>" , File)
+    //   setSelectedImage(URL.createObjectURL(File));
+    //   setFieldValue("productimg", File);
+    // };
+
+    const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
-   const handleFileChangeMultiples = (e) => {
-      console.log("handleFileChangeMultiples")
-      const files = e.target.files[0];
-      console.log("Files ==========>", files);
+  const handleFileChangeMultiples = (e) => {
+    console.log("handleFileChangeMultiples");
+    const files = e.target.files;
 
-      // Create an array of file objects
-      // const fileObjects = Array.from(files);
+    // Use map to create an array of URLs for each file
+    const imageUrls = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
 
-      // // Set the state with the array of file objects
-      setAllImageFile(files);
+    //set In State
+    setImages(imageUrls);
 
-      // // Display the selected images
-      // const imageUrls = fileObjects.map((file) => URL.createObjectURL(file));
-      // setSelectedImage(imageUrls);
-};
-  console.log("allImageFile ===> " , allImageFile)
-
-  const handleCheckboxChange = () => {
-    setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
-    setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
+    // If you want to set the array of files in your state
+    setFieldValue("productimgmultiple", files);
+    setAllImageFile(files);
   };
+
+  console.log("setImages data => ", images);
+
+  // const handleCheckboxChange = () => {
+  //   setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
+  //   setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
+  // };
 
   const handleForm = () => {};
 
@@ -323,17 +328,44 @@ const Product = () => {
     }
   };
 
-  
+  const deleteHandler = async (categoryId) => {
+    try {
+      const deleteData = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/product/deletebyId/${categoryId}`
+      );
 
+      if (deleteData.status === 200) {
+        toast.success(" Category Deleted");
+        getAllProductData();
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
 
-  const onChange = (imageList) => {
-    
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        } else if (status === 403) {
+          allProductData([]);
+        }
+      }
+    }
   };
 
- 
-
-  // const fragranceIds = selectedFragrance.map(item => item._id);
-  // console.log("fragranceIds => " , fragranceIds)
+   const handleAddClick = () => {
+    setImages([...images, selectedImage]);
+    setSelectedImage('');
+  };
 
   return (
     <div className="text-center">
@@ -352,44 +384,59 @@ const Product = () => {
             handleSubmit(e);
           }}
         >
+
           <div className="m-4 text-start">
-            <label className="inline-block text-start mb-2 text-gray-500">
-              Upload Image (jpg, png, svg, jpeg)
-            </label>
-            <div className="flex items-center justify-start w-full">
-              <label className="flex flex-col w-[370px] h-[370px] border-4 border-dashed hover:bg-gray-100 hover:border-gray-300 relative">
-                <div className="flex h-full items-center justify-center">
-                  <input
-                    type="file"
-                    id="productimg"
-                    onChange={handleFileChange}
-                    className="mt-1 p-2 w-full h-full border rounded-md opacity-0 absolute inset-0"
-                  />
-                  {selectedImage && (
-                    <img
-                      src={selectedImage}
-                      alt="Selected Product Image"
-                      className="object-cover w-full h-full"
-                    />
-                  )}
-                  {!selectedImage && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-12 h-12 text-gray-400 group-hover:text-gray-600 absolute"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
-                </div>
-              </label>
-            </div>
+      <label className="inline-block text-start mb-2 text-gray-500">
+        Upload Image (jpg, png, svg, jpeg)
+      </label>
+      {images.map((image, index) => (
+        <div key={index} className="flex items-center justify-start w-full mb-4">
+          <img
+            src={image}
+            alt={`Selected Product Image ${index + 1}`}
+            className="object-cover w-24 h-24 mr-4"
+          />
+          {/* Add any additional input fields or customization for each image */}
+        </div>
+      ))}
+      <div className="flex items-center justify-start w-full">
+        <label className="flex flex-col w-[370px] h-[370px] border-4 border-dashed hover:bg-gray-100 hover:border-gray-300 relative">
+          <div className="flex h-full items-center justify-center">
+            <input
+              type="file"
+              id="productimg"
+              onChange={handleFileChange}
+              className="mt-1 p-2 w-full h-full border rounded-md opacity-0 absolute inset-0"
+            />
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt="Selected Product Image"
+                className="object-cover w-full h-full"
+              />
+            )}
+            {!selectedImage && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-12 h-12 text-gray-400 group-hover:text-gray-600 absolute"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
           </div>
+        </label>
+      </div>
+      <button type="button" onClick={handleAddClick} className="text-center text-2xl">
+        ADD
+      </button>
+    </div>
+
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
@@ -473,7 +520,8 @@ const Product = () => {
               </select>
             </div>
 
-            <div className="mb-4">
+            {/* Multiplse section tag for Fragrance */}
+            {/* <div className="mb-4">
               <label
                 htmlFor="FragranceId"
                 className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
@@ -506,8 +554,7 @@ const Product = () => {
                   }))}
                 />
               )}
-            </div>
-            {/* {console.log("----------> ", selectedFragrance)} */}
+            </div> */}
 
             {/* <div className="mb-4">
             <label
@@ -534,10 +581,6 @@ const Product = () => {
             </select>
           </div> */}
 
-
-            
-
-
             <div>
               <label
                 htmlFor="Price"
@@ -555,51 +598,40 @@ const Product = () => {
                 placeholder="Doe"
               />
             </div>
+
+
+            <div className="m-4 text-start">
+              <label className="inline-block text-start mb-2 text-gray-500">
+                Upload Image (jpg, png, svg, jpeg)
+              </label>
+              <div className="flex items-center justify-start w-full">
+                <label className="flex flex-col w-[370px] h-[370px] border-4 border-dashed hover:bg-gray-100 hover:border-gray-300 relative">
+                  <div className="flex h-full items-center justify-center">
+                    <input
+                      type="file"
+                      id="productimgmultiple"
+                      onChange={handleFileChangeMultiples}
+                      className="mt-1 p-2 w-full h-full border rounded-md opacity-0 absolute inset-0"
+                      multiple
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+             <div className="grid grid-cols-3 gap-4 w-full">
+                      {images.map((blobUrl, index) => (
+                        <img
+                          key={index}
+                          src={blobUrl}
+                          alt={`Selected Product Image ${index + 1}`}
+                          className="object-cover w-full h-[200px] rounded-lg"
+                        />
+                      ))}
+                </div>
             <br />
 
-             <div className="m-4 text-start">
-            {/* <label className="inline-block text-start mb-2 text-gray-500">
-              Upload Image (jpg, png, svg, jpeg)
-            </label> */}
-            <div className="flex items-center justify-start w-full">
-              <label className="flex flex-col w-[370px] h-[370px] border-4 border-dashed hover:bg-gray-100 hover:border-gray-300 relative">
-                <div className="flex h-full items-center justify-center">
-                  <input
-                    type="file"
-                    id="productimgmultiple"
-                    onChange={handleFileChangeMultiples}
-                    className="mt-1 p-2 w-full h-full border rounded-md opacity-0 absolute inset-0"
-                    multiple
-                  />
-                  {/* {selectedImage && (
-                    <img
-                      src={selectedImage}
-                      alt="Selected Product Image"
-                      className="object-cover w-full h-full"
-                    />
-                  )} */}
-                  {/* {!selectedImage && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-12 h-12 text-gray-400 group-hover:text-gray-600 absolute"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )} */}
-                </div>
-              </label>
-            </div>
-          </div>
-    <br/>
-
             {/* { Other Section  } */}
-            <div className="flex items-start justify-start mb-6">
+            {/* <div className="flex items-start justify-start mb-6">
               <div className="flex items-start mb-3">
                 <div className="flex items-center h-5">
                   <input
@@ -620,7 +652,7 @@ const Product = () => {
                   .
                 </label>
               </div>
-            </div>
+            </div> */}
 
             <div className="md:col-span-2 mb-4">
               <h1 className="text-4xl text-start font-extrabold dark:text-white">
@@ -805,13 +837,20 @@ const Product = () => {
                                 className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
                                 <div className="flex items-center mr-3">
-                                  <img
-                                    src={`${
-                                      import.meta.env.VITE_REACT_APP_BASE_URL
-                                    }/${item.ProductImage}`}
-                                    alt=""
-                                    className="h-8 w-auto mr-3"
-                                  />
+                                  {item.ProductOtherImage &&
+                                    item.ProductOtherImage.length >= 1 && (
+                                      <img
+                                        src={`${
+                                          import.meta.env
+                                            .VITE_REACT_APP_BASE_URL
+                                        }/${
+                                          item.ProductOtherImage[0]
+                                            .OtherImagesName
+                                        }`}
+                                        alt=""
+                                        className="h-8 w-auto mr-3"
+                                      />
+                                    )}
                                 </div>
                               </th>
 
@@ -843,8 +882,7 @@ const Product = () => {
 
                                   <button
                                     type="button"
-                                    data-modal-target="delete-modal"
-                                    data-modal-toggle="delete-modal"
+                                    onClick={() => deleteHandler(item._id)}
                                     className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                                   >
                                     Delete

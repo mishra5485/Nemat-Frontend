@@ -11,13 +11,13 @@ const Edit_Product = () => {
   const [loading, setLoading] = useState(true);
   const [AllCategoryData, setAllCategoryData] = useState();
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
-  const [AllFragranceData, setAllFragranceData] = useState();
+  // const [AllFragranceData, setAllFragranceData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
-  const [isChecked, setIsChecked] = useState();
+  // const [isChecked, setIsChecked] = useState();
 
   useEffect(() => {
     FetchProductDetailId();
-  }, []);
+  }, []); 
 
   const FetchProductDetailId = async () => {
     try {
@@ -67,14 +67,14 @@ const Edit_Product = () => {
         allDataLoadedSuccessfully = false;
       }
 
-      const fragranceResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/fragrances/getall`
-      );
-      if (fragranceResponse.status === 200) {
-        setAllFragranceData(fragranceResponse.data);
-      } else {
-        allDataLoadedSuccessfully = false;
-      }
+      // const fragranceResponse = await axios.get(
+      //   `${import.meta.env.VITE_REACT_APP_BASE_URL}/fragrances/getall`
+      // );
+      // if (fragranceResponse.status === 200) {
+      //   setAllFragranceData(fragranceResponse.data);
+      // } else {
+      //   allDataLoadedSuccessfully = false;
+      // }
 
       // Set loading state only if all data loaded successfully
       if (allDataLoadedSuccessfully) {
@@ -212,10 +212,10 @@ const Edit_Product = () => {
     }
   };
 
-  const handleCheckboxChange = () => {
-    setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
-    setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
-  };
+  // const handleCheckboxChange = () => {
+  //   setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
+  //   setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
+  // };
 
   const handlerChangefunction = async (category_ID ) => {
     const _id = category_ID
@@ -277,6 +277,7 @@ const Edit_Product = () => {
               id="productimg"
               onChange={(e) => handleFileChange(e, "productimg")}
               className="mt-1 p-2 w-full border rounded-md"
+              multiple
             />
             <div className="flex  justify-center">
               {imagePreviewMobile ? (
@@ -286,13 +287,21 @@ const Edit_Product = () => {
                   className="mt-2 w-[90%] h-[250px]"
                 />
               ) : (
-                <img
-                  src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
-                    ProductData?.ProductImage
-                  }`}
-                  alt="Banner Mobile"
-                  className="mt-2 w-[90%] h-[250px]"
-                />
+                            <div>
+              {ProductData.ProductOtherImage.map((image, index) => (
+
+                <div key={index}>
+                  <img
+                    src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${image.OtherImagesName}`}
+                    alt={`Product Image ${index}`}
+                    className="mt-2 w-[90%] h-[250px]"
+                  />
+                  <div className="flex gap-x-3">
+                  <button >Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
               )}
             </div>
           </div>
@@ -378,28 +387,7 @@ const Edit_Product = () => {
                 ))}
               </select>
             </div>
-             <div>
-              <label
-                htmlFor="category"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Select Fragrance 
-              </label>
-              <select
-                id="CategoryId"
-                key={values.CategoryId}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                onChange={handleChange}
-                value={values.CategoryId}
-              >
-                <option value="">Select category</option>
-                {AllFragranceData?.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.Name}
-                  </option>
-                ))}
-              </select>
-            </div>
+             
             <div>
               <label
                 htmlFor="Price"
@@ -417,31 +405,6 @@ const Edit_Product = () => {
                 placeholder="Type product name"
               />
             </div>
-            <br/>
-
-             <div className="flex items-start justify-start mb-6">
-            <div className="flex items-start mb-3">
-              <div className="flex items-center h-5">
-                <input
-                  type="checkbox"
-                  id="whatappcheck"
-                  checked={values.AutheticStepFlag === 1 }
-                  onChange={handleCheckboxChange}
-                  className="w-4 h-4 border mt-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                />
-              </div>
-              <label
-                htmlFor="remember"
-                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                <span className="text-blue-600 text-2xl hover:underline dark:text-blue-500">
-                  Authentic Step{" "}
-                </span>
-                .
-              </label>
-            </div>
-          </div>
-          <br/>
                   
             <div>
               <label
