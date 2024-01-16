@@ -215,16 +215,6 @@ const Sidebar1 = () => {
                       Product
                     </NavLink>
                   </li>
-
-                  <li>
-                    <NavLink
-                      to="product_review"
-                      onClick={handleMenuItemClick}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                         Product Review
-                    </NavLink>
-                  </li>
                 </ul>
               </li>
               <li>
@@ -275,7 +265,7 @@ const Sidebar1 = () => {
                       Quantity Scheme
                     </NavLink>
                   </li>
-                   <li>
+                   {/* <li>
                     <NavLink
                       to="fragrance"
                       onClick={handleMenuItemClick}
@@ -283,7 +273,7 @@ const Sidebar1 = () => {
                     >
                       All Fragrance 
                     </NavLink>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
 
