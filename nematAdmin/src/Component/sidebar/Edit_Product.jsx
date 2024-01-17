@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Edit_Product = () => {
@@ -13,6 +14,7 @@ const Edit_Product = () => {
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
   // const [AllFragranceData, setAllFragranceData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
+  const [allImageFile, setAllImageFile] = useState([]);
   // const [isChecked, setIsChecked] = useState();
 
   useEffect(() => {
@@ -114,17 +116,17 @@ const Edit_Product = () => {
       .required("Please Enter Product Decription"),
     CategoryId: yup.string().min(2).required("Please Select Any Category "),
     sub_CategoryId: yup.string().min(2).required("Please Select Any Category "),
-    FragranceId: yup
-      .string()
-      .min(2)
-      .required("Please Select Any Fragrance Name"),
-    AutheticStepFlag: yup
-      .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid number")
-      .min(1)
-      .max(999999)
-      .required("Enter the Zip Code"),
+    // FragranceId: yup
+    //   .string()
+    //   .min(2)
+    //   .required("Please Select Any Fragrance Name"),
+    // AutheticStepFlag: yup
+    //   .number()
+    //   .typeError("Please enter a valid number")
+    //   .integer("Please enter a valid number")
+    //   .min(1)
+    //   .max(999999)
+    //   .required("Enter the Zip Code"),
     Price: yup
       .number()
       .typeError("Please enter a valid number")
@@ -145,8 +147,8 @@ const Edit_Product = () => {
         Description: "",
         CategoryId: "",
         sub_CategoryId: "",
-        FragranceId: "",
-        AutheticStepFlag: 0,
+        // FragranceId: "",
+        // AutheticStepFlag: 0,
         Price: "",
         metaTitle: "",
         metaDesc: "",
@@ -154,19 +156,22 @@ const Edit_Product = () => {
         slugUrl: "",
       }
     : {
-        productimg: null,
+        productimg: ProductData.ProductOtherImage,
         productName: ProductData.Name,
         Description: ProductData.Description,
         CategoryId: ProductData.CategoryId,
         sub_CategoryId: ProductData.SubCategoryId,
-        FragranceId: ProductData.FragranceId,
-        AutheticStepFlag: ProductData.AuthenticStepflag,
+        // FragranceId: ProductData.FragranceId,
+        // AutheticStepFlag: ProductData.AuthenticStepflag,
         Price: ProductData.Price,
         metaTitle: ProductData.MetaTitle,
         metaDesc: ProductData.MetaDesc,
         metaKeyword: ProductData.MetaKeyWord,
         slugUrl: ProductData.SlugUrl,
       };
+
+
+    let ProductName = ProductData?.Name
 
   const {
     values,
@@ -182,43 +187,128 @@ const Edit_Product = () => {
     initialValues,
     validationSchema:ProductObject,
     enableReinitialize: true,
+
+    onSubmit:async (values ) => {
+
+      console.log("I am inside Sumbit Page ")
+
+      const formData = new FormData();
+      [...allImageFile].forEach((image) => {
+        formData.append("ProductOtherImage", image);
+      });
+      formData.append("Name", values.productName);
+      formData.append("Description", values.Description);
+      formData.append("CategoryId", values.CategoryId);
+      formData.append("SubCategoryId", values.sub_CategoryId);
+      // const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
+      // formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
+      // formData.append("AuthenticStepflag", values.AutheticStepFlag);
+      formData.append("SlugUrl", values.slugUrl);
+      formData.append("MetaTitle", values.metaTitle);
+      formData.append("MetaDesc", values.metaDesc);
+      formData.append("MetaKeyWord", values.metaKeyword);
+      formData.append("Price", values.Price);
+
+
+      if (values.productName === ProductName) {
+      formData.delete("Name", values.name);
+      }
+
+      const payload = {
+        CategoryId: values.CategoryId,
+        SubCategoryId : values.sub_CategoryId
+      }
+
+      console.log("payload" ,  payload)
+
+       try {
+        let response = await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/updatebyId/${_id}`,
+          formData
+        );
+
+        console.log(response);
+
+        if (response.status === 200) {
+          console.log("New Product Created ");
+          toast.success(response.data);
+          resetForm();
+        }
+      } catch (error) {
+        if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            toast.error(data);
+          }
+        }
+      }
+
+    }
   });
 
   console.log("ProductData => ", ProductData);
 
-  const handleFileChange = (event, field) => {
-    const file = event.target.files[0];
+  // const handleFileChange = (event, field) => {
+  //   const file = event.target.files[0];
 
-    setFieldValue(field, file); // Set the file in the form state
+  //   setFieldValue(field, file); // Set the file in the form state
 
-    if (file) {
-      // Use FileReader to read the selected file and set the preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (field === "bannerImageMobile") {
-          setImagePreviewMobile(reader.result);
-        } else if (field === "bannerImageDesktop") {
-          setImagePreviewDesktop(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    } else {
-      // Reset the preview if no file is selected
-      if (field === "bannerImageMobile") {
-        setImagePreviewMobile(null);
-      } else if (field === "bannerImageDesktop") {
-        setImagePreviewDesktop(null);
-      }
-    }
-  };
+  //   if (file) {
+  //     // Use FileReader to read the selected file and set the preview
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       if (field === "bannerImageMobile") {
+  //         setImagePreviewMobile(reader.result);
+  //       } else if (field === "bannerImageDesktop") {
+  //         setImagePreviewDesktop(reader.result);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     // Reset the preview if no file is selected
+  //     if (field === "bannerImageMobile") {
+  //       setImagePreviewMobile(null);
+  //     } else if (field === "bannerImageDesktop") {
+  //       setImagePreviewDesktop(null);
+  //     }
+  //   }
+  // };
 
   // const handleCheckboxChange = () => {
   //   setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
   //   setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
   // };
 
+ const handleFileChange = (e, fieldName) => {
+  const newImage = e.target.files;
+
+  // Update form values with the new image
+  setFieldValue(fieldName, [newImage]);
+
+  // Remove existing images when a new image is selected
+  setFieldValue("productimg", []);
+  setAllImageFile(newImage)
+  console.log("newImage =====>" , newImage)
+};
+
+// const handleDeleteImage = (index) => {
+//   const updatedImages = values.productimg.filter((_, i) => i !== index);
+//   setFieldValue("productimg", updatedImages);
+// };
+
   const handlerChangefunction = async (category_ID ) => {
     const _id = category_ID
+
     // console.log(category_ID === undefined);
     // const _id = category_ID === undefined ? event.target.value  : category_ID;
     
@@ -255,11 +345,12 @@ const Edit_Product = () => {
 
   return (
     <div>
+      <Toaster/>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <form
-          onSubmit={(e) => {
+           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e);
           }}
@@ -288,20 +379,21 @@ const Edit_Product = () => {
                 />
               ) : (
                             <div>
-              {ProductData.ProductOtherImage.map((image, index) => (
-
-                <div key={index}>
-                  <img
-                    src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${image.OtherImagesName}`}
-                    alt={`Product Image ${index}`}
-                    className="mt-2 w-[90%] h-[250px]"
-                  />
-                  <div className="flex gap-x-3">
-                  <button >Delete</button>
+              {values.productimg && values.productimg.map((image, index) => (
+                  <div key={index}>
+                    {image instanceof Blob && (
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Product Image ${index}`}
+                        className="mt-2 w-[90%] h-[250px]"
+                      />
+                    )}
+                    {/* <div className="flex gap-x-3">
+                      <button type="button" onClick={() => handleDeleteImage(index)}>Delete</button>
+                    </div> */}
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+                  </div>
               )}
             </div>
           </div>
@@ -321,6 +413,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 value={values.productName}
                 placeholder="Type product name"
+                required
               />
             </div>
             <div>
@@ -363,6 +456,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 value={values.Description}
                 placeholder="Write product description here"
+                required
               ></textarea>
             </div>
              <div>
@@ -373,11 +467,11 @@ const Edit_Product = () => {
                 Select Sub-Category
               </label>
               <select
-                id="CategoryId"
-                key={values.CategoryId}
+                id="sub_CategoryId"
+                key={values.sub_CategoryId}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 onChange={handleChange}
-                value={values.CategoryId}
+                value={values.sub_CategoryId}
               >
                 <option value="">Select category</option>
                 {AllSub_CategoryData?.map((category) => (
@@ -403,6 +497,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 value={values.Price}
                 placeholder="Type product name"
+                required
               />
             </div>
                   
@@ -421,6 +516,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 placeholder="Type product name"
                 value={values.slugUrl}
+                required
               />
             </div>
             <div>
@@ -438,6 +534,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 placeholder="Type product name"
                 value={values.metaTitle}
+                required
               />
             </div>
             <div>
@@ -455,6 +552,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 placeholder="Type product name"
                 value={values.metaKeyword}
+                required
               />
             </div>
   
@@ -474,6 +572,7 @@ const Edit_Product = () => {
                 onChange={handleChange}
                 value={values.metaDesc}
                 placeholder="Write product description here"
+                required
               ></textarea>
             </div>
           </div>
