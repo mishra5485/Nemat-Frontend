@@ -120,6 +120,7 @@ const DiscountSlabe = () => {
           console.log("New Category Created ");
           setShowForm(false)
           fetchData();
+          resetForm();
         }
       } catch (error) {
         if (error.response) {
