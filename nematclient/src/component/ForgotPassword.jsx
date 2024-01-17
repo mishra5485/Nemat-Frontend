@@ -1,61 +1,63 @@
-  import  { useState } from "react";
-  import { IoMdEye, IoIosEyeOff } from "react-icons/io";
-  import loginBG from "../assets/loginImages/loginImage.png";
-  import { useFormik } from "formik";
-  // import * as yup from "yup";
-  import logo from "../assets/loginImages/nematEnterprisesLogo.png";
-  import axios from "axios";
-  import ChangePassword from "./ChangePassword";
-  import { useDispatch } from "react-redux";
-  import { setUser } from "../slices/profileSlice";
-  import { Link, useNavigate } from "react-router-dom";
-  import toast, { Toaster } from "react-hot-toast";
-  import { LoginObjectSchema } from "../validationSchem/index.js";
-  import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
-  import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
+import  { useState } from "react";
+import { IoMdEye, IoIosEyeOff } from "react-icons/io";
+import loginBG from "../assets/loginImages/loginImage.png";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import logo from "../assets/loginImages/nematEnterprisesLogo.png";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/profileSlice";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
+import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import RightToLeftanm from "../style/RightToLeftanm";
 
-  const Login = () => {
+
+const ForgotPassword = () => {
+
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
-    const [changePassword, setChangePassword] = useState(true);
+    const [ConfirmshowPassword, setConfirmShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    //Toggling for show password or hide password
-    const showHandler = () => {
-      setShowPassword(!showPassword);
+    const showHandler = (field) => {
+        switch (field) {
+          case 'newpassword':
+            setShowPassword(!showPassword);
+            break;
+          case 'confirmPWD':
+            setConfirmShowPassword(!ConfirmshowPassword);
+            break;
+          default:
+            break;
+        }
     };
 
-    //Checking the data which your put is valid or not SChema.
-    // const objectSchem = yup.object({
-    //   currentpassword: yup.string().min(5).required("Enter the current Password"),
-    //   newpassword: yup.string().min(5).required("Enter the New Password"),
-    //   confirmPWD: yup
-    //     .string()
-    //     .min(5)
-    //     .oneOf([yup.ref("newpassword"), null], "Passwords must match")
-    //     .required("Confirm the Password"),
-    // });
+      const objectSchem = yup.object({
+        email: yup.string().min(5).required("Enter the current Password"),
+        newpassword: yup.string().min(5).required("Enter the New Password"),
+        confirmPWD: yup
+          .string()
+          .min(5)
+          .oneOf([yup.ref("newpassword"), null], "Passwords must match")
+          .required("Confirm the Password"),
+      });
 
-    //initialValues of Form data After 1st Render State .
-    const initialValues = {
-      email: "",
-      password: "",
-      curremtPWD: "",
-      newpassword: "",
-      confirmPWD: "",
-    };
+      const initialValues = {
+        email: "",
+        newpassword: "",
+        confirmPWD: "",
+      };
 
-
-    //Handling the Data.
-    const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+      const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
       useFormik({
         initialValues,
-        validationSchema: LoginObjectSchema,
+        validationSchema: objectSchem,
         onSubmit: async (values,) => {
           const palyload = {
             Email: values.email,
-            password: values.password,
+            password: values.newpassword,
           };
           try {
             let response = await axios.post(
@@ -68,16 +70,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
             if (response.status === 200) {
               const Customer_id = response.data;
               dispatch(setUser(Customer_id));
-              if (response?.data?.SkipChangeDefaultPasswordPage === 1) {
-                //if user success full login and he alredy change the password.
-                // Redirect toward Home or Menu page
-                toast.success("Login successfully");
-                navigate("/");
-              } else {
-                // we need to Render Change Password Component
-
-                setChangePassword(false);
-              }
+              navigate("/")
             }
           } catch (error) {
             //Error which Coming From Server.
@@ -100,8 +93,9 @@ import RightToLeftanm from "../style/RightToLeftanm";
         },
       });
 
-    return (
-          <div className='w-full h-full overflow-hidden object-cover md:flex md:w-full md:h-[100vh]'>
+  return (
+    <div>
+      <div className='w-full h-full overflow-hidden object-cover md:flex md:w-full md:h-[100vh]'>
             <Toaster/>
             {/* Image section with Logo */}
             <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
@@ -125,11 +119,8 @@ import RightToLeftanm from "../style/RightToLeftanm";
             <div className='sm:w-full  min-h-[65%] flex justify-center items-center m-auto'> 
             <div className='sm:w-[95%] mobile:w-[95%] md:w-[90%] md:h-[100%] '>
             <h2 className="overflow-hidden sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6  ">
-                {changePassword ? "Log in" : "Change Default Password"}
+                Forgot Password 
               </h2>
-              {
-                //if changePassword is True Then Render Login Page.
-                changePassword ? (
                   <form
                     action="#"
                     method="POST"
@@ -144,7 +135,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
                           className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl " 
                         >
                           {" "}
-                          Username{" "}
+                          Email Id{" "}
                         </label>
                         <div className="mobile:mt-0 ">
                           <input
@@ -165,6 +156,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
                           )}
                         </div>
                       </div>
+
                       <div className='mt-2 md:py-4'>
                         <div>
                           <label
@@ -172,78 +164,88 @@ import RightToLeftanm from "../style/RightToLeftanm";
                             className="mobile:text-xl font-Marcellus  text-[#642F29]"
                           >
                             {" "}
-                            Password{" "}
+                            New Password{" "}
                           </label>
                           <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
                             <input
                               className="flex h-10 w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
                               type={showPassword ? "text" : "password"}
-                              placeholder="Password"
-                              value={values.password}
-                              id="password"
+                              placeholder="Enter New Password "
+                              value={values.newpassword}
+                              id="newpassword"
                               onChange={handleChange}
                               onBlur={handleBlur}
                             ></input>
 
                             <span className="overflow-hidden">
-                              {showPassword ? (
-                                <IoMdEye onClick={showHandler} size={20} />
-                              ) : (
-                                <IoIosEyeOff onClick={showHandler} size={20} />
-                              )}
+                            {
+                                     showPassword   ? <IoMdEye onClick={() => showHandler('newpassword')} size={20}/> : <IoIosEyeOff onClick={() => showHandler('newpassword')} size={20}/>
+                            }
                             </span>
                           </div>
                         </div>
-                        {errors.password && touched.password ? (
+                        {errors.newpassword && touched.newpassword ? (
                           <p className="font-Marcellus text-red-900">
-                            {errors.password}
+                            {errors.newpassword}
                           </p>
                         ) : (
                           null
                         )}
                       </div>
-                      <div className='flex flex-col'>
-                        <p className=" text-sm font-Marcellus text-[#642F29] text-center md:text-start md:pb-5 mt-[20px] gap-6">
-                          <Link
-                            to=""
-                            title=""
-                            className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl"
+
+                      <div className='mt-2 md:py-4'>
+                        <div>
+                          <label
+                            htmlFor=""
+                            className="mobile:text-xl font-Marcellus  text-[#642F29]"
                           >
-                            FORGOT PASSWORD
-                          </Link>
-                        </p>
+                            {" "}
+                            Confirm New Password{" "}
+                          </label>
+                          <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
+                            <input
+                              className="flex h-10 w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
+                              type={ConfirmshowPassword ? "text" : "password"}
+                              placeholder="Enter New Confrim Password "
+                              value={values.confirmPWD}
+                              id="confirmPWD"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            ></input>
+
+                            <span className="overflow-hidden">
+                            {
+                                     ConfirmshowPassword   ? <IoMdEye onClick={() => showHandler('confirmPWD')} size={20}/> : <IoIosEyeOff onClick={() => showHandler('confirmPWD')} size={20}/>
+                            }
+                            </span>
+                          </div>
+                        </div>
+                        {errors.confirmPWD && touched.confirmPWD ? (
+                          <p className="font-Marcellus text-red-900">
+                            {errors.confirmPWD}
+                          </p>
+                        ) : (
+                          null
+                        )}
+                      </div>
+
+                     
+                      <div className='flex flex-col'>
 
                         <button
                           type="submit"
                           className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
                         >
-                          LOG IN
+                          Change Password 
                         </button> 
-                        <p className=" text-sm md:text-start font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
-                          Don&apos;t have an account? {""}
-                          <Link
-                            to="/companydetails"
-                            title=""
-                            className=" font-Marcellus  text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
-                          >
-                            REQUEST AN ACCOUNT
-                          </Link>
-                        </p>
                       </div>
                     </div>
                   </form>
-                ) : (
-                  <>
-                    {/* if user First time login we need show him change password component for the 1st time only */}
-                    <ChangePassword />
-                  </>
-                )
-              }
               </div>
             </div>
           </div>
+    </div>
+  )
+}
 
-    );
-  };
-
-  export default Login;
+export default ForgotPassword

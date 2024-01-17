@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Login from './component/Login'
 import ChangePassword from './component/ChangePassword'
@@ -10,6 +9,7 @@ import {PrivateRoute }from './component/auth/PrivateRoute'
 import RequestSent from './regestation/RequestSent'
 import PasswordUpdated from './component/passwordUpdated'
 import Cart from './component/Cart'
+import ForgotPassword from './component/ForgotPassword'
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
       <Routes>
         <Route  path='/' element={<Home/>}/>
         <Route  path='/login' element={<Login/>} />
+        <Route  path='/forgot' element={<ForgotPassword/>}/>
         <Route  path='/companydetails' element={<CompanyDetails/>} />
         <Route  path='/cart' element={<Cart/>} />
         
