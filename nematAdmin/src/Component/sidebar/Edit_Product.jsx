@@ -15,6 +15,7 @@ const Edit_Product = () => {
   // const [AllFragranceData, setAllFragranceData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [allImageFile, setAllImageFile] = useState([]);
+  const [newImage , setNewImage] = useState(false)
   // const [isChecked, setIsChecked] = useState();
 
   useEffect(() => {
@@ -295,11 +296,14 @@ const Edit_Product = () => {
   // Update form values with the new image
   setFieldValue(fieldName, [newImage]);
 
-  // Remove existing images when a new image is selected
+  // For display update new Images 
+  setNewImage(true)
   setFieldValue("productimg", []);
   setAllImageFile(newImage)
   console.log("newImage =====>" , newImage)
 };
+
+console.log("allImageFile ===>", allImageFile)
 
 // const handleDeleteImage = (index) => {
 //   const updatedImages = values.productimg.filter((_, i) => i !== index);
@@ -371,26 +375,31 @@ const Edit_Product = () => {
               multiple
             />
             <div className="flex  justify-center">
-              {imagePreviewMobile ? (
-                <img
-                  src={imagePreviewMobile}
-                  alt="Banner Mobile"
-                  className="mt-2 w-[90%] h-[250px]"
-                />
+
+              {newImage ? (
+                  <div>
+      {/* Display new images here */}
+              {Array.from(allImageFile).map((file, index) => (
+  <div key={index}>
+    <img
+      src={URL.createObjectURL(file)}
+      alt={`New Image ${index}`}
+      className="mt-2 w-[90%] h-[250px]"
+    />
+  </div>
+))}
+            </div>
               ) : (
-                            <div>
-              {values.productimg && values.productimg.map((image, index) => (
+            <div>
+              {ProductData.ProductOtherImage &&
+                ProductData.ProductOtherImage.map((image, index) => (
                   <div key={index}>
-                    {image instanceof Blob && (
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt={`Product Image ${index}`}
-                        className="mt-2 w-[90%] h-[250px]"
-                      />
-                    )}
-                    {/* <div className="flex gap-x-3">
-                      <button type="button" onClick={() => handleDeleteImage(index)}>Delete</button>
-                    </div> */}
+                    <img
+                      src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${image.OtherImagesName}`}
+                      alt={`Product Image ${index}`}
+                      className="mt-2 w-[90%] h-[250px]"
+                    />
+                    {/* You can include delete or other actions if needed */}
                   </div>
                 ))}
                   </div>
