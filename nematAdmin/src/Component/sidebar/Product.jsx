@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Multiselect from "multiselect-react-dropdown";
-import ReactImageUploading from "react-images-uploading";
+
 
 const Product = () => {
   const [AllCategoryData, setAllCategoryData] = useState();
@@ -252,18 +251,18 @@ const Product = () => {
     //   setFieldValue("productimg", File);
     // };
 
-    const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+  //   const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setSelectedImage(reader.result);
-    };
+  //   reader.onloadend = () => {
+  //     setSelectedImage(reader.result);
+  //   };
 
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleFileChangeMultiples = (e) => {
     console.log("handleFileChangeMultiples");
@@ -362,10 +361,10 @@ const Product = () => {
     }
   };
 
-   const handleAddClick = () => {
-    setImages([...images, selectedImage]);
-    setSelectedImage('');
-  };
+  //  const handleAddClick = () => {
+  //   setImages([...images, selectedImage]);
+  //   setSelectedImage('');
+  // };
 
   return (
     <div className="text-center">
@@ -385,7 +384,7 @@ const Product = () => {
           }}
         >
 
-          <div className="m-4 text-start">
+          {/* <div className="m-4 text-start">
       <label className="inline-block text-start mb-2 text-gray-500">
         Upload Image (jpg, png, svg, jpeg)
       </label>
@@ -396,7 +395,7 @@ const Product = () => {
             alt={`Selected Product Image ${index + 1}`}
             className="object-cover w-24 h-24 mr-4"
           />
-          {/* Add any additional input fields or customization for each image */}
+          
         </div>
       ))}
       <div className="flex items-center justify-start w-full">
@@ -435,7 +434,7 @@ const Product = () => {
       <button type="button" onClick={handleAddClick} className="text-center text-2xl">
         ADD
       </button>
-    </div>
+          </div>/// */}
 
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
@@ -469,7 +468,7 @@ const Product = () => {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="" disabled>
+                <option value="" >
                   Select Category
                 </option>
                 {AllCategoryData?.map((category) => (
