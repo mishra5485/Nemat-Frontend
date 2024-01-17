@@ -46,7 +46,7 @@ const Category = () => {
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Category"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
-    cartDiscount: yup.string().min(2).nullable(),
+    cartDiscount: yup.string().min(2).required("Please Select CartDiscount "),
     // bannerImageMobile: yup.string().required("Select the Picture "),
     // bannerImageDesktop: yup.string().required("Select the Picture "),
   });
@@ -210,7 +210,7 @@ const Category = () => {
   console.log(" send Id in URl", showform);
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
           Category Page
@@ -322,6 +322,7 @@ const Category = () => {
                         value={values.cartDiscount}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
+                        required
                       >
                         <option value="" disabled>
                           Select Cart Discount Slab
@@ -408,7 +409,7 @@ const Category = () => {
         </>
       ) : null}
       <Toaster />
-      <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+      <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased ">
         <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
@@ -421,7 +422,6 @@ const Category = () => {
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
                     <input
                       type="text"
-                      id="simple-search"
                       placeholder="Search for products"
                       required=""
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -440,11 +440,11 @@ const Category = () => {
               </div>
             </div>
 
-            <div className="">
+            <div className="overflow-y-auto">
               {loading ? (
                 <p>Loading...</p>
               ) : (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto overflow-y-auto">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="w-full ">

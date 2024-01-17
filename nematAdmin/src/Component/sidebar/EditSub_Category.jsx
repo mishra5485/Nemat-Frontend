@@ -65,8 +65,8 @@ const EditSub_Category = () => {
         cgst: "",
         PackSizes: [],
         quantity: "",
-        bannerImageMobile: "",
-        bannerImageDesktop: "",
+        // bannerImageMobile: "",
+        // bannerImageDesktop: "",
         seriesImage: "",
       }
     : {
@@ -81,8 +81,8 @@ const EditSub_Category = () => {
         cgst: Sub_CategoryData.CGST,
         PackSizes: Sub_CategoryData?.PackSizes || [],
         quantity: Sub_CategoryData.QuantitySchemeId,
-        bannerImageMobile: null,
-        bannerImageDesktop: null,
+        // bannerImageMobile: null,
+        // bannerImageDesktop: null,
         seriesImage: null,
       };
 
@@ -112,8 +112,8 @@ const EditSub_Category = () => {
     )
     .min(1, "At least one pack size is required"),
     quantity: yup.string().min(2).nullable(),
-    bannerImageMobile: yup.string().nullable(),
-    bannerImageDesktop: yup.string().nullable(),
+    seriesImage : yup.string().required()   // bannerImageMobile: yup.string().nullable(),
+    // bannerImageDesktop: yup.string().nullable(),
   });
 
   let Sub_CategoryDataName = Sub_CategoryData?.Name
@@ -149,14 +149,14 @@ const EditSub_Category = () => {
       formData.append("QuantitySchemeId", values.quantity);
       formData.append("PackSizes", JSON.stringify(values.PackSizes));
       // Check if imagePreviewMobile is not null before appending to FormData
-      if (imagePreviewMobile !== null) {
-        formData.append("MobilebannerImage", values.bannerImageMobile);
-      }
+      // if (imagePreviewMobile !== null) {
+      //   formData.append("MobilebannerImage", values.bannerImageMobile);
+      // }
 
-      // Check if imagePreviewDesktop is not null before appending to FormData
-      if (imagePreviewDesktop !== null) {
-        formData.append("DesktopbannerImage", values.bannerImageDesktop);
-      }
+      // // Check if imagePreviewDesktop is not null before appending to FormData
+      // if (imagePreviewDesktop !== null) {
+      //   formData.append("DesktopbannerImage", values.bannerImageDesktop);
+      // }
 
       if (Image !== null) {
         formData.append("Image", values.seriesImage);
@@ -459,7 +459,7 @@ const EditSub_Category = () => {
             </div>
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               htmlFor="fileInput1"
               className="block text-sm font-medium text-gray-600"
@@ -489,8 +489,8 @@ const EditSub_Category = () => {
                 />
               )}
             </div>
-          </div>
-          <div className="mb-4">
+          </div> */}
+          {/* <div className="mb-4">
             <label
               htmlFor="fileInput2"
               className="block text-sm font-medium text-gray-600"
@@ -520,7 +520,7 @@ const EditSub_Category = () => {
                 />
               )}
             </div>
-          </div>
+          </div> */}
           <div className="mb-4">
             <label
               htmlFor="fileInput2"

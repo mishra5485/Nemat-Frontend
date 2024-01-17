@@ -113,8 +113,8 @@ const Sub_Category = () => {
         })
       )
       .min(1, "At least one pack size is required"),
-    bannerImageMobile: yup.string().required("Select the Picture "),
-    bannerImageDesktop: yup.string().required("Select the Picture "),
+    // bannerImageMobile: yup.string().required("Select the Picture "),
+    // bannerImageDesktop: yup.string().required("Select the Picture "),
     seriesImage: yup.string().required("Select the Picture "),
   });
 
@@ -130,8 +130,8 @@ const Sub_Category = () => {
     sub_category_SGST: "",
     sub_category_CGST: "",
     packSizes: [0, 0, 0],
-    bannerImageMobile: null,
-    bannerImageDesktop: null,
+    // bannerImageMobile: null,
+    // bannerImageDesktop: null,
     seriesImage: null,
   };
 
@@ -162,27 +162,27 @@ const Sub_Category = () => {
       formData.append("SGST", values.sub_category_SGST);
       formData.append("CGST", values.sub_category_CGST);
       formData.append("PackSizes", JSON.stringify(values.packSizes));
-      formData.append("MobilebannerImage", values.bannerImageMobile);
-      formData.append("DesktopbannerImage", values.bannerImageDesktop);
+      // formData.append("MobilebannerImage", values.bannerImageMobile);
+      // formData.append("DesktopbannerImage", values.bannerImageDesktop);
       formData.append("Image", values.seriesImage);
 
-      const payload = {
-        // Name: values.name,
-        // Category: values.category,
-        // MetaTitle: values.metaTitle,
-        // MetaDes: values.metaDesc,
-        // MetaKeyWor: values.metaKeyword,
-        // SlugUrl: values.slugUrl,
-        // QuantitySchemeId: values.quantity,
-        // Ml: values.sub_category_ML,
-        // SGST: values.sub_category_SGST,
-        // CGST: values.sub_category_CGST,
-        packSize:values.packSizes,
-        // image: values.bannerImageMobile,
-        // bannerImage: values.bannerImageDesktop,
-      };
+      // const payload = {
+      //   // Name: values.name,
+      //   // Category: values.category,
+      //   // MetaTitle: values.metaTitle,
+      //   // MetaDes: values.metaDesc,
+      //   // MetaKeyWor: values.metaKeyword,
+      //   // SlugUrl: values.slugUrl,
+      //   // QuantitySchemeId: values.quantity,
+      //   // Ml: values.sub_category_ML,
+      //   // SGST: values.sub_category_SGST,
+      //   // CGST: values.sub_category_CGST,
+      //   // packSize:values.packSizes,
+      //   // image: values.bannerImageMobile,
+      //   // bannerImage: values.bannerImageDesktop,
+      // };
 
-      console.log("Payload -> ", payload);
+      // console.log("Payload -> ", payload);
       // console.log(" formData image-> ", formData);
 
       try {
@@ -515,7 +515,7 @@ const Sub_Category = () => {
                     </div>
 
                     {/* File inputs */}
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
@@ -537,9 +537,9 @@ const Sub_Category = () => {
                           className="mt-2 w-full h-auto"
                         />
                       )}
-                    </div>
+                    </div> */}
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
@@ -561,7 +561,7 @@ const Sub_Category = () => {
                           className="mt-2 w-full h-auto"
                         />
                       )}
-                    </div>
+                    </div> */}
 
                     <div className="mb-4">
                       <label
@@ -662,12 +662,12 @@ const Sub_Category = () => {
                             </label>
                           </div>
                         </th>
-                        <th scope="col" className="p-4">
+                        {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
                         <th scope="col" className="p-4">
                           Desktop Image
-                        </th>
+                        </th> */}
                         <th scope="col" className="p-4">
                           Series Image
                         </th>
@@ -708,7 +708,7 @@ const Sub_Category = () => {
                                 </label>
                               </div>
                             </td>
-                            <th
+                            {/* <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
@@ -721,8 +721,8 @@ const Sub_Category = () => {
                                   className="h-8 w-auto mr-3"
                                 />
                               </div>
-                            </th>
-                            <th
+                            </th> */}
+                            {/* <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
@@ -734,7 +734,7 @@ const Sub_Category = () => {
                                   className="h-8 w-auto mr-3"
                                 />
                               </div>
-                            </th>
+                            </th> */}
                             <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
