@@ -222,6 +222,7 @@ const Product = () => {
           console.log("New Product Created ");
           toast.success("New Product Created");
           resetForm();
+          setImages([])
         }
       } catch (error) {
         if (error.response) {
@@ -336,7 +337,7 @@ const Product = () => {
       );
 
       if (deleteData.status === 200) {
-        toast.success(" Category Deleted");
+        toast.success(deleteData.data);
         getAllProductData();
       }
     } catch (error) {
@@ -345,7 +346,6 @@ const Product = () => {
 
         if (
           status === 404 ||
-          status === 403 ||
           status === 500 ||
           status === 302 ||
           status === 409 ||
@@ -355,7 +355,7 @@ const Product = () => {
           console.log(error.response);
           toast.error(data);
         } else if (status === 403) {
-          allProductData([]);
+          setAllProductData();
         }
       }
     }
@@ -730,12 +730,22 @@ const Product = () => {
               />
             </div>
           </div>
+          <div className="flex justify-start gap-4">
+
           <button
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
+            >
             Submit
           </button>
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+            Back
+          </button>
+            </div>
         </form>
       ) : (
         // Display All Data OF Product

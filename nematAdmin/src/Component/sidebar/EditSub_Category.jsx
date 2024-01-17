@@ -178,7 +178,7 @@ const EditSub_Category = () => {
 
         if (response.status === 200) {
           console.log(" Category Updated ");
-          toast.success("Sub-Category Updated scessfully");
+          toast.success(response.data);
           navigate("/dashboard/sub_category");
           
         }
