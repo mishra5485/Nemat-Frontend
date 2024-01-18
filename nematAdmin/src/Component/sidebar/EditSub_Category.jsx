@@ -112,7 +112,7 @@ const EditSub_Category = () => {
     )
     .min(1, "At least one pack size is required"),
     quantity: yup.string().min(2).nullable(),
-    seriesImage : yup.string().required()   // bannerImageMobile: yup.string().nullable(),
+    seriesImage : yup.string().nullable()   // bannerImageMobile: yup.string().nullable(),
     // bannerImageDesktop: yup.string().nullable(),
   });
 
