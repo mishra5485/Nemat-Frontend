@@ -198,14 +198,14 @@ const BannerSlider = () => {
     );
 
     if (deleteBanner.status === 200) {
-      toast.success("Banner Deleted Successfully");
+      toast.success(deleteBanner.data);
        getAllBannerData();
     }
 
     console.log("Data Deleted ");
   } catch (error) {
     console.log(error);
-    toast.error("Failed to delete banner");
+    toast.error(error.data);
   }
  
 };
