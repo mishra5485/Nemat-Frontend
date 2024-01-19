@@ -65,6 +65,7 @@ const EditSub_Category = () => {
         cgst: "",
         PackSizes: [],
         quantity: "",
+        priority:"",
         // bannerImageMobile: "",
         // bannerImageDesktop: "",
         seriesImage: "",
@@ -81,6 +82,7 @@ const EditSub_Category = () => {
         cgst: Sub_CategoryData.CGST,
         PackSizes: Sub_CategoryData?.PackSizes || [],
         quantity: Sub_CategoryData.QuantitySchemeId,
+        priority:Sub_CategoryData.Priority,
         // bannerImageMobile: null,
         // bannerImageDesktop: null,
         seriesImage: null,
@@ -112,7 +114,8 @@ const EditSub_Category = () => {
     )
     .min(1, "At least one pack size is required"),
     quantity: yup.string().min(2).nullable(),
-    seriesImage : yup.string().nullable()   // bannerImageMobile: yup.string().nullable(),
+    seriesImage : yup.string().nullable()   
+    // bannerImageMobile: yup.string().nullable(),
     // bannerImageDesktop: yup.string().nullable(),
   });
 
@@ -143,11 +146,13 @@ const EditSub_Category = () => {
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("SlugUrl", values.slugUrl);
+      formData.append("Priority" , values.priority)
       formData.append("Ml", values.ml);
       formData.append("SGST", values.sgst);
       formData.append("CGST", values.cgst);
       formData.append("QuantitySchemeId", values.quantity);
       formData.append("PackSizes", JSON.stringify(values.PackSizes));
+      
       // Check if imagePreviewMobile is not null before appending to FormData
       // if (imagePreviewMobile !== null) {
       //   formData.append("MobilebannerImage", values.bannerImageMobile);
@@ -233,6 +238,54 @@ const EditSub_Category = () => {
       }
     }
   };
+
+  const privoritySub_Category = [
+    {
+      id:0,
+      value:0
+    },
+    {
+      id:1,
+      value:1
+    },
+    {
+      id:2,
+      value:2
+    },
+    {
+      id:3,
+      value:3
+    },
+    {
+      id:4,
+      value:4
+    },
+    {
+      id:5,
+      value:5
+    },
+    {
+      id:6,
+      value:6
+    },
+    {
+      id:7,
+      value:7
+    },
+    {
+      id:8,
+      value:8
+    },
+    {
+      id:9,
+      value:9
+    },
+    {
+      id:10,
+      value:10
+    },
+  ]
+
   return (
     <div className="overflow-x-hidden">
       {loading ? (
@@ -439,6 +492,28 @@ const EditSub_Category = () => {
                 ))}
               </div>
             </div>
+
+                <div className="mb-4">
+                      <label
+                        htmlFor="cartDiscount"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Category Sub-Priority
+                      </label>
+                      <select
+                        id="priority"
+                        name="priority"
+                        value={values.priority}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      >
+                        {privoritySub_Category.map((number) => (
+                          <option key={number.id} value={number.value}>
+                            {number.value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
             <div className="sm:col-span-2">
               <label

@@ -90,6 +90,7 @@ const Sub_Category = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     quantity: yup.string().required("Please Select Any One"),
+    priority:yup.string().nullable(),
     sub_category_ML: yup
       .number()
       .typeError("Please enter a valid number")
@@ -126,6 +127,7 @@ const Sub_Category = () => {
     metaKeyword: "",
     slugUrl: "",
     quantity: "",
+    priority:"",
     sub_category_ML: 0,
     sub_category_SGST: "",
     sub_category_CGST: "",
@@ -158,6 +160,7 @@ const Sub_Category = () => {
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("SlugUrl", values.slugUrl);
       formData.append("QuantitySchemeId", values.quantity);
+      formData.append("Priority" , values.priority)
       formData.append("Ml", values.sub_category_ML);
       formData.append("SGST", values.sub_category_SGST);
       formData.append("CGST", values.sub_category_CGST);
@@ -165,6 +168,12 @@ const Sub_Category = () => {
       // formData.append("MobilebannerImage", values.bannerImageMobile);
       // formData.append("DesktopbannerImage", values.bannerImageDesktop);
       formData.append("Image", values.seriesImage);
+
+
+
+      if (values.priority === "") {
+        formData.delete("Priority", values.priority);
+      }
 
       // const payload = {
       //   // Name: values.name,
@@ -291,6 +300,50 @@ const Sub_Category = () => {
       }
     }
   };
+
+   const privoritySub_Category = [
+    {
+      id:1,
+      value:1
+    },
+    {
+      id:2,
+      value:2
+    },
+    {
+      id:3,
+      value:3
+    },
+    {
+      id:4,
+      value:4
+    },
+    {
+      id:5,
+      value:5
+    },
+    {
+      id:6,
+      value:6
+    },
+    {
+      id:7,
+      value:7
+    },
+    {
+      id:8,
+      value:8
+    },
+    {
+      id:9,
+      value:9
+    },
+    {
+      id:10,
+      value:10
+    },
+  ]
+
   return (
     <div className="text-center">
       <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
@@ -437,6 +490,31 @@ const Sub_Category = () => {
                         {quantityData?.map((quantity) => (
                           <option key={quantity._id} value={quantity._id}>
                             {quantity.Name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="mb-4">
+                      <label
+                        htmlFor="cartDiscount"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Category Priority
+                      </label>
+                      <select
+                        id="priority"
+                        name="priority"
+                        value={values.priority}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      >
+                         <option value="">
+                            Select Priority of Sub_Category
+                        </option>
+                        {privoritySub_Category.map((number) => (
+                          <option key={number.id} value={number.value}>
+                            {number.value}
                           </option>
                         ))}
                       </select>
@@ -683,6 +761,12 @@ const Sub_Category = () => {
                         <th scope="col" className="p-4">
                           CGST{" "}
                         </th>
+                         <th scope="col" className="p-4">
+                            PRIORITY
+                        </th>
+                        <th scope="col" className="p-4">
+                            Actions
+                        </th>
                       </tr>
                     </thead>
 
@@ -762,6 +846,9 @@ const Sub_Category = () => {
 
                             <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                               {item.CGST}
+                            </td>
+                              <td className="px-9 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.Priority}
                             </td>
 
                             <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">

@@ -100,6 +100,11 @@ const Category = () => {
       };
 
       // console.log(" formData image-> ", formData.image);
+
+      if (values.priority === "") {
+        delete palyload.Priority;
+      }
+
       console.log("PAyload ", palyload);
 
       try {
@@ -209,49 +214,48 @@ const Category = () => {
 
   console.log(" send Id in URl", showform);
 
-
   const privorityCategory = [
     {
-      id:1,
-      value:1
+      id: 1,
+      value: 1,
     },
     {
-      id:2,
-      value:2
+      id: 2,
+      value: 2,
     },
     {
-      id:3,
-      value:3
+      id: 3,
+      value: 3,
     },
     {
-      id:4,
-      value:4
+      id: 4,
+      value: 4,
     },
     {
-      id:5,
-      value:5
+      id: 5,
+      value: 5,
     },
     {
-      id:6,
-      value:6
+      id: 6,
+      value: 6,
     },
     {
-      id:7,
-      value:7
+      id: 7,
+      value: 7,
     },
     {
-      id:8,
-      value:8
+      id: 8,
+      value: 8,
     },
     {
-      id:9,
-      value:9
+      id: 9,
+      value: 9,
     },
     {
-      id:10,
-      value:10
+      id: 10,
+      value: 10,
     },
-  ]
+  ];
 
   return (
     <div className="overflow-hidden">
@@ -392,6 +396,9 @@ const Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
+                        <option value="" disabled>
+                          Select Priority of Category
+                        </option>
                         {privorityCategory.map((number) => (
                           <option key={number.id} value={number.value}>
                             {number.value}
@@ -538,13 +545,11 @@ const Category = () => {
                           Cart Discount Name
                         </th>
                         <th scope="col" className="p-4">
-                          Meta Title
+                          PRIORITY
                         </th>
+
                         <th scope="col" className="p-4">
-                          MetaKeyWord
-                        </th>
-                        <th scope="col" className="p-4">
-                          SlugUrl
+                          Actions
                         </th>
                       </tr>
                     </thead>
@@ -608,14 +613,8 @@ const Category = () => {
                                 {item.CartDiscountName}
                               </span>
                             </td>
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.MetaTitle}
-                            </td>
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.MetaKeyWord}
-                            </td>
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.SlugUrl}
+                            <td className="px-8 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              {item.Priority}
                             </td>
 
                             <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
