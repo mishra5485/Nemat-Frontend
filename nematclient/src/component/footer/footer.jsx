@@ -81,17 +81,17 @@ const footer = ({ categoryData }) => {
       className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-Cream bg-cover"
     >
       <div className="w-[90%] h-full overflow-hidden  ">
-        <div className="w-full mobile:h-[20%] mobile:mt-[30%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-start md:w-[30%]">
+        <div className="w-full mobile:h-[20%] mobile:mt-[30%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
           <img src={logo} className="w-[163px] h-[100px] " />
         </div>
 
         <div className="mt-10 text-center text-white md:flex ">
-          <div className="md:w-[100%] md:h-full ml-[5%]">
+          <div className="md:w-[100%] md:h-full ">
             <div className=" md:flex md:justify-between">
               {categoryData.map((category) => (
-                <div key={category._id} className="flex flex-col mb-3 ">
+                <div key={category._id} className="flex flex-col mb-3 px-2">
                   <div
-                    className="flex justify-between items-center pb-1"
+                    className="flex justify-between items-center pb-1 mb-7 lg:mb-3"
                     onClick={() =>
                       isSmallScreen
                         ? toggleSubSeries(category._id)
@@ -99,7 +99,7 @@ const footer = ({ categoryData }) => {
                     }
                   >
                     <button
-                      className="font-Marcellus  text-xl hover:underline "
+                      className="font-Marcellus  text-lg hover:underline "
                       type="button"
                     >
                       {category.Name}
@@ -117,12 +117,12 @@ const footer = ({ categoryData }) => {
 
                   {selectedSeries === category._id && (
                     <div className="z-10 ">
-                      <ul className=" text-base pl-2 mb-2 font-Marcellus  text-start md:hidden">
+                      <ul className=" text-sm pl-2 mb-2 font-Marcellus  text-start md:hidden">
                         {category.SubCategories &&
                           category.SubCategories.map((subcategories) => (
                             <li
                               key={subcategories.Name}
-                              className="hover:underline p-2"
+                              className="hover:underline p-3"
                             >
                               <Link to={subcategories._id} className="">
                                 {subcategories.Name}
