@@ -47,6 +47,7 @@ const Category = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     cartDiscount: yup.string().min(2).required("Please Select CartDiscount "),
+    priority: yup.string(),
     // bannerImageMobile: yup.string().required("Select the Picture "),
     // bannerImageDesktop: yup.string().required("Select the Picture "),
   });
@@ -58,6 +59,7 @@ const Category = () => {
     metaKeyword: "",
     slugUrl: "",
     cartDiscount: "",
+    priority: "",
     // bannerImageMobile: null,
     // bannerImageDesktop: null,
   };
@@ -92,6 +94,7 @@ const Category = () => {
         MetaKeyWord: values.metaKeyword,
         SlugUrl: values.slugUrl,
         CartDiscountSlab: values.cartDiscount,
+        Priority: values.priority,
         // image:values.bannerImageMobile,
         // bannerImage:values.bannerImageDesktop,
       };
@@ -133,11 +136,9 @@ const Category = () => {
           }
         }
       }
-      
     },
   });
 
- 
   // const handleFileChange = (event, field) => {
   //   const file = event.target.files[0];
 
@@ -199,15 +200,58 @@ const Category = () => {
         ) {
           console.log(error.response);
           toast.error(data);
-        }
-        else if(status === 403){
-           setAllCategoryData([]);
+        } else if (status === 403) {
+          setAllCategoryData([]);
         }
       }
     }
   };
 
   console.log(" send Id in URl", showform);
+
+
+  const privorityCategory = [
+    {
+      id:1,
+      value:1
+    },
+    {
+      id:2,
+      value:2
+    },
+    {
+      id:3,
+      value:3
+    },
+    {
+      id:4,
+      value:4
+    },
+    {
+      id:5,
+      value:5
+    },
+    {
+      id:6,
+      value:6
+    },
+    {
+      id:7,
+      value:7
+    },
+    {
+      id:8,
+      value:8
+    },
+    {
+      id:9,
+      value:9
+    },
+    {
+      id:10,
+      value:10
+    },
+  ]
 
   return (
     <div className="overflow-hidden">
@@ -330,6 +374,27 @@ const Category = () => {
                         {slabeData?.map((slaboption) => (
                           <option key={slaboption._id} value={slaboption._id}>
                             {slaboption.Name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="cartDiscount"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Category Priority
+                      </label>
+                      <select
+                        id="priority"
+                        name="priority"
+                        value={values.priority}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      >
+                        {privorityCategory.map((number) => (
+                          <option key={number.id} value={number.value}>
+                            {number.value}
                           </option>
                         ))}
                       </select>
@@ -484,7 +549,7 @@ const Category = () => {
                       </tr>
                     </thead>
 
-                    {!allCategoryData || allCategoryData.length === 0  ? (
+                    {!allCategoryData || allCategoryData.length === 0 ? (
                       <p>NO data Found</p>
                     ) : (
                       allCategoryData.map((item) => (

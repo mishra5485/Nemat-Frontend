@@ -50,8 +50,9 @@ const EditCategory = () => {
         metaKeyword: "",
         slugUrl: "",
         cartDiscount: "",
-        bannerImageMobile: "",
-        bannerImageDesktop: "",
+        priority:"",
+        // bannerImageMobile: "",
+        // bannerImageDesktop: "",
       }
     : {
         name: categoryData.Name,
@@ -60,6 +61,7 @@ const EditCategory = () => {
         metaKeyword: categoryData.MetaKeyWord,
         slugUrl: categoryData.SlugUrl,
         cartDiscount: categoryData.CartDiscountSlab,
+        priority:categoryData.Priority,
         // bannerImageMobile: null,
         // bannerImageDesktop: null,
       };
@@ -73,8 +75,9 @@ const EditCategory = () => {
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
     cartDiscount: yup.string().min(2).required("Enter cartDiscount"),
+    priority:yup.string().nullable()
     // bannerImageMobile: yup.string().nullable(),
-    bannerImageDesktop: yup.string().nullable(),
+    // bannerImageDesktop: yup.string().nullable(),
   });
 
   const {
@@ -110,6 +113,7 @@ const EditCategory = () => {
           MetaKeyWord: values.metaKeyword,
           SlugUrl: values.slugUrl,
           CartDiscountSlab: values.cartDiscount,
+          Priority:values.priority
         }
 
         if(values.name === CategoryNameStore){
@@ -197,6 +201,49 @@ const EditCategory = () => {
   //     }
   //   }
   // };
+
+   const privorityCategory = [
+    {
+      id:1,
+      value:1
+    },
+    {
+      id:2,
+      value:2
+    },
+    {
+      id:3,
+      value:3
+    },
+    {
+      id:4,
+      value:4
+    },
+    {
+      id:5,
+      value:5
+    },
+    {
+      id:6,
+      value:6
+    },
+    {
+      id:7,
+      value:7
+    },
+    {
+      id:8,
+      value:8
+    },
+    {
+      id:9,
+      value:9
+    },
+    {
+      id:10,
+      value:10
+    },
+  ]
 
   return (
     <div className="overflow-x-hidden">
@@ -303,6 +350,28 @@ const EditCategory = () => {
                 ))}
               </select>
             </div>
+
+            <div className="mb-4">
+                      <label
+                        htmlFor="cartDiscount"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Category Priority
+                      </label>
+                      <select
+                        id="priority"
+                        name="priority"
+                        value={values.priority}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      >
+                        {privorityCategory.map((number) => (
+                          <option key={number.id} value={number.value}>
+                            {number.value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
             <div className="sm:col-span-2">
               <label
