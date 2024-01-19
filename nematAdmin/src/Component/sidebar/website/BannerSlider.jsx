@@ -13,6 +13,8 @@ const BannerSlider = () => {
     const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
     const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
     const [allBannerData , setAllBannerData] = useState();
+    const [allCategoryData , setAllCategoryData] = useState([]);
+    const [ AllSub_CategoryData , setAllSub_CategoryData] = useState()
     const [showForm ,setShowForm] = useState(true)
 
     const navigate = useNavigate();
@@ -20,7 +22,10 @@ const BannerSlider = () => {
 
    useEffect (() => {
       getAllBannerData();
-   },[])
+      if(!showForm){
+        getAllCategoryData()
+      }
+   },[showForm])
 
    const getAllBannerData = async () => {
       try {
@@ -44,7 +49,29 @@ const BannerSlider = () => {
       }
    }
 
-   console.log(allBannerData)
+   const getAllCategoryData = async () => {
+        try {
+
+          let allDataResponse = await axios.get(
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+         )
+
+          if(allDataResponse.status === 200){
+              setAllCategoryData(allDataResponse.data)
+              setLoading(false)
+          
+          }
+
+        } catch (error) {
+           console.log(error)
+            toast.error(error.data)
+            setLoading(false)
+        }
+   }
+
+
+
+   console.log("allCategoryData =====>" , allCategoryData)
 
    const bannerObjectSchema = yup.object({
       desktopbannerImage: yup.string().required(),
@@ -52,6 +79,8 @@ const BannerSlider = () => {
       heading: yup.string().min(2).required(),
       subHeading: yup.string().min(2).required(),
       desc: yup.string().min(2).required(),
+      CategoryId:yup.string().required(),
+      sub_CategoryId:yup.string().required(),
    })
 
    const initialValues =
@@ -60,7 +89,9 @@ const BannerSlider = () => {
          mobilebannerImage : "",
          heading : "",
          subHeading :"" ,
-         desc :""
+         desc :"",
+         CategoryId:"",
+         sub_CategoryId:"",
      }
    
 
@@ -88,6 +119,7 @@ const BannerSlider = () => {
       formData.append("Heading", values.heading);
       formData.append("SubHeading", values.subHeading);
       formData.append("Desc", values.desc);
+      formData.append("SubcategoryId" , values.sub_CategoryId)
 
    
 
@@ -177,6 +209,41 @@ const BannerSlider = () => {
   }
  
 };
+
+const handlerChangefunction = async (event) => {
+    console.log("Selected _id:", event);
+
+    const _id = event.target.value;
+    console.log("_id", _id);
+
+    try {
+      const subCategoryResponse = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/product/getsubcategorybyId/${_id}`
+      );
+
+      console.log("Response:", subCategoryResponse);
+
+      if (subCategoryResponse.status === 200) {
+        setAllSub_CategoryData(subCategoryResponse.data);
+      } else {
+        console.error(
+          "Unexpected response status:",
+          subCategoryResponse.status
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (error.response) {
+        const { status, data } = error.response;
+        console.error(`Response error - Status: ${status}, Data:`, data);
+      }
+    }
+  };
+
+  console.log("AllSub_CategoryData ==== >" , AllSub_CategoryData)
 
   return (
     <div>
@@ -446,6 +513,59 @@ const BannerSlider = () => {
           </div>
         </div>
 
+        <div className="mb-4">
+              <label
+                htmlFor="cartDiscount"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Category deside
+              </label>
+              <select
+                id="CategoryId"
+                name="CategoryId"
+                value={values.CategoryId}
+                onChange={async (event) => {
+                  await handleChange(event);
+                  handlerChangefunction(event); // removed from here
+                }}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="" >
+                  Select Category
+                </option>
+                {allCategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+             <div className="mb-4">
+              <label
+                htmlFor="sub_CategoryId"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Sub-Category
+              </label>
+              <select
+                id="sub_CategoryId"
+                name="sub_CategoryId"
+                value={values.sub_CategoryId}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="" disabled>
+                  Select Category
+                </option>
+                {AllSub_CategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="col-span-full mt-2">
           <label  className="block text-sm font-medium leading-6 text-gray-900">Description </label>
           <div className="mt-2">
@@ -518,7 +638,7 @@ const BannerSlider = () => {
                     </button>
                      <button
                      type="button"
-                     onClick={() => setShowForm(false)}
+                     onClick={() => setShowForm(true)}
                      className="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                     >
                      Discard
