@@ -1,3 +1,5 @@
+
+import { useNavigate, useParams } from 'react-router-dom'
 import  { useState } from "react";
 import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import loginBG from "../assets/loginImages/loginImage.png";
@@ -5,73 +7,71 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import logo from "../assets/loginImages/nematEnterprisesLogo.png";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "../slices/profileSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import RightToLeftanm from "../style/RightToLeftanm";
 
+const ResetPassword = () => {
 
-const ForgotPassword = () => {
+   const {_token} = useParams()
+   const navigate = useNavigate()
 
-    // const dispatch = useDispatch();
-    // const [showPassword, setShowPassword] = useState(false);
-    // const [ConfirmshowPassword, setConfirmShowPassword] = useState(false);
-    const navigate = useNavigate();
+   console.log("Token is here ===== > " , _token)
 
-    // const showHandler = (field) => {
-    //     switch (field) {
-    //       case 'newpassword':
-    //         setShowPassword(!showPassword);
-    //         break;
-    //       case 'confirmPWD':
-    //         setConfirmShowPassword(!ConfirmshowPassword);
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    // };
+      const [showPassword, setShowPassword] = useState(false);
+      const [ConfirmshowPassword, setConfirmShowPassword] = useState(false);
 
-      const objectSchem = yup.object({
-        email: yup.string().min(5).email("Please Enter Valid Email").required("Enter the current Password"),
-        // newpassword: yup.string().min(5).required("Enter the New Password"),
-        // confirmPWD: yup
-        //   .string()
-        //   .min(5)
-        //   .oneOf([yup.ref("newpassword"), null], "Passwords must match")
-        //   .required("Confirm the Password"),
+      const showHandler = (field) => {
+        switch (field) {
+          case 'newpassword':
+            setShowPassword(!showPassword);
+            break;
+          case 'confirmPWD':
+            setConfirmShowPassword(!ConfirmshowPassword);
+            break;
+          default:
+            break;
+        }
+    };
+
+   const objectSchem = yup.object({
+    
+        newpassword: yup.string().min(5).required("Enter the New Password"),
+        confirmPWD: yup
+          .string()
+          .min(5)
+          .oneOf([yup.ref("newpassword"), null], "Passwords must match")
+          .required("Confirm the Password"),
       });
 
-      const initialValues = {
-        email: "",
-        // newpassword: "",
-        // confirmPWD: "",
-      };
+   const initialValues = {
+        newpassword: "",
+        confirmPWD: "",
+   };
 
-      const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+   const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
       useFormik({
         initialValues,
         validationSchema: objectSchem,
         onSubmit: async (values,) => {
           const palyload = {
-            Email: values.email,
-            // password: values.newpassword,
+            new_password: values.newpassword,
           };
           try {
             let response = await axios.post(
-              `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/forgotpassword`,
+              `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/resetpassword/${_token}`,
               palyload
             );
 
             // console.log(response)
 
             if (response.status === 200) {
-              toast.success(response.data)
               // const Customer_id = response.data;
               // dispatch(setUser(Customer_id));
-              // navigate("/")
+              navigate("/login")
+              toast.success(response.data)
             }
           } catch (error) {
             //Error which Coming From Server.
@@ -95,7 +95,8 @@ const ForgotPassword = () => {
       });
 
   return (
-    <div>
+   <div>
+      <div>
       <div className='w-full h-full overflow-hidden object-cover md:flex md:w-full md:h-[100vh]'>
             <Toaster/>
             {/* Image section with Logo */}
@@ -111,7 +112,7 @@ const ForgotPassword = () => {
             {/* Infinite Scroll section */}
             <div className='mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2 overflow-hidden '>
                 <RightToLeftanm image={FlowerPattern2}/>
-                   
+
   {             /* Show FlowerPattern for md and larger screens */}
                <InfiniteScrollImage className="w-full h-full animate-img hidden mobile:hidden sm:hidden md:inline-block"/>
             </div>
@@ -130,35 +131,7 @@ const ForgotPassword = () => {
                     
                   >
                     <div className="flex flex-col justify-between">
-                      <div>
-                        <label
-                          htmlFor=""
-                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl " 
-                        >
-                          {" "}
-                          Email Id{" "}
-                        </label>
-                        <div className="mobile:mt-0 ">
-                          <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                            type="email"
-                            placeholder="Enter Username"
-                            value={values.email}
-                            id="email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          ></input>
-                          {errors.email && touched.email ? (
-                            <p className="font-Marcellus text-red-900">
-                              {errors.email}
-                            </p>
-                          ) : (
-                            null
-                          )}
-                        </div>
-                      </div>
-
-                      {/* <div className='mt-2 md:py-4'>
+                      <div className='mt-2 md:py-4'>
                         <div>
                           <label
                             htmlFor=""
@@ -192,9 +165,9 @@ const ForgotPassword = () => {
                         ) : (
                           null
                         )}
-                      </div> */}
+                      </div>
 
-                      {/* <div className='mt-2 md:py-4'>
+                      <div className='mt-2 md:py-4'>
                         <div>
                           <label
                             htmlFor=""
@@ -228,7 +201,7 @@ const ForgotPassword = () => {
                         ) : (
                           null
                         )}
-                      </div> */}
+                      </div>
 
                      
                       <div className='flex flex-col mt-5'>
@@ -237,7 +210,7 @@ const ForgotPassword = () => {
                           type="submit"
                           className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
                         >
-                            Submit
+                            Change Password
                         </button> 
                       </div>
                     </div>
@@ -246,7 +219,8 @@ const ForgotPassword = () => {
             </div>
           </div>
     </div>
+   </div>
   )
 }
 
-export default ForgotPassword
+export default ResetPassword
