@@ -1,18 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import RightToLeftText from "../style/RightToLeftText";
-import { IoSearchOutline } from "react-icons/io5";
-import { AiOutlineShopping } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import logo from "../assets/HomePage/Frame.png";
-import { GiHamburgerMenu } from "react-icons/gi";
-import MobileBG from "../assets/HomePage/mobileBG.png";
 import DottedLineGold from "../assets/HomePage/DottedLineGold.png";
-import DesktopBG from "../assets/HomePage/desktopBG.png";
 import { useMediaQuery } from "react-responsive";
 import Goldenline from "../style/goldenline";
-import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import Discountslabe from "./products/Discountslabe";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
@@ -24,69 +13,21 @@ import ProductHeader from "./common/ProductHeader";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import NavBars from "./common/NavBars";
 
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
   const [firstApiCall , setFirstApiCall] = useState(true)
-  const [showAngle, setShowAngle] = useState({});
-  const [showNavbar, SetShowNavbar] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
   const [categoryData, setCategoryData] = useState([]);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  // const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
   const [loading, setLoading] = useState(true);
   const [BannerData , setBannerData] = useState([])
   const [currentSlide, setCurrentSlide] = useState(0);
   const [Dssprays , setDsSprays] = useState()
   const [agarbattisDs , setAgarbattisDs] = useState();
-  const navigate = useNavigate();
   const sliderRef = useRef(null);
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
-  const mobileNavbar = () => {
-    SetShowNavbar(!showNavbar);
-  };
-
-  const details = [
-    {
-      id: 1,
-      title: "ABOUT",
-      link: `https://nemat.digitalcube.tech/nemat/about`,
-    },
-    {
-      id: 2,
-      title: "POLICIES",
-      link: "",
-    },
-    {
-      id: 3,
-      title: "CONTACT",
-      link: "",
-    },
-  ];
-
-  const [selectedSeries, setSelectedSeries] = useState(null);
-
-  const toggleSubSeries = (seriesId) => {
-    setSelectedSeries((prevSelectedSeries) =>
-      prevSelectedSeries === seriesId ? null : seriesId
-    );
-
-    setShowAngle((prevShowAngle) => {
-      const newShowAngle = { ...prevShowAngle };
-
-      if (!newShowAngle[seriesId]) {
-        Object.keys(newShowAngle).forEach((key) => {
-          if (key !== seriesId) {
-            newShowAngle[key] = false;
-          }
-        });
-      }
-
-      newShowAngle[seriesId] = !prevShowAngle[seriesId];
-
-      return newShowAngle;
-    });
-  };
 
   // useEffect(() => {
   //   // const handleScroll = () => {
@@ -192,186 +133,16 @@ const Home = () => {
   };
 
   return (
-    <div className="mt-0  overflow-auto custom-scrollbar">
-      <header className=" w-full left-0 z-0 top-0">
-        <div className="w-[100%]">
-          <RightToLeftText />
-        </div>
-
-        {!showNavbar ? (
-          <div className="w-[100%] h-[100vh] bg-[#e9e9e9]">
-            <div className=" w-full flex  flex-nowrap justify-between  items-center  p-4">
-              <div className="flex gap-3">
-                <AiOutlineShopping
-                  size={30}
-                  onClick={() => navigate("/cart")}
-                />
-                <CgProfile onClick={() => navigate("/login")} size={30} />
-              </div>
-              <div className="w-[143px] h-[66px]">
-                <img src={logo} className="w-full h-full " />
-              </div>
-              <IoIosCloseCircleOutline size={30} onClick={mobileNavbar} />
-            </div>
-            <hr />
-
-            <div>
-              {categoryData.map((category) => (
-                <div key={category._id} className="flex flex-col ">
-                  <div
-                    className="flex justify-between items-center p-3"
-                    onClick={() => toggleSubSeries(category._id)}
-                  >
-                    <button
-                      className="font-Marcellus text-text_Color text-2xl hover:underline "
-                      type="button"
-                    >
-                      {category.Name}
-                    </button>
-                    {
-                      <p>
-                        {showAngle[category._id] ? (
-                          <FaAngleUp size={20} />
-                        ) : (
-                          <FaAngleDown size={20} />
-                        )}{" "}
-                      </p>
-                    }
-                  </div>
-
-                  {selectedSeries === category._id && (
-                    <div className="z-10 ">
-                      <ul className="py-2 text-base pl-3 font-Marcellus text-text_Color  ">
-                        {category.SubCategories &&
-                          category.SubCategories.map((subcategories) => (
-                            <li
-                              key={subcategories._id}
-                              className="hover:underline"
-                            >
-                              <Link to={subcategories.link} className="">
-                                {subcategories.Name}
-                              </Link>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="p-3 font-Marcellus  text-xl ">
-              {details.map((detail) => (
-                <a
-                  key={detail.id}
-                  href={detail.link}
-                  className="p-1 text-bg_green hover:underline "
-                >
-                  <h1>{detail.title}</h1>
-                </a>
-              ))}
-            </div>
-          </div>
+    <div className="mt-0  overflow-auto custom-scrollbar"> 
+      {
+        loading ? (
+          <p>Loaddding </p>
         ) : (
-          <div>
-            <div
-              className={`relative py-4 check ${
-                isHovered ? "bg-LightCream" : ""
-              } z-50`}
-            >
-              <div
-                className="w-[100%] md:w-[90%] flex flex-nowrap justify-between  items-center  m-auto px-5 relative "
-                onS
-              >
-                <div className="md:hidden">
-                  <IoSearchOutline size={30} color="" />
-                </div>
-                <div className="flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  font-Marcellus relative ">
-                  <h1
-                    className="flex items-center relative hover:underline cursor-pointer font-semibold"
-                    onMouseEnter={() => setIsHovered(true)}
-                  >
-                    SHOP
-                    <span className="p-1 mt-[2px] ">
-                      {" "}
-                      {isHovered ? (
-                        <FaAngleUp size={15} />
-                      ) : (
-                        <FaAngleDown
-                          size={15}
-                          onClick={() => setIsHovered(false)}
-                        />
-                      )}
-                    </span>
-                  </h1>
-                  <h1 className="hover:underline cursor-pointer font-semibold">
-                    ABOUT
-                  </h1>
-                  <h1 className="hover:underline cursor-pointer font-semibold ">
-                    CONTACT
-                  </h1>
-                </div>
+          <NavBars/>
+        )
+      }
+        
 
-                <div className="w-[143px] h-[66px]">
-                  <img src={logo} className="w-full h-full " />
-                </div>
-                <div className="md:hidden" onClick={mobileNavbar}>
-                  {showNavbar ? <GiHamburgerMenu size={30} color="" /> : null}
-                </div>
-                <div className="flex items-center gap-x-4 sm:hidden mobile:hidden md:flex lg:flex font-Marcellus text-text_Color">
-                  <h1 className="cursor-pointer font-semibold">POLICIES</h1>
-                  <Link>
-                    <IoSearchOutline size={25} color="" />
-                  </Link>
-                  <Link to={"/cart"}>
-                    <AiOutlineShopping size={25} />
-                  </Link>
-                  <Link to={"/login"}>
-                    <CgProfile size={25} />
-                  </Link>
-                </div>
-              </div>
-            </div>
-            {isHovered ? (
-              <div
-                className="absolute w-full bg-LightCream  flex justify-center z-20"
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <div className="flex w-[90%] justify-between ">
-                  {categoryData.map((category) => (
-                    <div key={category._id} className="flex  flex-col">
-                      <div className="flex justify-between items-center p-3 cursor-pointer">
-                        <h1
-                          className=" font-Marcellus text-text_Color text-2xl hover:underline"
-                          style={{ minHeight: "3em" }}
-                        >
-                          {category.Name}
-                        </h1>
-                      </div>
-
-                      <div className="pl-3 h-[70%]">
-                        <ul className="py-2 text-base font-Marcellus text-text_Color ">
-                          {category.SubCategories &&
-                            category.SubCategories.map((subcategories) => (
-                              <li
-                                key={subcategories._id}
-                                className="hover:underline cursor-pointer"
-                              >
-                                {subcategories.Name}
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        )}
-      </header>
       {loading ? (
         <p>Loading </p>
       ) : (
@@ -485,12 +256,8 @@ const Home = () => {
       <Non_Alcoholic/>
       <RightToLeftanm image={FlowerPattern2}/>
       <Agarabtti/> */}
-      {console.log("Dssprays ==>" , Dssprays)}
-      {console.log("agarbattisDs ==>" , agarbattisDs)}
       {loading ? <p>Loading </p> : (
         <>
-        {/* {console.log("Dssprays ==>" , Dssprays)}
-        {console.log("agarbattisDs ==>" , agarbattisDs)} */}
       <Discountslabe  Dssprays = {Dssprays} agarbattisDs={agarbattisDs}/>
       </>
       )}
