@@ -321,6 +321,9 @@ const handlerChangefunction = async (event) => {
                         <th scope="col" className="p-4">
                            Banner Sub-Heading 
                         </th>
+                        <th scope="col" className="p-4">
+                            Actions
+                        </th>
                       </tr>
                     </thead>
 

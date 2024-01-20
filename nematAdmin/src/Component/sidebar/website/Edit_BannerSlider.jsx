@@ -13,6 +13,8 @@ const Edit_BannerSlider = () => {
    const [loading, setLoading] = useState(true);
    const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
    const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+   const [allCategoryData , setAllCategoryData ] = useState()
+   const [AllSub_CategoryData , setAllSub_CategoryData] = useState([])
 
    useEffect(() => {
       getBannerById();
@@ -25,9 +27,14 @@ const Edit_BannerSlider = () => {
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/getbyId/${_id}`
          )
 
+         let categoryData = await axios.get(
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+         )
+
          setShowBannerData(bannerData.data);
+         setAllCategoryData(categoryData.data)
+         setAllSub_CategoryData(bannerData.SubCategoryName)
          setLoading(false)
-         
       } catch (error) {
          console.error(error)
          toast.error(error.data)
@@ -35,12 +42,15 @@ const Edit_BannerSlider = () => {
       }
    }
 
+   console.log("showBannerData ===>" , showBannerData)
+
    const bannerObjectSchema = yup.object({
       bannerImageDesktop: yup.string().required(),
       bannerImageMobile: yup.string().required(),
       heading: yup.string().min(2).required(),
       subHeading: yup.string().min(2).required(),
       desc: yup.string().min(2).required(),
+      sub_CategoryId:yup.string().required()
    })
 
     const initialValues = loading ?
@@ -49,14 +59,17 @@ const Edit_BannerSlider = () => {
          bannerImageMobile : "",
          heading : "",
          subHeading :"" ,
-         desc :""
+         desc :"",
+         sub_CategoryId:"",
      }
      : {
-         bannerImageDesktop :showBannerData.DesktopbannerImage,
-         bannerImageMobile : showBannerData.MobilebannerImage,
-         heading : showBannerData.Heading,
-         subHeading :showBannerData.SubHeading,
-         desc :showBannerData.Desc
+         bannerImageDesktop :showBannerData?.DesktopbannerImage,
+         bannerImageMobile : showBannerData?.MobilebannerImage,
+         heading : showBannerData?.Heading,
+         subHeading :showBannerData?.SubHeading,
+         desc :showBannerData?.Desc,
+         sub_CategoryId:showBannerData.SubcategoryId
+
      }
 
     const {
@@ -82,8 +95,17 @@ const Edit_BannerSlider = () => {
       formData.append("Heading", values.heading);
       formData.append("SubHeading", values.subHeading);
       formData.append("Desc", values.desc);
+      formData.append("SubcategoryId" , values.sub_CategoryId)
 
    
+
+      // const payload = {
+      //   DTimage : values.bannerImageDesktop,
+      //   MIimage : values.bannerImageMobile,
+      //   categoryId : values.sub_CategoryId,
+      // }
+
+      // console.log("payload ===>" , payload)
 
       try {
         let response = await axios.post(
@@ -107,7 +129,7 @@ const Edit_BannerSlider = () => {
 
           if (
             status === 404 ||
-            // status === 403 ||
+            status === 403 ||
             status === 500 ||
             status === 302 ||
             status === 409 ||
@@ -150,6 +172,41 @@ const Edit_BannerSlider = () => {
     }
   }; 
 
+  const handlerChangefunction = async (category_ID) => {
+    const _id = category_ID;
+
+    // console.log(category_ID === undefined);
+    // const _id = category_ID === undefined ? event.target.value  : category_ID;
+
+    console.log("_id =>", _id);
+
+    try {
+      const subCategoryResponse = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/product/getsubcategorybyId/${_id}`
+      );
+
+      console.log("Response:", subCategoryResponse);
+
+      if (subCategoryResponse.status === 200) {
+        setAllSub_CategoryData(subCategoryResponse.data);
+      } else {
+        console.error(
+          "Unexpected response status:",
+          subCategoryResponse.status
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (error.response) {
+        const { status, data } = error.response;
+        console.error(`Response error - Status: ${status}, Data:`, data);
+      }
+    }
+  };
+
 
   return (
        <div className="overflow-x-hidden">
@@ -179,6 +236,7 @@ const Edit_BannerSlider = () => {
                 onChange={handleChange}
                 value={values.heading}
                 placeholder="Type product name"
+                required
               />
             </div>
             <div>
@@ -196,9 +254,66 @@ const Edit_BannerSlider = () => {
                 onChange={handleChange}
                 value={values.subHeading}
                 placeholder="Type product name"
+                required
               />
             </div>
            
+
+           <div className="mb-4">
+              <label
+                htmlFor="cartDiscount"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Category deside
+              </label>
+              <select
+                id="CategoryId"
+                name="CategoryId"
+                value={values.CategoryId}
+                onChange={async (event) => {
+                  await handleChange(event);
+                  handlerChangefunction(event.target.value); // removed from here
+                }}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="" >
+                  Select Category
+                </option>
+                {allCategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+
+             <div>
+              <label
+                htmlFor="category"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Sub-Category
+              </label>
+              <select
+                id="sub_CategoryId"
+                key={values.sub_CategoryId}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.sub_CategoryId}
+              >
+                {
+                  AllSub_CategoryData == undefined ? <option value="">{showBannerData.SubCategoryName}</option>: <option value="">Select category</option>
+                }
+                {/* {console.log(AllSub_CategoryData)} */}
+                
+                {AllSub_CategoryData?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="sm:col-span-2">
               <label
@@ -215,6 +330,7 @@ const Edit_BannerSlider = () => {
                 onChange={handleChange}
                 value={values.desc}
                 placeholder="Write product description here"
+                required
               ></textarea>
             </div>
           </div>
