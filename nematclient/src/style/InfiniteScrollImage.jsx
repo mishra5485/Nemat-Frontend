@@ -10,9 +10,9 @@ function InfiniteScrollImage() {
         <img
           src={FlowerPattern}
           alt="FlowerPatternImage"
-          className="w-full animate-img"
+          className="w-full "
         />
-        <img
+        {/* <img
           src={FlowerPattern}
           alt="FlowerPatternImage"
           className="w-full animate-img"
@@ -21,7 +21,7 @@ function InfiniteScrollImage() {
           src={FlowerPattern}
           alt="FlowerPatternImage"
           className="w-full animate-img"
-        />
+        /> */}
       </div>
     </div>
   );

@@ -7,9 +7,9 @@ const RightToLeftanm = ({image , }) => {
       <img
         src={image}
         alt="FlowerPatternImage2"
-        className="w-full h-[46px] sm:inline-block md:hidden animate-slide-infinite "
+        className="w-full h-[46px] sm:inline-block md:hidden "
       />
-      <img
+      {/* <img
         src={image}
         alt="FlowerPatternImage2"
         className="w-full h-[46px] sm:inline-block md:hidden animate-slide-infinite"
@@ -18,7 +18,7 @@ const RightToLeftanm = ({image , }) => {
         src={image}
         alt="FlowerPatternImage2"
         className="w-full h-[46px] sm:inline-block md:hidden animate-slide-infinite"
-      />
+      /> */}
     </div>
   )
 }
