@@ -3,10 +3,10 @@ import FooterImage from "../../assets/HomePage/FooterImage.png";
 import logo from "../../assets/loginImages/nematEnterprisesLogo.png";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const footer = ({ categoryData }) => {
-  console.log("categoryData Data inside Footer", categoryData);
-
+const footer = () => {
+  
   const detailsPage = [
     {
       id:1,
@@ -33,6 +33,9 @@ const footer = ({ categoryData }) => {
   const [showAngle, setShowAngle] = useState({});
   const [selectedSeries, setSelectedSeries] = useState(null);
   const [currentState, setCurrentState] = useState(window.innerWidth);
+  const [categoryData, setCategoryData] = useState([]);
+  const [ FirstApiCall, setFirstApiCall] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const toggleSubSeries = (seriesId) => {
     setSelectedSeries((prevSelectedSeries) =>
@@ -64,7 +67,49 @@ const footer = ({ categoryData }) => {
     handleResize();
 
     window.addEventListener("resize", handleResize);
+
+    if(FirstApiCall){
+      getAllHomePageData()
+    }
+
   }, [currentState]);
+
+
+
+  const getAllHomePageData = async () => {
+    try {
+      let allDataResponse = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
+      );
+
+      console.log("allDataResponse.data", allDataResponse.data);
+
+      if (allDataResponse.status === 200) {
+        setCategoryData(allDataResponse.data);
+        setLoading(false)
+        setFirstApiCall(false)
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          // toast.error(data);
+          setLoading(false)
+        }
+      }
+    }
+    
+  };
 
   let isSmallScreen = currentState <= 760;
 
@@ -73,7 +118,12 @@ const footer = ({ categoryData }) => {
 
 
   return (
-    <div
+    <>
+      {
+        loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div
       style={{
         backgroundImage: `url(${FooterImage})`,
         backgroundRepeat: "no-repeat",
@@ -81,7 +131,7 @@ const footer = ({ categoryData }) => {
       className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-Cream bg-cover"
     >
       <div className="w-[90%] h-full overflow-hidden  ">
-        <div className="w-full mobile:h-[20%] mobile:mt-[30%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
+        <div className="w-full mobile:h-[20%] mobile:mt-[60%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
           <img src={logo} className="w-[163px] h-[100px] " />
         </div>
 
@@ -174,6 +224,10 @@ const footer = ({ categoryData }) => {
         </div>
       </div>
     </div>
+        )
+      }
+    </>
+    
   );
 };
 
