@@ -15,12 +15,12 @@ const Edit_Product = () => {
   // const [AllFragranceData, setAllFragranceData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [allImageFile, setAllImageFile] = useState([]);
-  const [newImage , setNewImage] = useState(false)
+  const [newImage , setNewImage] = useState(false);
   // const [isChecked, setIsChecked] = useState();
 
   useEffect(() => {
     FetchProductDetailId();
-  }, []); 
+  }, []);
 
   const FetchProductDetailId = async () => {
     try {
@@ -32,7 +32,7 @@ const Edit_Product = () => {
         setProductData(productResponse.data);
 
         await requiredData();
-        await handlerChangefunction(productResponse.data.CategoryId)
+        await handlerChangefunction(productResponse.data.CategoryId);
         setLoading(false);
       }
     } catch (error) {
@@ -171,8 +171,7 @@ const Edit_Product = () => {
         slugUrl: ProductData.SlugUrl,
       };
 
-
-    let ProductName = ProductData?.Name
+  let ProductName = ProductData?.Name;
 
   const {
     values,
@@ -183,15 +182,13 @@ const Edit_Product = () => {
     handleBlur,
     setFieldValue,
     resetForm,
-    
   } = useFormik({
     initialValues,
-    validationSchema:ProductObject,
+    validationSchema: ProductObject,
     enableReinitialize: true,
 
-    onSubmit:async (values ) => {
-
-      console.log("I am inside Sumbit Page ")
+    onSubmit: async (values) => {
+      console.log("I am inside Sumbit Page ");
 
       const formData = new FormData();
       [...allImageFile].forEach((image) => {
@@ -210,21 +207,22 @@ const Edit_Product = () => {
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("Price", values.Price);
 
-
       if (values.productName === ProductName) {
-      formData.delete("Name", values.name);
+        formData.delete("Name", values.name);
       }
 
       const payload = {
         CategoryId: values.CategoryId,
-        SubCategoryId : values.sub_CategoryId
-      }
+        SubCategoryId: values.sub_CategoryId,
+      };
 
-      console.log("payload" ,  payload)
+      console.log("payload", payload);
 
-       try {
+      try {
         let response = await axios.post(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/updatebyId/${_id}`,
+          `${
+            import.meta.env.VITE_REACT_APP_BASE_URL
+          }/product/updatebyId/${_id}`,
           formData
         );
 
@@ -253,8 +251,7 @@ const Edit_Product = () => {
           }
         }
       }
-
-    }
+    },
   });
 
   console.log("ProductData => ", ProductData);
@@ -290,35 +287,33 @@ const Edit_Product = () => {
   //   setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
   // };
 
- const handleFileChange = (e, fieldName) => {
-  const newImage = e.target.files;
+  const handleFileChange = (e, fieldName) => {
+    const newImage = e.target.files;
 
-  // Update form values with the new image
-  setFieldValue(fieldName, [newImage]);
+    // Update form values with the new image
+    setFieldValue(fieldName, [newImage]);
 
-  // For display update new Images 
-  setNewImage(true)
-  setFieldValue("productimg", []);
-  setAllImageFile(newImage)
-  console.log("newImage =====>" , newImage)
-};
+    // For display update new Images
+    setNewImage(true);
+    setFieldValue("productimg", []);
+    setAllImageFile(newImage);
+    console.log("newImage =====>", newImage);
+  };
 
-console.log("allImageFile ===>", allImageFile)
+  console.log("allImageFile ===>", allImageFile);
 
-// const handleDeleteImage = (index) => {
-//   const updatedImages = values.productimg.filter((_, i) => i !== index);
-//   setFieldValue("productimg", updatedImages);
-// };
+  // const handleDeleteImage = (index) => {
+  //   const updatedImages = values.productimg.filter((_, i) => i !== index);
+  //   setFieldValue("productimg", updatedImages);
+  // };
 
-  const handlerChangefunction = async (category_ID ) => {
-    const _id = category_ID
+  const handlerChangefunction = async (category_ID) => {
+    const _id = category_ID;
 
     // console.log(category_ID === undefined);
     // const _id = category_ID === undefined ? event.target.value  : category_ID;
-    
-    console.log("_id =>", _id);
 
-   
+    console.log("_id =>", _id);
 
     try {
       const subCategoryResponse = await axios.get(
@@ -349,64 +344,65 @@ console.log("allImageFile ===>", allImageFile)
 
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       {loading ? (
         <p>Loading...</p>
       ) : (
         <form
-           onSubmit={(e) => {
+          onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e);
           }}
         >
           <div className="grid   gap-4 mb-4 sm:grid-cols-2">
-             <div className="mb-4">
-            <label
-              htmlFor="fileInput1"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Product Image
-            </label>
-            <input
-              type="file"
-              id="productimg"
-              onChange={(e) => handleFileChange(e, "productimg")}
-              className="mt-1 p-2 w-full border rounded-md"
-              multiple
-            />
-            <div className="flex  justify-center">
-
-              {newImage ? (
+            <div className="mb-4">
+              <label
+                htmlFor="fileInput1"
+                className="block text-sm font-medium text-gray-600"
+              >
+                Product Image
+              </label>
+              <input
+                type="file"
+                id="productimg"
+                onChange={(e) => handleFileChange(e, "productimg")}
+                className="mt-1 p-2 w-full border rounded-md"
+                multiple
+              />
+              <div className="flex  justify-center">
+                {newImage ? (
                   <div>
-      {/* Display new images here */}
-              {Array.from(allImageFile).map((file, index) => (
-  <div key={index}>
-    <img
-      src={URL.createObjectURL(file)}
-      alt={`New Image ${index}`}
-      className="mt-2 w-[90%] h-[250px]"
-    />
-  </div>
-))}
-            </div>
-              ) : (
-            <div>
-              {ProductData.ProductOtherImage &&
-                ProductData.ProductOtherImage.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${image.OtherImagesName}`}
-                      alt={`Product Image ${index}`}
-                      className="mt-2 w-[90%] h-[250px]"
-                    />
-                    {/* You can include delete or other actions if needed */}
+                    {/* Display new images here */}
+                    {Array.from(allImageFile).map((file, index) => (
+                      <div key={index}>
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={`New Image ${index}`}
+                          className="mt-2 w-[90%] h-[250px]"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <div>
+                    {ProductData.ProductOtherImage &&
+                      ProductData.ProductOtherImage.map((image, index) => (
+                        <div key={index}>
+                          <img
+                            src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
+                              image.OtherImagesName
+                            }`}
+                            alt={`Product Image ${index}`}
+                            className="mt-2 w-[90%] h-[250px]"
+                          />
+                          {/* You can include delete or other actions if needed */}
+                        </div>
+                      ))}
                   </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-          <br/>
+            <br />
             <div>
               <label
                 htmlFor="productName"
@@ -438,7 +434,7 @@ console.log("allImageFile ===>", allImageFile)
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 onChange={async (event) => {
                   await handleChange(event);
-                  handlerChangefunction(event.target.value); 
+                  handlerChangefunction(event.target.value);
                 }}
                 value={values.CategoryId}
               >
@@ -450,12 +446,12 @@ console.log("allImageFile ===>", allImageFile)
                 ))}
               </select>
             </div>
-             <div className="sm:col-span-2">
+            <div className="sm:col-span-2">
               <label
                 htmlFor="description"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-              Product  Description
+                Product Description
               </label>
               <textarea
                 id="Description"
@@ -468,7 +464,7 @@ console.log("allImageFile ===>", allImageFile)
                 required
               ></textarea>
             </div>
-             <div>
+            <div>
               <label
                 htmlFor="category"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -490,7 +486,7 @@ console.log("allImageFile ===>", allImageFile)
                 ))}
               </select>
             </div>
-             
+
             <div>
               <label
                 htmlFor="Price"
@@ -509,7 +505,7 @@ console.log("allImageFile ===>", allImageFile)
                 required
               />
             </div>
-                  
+
             <div>
               <label
                 htmlFor="slugUrl"
@@ -564,14 +560,13 @@ console.log("allImageFile ===>", allImageFile)
                 required
               />
             </div>
-  
 
             <div className="sm:col-span-2">
               <label
                 htmlFor="description"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Meta  Description
+                Meta Description
               </label>
               <textarea
                 id="metaDesc"
@@ -586,8 +581,6 @@ console.log("allImageFile ===>", allImageFile)
             </div>
           </div>
 
-         
-        
           <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
             <button
               type="submit"
