@@ -205,7 +205,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
                       <div className='flex flex-col'>
                         <p className=" text-sm font-Marcellus text-[#642F29] text-center md:text-start md:pb-5 mt-[20px] gap-6">
                           <Link
-                            to=""
+                            to="/forgot"
                             title=""
                             className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl"
                           >
