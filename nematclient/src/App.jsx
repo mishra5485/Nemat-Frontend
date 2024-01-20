@@ -10,6 +10,8 @@ import RequestSent from './regestation/RequestSent'
 import PasswordUpdated from './component/passwordUpdated'
 import Cart from './component/Cart'
 import ForgotPassword from './component/ForgotPassword'
+import ResetPassword from './component/ResetPassword'
+import ContactUs from './component/ContactUs'
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route  path='/' element={<Home/>}/>
         <Route  path='/login' element={<Login/>} />
         <Route  path='/forgot' element={<ForgotPassword/>}/>
+        <Route  path='/resetpassword/:_token' element={<ResetPassword/>}/>
+        {/* <Route  path='/resetpassword' element={<ResetPassword/>}/> */}
         <Route  path='/companydetails' element={<CompanyDetails/>} />
         <Route  path='/cart' element={<Cart/>} />
         
@@ -38,7 +42,13 @@ function App() {
           } 
         />
         
-        
+        <Route path='/contactus' element={
+          <PrivateRoute>
+            <ContactUs/>
+          </PrivateRoute>
+        } 
+
+        />
 
          <Route  path='/companydetails/requestsent' element={
           <PrivateRoute>
