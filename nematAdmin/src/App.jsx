@@ -25,6 +25,7 @@ import UserMangement from "./Component/sidebar/userMangement/UserMangement";
 import Edit_UserManagement from "./Component/sidebar/userMangement/Edit_UserManagement";
 import { useSelector } from "react-redux";
 import Edit_Product from "./Component/sidebar/Edit_Product";
+import AdminContact from "./Component/sidebar/website/AdminContact";
 
 function App() {
   const { user } = useSelector((store) => store.profile);
@@ -82,6 +83,8 @@ function App() {
 
           <Route path="website/bannerSlider" element={<BannerSlider />} />
             <Route path="website/bannerSlider/edit_bannerslider/:_id" element={<Edit_BannerSlider/>}/>
+
+          <Route path="website/admincontact" element={<AdminContact/>}/>
 
           <Route path="user-mangement" element={<UserMangement/>} />
             <Route path="user-mangement/user_prev/:_id" element={<Edit_UserManagement/>}/>

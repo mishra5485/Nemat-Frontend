@@ -10,7 +10,6 @@ const PromoHeader = () => {
 
   useEffect(() => {
     fetechPromoHeader();
-   
   }, []);
 
   const fetechPromoHeader = async () => {
@@ -72,8 +71,7 @@ const PromoHeader = () => {
 
 
         if (response.status === 200) {
-          console.log("New Category Created ");
-          toast.success("Updated Successfully")
+          toast.success(response.data)
         }
       } catch (error) {
         if (error.response) {
