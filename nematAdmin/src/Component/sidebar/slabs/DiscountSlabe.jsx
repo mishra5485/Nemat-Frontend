@@ -153,9 +153,49 @@ const DiscountSlabe = () => {
 
   const handleForm = () => {};
 
-   const editHandlerDir = (categoryId) => {
-    navigate(`/dashboard/discountSlabe/Slabs_edit/${categoryId}`);
+   const editHandlerDir = (discountSlabe_ID) => {
+    navigate(`/dashboard/discountSlabe/Slabs_edit/${discountSlabe_ID}`);
   };
+
+  const deleteHandler = async (discountSlabe_ID) => {
+
+    console.log( "discountSlabe_ID ====>" ,discountSlabe_ID)
+
+      try {
+      const deleteData = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/cartdiscountscheme/deletebyId/${discountSlabe_ID}`
+      );
+
+      if (deleteData.status === 200) {
+        // setAllCategoryData([]);
+        // slabdata();
+        toast.success(deleteData.data)
+        setTableDiscountSlabs([])
+        fetchData()
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        } else if (status === 403) {
+          setTableDiscountSlabs([])
+        }
+      }
+    }
+  }
 
   return (
     <div>
@@ -351,6 +391,9 @@ const DiscountSlabe = () => {
                         <th scope="col" className="p-4">
                            Discount Slabs variation
                         </th>
+                        <th scope="col" className="p-4">
+                           Actions
+                        </th>
                       </tr>
                     </thead>
 
@@ -397,8 +440,7 @@ const DiscountSlabe = () => {
 
                               <button
                                 type="button"
-                                data-modal-target="delete-modal"
-                                data-modal-toggle="delete-modal"
+                                onClick={() => deleteHandler(item._id)}
                                 className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                               >
                                 Delete
