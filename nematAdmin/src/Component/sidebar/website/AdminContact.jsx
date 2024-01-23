@@ -6,7 +6,30 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AdminContact = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [adminDetails , setAdminDetails] = useState()
+
+
+  useEffect(() => {
+    getAllAdminContactDetails()
+  } , [])
+
+  const getAllAdminContactDetails = async () => {
+    try {
+      let responseHeader = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admincontactusform/get`
+      );
+
+      setAdminDetails(responseHeader.data);
+      setLoading(false)
+
+    } catch (error) {
+       setLoading(false)
+      console.log(error);
+    }
+  }
+
+  console.log("adminDetails===> " , adminDetails)
 
   const ContactObject = yup.object({
     adminemail:yup.string().email().required("Please Enter Email Address "),
@@ -26,9 +49,9 @@ const AdminContact = () => {
         adminmobile: "",
       }
     : {
-        adminemail: "",
-        adminaddress: "",
-        adminmobile: "",
+        adminemail: adminDetails.Email,
+        adminaddress: adminDetails.Address,
+        adminmobile:adminDetails.MobileNo,
       };
 
   const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
@@ -38,22 +61,24 @@ const AdminContact = () => {
       enableReinitialize: true,
 
       onSubmit: async (values) => {
-        // const _id = promoHeader?._id;
+        const _id = adminDetails?._id;
         const payload = {
-          Title: values.promo,
+            Email:values.adminemail,
+            MobileNo:values.adminmobile,
+            Address:values.adminaddress
         };
 
         try {
           let response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
-            }/admincontactusform/create`,
+            }/admincontactusform/updatebyId/${_id}`,
             payload
           );
 
           if (response.status === 200) {
             console.log("New Category Created ");
-            toast.success("Updated Successfully");
+            toast.success(response.data);
           }
         } catch (error) {
           if (error.response) {
@@ -77,6 +102,7 @@ const AdminContact = () => {
     });
 
   return (
+
     <div>
       <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
@@ -89,7 +115,9 @@ const AdminContact = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <form>
+          <form
+           onSubmit={handleSubmit}
+          >
             <div>
               <div className="mb-4">
                 <label
@@ -104,6 +132,7 @@ const AdminContact = () => {
                   value={values.adminemail}
                   onChange={handleChange}
                   className="mt-1 p-2 w-full border rounded-md"
+                  required
                 />
               </div>
 
@@ -120,6 +149,7 @@ const AdminContact = () => {
                   value={values.adminaddress}
                   onChange={handleChange}
                   className="mt-1 p-2 w-full border rounded-md resize-none"
+                  required
                 />
               </div>
 
@@ -136,13 +166,21 @@ const AdminContact = () => {
                   value={values.adminmobile}
                   onChange={handleChange}
                   className="mt-1 p-2 w-full border rounded-md"
+                  required
                 />
               </div>
+              <button
+              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+               type="submit"
+            >
+              Update
+            </button>
             </div>
           </form>
         )}
       </div>
     </div>
+  
   );
 };
 

@@ -27,6 +27,8 @@ import { useSelector } from "react-redux";
 import Edit_Product from "./Component/sidebar/Edit_Product";
 import AdminContact from "./Component/sidebar/website/AdminContact";
 
+
+
 function App() {
   const { user } = useSelector((store) => store.profile);
   return (
@@ -35,6 +37,8 @@ function App() {
         <Route path="/" element={<Admin_login />} />
         <Route path="*" element={<Error />} />
         <Route path="verifyuser/:_id" element={<VerifyUser />} />
+       
+
 
         <Route
         path="/dashboard"
@@ -48,7 +52,6 @@ function App() {
       >
                 
           <Route path="check" element={<Check />} />
-
           {/* Category with Category Edit after Creation  */}
           <Route path="category" element={<Category />} />
           <Route path="category/edit/:_id" element={<EditCategory />} />
