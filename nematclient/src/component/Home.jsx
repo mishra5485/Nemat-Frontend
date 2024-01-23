@@ -74,7 +74,7 @@ const Home = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getdata`
       );
 
-      console.log("allDataResponse.data", allDataResponse.data);
+      // console.log("allDataResponse.data", allDataResponse.data);
 
       if (allDataResponse.status === 200) {
         setCategoryData(allDataResponse.data.CategoryData);

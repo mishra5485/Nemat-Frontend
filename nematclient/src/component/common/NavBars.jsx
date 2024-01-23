@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react";
 // import RightToLeftText from "../style/RightToLeftText";
-import RightToLeftText from "../../style/RightToLeftText"
+import RightToLeftText from "../../style/RightToLeftText";
 import { AiOutlineShopping } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 // import logo from "../assets/HomePage/Frame.png";
-import logo from "../../assets/HomePage/Frame.png"
+import logo from "../../assets/HomePage/Frame.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
 
-
-
 const NavBars = () => {
+  const [showNavbar, SetShowNavbar] = useState(true);
+  const [showAngle, setShowAngle] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+  // const [firstApiCall , setFirstApiCall] = useState(true)
+  const [selectedSeries, setSelectedSeries] = useState(null);
+  const [categoryData, setCategoryData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-   const [showNavbar, SetShowNavbar] = useState(true);
-   const [showAngle, setShowAngle] = useState({});
-   const [isHovered, setIsHovered] = useState(false);
-   // const [firstApiCall , setFirstApiCall] = useState(true)
-   const [selectedSeries, setSelectedSeries] = useState(null);
-   const [categoryData, setCategoryData] = useState([]);
-   const [loading, setLoading] = useState(true);
-   const navigate = useNavigate();
+  useEffect(() => {
+    getAllHomePageData();
+  }, []);
 
-   useEffect(() =>{
-       getAllHomePageData();
-   } , [])
-
-   const mobileNavbar = () => {
+  const mobileNavbar = () => {
     SetShowNavbar(!showNavbar);
   };
 
@@ -55,21 +52,21 @@ const NavBars = () => {
     });
   };
 
-   const details = [
+  const details = [
     {
       id: 1,
       title: "ABOUT",
-      link: `https://nemat.digitalcube.tech/nemat/about`,
+      link: "/about",
     },
     {
       id: 2,
       title: "POLICIES",
-      link: "",
+      link: "/contactus",
     },
     {
       id: 3,
       title: "CONTACT",
-      link: "",
+      link: `/contactus`,
     },
   ];
 
@@ -79,12 +76,12 @@ const NavBars = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
       );
 
-      console.log("allDataResponse.data", allDataResponse.data);
+      // console.log("allDataResponse.data", allDataResponse.data);
 
       if (allDataResponse.status === 200) {
         setCategoryData(allDataResponse.data);
-        setLoading(false)
-      //   setFirstApiCall(false)
+        setLoading(false);
+        //   setFirstApiCall(false)
       }
     } catch (error) {
       if (error.response) {
@@ -101,25 +98,26 @@ const NavBars = () => {
         ) {
           console.log(error.response);
           // toast.error(data);
-          setLoading(false)
+          setLoading(false);
         }
       }
     }
-    
+  };
+
+  const handleLinkClick = (link) => {
+    navigate(link);
   };
 
   return (
     <div className="custom-scrollbar  ">
-         <header className=" w-full left-0 z-0 top-0">
+      <header className=" w-full left-0 z-0 top-0">
         <div className="w-[100%]">
           <RightToLeftText />
         </div>
 
-      {     
-         loading ? (
-            <p>Loading....</p>
-         ) : (
-            !showNavbar ? (
+        {loading ? (
+          <p>Loading....</p>
+        ) : !showNavbar ? (
           <div className="w-[100%] h-[100vh] bg-[#e9e9e9] mobile:overflow-hidden sm:overflow-hidden">
             <div className=" w-full flex  flex-nowrap justify-between  items-center  p-4">
               <div className="flex gap-3">
@@ -181,15 +179,15 @@ const NavBars = () => {
               ))}
             </div>
 
-            <div className="p-3 font-Marcellus  text-xl ">
+            <div className="p-3 font-Marcellus text-xl">
               {details.map((detail) => (
-                <a
+                <div
                   key={detail.id}
-                  href={detail.link}
-                  className="p-1 text-bg_green hover:underline "
+                  onClick={() => handleLinkClick(detail.link)}
+                  className="p-1 text-bg_green hover:underline"
                 >
                   <h1>{detail.title}</h1>
-                </a>
+                </div>
               ))}
             </div>
           </div>
@@ -228,9 +226,11 @@ const NavBars = () => {
                   <h1 className="hover:underline cursor-pointer font-semibold">
                     ABOUT
                   </h1>
+                  <Link to={"/contactus"}>
                   <h1 className="hover:underline cursor-pointer font-semibold ">
                     CONTACT
                   </h1>
+                  </Link>
                 </div>
 
                 <div className="w-[143px] h-[66px]">
@@ -291,13 +291,10 @@ const NavBars = () => {
               ""
             )}
           </div>
-        )
-         )
-      }
-        
-         </header>
-   </div>
-  )
-}
+        )}
+      </header>
+    </div>
+  );
+};
 
-export default NavBars
+export default NavBars;
