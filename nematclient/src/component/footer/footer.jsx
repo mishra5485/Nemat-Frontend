@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import FooterImage from "../../assets/HomePage/FooterImage.png";
 import logo from "../../assets/loginImages/nematEnterprisesLogo.png";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const footer = () => {
   
+
+
   const detailsPage = [
     {
       id:1,
@@ -21,7 +23,7 @@ const footer = () => {
     {
       id:1,
       title:"Contact",
-      link:`https://nemat.digitalcube.tech/nemat/about`
+      link:"/contactus"
     },
     {
       id:1,
@@ -36,6 +38,7 @@ const footer = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [ FirstApiCall, setFirstApiCall] = useState(true)
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   const toggleSubSeries = (seriesId) => {
     setSelectedSeries((prevSelectedSeries) =>
@@ -82,7 +85,7 @@ const footer = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
       );
 
-      console.log("allDataResponse.data", allDataResponse.data);
+      // console.log("allDataResponse.data", allDataResponse.data);
 
       if (allDataResponse.status === 200) {
         setCategoryData(allDataResponse.data);
@@ -115,7 +118,9 @@ const footer = () => {
 
 
   
-
+  const handleLinkClick = (link) => {
+    navigate(link);
+  };
 
   return (
     <>
@@ -128,7 +133,7 @@ const footer = () => {
         backgroundImage: `url(${FooterImage})`,
         backgroundRepeat: "no-repeat",
       }}
-      className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-Cream bg-cover"
+      className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-white bg-cover"
     >
       <div className="w-[90%] h-full overflow-hidden  ">
         <div className="w-full mobile:h-[20%] mobile:mt-[60%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
@@ -209,8 +214,9 @@ const footer = () => {
                 {
                   detailsPage.map((text) => (
                     <div key={text.id} className="flex  py-5">
-
-                        <h1 className="md:px-3">{text.title}</h1>
+                        <h1 
+                        onClick={() => handleLinkClick(text.link)}
+                        className="md:px-3">{text.title}</h1>
                     </div>
                   ))
                 }

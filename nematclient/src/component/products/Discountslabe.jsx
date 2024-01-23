@@ -1,45 +1,14 @@
 import ProductHeader from "../common/ProductHeader";
 
 const Discountslabe = ({ Dssprays, agarbattisDs }) => {
-  const slabs = [
-    {
-      id: 1,
-      OrderValue: "From Rs. 500 to Rs. 50,000",
-      On_Agarbattis: "9.50%",
-      On_Fragrences: "24%",
-    },
-    {
-      id: 2,
-      OrderValue: "From Rs. 50,000 to Rs. 99,999",
-      On_Agarbattis: "18%",
-      On_Fragrences: "24%",
-    },
-    {
-      id: 3,
-      OrderValue: "From Rs. 1,00,000 to Rs. 2,99,999",
-      On_Agarbattis: "18%",
-      On_Fragrences: "25%",
-    },
-    {
-      id: 4,
-      OrderValue: "From Rs. 3,00,000 And 4,99,999 ",
-      On_Agarbattis: "18%",
-      On_Fragrences: "26%",
-    },
-    {
-      id: 5,
-      OrderValue: "From Rs. 5,00,000 And Above ",
-      On_Agarbattis: "18%",
-      On_Fragrences: "27%",
-    },
-  ];
+  
 
-  {
-    console.log("props  Dssprays ==>", Dssprays);
-  }
-  {
-    console.log("props agarbattisDs ==>", agarbattisDs);
-  }
+  // {
+  //   console.log("props  Dssprays ==>", Dssprays);
+  // }
+  // {
+  //   console.log("props agarbattisDs ==>", agarbattisDs);
+  // }
 
   return (
     <div className="flex w-[100%]  flex-col justify-center items-center  mt-8 bg-Cream">
@@ -67,7 +36,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
             {Dssprays && Dssprays.DiscountSlabs.length > 0 ? (
               Dssprays.DiscountSlabs.map((item, index) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="w-full mobile:h-[128px] sm:h-[80px] md:h-[68px] flex justify-between items-center text-center border-t-2 border-text_Color border-b-1"
                 >
                   {index === 0 ? (
