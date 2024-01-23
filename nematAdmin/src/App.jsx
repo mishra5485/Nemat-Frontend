@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import Edit_Product from "./Component/sidebar/Edit_Product";
 import AdminContact from "./Component/sidebar/website/AdminContact";
 import Smtp from "./Component/settings & Config/Smtp";
+import Policies from "./Component/sidebar/website/Policies";
 
 
 
@@ -91,6 +92,7 @@ function App() {
             <Route path="website/bannerSlider/edit_bannerslider/:_id" element={<Edit_BannerSlider/>}/>
 
           <Route path="website/admincontact" element={<AdminContact/>}/>
+           <Route path="website/policies" element={<Policies/>}/>
 
 
           {/* User Mangemant Routes  */}

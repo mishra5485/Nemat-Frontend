@@ -340,6 +340,15 @@ const Sidebar1 = () => {
                       Contact US
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      to="website/policies"
+                      onClick={handleMenuItemClick}
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                     Our Policies
+                    </NavLink>
+                  </li>
                 </ul>
               </li>
               <li>
