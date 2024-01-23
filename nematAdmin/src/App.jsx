@@ -26,6 +26,7 @@ import Edit_UserManagement from "./Component/sidebar/userMangement/Edit_UserMana
 import { useSelector } from "react-redux";
 import Edit_Product from "./Component/sidebar/Edit_Product";
 import AdminContact from "./Component/sidebar/website/AdminContact";
+import Smtp from "./Component/settings & Config/Smtp";
 
 
 
@@ -82,6 +83,8 @@ function App() {
           <Route path="fragrance"  element={<Fragrance/>}/>
             <Route path="fragrance/fragrance_edit/:_id" element={<Edit_Fragrance/>}/>
 
+
+        {/* {Website Content App Router } */}
           <Route path="website/promoHeader" element={<PromoHeader />} />
 
           <Route path="website/bannerSlider" element={<BannerSlider />} />
@@ -89,8 +92,13 @@ function App() {
 
           <Route path="website/admincontact" element={<AdminContact/>}/>
 
+
+          {/* User Mangemant Routes  */}
           <Route path="user-mangement" element={<UserMangement/>} />
             <Route path="user-mangement/user_prev/:_id" element={<Edit_UserManagement/>}/>
+
+          {/* Setting User or Config Routes  */}
+          <Route path="settings/smtp" element={<Smtp/>}/>
             
         </Route>
       </Routes>
