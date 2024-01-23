@@ -816,6 +816,9 @@ const Product = () => {
                           <th scope="col" className="p-4">
                             SlugUrl
                           </th>
+                          <th scope="col" className="p-4">
+                            Actions
+                          </th>
                         </tr>
                       </thead>
 
