@@ -28,6 +28,7 @@ import Edit_Product from "./Component/sidebar/Edit_Product";
 import AdminContact from "./Component/sidebar/website/AdminContact";
 import Smtp from "./Component/settings & Config/Smtp";
 import Policies from "./Component/sidebar/website/Policies";
+import Edit_Policies from "./Component/sidebar/website/Edit_Policies";
 
 
 
@@ -92,7 +93,9 @@ function App() {
             <Route path="website/bannerSlider/edit_bannerslider/:_id" element={<Edit_BannerSlider/>}/>
 
           <Route path="website/admincontact" element={<AdminContact/>}/>
+
            <Route path="website/policies" element={<Policies/>}/>
+           <Route path="website/policies/edit_policies/:_id" element={<Edit_Policies/>}/>
 
 
           {/* User Mangemant Routes  */}
