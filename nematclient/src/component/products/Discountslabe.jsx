@@ -11,9 +11,9 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
   // }
 
   return (
-    <div className="flex w-[100%]  flex-col justify-center items-center  mt-8 bg-Cream">
-      <div className="mt-10 fixed">
-        <ProductHeader title={"DISCOUNT SLABS"} className="pt-4" />
+    <div className="flex w-[100%]  flex-col justify-center items-center  mt-8 bg-Cream ">
+      <div className="mt-10">
+        <ProductHeader title={"DISCOUNT SLABS"} className="pt-4 " />
       </div>
 
       <div className="mt-9 mb-9 md:w-[80%] sm:w-[70%] mobile:w-[96%]">
@@ -25,7 +25,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
                 i
               </span>
             </h1>
-            <h1 className="pl-3 w-[33%] border-text_Color border-l-2 border-r-2 text-transform: uppercase">
+            <h1 className="pl-3 text-base w-[33%] border-text_Color border-l-2 border-r-2 text-transform: uppercase">
               {Dssprays.Name}{" "}
             </h1>
             <h1 className="pl-3 w-[33%] border-text_Color text-transform: uppercase">
