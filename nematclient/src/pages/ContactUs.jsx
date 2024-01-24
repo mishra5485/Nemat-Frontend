@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import NavBars from "./common/NavBars";
+import NavBars from "../component/common/NavBars";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
-import Footer from "./footer/footer";
+import Footer from "../component/footer/footer";
 import { FaWhatsapp } from "react-icons/fa";
 
 const ContactUs = () => {
