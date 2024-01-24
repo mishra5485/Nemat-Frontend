@@ -138,7 +138,7 @@ const footer = () => {
         backgroundImage: `url(${FooterImage})`,
         backgroundRepeat: "no-repeat",
       }}
-      className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-white bg-cover"
+      className="w-full sm:h-auto mobile:h-auto  bg-center flex mobile:flex-col sm:flex-col justify-center items-center bg-Cream bg-cover"
     >
       <div className="w-[90%] h-full overflow-hidden  ">
         <div className="w-full mobile:h-[20%] mobile:mt-[60%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">

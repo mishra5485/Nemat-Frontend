@@ -11,7 +11,8 @@ import PasswordUpdated from './component/passwordUpdated'
 import Cart from './component/Cart'
 import ForgotPassword from './component/ForgotPassword'
 import ResetPassword from './component/ResetPassword'
-import ContactUs from './component/ContactUs'
+import ContactUs from './pages/ContactUs'
+import Series from './pages/Series'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         {/* <Route  path='/resetpassword' element={<ResetPassword/>}/> */}
         <Route  path='/companydetails' element={<CompanyDetails/>} />
         <Route  path='/cart' element={<Cart/>} />
+        <Route path='/series/:_id' element={<Series/>}/>
         
         <Route  path='/changepassword' element={
           <PrivateRoute>
