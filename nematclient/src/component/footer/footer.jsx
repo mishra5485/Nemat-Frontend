@@ -122,6 +122,11 @@ const footer = () => {
     navigate(link);
   };
 
+  const seriesPageById = (_id) => {
+    navigate(`/series/${_id}`)
+  }
+
+
   return (
     <>
       {
@@ -176,12 +181,11 @@ const footer = () => {
                         {category.SubCategories &&
                           category.SubCategories.map((subcategories) => (
                             <li
-                              key={subcategories.Name}
+                              key={subcategories._id}
                               className="hover:underline p-3"
+                              onClick={() => seriesPageById(subcategories._id)}
                             >
-                              <Link to={subcategories._id} className="">
                                 {subcategories.Name}
-                              </Link>
                             </li>
                           ))}
                       </ul>
@@ -195,10 +199,11 @@ const footer = () => {
                           <li
                             key={subcategories._id}
                             className="hover:underline"
+                            onClick={() => seriesPageById(subcategories._id)}
                           >
-                            <Link to={subcategories._id} className="">
+                            {/* <Link to={subcategories._id} className=""> */}
                               {subcategories.Name}
-                            </Link>
+                            {/* </Link> */}
                           </li>
                         ))}
                     </ul>

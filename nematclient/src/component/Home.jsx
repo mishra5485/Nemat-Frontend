@@ -14,6 +14,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NavBars from "./common/NavBars";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
@@ -26,6 +27,7 @@ const Home = () => {
   const [Dssprays , setDsSprays] = useState()
   const [agarbattisDs , setAgarbattisDs] = useState();
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 
@@ -132,6 +134,10 @@ const Home = () => {
   },
   };
 
+   const seriesPageById = (_id) => {
+    navigate(`/series/${_id}`)
+  }
+
   return (
     <div className="mt-0  overflow-auto custom-scrollbar"> 
       {
@@ -203,11 +209,11 @@ const Home = () => {
             {categoryData.map((category, index) => (
               <>
                 {index % 2 == 0 ? (
-                  <div className="p-2  w-full mb-2">
+                  <div key={index} className="p-2  w-full mb-2">
                     <Goldenline image={DottedLineGold} />
                   </div>
                 ) : (
-                  <div className="p-2  w-full mb-2">
+                  <div key={index} className="p-2  w-full mb-2">
                     <RightToLeftanm image={FlowerPattern2} />
                   </div>
                 )}
@@ -220,6 +226,7 @@ const Home = () => {
                           <div
                             key={subcategories._id}
                             className="flex w-full flex-col justify-center gap-y-3 items-center mb-2"
+                             onClick={() => seriesPageById(subcategories._id)}
                           >
                             <img
                               src={`${

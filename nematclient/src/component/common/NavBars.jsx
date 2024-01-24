@@ -108,6 +108,10 @@ const NavBars = () => {
     navigate(link);
   };
 
+  const seriesPageById = (_id) => {
+    navigate(`/series/${_id}`)
+  }
+
   return (
     <div className="custom-scrollbar  ">
       <header className=" w-full left-0 z-0 top-0">
@@ -128,7 +132,9 @@ const NavBars = () => {
                 <CgProfile onClick={() => navigate("/login")} size={30} />
               </div>
               <div className="w-[143px] h-[66px]">
+                <Link to={"/"}>
                 <img src={logo} className="w-full h-full " />
+                </Link>
               </div>
               <IoIosCloseCircleOutline size={30} onClick={mobileNavbar} />
             </div>
@@ -166,6 +172,7 @@ const NavBars = () => {
                             <li
                               key={subcategories._id}
                               className="hover:underline"
+                              onClick={() => seriesPageById(subcategories._id)}
                             >
                               <Link to={subcategories.link} className="">
                                 {subcategories.Name}
@@ -233,8 +240,14 @@ const NavBars = () => {
                   </Link>
                 </div>
 
-                <div className="w-[143px] h-[66px]">
-                  <img src={logo} className="w-full h-full " />
+                <div className="w-[143px] h-[66px]"
+                >
+                  <Link 
+                    to={"/"}
+                  >
+                  <img src={logo}
+                  className="w-full h-full " />
+                  </Link>
                 </div>
                 <div className="md:hidden" onClick={mobileNavbar}>
                   {showNavbar ? <GiHamburgerMenu size={30} color="" /> : null}
@@ -277,6 +290,7 @@ const NavBars = () => {
                               <li
                                 key={subcategories._id}
                                 className="hover:underline cursor-pointer"
+                                 onClick={() => seriesPageById(subcategories._id)}
                               >
                                 {subcategories.Name}
                               </li>
