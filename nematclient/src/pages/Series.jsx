@@ -154,10 +154,11 @@
 
                   <div className="flex justify-between">
                     <div className="w-[60%]">
-                      <h1 className="w-full flex items-center">{product.Name} <span className=" ml-2 px-2.5 bg-text_Color text-white rounded-xl  ">i</span></h1>
+                      <h1 className="w-full flex items-center font-roxborough text-xl font-semibold text-text_Color">{product.Name} <span className=" ml-2 px-2.5 bg-text_Color text-white rounded-xl  ">i</span></h1>
                     </div>
-                    <button className="flex justify-end items-center">
-                      Reset
+                    <button className="flex justify-end items-center mr-3 p-2 border-2 rounded-3xl px-4 font-Marcellus text-text_Color2
+                     " >
+                      Reset QTY
                     </button>
                   </div>
 
@@ -168,7 +169,7 @@
                         <div className="w-full flex flex-row mt-2">
                           {
                             seriesData.SubCategoriesData.PackSizes.map((packsize) => (
-                              <button key={packsize._id} className="p-2  border-2 mr-1.5 rounded-3xl flex w-[100%] justify-center items-center">
+                              <button key={packsize._id} className="p-2  border-2 mr-1.5 rounded-3xl flex w-[100%] justify-center items-center bg-Cream">
                                 {packsize.size}
                               </button>
                             ))
@@ -189,7 +190,7 @@
                     <button className="w-full p-3 border-2 rounded-3xl">
                       ADD TO CART - 
                     </button>
-                    <button className="w-full p-1 border-2 rounded-3xl mt-3">
+                    <button className="w-full p-1 border-2 rounded-3xl mt-3 bg-Cream">
                       Total Units In Cart:
                     </button>
                   </div>
