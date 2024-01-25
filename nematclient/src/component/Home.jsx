@@ -242,7 +242,7 @@ const Home = () => {
                               {subcategories.Name}
                             </h1>
                             <button className="w-[137px] h-[43px] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
-                              SHOP NOW
+                              Order NOW
                             </button>
                           </div>
                         ))}
