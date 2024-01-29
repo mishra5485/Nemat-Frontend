@@ -16,17 +16,17 @@ const footer = () => {
       link:`https://nemat.digitalcube.tech/nemat/about`
     },
     {
-      id:1,
+      id:2,
       title:"Policies",
       link:`https://nemat.digitalcube.tech/nemat/about`
     },
     {
-      id:1,
+      id:3,
       title:"Contact",
       link:"/contactus"
     },
     {
-      id:1,
+      id:4,
       title:"Account",
       link:`https://nemat.digitalcube.tech/nemat/about`
     },
