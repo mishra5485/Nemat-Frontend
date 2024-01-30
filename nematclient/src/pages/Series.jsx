@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useSliderRefs } from "../hooks/useSliderRefs";
 import Footer from "../component/footer/footer";
 import { useSelector } from "react-redux";
+import ProgressBar from "../component/common/ProgressBar";
 
 const Series = () => {
   const { _id } = useParams();
@@ -267,6 +268,8 @@ const Series = () => {
     setTotalValue(calculatedTotalValue);
   };
 
+  
+
   return (
     <div>
       <div>
@@ -316,10 +319,7 @@ const Series = () => {
           </div> */}
 
           <div>
-            <input 
-              type="range"
-              
-            />
+              <ProgressBar qunantityData={qunantityData} totalvalue={totalvalue}/>
           </div>
 
           <div className="w-[100%] flex flex-col justify-center items-center  mt-4 ">
