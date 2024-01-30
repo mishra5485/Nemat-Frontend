@@ -25,6 +25,7 @@ const Series = () => {
   const [totalInCart, setTotalInCart] = useState(0);
   const [productDataCart, setProductDataCart] = useState();
   const [initialTotal, setInitialTotal] = useState(true);
+  const [totalvalue, setTotalValue] = useState(0);
 
   let { user } = useSelector((store) => store.profile);
 
@@ -45,6 +46,7 @@ const Series = () => {
       setSeriesData(response.data);
       setQuantityData(response.data.QuantitySchemeData);
       setProducts(response.data.SchemeProductsData);
+      alltotalValue(response.data.SchemeProductsData);
       setLoading(false);
       setInitialTotal(true);
     } catch (error) {
@@ -116,7 +118,7 @@ const Series = () => {
 
     console.log(`Product Total (${index}):`, productTotal);
 
-    // Check if productTotals[index] is NaN and replace with 0
+    // // Check if productTotals[index] is NaN and replace with 0
     const updatedProductTotals = [...productTotals];
     if (isNaN(updatedProductTotals[index])) {
       updatedProductTotals[index] = 0;
@@ -143,16 +145,12 @@ const Series = () => {
     });
 
     const productId = Products[index]._id;
-    await addProductCart(productId, updatedProductTotals[index]);
+    try {
+      await addProductCart(productId, updatedProductTotals[index]);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
   };
-
-  function editBooks(obj) {
-    Products.forEach(function (e) {
-      if (obj.Product_id && obj.Product_id == e._id) {
-        for (var i in obj) e[_id] = obj[Product_id];
-      }
-    });
-  }
 
   const addProductCart = async (_id, value) => {
     const payload = {
@@ -173,9 +171,9 @@ const Series = () => {
       if (response.status === 200) {
         setInitialTotal(false);
         setProductDataCart(response.data);
-        editBooks(response.data);
-
         console.log(response.data);
+        setTotalValue(totalvalue + payload.quantity);
+        alltotalValue(response.data);
       }
     } catch (error) {
       if (error.response) {
@@ -199,6 +197,19 @@ const Series = () => {
   };
 
   const removeproductCart = async (_id) => {
+    let values = 0;
+
+    const foundProduct = Products.find((product) => product._id === _id);
+
+    if (foundProduct) {
+      values = foundProduct.TotalQuantityInCart;
+    }
+
+    console.log("Found Product:", foundProduct);
+    console.log("Total Quantity In Cart:", values);
+
+    // console.log("Values ", values);
+
     const payload = {
       subcategory_id: seriesData.SubCategoriesData._id,
       product_id: _id,
@@ -215,7 +226,8 @@ const Series = () => {
 
       if (response.status === 200) {
         console.log(response.data);
-        getSeriesDataById();
+        setTotalValue(totalvalue - values)
+        // getSeriesDataById();
       }
     } catch (error) {
       const { status, data } = error.response;
@@ -232,6 +244,16 @@ const Series = () => {
         console.log(data);
       }
     }
+  };
+
+  const alltotalValue = async (Products) => {
+    console.log("Products Here ===>", Products);
+
+    const calculatedTotalValue = Products.reduce(
+      (acc, item) => acc + item.TotalQuantityInCart,
+      0
+    );
+    setTotalValue(calculatedTotalValue);
   };
 
   return (
@@ -393,14 +415,18 @@ const Series = () => {
                     ADD TO CART - {calculateTotalUnits(index)} units
                   </button>
                   <button className="w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
-                    Total Units In Cart: { initialTotal ? (
-                      product?.TotalQuantityInCart 
-                    ) : (product._id === productDataCart.Product_id ? (
-                       product.TotalQuantityInCart = productDataCart.TotalQuantity
-                    ) : ( product.TotalQuantityInCart ) )
-                     } 
+                    Total Units In Cart:{" "}
+                    {initialTotal
+                      ? product?.TotalQuantityInCart
+                      : product._id === productDataCart.Product_id
+                      ? (product.TotalQuantityInCart =
+                          productDataCart.TotalQuantity)
+                      : product.TotalQuantityInCart}
+                    {console.log(product)}
                   </button>
+                  <h1>{}</h1>
                 </div>
+                <h1>Total Cart Values {totalvalue}</h1>
               </div>
             ))}
           </div>
