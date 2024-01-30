@@ -22,7 +22,6 @@ const Series = () => {
     Array(Products.length).fill(null)
   );
   const [productTotals, setProductTotals] = useState([]);
-  const [totalInCart, setTotalInCart] = useState(0);
   const [productDataCart, setProductDataCart] = useState();
   const [initialTotal, setInitialTotal] = useState(true);
   const [totalvalue, setTotalValue] = useState(0);
@@ -55,8 +54,8 @@ const Series = () => {
     }
   };
 
-  // console.log("seriesData ===> " ,  seriesData)
-  // console.log("products ===>", Products);
+  console.log("qunantityData ===> " ,  qunantityData)
+  // console.log("products ===>", Products)
   const title = seriesData?.SubCategoriesData?.Name;
 
   // Slider Functions
@@ -127,8 +126,6 @@ const Series = () => {
     updatedProductTotals[index] = productTotal;
 
     // console.log(`Updated Product Totals:`, updatedProductTotals);
-
-    setTotalInCart((total) => total + productTotal);
     setProductTotals(updatedProductTotals);
 
     // Reset quantities and selectedPackSizes after adding to the cart
@@ -196,17 +193,17 @@ const Series = () => {
     }
   };
 
-  const removeproductCart = async (_id) => {
+  const removeproductCart = async (_id, index) => {
     let values = 0;
-
+    setInitialTotal(true)
     const foundProduct = Products.find((product) => product._id === _id);
 
     if (foundProduct) {
       values = foundProduct.TotalQuantityInCart;
     }
 
-    console.log("Found Product:", foundProduct);
-    console.log("Total Quantity In Cart:", values);
+    // // console.log("Found Product:", foundProduct);
+    // console.log("Total Quantity In Cart:", values);
 
     // console.log("Values ", values);
 
@@ -226,11 +223,25 @@ const Series = () => {
 
       if (response.status === 200) {
         console.log(response.data);
-        setTotalValue(totalvalue - values)
-        // getSeriesDataById();
+
+        setProducts((prevProducts) => {
+          console.log("Previous Products:", prevProducts);
+
+          return prevProducts.map((product, i) =>
+            i === index ? { ...product, TotalQuantityInCart: 0 } : product
+          );
+        });
+
+        setTotalValue((prevTotalValue) => {
+          console.log("Previous Total Value:", prevTotalValue);
+
+          return prevTotalValue - values;
+        });
+        // Update state with the modified arra
       }
     } catch (error) {
-      const { status, data } = error.response;
+      const status = error.response?.status;
+      const data = error.response?.data;
 
       if (
         status === 404 ||
@@ -247,7 +258,7 @@ const Series = () => {
   };
 
   const alltotalValue = async (Products) => {
-    console.log("Products Here ===>", Products);
+    // console.log("Products Here ===>", Products);
 
     const calculatedTotalValue = Products.reduce(
       (acc, item) => acc + item.TotalQuantityInCart,
@@ -276,7 +287,40 @@ const Series = () => {
             </p>
           </div>
 
-          <div>{/* Bar display here  */}</div>
+          {/* <div className="mt-10">
+            <div className="w-[90%] mx-auto relative ">
+              <div className="flex w-full justify-between  mb-5">
+              {
+                qunantityData.SchemeValues.map((data) => (
+                  <div key={data._id} className="">
+                      <div className="   ">
+                        <h1 className="">{data.min}/PCS</h1>
+                      </div>
+                  </div>
+                ))
+              }
+              </div>
+              <div className="w-full h-[50px] pl-5 pr-5 flex justify-between items-center   bg-green-500">
+                  {
+                    qunantityData.SchemeValues.map((data) => (
+                      <div key={data._id} className="  flex justify-between items-center z-40 h-full">
+                        <div className=" flex justify-evenly items-center">
+                          <h1 className="w-full flex justify-between ">Rs. {data.value} / pc</h1>
+                        </div>
+                        
+                      </div>
+                    ))
+                  }
+              </div>
+            </div>
+          </div> */}
+
+          <div>
+            <input 
+              type="range"
+              
+            />
+          </div>
 
           <div className="w-[100%] flex flex-col justify-center items-center  mt-4 ">
             <div className="w-[90%] flex bg-LightCream  border  font-Marcellus  uppercase">
@@ -362,7 +406,7 @@ const Series = () => {
                   <button
                     className="flex justify-end items-center mr-3 p-2 border-2 rounded-3xl px-4 font-Marcellus text-text_Color2
                      "
-                    onClick={() => removeproductCart(product._id)}
+                    onClick={() => removeproductCart(product._id, index)}
                   >
                     Reset QTY
                   </button>
@@ -422,7 +466,6 @@ const Series = () => {
                       ? (product.TotalQuantityInCart =
                           productDataCart.TotalQuantity)
                       : product.TotalQuantityInCart}
-                    {console.log(product)}
                   </button>
                   <h1>{}</h1>
                 </div>
