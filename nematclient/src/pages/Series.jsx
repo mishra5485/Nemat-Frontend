@@ -55,7 +55,7 @@ const Series = () => {
     }
   };
 
-  console.log("qunantityData ===> " ,  qunantityData)
+  // console.log("qunantityData ===> " ,  qunantityData)
   // console.log("products ===>", Products)
   const title = seriesData?.SubCategoriesData?.Name;
 
@@ -169,7 +169,7 @@ const Series = () => {
       if (response.status === 200) {
         setInitialTotal(false);
         setProductDataCart(response.data);
-        console.log(response.data);
+        // console.log("Response Add Cart ====>" , response.data);
         setTotalValue(totalvalue + payload.quantity);
         alltotalValue(response.data);
       }
@@ -223,10 +223,10 @@ const Series = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log("Remove Response ===> " , response.data);
 
         setProducts((prevProducts) => {
-          console.log("Previous Products:", prevProducts);
+          // console.log("Previous Products:", prevProducts);
 
           return prevProducts.map((product, i) =>
             i === index ? { ...product, TotalQuantityInCart: 0 } : product
@@ -234,7 +234,7 @@ const Series = () => {
         });
 
         setTotalValue((prevTotalValue) => {
-          console.log("Previous Total Value:", prevTotalValue);
+          // console.log("Previous Total Value:", prevTotalValue);
 
           return prevTotalValue - values;
         });
@@ -318,7 +318,7 @@ const Series = () => {
             </div>
           </div> */}
 
-          <div>
+          <div className="mt-6 mb-6">
               <ProgressBar qunantityData={qunantityData} totalvalue={totalvalue}/>
           </div>
 
