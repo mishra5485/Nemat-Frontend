@@ -367,7 +367,7 @@ const Series = () => {
                 <Slider
                   ref={(slider) => (sliderRefs[index] = slider)}
                   {...settings}
-                  className="overflow-hidden "
+                  className="mobile:overflow-hidden sm:overflow-hidden "
                 >
                   {product.ProductOtherImage.map((images, imageIndex) => (
                     <div key={imageIndex} className="mt-8 ">
@@ -375,7 +375,7 @@ const Series = () => {
                         src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                           images.OtherImagesName
                         }`}
-                        className="h-[90%] w-[70%] mx-auto object-cover"
+                        className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover"
                         alt={`Slide ${imageIndex + 1}`}
                       />
                     </div>
@@ -383,24 +383,24 @@ const Series = () => {
                 </Slider>
 
                 {/* External Buttons */}
-                <div className="flex absolute mt-[-50%] w-[90%] mx-auto">
+                <div className="mobile:flex  mobile:absolute mobile:mt-[-50%] mobile:w-[90%] mobile:mx-auto sm:flex  sm:absolute sm:mt-[-50%] sm:w-[90%] sm:mx-auto">
                   <button
                     onClick={() => handlePrev(index)}
-                    className="custom-prev-button ml-[3%]"
+                    className="mobile:ml-[3%] sm:ml-[3%]"
                   >
                     <FaAngleLeft size={25}/>
                   </button>
                   <button
                     onClick={() => handleNext(index)}
-                    className="custom-next-button w-full flex justify-end mr-[3%]"
+                    className="mobile:w-full mobile:flex  mobile:justify-end  mobile:mr-[3%] sm:w-full sm:flex sm:justify-end sm:mr-[3%]"
                   >
                     <FaAngleRight size={25}/>
                   </button>
                 </div>
               </div>
-                <div className="flex justify-between mt-6">
-                  <div className="w-[55%]">
-                    <h1 className="w-full h-full flex items-center  font-roxborough text-lg font-semibold text-text_Color">
+                <div className="mobile:flex mobile:justify-between mobile:mt-6 sm:flex sm:justify-between sm:mt-6">
+                  <div className="mobile:w-[55%] sm:w-[55%]">
+                    <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                       {product.Name}{" "}
                       <span className="px-2 bg-text_Color text-white rounded-xl">
                         i
@@ -408,7 +408,7 @@ const Series = () => {
                     </h1>
                   </div>
                   <button
-                    className="flex justify-end items-center mr-3 p-2 mobile:p-2 border-2 rounded-3xl px-4 font-Marcellus text-text_Color2
+                    className="mobile:flex mobile:justify-end mobile:items-center mobile:mr-3 mobile:px-4 mobile:p-2 sm:p-2 sm:flex sm:justify-end sm:items-center sm:mr-3 sm:px-4  border-2 rounded-3xl  font-Marcellus text-text_Color2
                      "
                     onClick={() => removeproductCart(product._id, index)}
                   >
@@ -416,20 +416,20 @@ const Series = () => {
                   </button>
                 </div>
                 <div>
-                  <div className="w-[100%]">
+                  <div className="mobile:w-[100%] sm:w-[100%]">
                     <div>
                       <h1 className="font-roxborough text-text_Color">
                         Select Pack Size:
                       </h1>
                     </div>
-                    <div className="w-full flex flex-row mt-2">
+                    <div className="mobile:w-full mobile:flex mobile:flex-row mobile:mt-2 sm:w-full sm:flex sm:flex-row sm:mt-2">
                       {seriesData.SubCategoriesData.PackSizes.map(
                         (packsize) => (
                           <button
                             key={packsize._id}
-                            className={`p-2 border-2 mr-1.5 rounded-3xl flex w-[100%] justify-center items-center bg-Cream font-Marcellus ${
+                            className={`mobile:p-2 border-2 mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
                               selectedPackSizes[index] === packsize
-                                ? "bg-blue-500 text-white"
+                                ? "bg-text_Color text-white"
                                 : ""
                             }`}
                             onClick={() => handlePackSizeClick(packsize, index)}
@@ -440,15 +440,15 @@ const Series = () => {
                       )}
                     </div>
                   </div>
-                  <div className="w-full flex justify-between p-2 mt-2">
-                    <h1 className="my-auto font-roxborough text-text_Color font-semibold">
+                  <div className="mobile:w-full mobile:flex mobile:justify-between mobile:p-2 mobile:mt-2 sm:w-full sm:flex sm:justify-between sm:p-2 sm:mt-2">
+                    <h1 className="mobile:my-auto sm:my-auto font-roxborough text-text_Color font-semibold">
                       Purchase Quantity:
                     </h1>
                     <div>
                       <input
                         type="text"
                         id={`quantity_${index}`}
-                        className="p-2 border-2 rounded-3xl w-[100%]"
+                        className="p-2 border-2 rounded-3xl mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
                         value={quantities[index]}
                         onChange={(event) => validateInput(event, index)}
                       />
@@ -457,12 +457,12 @@ const Series = () => {
                 </div>
                 <div className="mt-1">
                   <button
-                    className="w-full p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
+                    className="mobile:w-full sm:w-full mobile:p-3 sm:p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
                     onClick={() => addToCart(index)}
                   >
                     ADD TO CART - {calculateTotalUnits(index)} PCS
                   </button>
-                  <button className="w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
+                  <button className="mobile:w-full sm:w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
                     Total Units In Cart:{" "}
                     {initialTotal
                       ? product?.TotalQuantityInCart
@@ -471,7 +471,6 @@ const Series = () => {
                           productDataCart.TotalQuantity)
                       : product.TotalQuantityInCart} PCS
                   </button>
-                  <h1>{}</h1>
                 </div>
                 <h1>Total Cart Values {totalvalue}</h1>
               </div>

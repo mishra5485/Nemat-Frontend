@@ -48,7 +48,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
     const matchingItem = qunantityData.SchemeValues.find(
       (item) => totalvalue >= item.min && totalvalue <= item.max
     );
-    console.log("matchingItem ===> ", matchingItem);
+    // console.log("matchingItem ===> ", matchingItem);
     if (matchingItem) {
       setNextSlabe(0);
       setNextSlabe(matchingItem.max + 1 - totalvalue);
