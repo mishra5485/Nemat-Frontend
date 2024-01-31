@@ -279,6 +279,9 @@ const Series = () => {
         <p>Loading...</p>
       ) : (
         <div className="mt-8 mb-8">
+
+          {/* Top Section  */}
+          <div className="md:w-[70%] md:mx-auto">
           <div className="w-[80%] mx-auto">
             <ProductHeader
               title={title}
@@ -318,7 +321,7 @@ const Series = () => {
             </div>
           </div> */}
 
-          <div className="mt-6 mb-6">
+          <div className="mt-8 mb-6">
               <ProgressBar qunantityData={qunantityData} totalvalue={totalvalue}/>
           </div>
 
@@ -342,24 +345,25 @@ const Series = () => {
                   )}
                   {qunantityData.SchemeValues.length === index + 1 ? (
                     <p className="w-[50%] text-center p-1.5 border-b ">
-                      {data.value}
+                      ₹ {data.value} PC
                     </p>
                   ) : (
-                    <p className="w-[50%] text-center p-1.5 ">{data.value}</p>
+                    <p className="w-[50%] text-center p-1.5 ">₹ {data.value} PC</p>
                   )}
                 </div>
               </div>
             ))}
           </div>
-
+        </div>                
           {/* <!-- Carousel wrapper --> */}
 
           <div>
             {Products?.map((product, index) => (
               <div
                 key={product._id}
-                className="mt-8 overflow-hidden w-[90%] mx-auto"
+                className=" mobile:mt-8 mobile:overflow-hidden mobile:w-[90%] mobile:mx-auto sm:mt-8 sm:overflow-hidden sm:w-[90%] sm:mx-auto"
               >
+                <div>
                 <Slider
                   ref={(slider) => (sliderRefs[index] = slider)}
                   {...settings}
@@ -384,27 +388,27 @@ const Series = () => {
                     onClick={() => handlePrev(index)}
                     className="custom-prev-button ml-[3%]"
                   >
-                    <FaAngleLeft />
+                    <FaAngleLeft size={25}/>
                   </button>
                   <button
                     onClick={() => handleNext(index)}
                     className="custom-next-button w-full flex justify-end mr-[3%]"
                   >
-                    <FaAngleRight />
+                    <FaAngleRight size={25}/>
                   </button>
                 </div>
-
-                <div className="flex justify-between">
-                  <div className="w-[60%]">
-                    <h1 className="w-full flex items-center font-roxborough text-xl font-semibold text-text_Color">
+              </div>
+                <div className="flex justify-between mt-6">
+                  <div className="w-[55%]">
+                    <h1 className="w-full h-full flex items-center  font-roxborough text-lg font-semibold text-text_Color">
                       {product.Name}{" "}
-                      <span className=" ml-2 px-2.5 bg-text_Color text-white rounded-xl  ">
+                      <span className="px-2 bg-text_Color text-white rounded-xl">
                         i
                       </span>
                     </h1>
                   </div>
                   <button
-                    className="flex justify-end items-center mr-3 p-2 border-2 rounded-3xl px-4 font-Marcellus text-text_Color2
+                    className="flex justify-end items-center mr-3 p-2 mobile:p-2 border-2 rounded-3xl px-4 font-Marcellus text-text_Color2
                      "
                     onClick={() => removeproductCart(product._id, index)}
                   >
@@ -444,7 +448,7 @@ const Series = () => {
                       <input
                         type="text"
                         id={`quantity_${index}`}
-                        className="p-2 border-2 rounded-3xl"
+                        className="p-2 border-2 rounded-3xl w-[100%]"
                         value={quantities[index]}
                         onChange={(event) => validateInput(event, index)}
                       />
@@ -453,10 +457,10 @@ const Series = () => {
                 </div>
                 <div className="mt-1">
                   <button
-                    className="w-full p-3 border-2 rounded-3xl font-Marcellus"
+                    className="w-full p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
                     onClick={() => addToCart(index)}
                   >
-                    ADD TO CART - {calculateTotalUnits(index)} units
+                    ADD TO CART - {calculateTotalUnits(index)} PCS
                   </button>
                   <button className="w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
                     Total Units In Cart:{" "}
@@ -465,7 +469,7 @@ const Series = () => {
                       : product._id === productDataCart.Product_id
                       ? (product.TotalQuantityInCart =
                           productDataCart.TotalQuantity)
-                      : product.TotalQuantityInCart}
+                      : product.TotalQuantityInCart} PCS
                   </button>
                   <h1>{}</h1>
                 </div>
