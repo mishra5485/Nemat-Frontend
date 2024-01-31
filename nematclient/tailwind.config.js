@@ -10,7 +10,7 @@ export default {
       },
       colors: {
         bg_green: "#60713a",
-        text_Color2:"60713A",
+        text_Color2:"#60713A",
         text_Color: "#642F29",
         Cream: "#FEEEE2",
         LightCream: "#FFFBF0",
