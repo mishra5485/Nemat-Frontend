@@ -210,11 +210,13 @@ const Home = () => {
               <>
                 {index % 2 == 0 ? (
                   <div key={index} className="p-2  w-full mb-2">
-                    <Goldenline image={DottedLineGold} />
+                    <img src={DottedLineGold} className="w-full" />
+                    {/* <Goldenline image={DottedLineGold} /> */}
                   </div>
                 ) : (
                   <div key={index} className="p-2  w-full mb-2">
-                    <RightToLeftanm image={FlowerPattern2} />
+                    <img src={FlowerPattern2}  className="w-full object-cover"/>
+                    {/* <RightToLeftanm image={FlowerPattern2} /> */}
                   </div>
                 )}
                 <div key={category._id}>

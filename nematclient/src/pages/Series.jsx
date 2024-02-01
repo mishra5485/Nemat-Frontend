@@ -29,7 +29,7 @@ const Series = () => {
 
   let { user } = useSelector((store) => store.profile);
 
-  // console.log("USER +++> " , user)
+  console.log("USER +++> " , user.customer_id)
 
   useEffect(() => {
     getSeriesDataById();
