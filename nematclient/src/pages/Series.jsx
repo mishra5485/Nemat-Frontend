@@ -357,25 +357,25 @@ const Series = () => {
         </div>                
           {/* <!-- Carousel wrapper --> */}
 
-          <div>
+          <div className="md:w-[100%] ">
             {Products?.map((product, index) => (
               <div
                 key={product._id}
-                className=" mobile:mt-8 mobile:overflow-hidden mobile:w-[90%] mobile:mx-auto sm:mt-8 sm:overflow-hidden sm:w-[90%] sm:mx-auto"
+                className=" mobile:mt-8 mobile:overflow-hidden mobile:w-[90%] mobile:mx-auto sm:mt-8 sm:overflow-hidden sm:w-[90%] sm:mx-auto md:flex"
               >
-                <div>
+                <div className="md:flex md:w-[40%]">
                 <Slider
                   ref={(slider) => (sliderRefs[index] = slider)}
                   {...settings}
-                  className="mobile:overflow-hidden sm:overflow-hidden "
+                  className="mobile:overflow-hidden sm:overflow-hidden md:overflow-hidden"
                 >
                   {product.ProductOtherImage.map((images, imageIndex) => (
-                    <div key={imageIndex} className="mt-8 ">
+                    <div key={imageIndex} className="mt-8 md:relative">
                       <img
                         src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                           images.OtherImagesName
                         }`}
-                        className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover"
+                        className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover  md:w-[320px] md:h-[245px] md:object-contain "
                         alt={`Slide ${imageIndex + 1}`}
                       />
                     </div>
@@ -383,26 +383,27 @@ const Series = () => {
                 </Slider>
 
                 {/* External Buttons */}
-                <div className="mobile:flex  mobile:absolute mobile:mt-[-50%] mobile:w-[90%] mobile:mx-auto sm:flex  sm:absolute sm:mt-[-50%] sm:w-[90%] sm:mx-auto">
+                <div className="mobile:flex  mobile:absolute mobile:mt-[-50%] mobile:w-[90%] mobile:mx-auto sm:flex  sm:absolute sm:mt-[-50%] sm:w-[90%] sm:mx-auto  md:w-[25.5%] lg:w-[25.7%] md:mt-[140px] md:mr-2 md:object-cover">
                   <button
                     onClick={() => handlePrev(index)}
                     className="mobile:ml-[3%] sm:ml-[3%]"
                   >
                     <FaAngleLeft size={25}/>
-                  </button>
+                  </button> 
                   <button
                     onClick={() => handleNext(index)}
-                    className="mobile:w-full mobile:flex  mobile:justify-end  mobile:mr-[3%] sm:w-full sm:flex sm:justify-end sm:mr-[3%]"
+                    className="mobile:w-full mobile:flex  mobile:justify-end  mobile:mr-[3%] sm:w-full sm:flex sm:justify-end sm:mr-[3%] "
                   >
                     <FaAngleRight size={25}/>
                   </button>
                 </div>
               </div>
-                <div className="mobile:flex mobile:justify-between mobile:mt-6 sm:flex sm:justify-between sm:mt-6">
+              <div className="md:w-[100%]">
+                <div className="flex mobile:justify-between mobile:mt-6  sm:justify-between sm:mt-6 md:w-[100%] ">
                   <div className="mobile:w-[55%] sm:w-[55%]">
                     <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                       {product.Name}{" "}
-                      <span className="px-2 bg-text_Color text-white rounded-xl">
+                      <span className="px-2 bg-text_Color text-white rounded-xl md:ml-3">
                         i
                       </span>
                     </h1>
@@ -440,7 +441,8 @@ const Series = () => {
                       )}
                     </div>
                   </div>
-                  <div className="mobile:w-full mobile:flex mobile:justify-between mobile:p-2 mobile:mt-2 sm:w-full sm:flex sm:justify-between sm:p-2 sm:mt-2">
+                  <div className="md:flex md:mt-3">
+                  <div className="mobile:w-full mobile:flex mobile:justify-between mobile:p-2 mobile:mt-2 sm:w-full sm:flex sm:justify-between sm:p-2 sm:mt-2 md:w-[40%]">
                     <h1 className="mobile:my-auto sm:my-auto font-roxborough text-text_Color font-semibold">
                       Purchase Quantity:
                     </h1>
@@ -454,14 +456,15 @@ const Series = () => {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="mt-1">
+                <div className="mt-1 ml-[1%] md:w-[59%] md:my-auto ">
                   <button
                     className="mobile:w-full sm:w-full mobile:p-3 sm:p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
                     onClick={() => addToCart(index)}
-                  >
+                    >
                     ADD TO CART - {calculateTotalUnits(index)} PCS
                   </button>
+                  </div>
+                    </div>
                   <button className="mobile:w-full sm:w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
                     Total Units In Cart:{" "}
                     {initialTotal
@@ -473,6 +476,7 @@ const Series = () => {
                   </button>
                 </div>
                 <h1>Total Cart Values {totalvalue}</h1>
+                </div>
               </div>
             ))}
           </div>
