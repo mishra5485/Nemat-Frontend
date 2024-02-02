@@ -14,6 +14,7 @@ export default {
         text_Color: "#642F29",
         Cream: "#FEEEE2",
         LightCream: "#FFFBF0",
+        CartRightColor:"#F6F5F0"
       },
       screens: {
         mobile: "220px",
