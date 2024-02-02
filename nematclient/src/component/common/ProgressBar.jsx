@@ -29,34 +29,39 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
   // };
 
   useEffect(() => {
-    const currentIndex = qunantityData.SchemeValues.findIndex((obj) => {
-      return (
-        obj.min <= totalvalue &&
-        (obj.max === undefined || totalvalue <= obj.max)
-      );
-    });
-
-    const resultPair =
-      currentIndex !== -1
-        ? {
-            current: qunantityData.SchemeValues[currentIndex],
-            next: qunantityData.SchemeValues[currentIndex + 1] || null,
-          }
-        : null;
-    setNextValue(resultPair.next);
-
-    const matchingItem = qunantityData.SchemeValues.find(
-      (item) => totalvalue >= item.min && totalvalue <= item.max
+  const currentIndex = qunantityData.SchemeValues.findIndex((obj) => {
+    return (
+      obj.min <= totalvalue &&
+      (obj.max === undefined || totalvalue <= obj.max)
     );
-    // console.log("matchingItem ===> ", matchingItem);
-    if (matchingItem) {
-      setNextSlabe(0);
-      setNextSlabe(matchingItem.max + 1 - totalvalue);
-    } else {
-      setNextSlabe(0);
-    }
-  }, [totalvalue, qunantityData.SchemeValues]);
+  });
 
+  const resultPair =
+    currentIndex !== -1
+      ? {
+          current: qunantityData.SchemeValues[currentIndex],
+          next: qunantityData.SchemeValues[currentIndex + 1] || null,
+        }
+      : null;
+
+  // Check if resultPair is not null before accessing its next property
+  if (resultPair && resultPair.next) {
+    setNextValue(resultPair.next);
+  } else {
+    setNextValue(null); // or handle it as needed
+  }
+
+  const matchingItem = qunantityData.SchemeValues.find(
+    (item) => totalvalue >= item.min && totalvalue <= item.max
+  );
+
+  if (matchingItem) {
+    setNextSlabe(0);
+    setNextSlabe(matchingItem.max + 1 - totalvalue);
+  } else {
+    setNextSlabe(0);
+  }
+}, [totalvalue, qunantityData.SchemeValues]);
   const calculateWidth = (min, max) => {
     if (totalvalue >= min && totalvalue <= max) {
       return `${(totalvalue / max) * 100}%`;
