@@ -158,7 +158,8 @@ const Home = () => {
           <div
             key={bannerItem._id}
             className="w-full h-[85vh] object-cover sm:bg-center overflow-hidden relative"
-          >
+            onClick={() => seriesPageById(bannerItem.SubcategoryId)}
+            >
             <img
               src={`${baseURL}/${
                 isMobile ? bannerItem.MobilebannerImage : bannerItem.DesktopbannerImage
