@@ -29,6 +29,8 @@ import AdminContact from "./Component/sidebar/website/AdminContact";
 import Smtp from "./Component/settings & Config/Smtp";
 import Policies from "./Component/sidebar/website/Policies";
 import Edit_Policies from "./Component/sidebar/website/Edit_Policies";
+import Vendors from "./Component/sidebar/vendors/Vendors";
+import Edit_Vendors from "./Component/sidebar/vendors/Edit_Vendors";
 
 
 
@@ -97,6 +99,10 @@ function App() {
            <Route path="website/policies" element={<Policies/>}/>
            <Route path="website/policies/edit_policies/:_id" element={<Edit_Policies/>}/>
 
+          {/* Vendors Details */}
+
+          <Route path="vendors" element={<Vendors/>}/>
+            <Route path="vendors/edit_vendor/:_id" element={<Edit_Vendors/>}/>
 
           {/* User Mangemant Routes  */}
           <Route path="user-mangement" element={<UserMangement/>} />
