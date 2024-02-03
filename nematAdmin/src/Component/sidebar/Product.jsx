@@ -126,7 +126,7 @@ const Product = () => {
       .integer("Please enter a valid number")
       .min(1)
       .max(999999)
-      .required("Enter the Zip Code"),
+      .required("Enter the Price Code"),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Product "),
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Product"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),

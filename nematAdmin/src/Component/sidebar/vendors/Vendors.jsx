@@ -67,7 +67,7 @@ const Vendors = () => {
       .integer("Please enter a valid number")
       .min(99999999999, "Enter 12 or 15 digit Number ")
       .max(999999999999999)
-      .required("Enter the WhatsApp Number"),
+      .required("Please Enter the Bank Account Number"),
     back_add: yup.string().min(10).required("Please Enter Bank Address "),
   });
 
