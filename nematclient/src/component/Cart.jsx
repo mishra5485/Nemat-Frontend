@@ -6,6 +6,7 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { formattedAmount } from "../component/common/FormatAmount";
 import Footer from "../component/footer/footer";
+import AddAddress from "./AddAddress";
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
@@ -15,6 +16,7 @@ const Cart = () => {
   const [grandTotaldata , setGrandTotalData] = useState([])
   const [discountSlabe, setDiscountSlabe] = useState([]);
   const [categoryTotal , setCategoryTotal] = useState([])
+  const [address , setAddress ] = useState([]);
 
   const { user } = useSelector((store) => store.profile);
   const navigate = useNavigate();
@@ -50,6 +52,7 @@ const Cart = () => {
       setOrderSummaryDetails(response.data.RightSideData[0]);
       setGrandTotalData(response.data.RightSideData[1])
       setCategoryTotal(response.data.RightSideData[2])
+      setAddress(response.data.ShippingAddress)
 
       console.log(response.data);
     } catch (error) {
@@ -112,7 +115,7 @@ const Cart = () => {
   };
 
  
-  console.log(categoryTotal );
+  // console.log( "address ===>" , address );
 
   let nextDiscountPercent = null;
   return (
@@ -125,18 +128,22 @@ const Cart = () => {
         <p>Loaddding....</p>
       ) : (
         <div className="mt-10 w-[100%]">
-          <div className="w-[90%] mx-auto">
-            <h1 className="font-roxborough text-text_Color text-2xl w-full text-start font-semibold">
+          <div className="w-[90%] mx-auto ">
+            <h1 className="font-roxborough px-5 mb-6 text-text_Color text-2xl w-full text-start font-semibold">
               Your Cart
             </h1>
 
             {/* Order Products display  */}
-            <div className="md:flex ">
-            <div className="mt-8 md:w-[55%] md:mt-0">
+            <div className="md:flex md:w-[100%] md:mx-auto px-5">
+            <div className="mt-8 md:w-[50%]  md:mt-0">
               {productDisplay.map((product, index) => (
                 <div key={product.CartDiscountSchemeId} className="">
                   <div className="mobile:flex mobile:w-full mobile:justify-between sm:flex sm:w-full sm:justify-between">
-                    <h1 className="text-bg_green text-xl font-Marcellus font-semibold">
+                    <h1 
+                    onClick={() =>
+                            seriesPageHandler(product.SubCategoryId)
+                          }
+                    className="text-bg_green text-xl font-Marcellus font-semibold cursor-pointer">
                       {product.seriesName}
                     </h1>
                     <div onClick={() => toggleExpansion(index)}>
@@ -185,7 +192,31 @@ const Cart = () => {
                           </div>
                         ))}
                       </div>
-                      <div className="mobile:w-full sm:w-full mt-6 mb-14 border-t-2 border-text_Color border-b-2 cursor-pointer">
+                      {/* Mobile View Slider  */}
+                      {
+                        product.UpsellString !== null ? (
+                          <div className="mobile:w-full sm:w-full mt-6 mb-14 border-t-2 border-text_Color border-b-2 cursor-pointer md:hidden sm:block mobile:block font-Marcellus">
+                        <p
+                          className="p-3"
+                          onClick={() =>
+                            seriesPageHandler(product.SubCategoryId)
+                          }
+                        >
+                          {product.UpsellString}
+                        </p>
+                      </div>
+                        )  : null
+                      }
+                      
+
+                      
+                    </div>
+                  )}
+
+                  {/* Desktop View Slider  */}
+                  {
+                    product.UpsellString !== null ? (
+                        <div className="mobile:w-full sm:w-full mt-6 mb-14  cursor-pointer sm:hidden  mobile:hidden md:block md:bg-Cream  font-Marcellus">
                         <p
                           onClick={() =>
                             seriesPageHandler(product.SubCategoryId)
@@ -195,10 +226,16 @@ const Cart = () => {
                           {product.UpsellString}
                         </p>
                       </div>
-                    </div>
-                  )}
+                    ) : null
+                  }
+                  
+
+                     
                 </div>
               ))}
+              <div className="mt-6"> 
+                      <AddAddress address={address}/>
+                     </div>
             </div>
 
             <div className="mobile:w-[96%] sm:w-[96%]  mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
@@ -211,7 +248,7 @@ const Cart = () => {
                     <p className="font-Marcellus">{formattedAmount(data.totalSeriesPrice)}</p>
                   </div>
                   <div className="flex justify-between w-[90%] mx-auto mt-3">
-                    <p className="font-roxborough font-semibold">Discount on Fragrances</p>
+                    <p className="font-roxborough font-semibold">Discount</p>
                     <p className="font-Marcellus">
                       {data.DiscountPercent}% ( -
                       {formattedAmount(data.DiscountAmount)} )
@@ -327,7 +364,7 @@ const Cart = () => {
                     categoryTotal.map((CGtotal , index) => (
                       <div key={index} className="flex w-[90%] border-t-2 border-text_Color py-3 justify-between mx-auto">
                         <p className="font-roxborough font-semibold">Grand Total</p>
-                        <p className="font-Marcellus">{CGtotal.totalAmount}</p>
+                        <p className="font-Marcellus">{formattedAmount(CGtotal.totalAmount)}</p>
                       </div>
                     ))
                   }
