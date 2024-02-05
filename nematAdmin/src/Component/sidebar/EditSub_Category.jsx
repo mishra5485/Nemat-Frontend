@@ -15,11 +15,13 @@ const EditSub_Category = () => {
   const [loading, setLoading] = useState(true);
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  const [allvendor , setAllVendors] = useState([]);
   const [seriesImage, setSeriesImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     getCategoryID();
+    getallVendors();
   }, []);
 
   const getCategoryID = async () => {
@@ -47,6 +49,36 @@ const EditSub_Category = () => {
     }
   };
 
+  const getallVendors = async () => {
+    try {
+      const respones = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
+      );
+      if (respones.status === 200) {
+        setAllVendors(respones.data);
+        toast.success(data);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  }
+ 
   console.log(Sub_CategoryData);
   
   // console.log(categorys);
@@ -60,6 +92,7 @@ const EditSub_Category = () => {
         metaDesc: "",
         metaKeyword: "",
         slugUrl: "",
+        vendor:"",
         ml: "",
         sgst: "",
         cgst: "",
@@ -77,6 +110,7 @@ const EditSub_Category = () => {
         metaDesc: Sub_CategoryData.MetaDesc,
         metaKeyword: Sub_CategoryData.MetaKeyWord,
         slugUrl: Sub_CategoryData.SlugUrl,
+        vendor:Sub_CategoryData?.VendorId,
         ml: Sub_CategoryData.Ml,
         sgst: Sub_CategoryData.SGST,
         cgst: Sub_CategoryData.CGST,
@@ -146,6 +180,7 @@ const EditSub_Category = () => {
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("SlugUrl", values.slugUrl);
+      formData.append("VendorId" , values.vendor)
       formData.append("Priority" , values.priority)
       formData.append("Ml", values.ml);
       formData.append("SGST", values.sgst);
@@ -389,6 +424,30 @@ const EditSub_Category = () => {
                 value={values.slugUrl}
               />
             </div>
+
+            <div>
+              <label
+                htmlFor="vendor"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Vendors
+              </label>
+              <select
+                id="vendor"
+                key={values.vendor}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={handleChange}
+                value={values.vendor}
+              >
+                <option value="">Select Vendor</option>
+                {allvendor?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.Name}
+                  </option>
+                ))}
+              </select>
+            </div>      
+
             <div>
               <label
                 htmlFor="ml"

@@ -15,6 +15,7 @@ const Sub_Category = () => {
   const [quantityData, setQuantityData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
+  const [allvendor , setAllVendors] = useState([]);
   const [seriesImage, setSeriesImage] = useState(null);
   const [Nodata, setNodata] = useState(false);
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Sub_Category = () => {
       fetchData();
     }
     getAllSubCategory();
+    getAllvendor();
   }, []);
 
   const fetchData = async () => {
@@ -79,6 +81,36 @@ const Sub_Category = () => {
     }
   };
 
+  const getAllvendor = async () => {
+       try {
+      const respones = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
+      );
+      if (respones.status === 200) {
+        setAllVendors(respones.data);
+        toast.success(data);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  }
+
   // console.log(" categorySelection -> ", categorySelection);
   // console.log("quantityData -> ", quantityData);
 
@@ -89,6 +121,7 @@ const Sub_Category = () => {
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Category"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
+    vendor:yup.string().required("Please Select Vendor"),
     quantity: yup.string().required("Please Select Any One"),
     priority:yup.string().nullable(),
     sub_category_ML: yup
@@ -126,9 +159,10 @@ const Sub_Category = () => {
     metaDesc: "",
     metaKeyword: "",
     slugUrl: "",
+    vendor:"",
     quantity: "",
     priority:"",
-    sub_category_ML: 0,
+    sub_category_ML: "",
     sub_category_SGST: "",
     sub_category_CGST: "",
     packSizes: [0, 0, 0],
@@ -159,6 +193,7 @@ const Sub_Category = () => {
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("SlugUrl", values.slugUrl);
+      formData.append("VendorId" , values.vendor)
       formData.append("QuantitySchemeId", values.quantity);
       formData.append("Priority" , values.priority)
       formData.append("Ml", values.sub_category_ML);
@@ -468,6 +503,31 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                    </div>
+
+                     <div className="mb-4">
+                      <label
+                        htmlFor="vendor"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Vendor Selection 
+                      </label>
+                      <select
+                        id="vendor"
+                        name="vendor"
+                        value={values.vendor}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                      >
+                        <option value="" disabled>
+                          Select Quantity Schemeld{" "}
+                        </option>
+                        {allvendor?.map((allvendorName) => (
+                          <option key={allvendorName._id} value={allvendorName._id}>
+                            {allvendorName.Name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
 
                     <div className="mb-4">
