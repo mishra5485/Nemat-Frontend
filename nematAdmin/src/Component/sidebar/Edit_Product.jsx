@@ -151,6 +151,8 @@ const Edit_Product = () => {
         // FragranceId: "",
         // AutheticStepFlag: 0,
         Price: "",
+        itemName:"",
+        hsncode:"",
         metaTitle: "",
         metaDesc: "",
         metaKeyword: "",
@@ -165,6 +167,8 @@ const Edit_Product = () => {
         // FragranceId: ProductData.FragranceId,
         // AutheticStepFlag: ProductData.AuthenticStepflag,
         Price: ProductData.Price,
+        itemName:ProductData.Item_Name,
+        hsncode:ProductData.HSN_Code,
         metaTitle: ProductData.MetaTitle,
         metaDesc: ProductData.MetaDesc,
         metaKeyword: ProductData.MetaKeyWord,
@@ -198,6 +202,8 @@ const Edit_Product = () => {
       formData.append("Description", values.Description);
       formData.append("CategoryId", values.CategoryId);
       formData.append("SubCategoryId", values.sub_CategoryId);
+      formData.append("Item_Name" , values.itemName)
+      formData.append("HSN_Code" , values.hsncode)
       // const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
       // formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
       // formData.append("AuthenticStepflag", values.AutheticStepFlag);
@@ -503,6 +509,36 @@ const Edit_Product = () => {
                 value={values.Price}
                 placeholder="Type product name"
                 required
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                Item Name
+              </label>
+              <input
+                type="text"
+                id="itemName"
+                name="itemName"
+                value={values.itemName}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter Product Item Name "
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                HSN_CODE
+              </label>
+              <input
+                type="text"
+                id="hsncode"
+                name="hsncode"
+                value={values.hsncode}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter Product Name"
               />
             </div>
 

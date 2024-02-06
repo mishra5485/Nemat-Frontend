@@ -127,6 +127,8 @@ const Product = () => {
       .min(1)
       .max(999999)
       .required("Enter the Price Code"),
+    itemName:yup.string().min(2).required("Please Enter Product Name"),
+    hsncode:yup.string().min(2).required("Please Enter Product Name"),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Product "),
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Product"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
@@ -148,6 +150,8 @@ const Product = () => {
     CategoryId: "",
     sub_CategoryId: "",
     Price: "",
+    itemName:"",
+    hsncode:"",
     productimgmultiple: null,
     metaTitle: "",
     metaDesc: "",
@@ -182,6 +186,8 @@ const Product = () => {
       // const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
       // formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
       // formData.append("AuthenticStepflag", values.AutheticStepFlag);
+      formData.append("Item_Name" , values.itemName)
+      formData.append("HSN_Code" , values.hsncode)
       formData.append("SlugUrl", values.slugUrl);
       formData.append("MetaTitle", values.metaTitle);
       formData.append("MetaDesc", values.metaDesc);
@@ -595,6 +601,37 @@ const Product = () => {
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Doe"
+              />
+            </div>
+
+
+            <div>
+              <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                Item Name
+              </label>
+              <input
+                type="text"
+                id="itemName"
+                name="itemName"
+                value={values.itemName}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter Product Item Name "
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                HSN_CODE
+              </label>
+              <input
+                type="text"
+                id="hsncode"
+                name="hsncode"
+                value={values.hsncode}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter Product Name"
               />
             </div>
 
