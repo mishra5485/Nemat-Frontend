@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { formattedAmount } from "../component/common/FormatAmount";
 import Footer from "../component/footer/footer";
 import AddAddress from "./AddAddress";
+import ContinueCheckout from "./products/ContinueCheckout";
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
@@ -370,11 +371,7 @@ const Cart = () => {
                   }
               </div>
 
-              <div className=" w-[80%] mx-auto text-center  items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 ">
-              <button  className="uppercase text-white">
-                Continue to checkout
-              </button>
-              </div>
+              <ContinueCheckout user = {user}/>
             </div>
             </div>
           </div>

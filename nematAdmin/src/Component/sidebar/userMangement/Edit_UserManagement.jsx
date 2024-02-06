@@ -57,7 +57,7 @@ const Edit_UserManagement = () => {
                 status === 400
               ) {
                 console.log(error.response);
-                toast.error(error.message)
+                toast.error(data)
               }
             }
       }
