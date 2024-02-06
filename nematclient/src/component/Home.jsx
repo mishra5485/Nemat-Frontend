@@ -26,6 +26,8 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [Dssprays , setDsSprays] = useState()
   const [agarbattisDs , setAgarbattisDs] = useState();
+
+  
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
