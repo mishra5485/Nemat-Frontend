@@ -41,7 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Admin_login />} />
         <Route path="*" element={<Error />} />
-        <Route path="verifyuser/:_id" element={<VerifyUser />} />
+        {/* <Route path="verifyuser/:_id" element={<VerifyUser />} /> */}
        
 
 
