@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { GoDownload } from "react-icons/go";
+import toast, { Toaster } from "react-hot-toast";
 
-const ContinueCheckout = ({user}) => {
+const ContinueCheckout = ({user , selectedAddressId}) => {
+
+
+  console.log("selectedAddressId ===> ", selectedAddressId)
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user_id = user.customer_id
-
-  const handleCheckout = () => {
-    setIsModalOpen(true);
-  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -19,25 +20,47 @@ const ContinueCheckout = ({user}) => {
 
       const payload = {
          user_id : user_id,
-         shippingAddress_id 
+         shippingAddress_id : selectedAddressId
       }
 
 
       try {
 
          let response = await axios.post(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/placeorder`
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/placeorder` ,
+            payload
          )
 
+         if(response.status === 200){
+          setIsModalOpen(true)
+          toast.success(response.data)
+         }
+
       } catch (error) {
-         
+         if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
       }
   };
 
   return (
     <div>
+      <Toaster/>
       <div className=" w-[80%] mx-auto text-center  items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 ">
-        <button className="uppercase text-white " onClick={() => {checoutorder}}>
+        <button className="uppercase text-white " onClick={() => {checoutorder()}}>
           Continue to checkout
         </button>
       </div>

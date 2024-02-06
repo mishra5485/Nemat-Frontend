@@ -15,7 +15,7 @@ export const PrivateRoute = ({children }) => {
 
   //  const Navigate = useNavigate()
    
-    console.log(user.SkipChangeDefaultPasswordPage)
+    // console.log(user.SkipChangeDefaultPasswordPage)
 
      if (user === null) {
       console.log("done")
