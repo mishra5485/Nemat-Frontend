@@ -314,7 +314,7 @@ const Sidebar1 = () => {
                     isDropdownOpenReport ? "block" : "hidden"
                   } py-2 space-y-2`}
                 >
-                  <li>
+                  {/* <li>
                     <NavLink
                       to="website/promoHeader"
                       onClick={handleMenuItemClick}
@@ -322,7 +322,7 @@ const Sidebar1 = () => {
                     >
                       Promo Header
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li>
                     <NavLink
                       to="website/bannerSlider"
