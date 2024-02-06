@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const NavBars = () => {
   const [showNavbar, SetShowNavbar] = useState(true);
@@ -20,7 +21,11 @@ const NavBars = () => {
   const [selectedSeries, setSelectedSeries] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
   const navigate = useNavigate();
+
+  const { user } = useSelector((store) => store.profile);
+  const _id = user.customer_id
 
   useEffect(() => {
     getAllHomePageData();
@@ -109,8 +114,8 @@ const NavBars = () => {
   };
 
   const seriesPageById = (_id) => {
-    navigate(`/series/${_id}`)
-  }
+    navigate(`/series/${_id}`);
+  };
 
   return (
     <div className="custom-scrollbar  ">
@@ -133,7 +138,7 @@ const NavBars = () => {
               </div>
               <div className="w-[143px] h-[66px]">
                 <Link to={"/"}>
-                <img src={logo} className="w-full h-full " />
+                  <img src={logo} className="w-full h-full " />
                 </Link>
               </div>
               <IoIosCloseCircleOutline size={30} onClick={mobileNavbar} />
@@ -234,19 +239,15 @@ const NavBars = () => {
                     ABOUT
                   </h1>
                   <Link to={"/contactus"}>
-                  <h1 className="hover:underline cursor-pointer font-semibold ">
-                    CONTACT
-                  </h1>
+                    <h1 className="hover:underline cursor-pointer font-semibold ">
+                      CONTACT
+                    </h1>
                   </Link>
                 </div>
 
-                <div className="w-[143px] h-[66px]"
-                >
-                  <Link 
-                    to={"/"}
-                  >
-                  <img src={logo}
-                  className="w-full h-full " />
+                <div className="w-[143px] h-[66px]">
+                  <Link to={"/"}>
+                    <img src={logo} className="w-full h-full " />
                   </Link>
                 </div>
                 <div className="md:hidden" onClick={mobileNavbar}>
@@ -260,12 +261,36 @@ const NavBars = () => {
                   <Link to={"/cart"}>
                     <AiOutlineShopping size={25} />
                   </Link>
-                  <Link to={"/login"}>
-                    <CgProfile size={25} />
-                  </Link>
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setShowTooltip(true)}
+                  >
+                    <Link to="/login" className="profile-link">
+                      <CgProfile size={25} />
+                    </Link>
+                     
+                  </div>
+                 
                 </div>
+                
               </div>
             </div>
+
+            {/* Profile on Hover  */}
+            <div className=" z-40 flex  justify-end items-end w-[90%] mx-auto "
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+                    {showTooltip && (
+                        <div className="">
+                          <Link to={`profile/${_id}`}>
+                            <p>Profile</p>
+                          </Link>
+                          <p>Logout</p>
+                        </div>
+                      )}
+                  </div>
+
+              {/* Shop On Hover  */}
             {isHovered ? (
               <div
                 className="absolute w-full bg-LightCream  flex justify-center z-20"
@@ -290,7 +315,9 @@ const NavBars = () => {
                               <li
                                 key={subcategories._id}
                                 className="hover:underline cursor-pointer"
-                                 onClick={() => seriesPageById(subcategories._id)}
+                                onClick={() =>
+                                  seriesPageById(subcategories._id)
+                                }
                               >
                                 {subcategories.Name}
                               </li>
