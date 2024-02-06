@@ -29,7 +29,7 @@ const DiscountSlabe = () => {
          setTableDiscountSlabs(response.data)
          setLoading(false);
       } catch (error) {
-         toast.error(error.data)
+         toast.error(error.response.data)
          console.log(error.data)
          setLoading(false);
       }
