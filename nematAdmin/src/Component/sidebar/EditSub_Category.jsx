@@ -3,15 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const EditSub_Category = () => {
   const { _id } = useParams();
   const [Sub_CategoryData, setSub_CategoryData] = useState();
   const [categorys, setcategory] = useState();
   const [QuantitySchemeIds, setQuantitySchemeId] = useState();
-  const [slabeData, setslabeData] = useState();
-
   const [loading, setLoading] = useState(true);
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
@@ -39,7 +37,7 @@ const EditSub_Category = () => {
       );
 
       setSub_CategoryData(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       setcategory(cartdiscountschemerespose.data);
       setQuantitySchemeId(QuantitySchemeIdResponse.data);
       setLoading(false);
@@ -79,7 +77,7 @@ const EditSub_Category = () => {
     }
   }
  
-  console.log(Sub_CategoryData);
+  // console.log(Sub_CategoryData);
   
   // console.log(categorys);
   // console.log(QuantitySchemeIds)
@@ -133,7 +131,7 @@ const EditSub_Category = () => {
     slugUrl: yup.string().nullable(),
     sgst: yup.string().nullable(),
     cgst: yup.string().nullable(),
-    PackSizes: yup
+    packSizes: yup
     .array()
     .of(
       yup.object().shape({
@@ -141,9 +139,10 @@ const EditSub_Category = () => {
           .number()
           .typeError("Please enter a valid number")
           .integer("Please enter a valid number")
-          .min(1)
+          .min(99)
           .max(999999)
           .required("Enter the Pack Size"),
+        nameConvention: yup.string(),
       })
     )
     .min(1, "At least one pack size is required"),
@@ -198,6 +197,13 @@ const EditSub_Category = () => {
       //   formData.append("DesktopbannerImage", values.bannerImageDesktop);
       // }
 
+
+      const payload = {
+        PackSizes : JSON.stringify(values.PackSizes)
+      }
+
+      console.log( "payload ===> " , payload)
+
       if (Image !== null) {
         formData.append("Image", values.seriesImage);
       }
@@ -219,7 +225,7 @@ const EditSub_Category = () => {
         if (response.status === 200) {
           console.log(" Category Updated ");
           toast.success(response.data);
-          navigate("/dashboard/sub_category");
+          // navigate("/dashboard/sub_category");
           
         }
       } catch (error) {
@@ -236,7 +242,7 @@ const EditSub_Category = () => {
             status === 400
           ) {
             console.log(error.response);
-            toast.error(error.message);
+            toast.error(data);
           }
         }
       }
@@ -323,6 +329,7 @@ const EditSub_Category = () => {
 
   return (
     <div className="overflow-x-hidden">
+      <Toaster/>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -547,6 +554,22 @@ const EditSub_Category = () => {
                            }}
                         className="mt-1 p-2 w-full border rounded-md"
                      />
+
+                     <input
+                        type="text"
+                        id={`packSizes[${index}].nameConvention`}
+                        name={`packSizes[${index}].nameConvention`}
+                        value={packSize.nameConvention}
+                        onChange={(e) => {
+                           const updatedPackSizes = [...values.PackSizes];
+                           updatedPackSizes[index].nameConvention = e.target.value;
+                           console.log(updatedPackSizes); 
+                           setFieldValue('PackSizes', updatedPackSizes);                  
+                          }}
+                          onPaste={(e) => e.preventDefault()}
+                           autoComplete="off"
+                          className="mt-1 p-2 w-full border rounded-md"
+                          />
                   </div>
                 ))}
               </div>

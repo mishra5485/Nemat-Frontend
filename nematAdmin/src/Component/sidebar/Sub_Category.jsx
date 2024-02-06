@@ -15,7 +15,7 @@ const Sub_Category = () => {
   const [quantityData, setQuantityData] = useState();
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
   const [imagePreviewDesktop, setImagePreviewDesktop] = useState(null);
-  const [allvendor , setAllVendors] = useState([]);
+  const [allvendor, setAllVendors] = useState([]);
   const [seriesImage, setSeriesImage] = useState(null);
   const [Nodata, setNodata] = useState(false);
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const Sub_Category = () => {
   };
 
   const getAllvendor = async () => {
-       try {
+    try {
       const respones = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
       );
@@ -109,7 +109,7 @@ const Sub_Category = () => {
         }
       }
     }
-  }
+  };
 
   // console.log(" categorySelection -> ", categorySelection);
   // console.log("quantityData -> ", quantityData);
@@ -121,9 +121,9 @@ const Sub_Category = () => {
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Category"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
     slugUrl: yup.string().min(2).required("Enter slugUrl"),
-    vendor:yup.string().required("Please Select Vendor"),
+    vendor: yup.string().required("Please Select Vendor"),
     quantity: yup.string().required("Please Select Any One"),
-    priority:yup.string().nullable(),
+    priority: yup.string().nullable(),
     sub_category_ML: yup
       .number()
       .typeError("Please enter a valid number")
@@ -131,8 +131,20 @@ const Sub_Category = () => {
       .min(1)
       .max(999999)
       .required("Enter the Zip Code"),
-    sub_category_SGST: yup.string().required("Please Enter SGST "),
-    sub_category_CGST: yup.string().required("Please Enter CGST"),
+    sub_category_SGST: yup
+      .number()
+      .typeError("Please enter a valid number")
+      .integer("Please enter a valid number")
+      .min(1)
+      .max(999999)
+      .required("Enter the SGST Number Code"),
+    sub_category_CGST: yup
+      .number()
+      .typeError("Please enter a valid number")
+      .integer("Please enter a valid number")
+      .min(1)
+      .max(999999)
+      .required("Enter the CGST Number  Code"),
     packSizes: yup
       .array()
       .of(
@@ -143,7 +155,8 @@ const Sub_Category = () => {
             .integer("Please enter a valid number")
             .min(1)
             .max(999999)
-            .required("Enter the Pack Size"),
+
+          // nameConvention: yup.string(),
         })
       )
       .min(1, "At least one pack size is required"),
@@ -159,13 +172,17 @@ const Sub_Category = () => {
     metaDesc: "",
     metaKeyword: "",
     slugUrl: "",
-    vendor:"",
+    vendor: "",
     quantity: "",
-    priority:"",
+    priority: "",
     sub_category_ML: "",
     sub_category_SGST: "",
     sub_category_CGST: "",
-    packSizes: [0, 0, 0],
+    packSizes: [
+      { size: "", nameConvention: "" },
+      { size: "", nameConvention: "" },
+      { size: "", nameConvention: "" },
+    ],
     // bannerImageMobile: null,
     // bannerImageDesktop: null,
     seriesImage: null,
@@ -193,9 +210,9 @@ const Sub_Category = () => {
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
       formData.append("SlugUrl", values.slugUrl);
-      formData.append("VendorId" , values.vendor)
+      formData.append("VendorId", values.vendor);
       formData.append("QuantitySchemeId", values.quantity);
-      formData.append("Priority" , values.priority)
+      formData.append("Priority", values.priority);
       formData.append("Ml", values.sub_category_ML);
       formData.append("SGST", values.sub_category_SGST);
       formData.append("CGST", values.sub_category_CGST);
@@ -203,8 +220,6 @@ const Sub_Category = () => {
       // formData.append("MobilebannerImage", values.bannerImageMobile);
       // formData.append("DesktopbannerImage", values.bannerImageDesktop);
       formData.append("Image", values.seriesImage);
-
-
 
       if (values.priority === "") {
         formData.delete("Priority", values.priority);
@@ -336,48 +351,48 @@ const Sub_Category = () => {
     }
   };
 
-   const privoritySub_Category = [
+  const privoritySub_Category = [
     {
-      id:1,
-      value:1
+      id: 1,
+      value: 1,
     },
     {
-      id:2,
-      value:2
+      id: 2,
+      value: 2,
     },
     {
-      id:3,
-      value:3
+      id: 3,
+      value: 3,
     },
     {
-      id:4,
-      value:4
+      id: 4,
+      value: 4,
     },
     {
-      id:5,
-      value:5
+      id: 5,
+      value: 5,
     },
     {
-      id:6,
-      value:6
+      id: 6,
+      value: 6,
     },
     {
-      id:7,
-      value:7
+      id: 7,
+      value: 7,
     },
     {
-      id:8,
-      value:8
+      id: 8,
+      value: 8,
     },
     {
-      id:9,
-      value:9
+      id: 9,
+      value: 9,
     },
     {
-      id:10,
-      value:10
+      id: 10,
+      value: 10,
     },
-  ]
+  ];
 
   return (
     <div className="text-center">
@@ -386,6 +401,7 @@ const Sub_Category = () => {
           Sub-Category Page
         </span>
       </h1>
+      {console.log(errors)}
       <Toaster />
       {showModal ? (
         <>
@@ -505,12 +521,12 @@ const Sub_Category = () => {
                       />
                     </div>
 
-                     <div className="mb-4">
+                    <div className="mb-4">
                       <label
                         htmlFor="vendor"
                         className="block text-sm font-medium text-gray-600"
                       >
-                        Vendor Selection 
+                        Vendor Selection
                       </label>
                       <select
                         id="vendor"
@@ -523,7 +539,10 @@ const Sub_Category = () => {
                           Select Quantity Schemeld{" "}
                         </option>
                         {allvendor?.map((allvendorName) => (
-                          <option key={allvendorName._id} value={allvendorName._id}>
+                          <option
+                            key={allvendorName._id}
+                            value={allvendorName._id}
+                          >
                             {allvendorName.Name}
                           </option>
                         ))}
@@ -569,8 +588,8 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
-                         <option value="">
-                            Select Priority of Sub_Category
+                        <option value="">
+                          Select Priority of Sub_Category
                         </option>
                         {privoritySub_Category.map((number) => (
                           <option key={number.id} value={number.value}>
@@ -630,25 +649,53 @@ const Sub_Category = () => {
                         className="mt-1 p-2 w-full border rounded-md"
                       />
                     </div>
-                    <div className="mb-4">
-                      <label
-                        htmlFor="packSizes"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        PackSizes
-                      </label>
-                      <div className="flex gap-2">
-                        {values.packSizes.map((packSize, index) => (
-                          <input
-                            key={index}
-                            type="text"
-                            id={`packSize${index + 1}`}
-                            name={`packSizes[${index}].size`}
-                            value={packSize.size}
-                            onChange={handleChange}
-                            className="mt-1 p-2 w-full border rounded-md"
-                          />
-                        ))}
+
+                    <div className="flex">
+                      <div className="mb-4 flex flex-col text-center">
+                        <label
+                          htmlFor="packSizes"
+                          className="block text-sm font-medium text-gray-600"
+                        >
+                          PackSizes
+                        </label>
+                        <div className="flex flex-col gap-2">
+                          {values.packSizes.map((packSize, index) => (
+                            <div key={index} className="flex ">
+                              <div className="mr-3">
+                                <input
+                                  type="text"
+                                  id={`packSize${index + 1}`}
+                                  name={`packSizes[${index}].size`}
+                                  value={packSize.size}
+                                  onChange={handleChange}
+                                  className="mt-1 p-2 w-full border rounded-md"
+                                  placeholder="Enter the PackSize"
+                                />
+                                {errors.packSizes?.[index]?.size && (
+                                  <div className="text-red-500">
+                                    {errors.packSizes[index].size}
+                                  </div>
+                                )}
+                              </div>
+                              <div>
+                                <input
+                                  type="text"
+                                  id={`packName${index + 1}`}
+                                  name={`packSizes[${index}].nameConvention`}
+                                  value={packSize.nameConvention}
+                                  onChange={handleChange}
+                                  className="mt-1 p-2 w-full border rounded-md"
+                                  placeholder="Enter Pack Size Name "
+                                />
+                                {errors.packSizes?.[index]?.nameConvention && (
+                                  <div className="text-red-500">
+                                    {errors.packSizes[index].nameConvention}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -821,11 +868,11 @@ const Sub_Category = () => {
                         <th scope="col" className="p-4">
                           CGST{" "}
                         </th>
-                         <th scope="col" className="p-4">
-                            PRIORITY
+                        <th scope="col" className="p-4">
+                          PRIORITY
                         </th>
                         <th scope="col" className="p-4">
-                            Actions
+                          Actions
                         </th>
                       </tr>
                     </thead>
@@ -907,7 +954,7 @@ const Sub_Category = () => {
                             <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                               {item.CGST}
                             </td>
-                              <td className="px-9 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td className="px-9 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                               {item.Priority}
                             </td>
 
