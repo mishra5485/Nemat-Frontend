@@ -13,6 +13,7 @@ import ForgotPassword from './component/ForgotPassword'
 import ResetPassword from './component/ResetPassword'
 import ContactUs from './pages/ContactUs'
 import Series from './pages/Series'
+import VerifyUser from './pages/VerifyUser'
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Route  path='/companydetails' element={<CompanyDetails/>} />
         <Route  path='/cart' element={<Cart/>} />
         <Route path='/series/:_id' element={<Series/>}/>
+
+        <Route path="verifyuser/:_id" element={<VerifyUser />} />
         
         <Route  path='/changepassword' element={
           <PrivateRoute>
