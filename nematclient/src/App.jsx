@@ -14,6 +14,7 @@ import ResetPassword from './component/ResetPassword'
 import ContactUs from './pages/ContactUs'
 import Series from './pages/Series'
 import VerifyUser from './pages/VerifyUser'
+import Profile from './pages/Profile'
 
 
 function App() {
@@ -60,6 +61,14 @@ function App() {
               <RequestSent/>
           </PrivateRoute>  
           } 
+        />
+
+         <Route path='/profile/:_id' element={
+          <PrivateRoute>
+              <Profile/>
+          </PrivateRoute>
+        } 
+
         />
 
 
