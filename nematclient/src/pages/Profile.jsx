@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import Footer from "../component/footer/footer";
 import NavBars from "../component/common/NavBars";
 import { VscAccount } from "react-icons/vsc";
 import ProfileDetails from "../component/ProfileDetails";
@@ -71,6 +71,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+       <Footer />
     </div>
   );
 };

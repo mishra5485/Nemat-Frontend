@@ -2,7 +2,6 @@ import { RiEdit2Line } from "react-icons/ri";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { counntryCode } from "../CountryCode/data";
-import Footer from "../component/footer/footer";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -409,8 +408,6 @@ const ProfileDetails = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };

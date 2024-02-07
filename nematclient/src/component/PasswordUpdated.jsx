@@ -9,8 +9,6 @@ import RightToLeftanm from "../style/RightToLeftanm";
 
 const PasswordUpdated = () => {
 
-  
-
 
   return (
     <div className='w-full h-full object-cover md:flex md:w-full md:h-[100vh]'>

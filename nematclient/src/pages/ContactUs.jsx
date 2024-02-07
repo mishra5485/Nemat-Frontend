@@ -178,7 +178,7 @@ const ContactUs = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <div className="md:flex md:w-full gap-x-3">
-                    <div className="w-[50%]">
+                    <div className="md:w-[50%]">
                       <div className="mobile:mt-0 ">
                         <input
                           className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
