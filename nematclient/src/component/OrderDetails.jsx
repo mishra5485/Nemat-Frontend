@@ -1,61 +1,23 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
+import React, {  useState } from "react";
+import DeliveredOrderDetails from "./DeliveredOrderDetails";
+import OpenOrderDetails from "./OpenOrderDetails";
 
 const OrderDetails = () => {
-  const { _id } = useParams();
-  const [loading, setLoading] = useState(true);
 
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
+  
 
-  useEffect(() => {
-    openOrderGetAll();
-  }, []);
-
-  const openOrderGetAll = async () => {
-    try {
-      const payload = {
-        user_id: _id,
-      };
-
-      console.log(payload);
-
-      let opneorderResponse = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/getopenorders`,
-        payload
-      );
-
-      console.log(opneorderResponse.data);
-    } catch (error) {
-      if (error.opneorderResponse) {
-        const { status, data } = error.opneorderResponse;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.opneorderResponse);
-          toast.error(data);
-          setLoading(false);
-        }
-      }
-    }
-  };
-
+  
   const toggleSwitch = () => {
     setIsChecked(!isChecked);
   };
 
   return (
-    <div className="text-text_Color">
+    <div className="text-text_Color mb-6">
       <div>
-        <div>
-          <h1>Orders</h1>
+        <div className="flex justify-between mt-4 border-b-2 pb-5 border-Cream">
+          <h1 className="font-roxborough font-bold  text-xl">Orders</h1>
                   <label htmlFor="toggle" className="flex items-center cursor-pointer">
         <div className="relative">
           <input
@@ -66,8 +28,8 @@ const OrderDetails = () => {
             onChange={toggleSwitch}
           />
           <div
-            className={`toggle-switch w-10 h-6 bg-text_Color2 rounded-full p-1 ${
-              isChecked ? 'bg-gray-300 ' : ''
+            className={`toggle-switch w-10 h-6  bg-gray-300 rounded-full p-1 ${
+              isChecked ? ' bg-text_Color2 ' : ''
             }`}
           >
             <div
@@ -77,10 +39,30 @@ const OrderDetails = () => {
             ></div>
           </div>
         </div>
-        <div className="ml-2 text-gray-700 font-medium">Toggle</div>
+        {
+          isChecked ? (
+            <div>
+              <h1 className="ml-2 text-text_Color2 font-medium font-Marcellus">Delivered orders</h1>
+            </div>
+          ) : (
+            <h1 className="ml-2 text-text_Color font-medium font-Marcellus">Delivered orders</h1>
+          )
+        }        
       </label>
         </div>
       </div>
+
+      {
+        isChecked ? (
+          <div>
+            <DeliveredOrderDetails/>
+          </div>
+        ) : (
+        <div>
+          <OpenOrderDetails/>
+        </div> 
+        )
+      }
     </div>
   );
 };
