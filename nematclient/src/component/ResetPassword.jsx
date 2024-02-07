@@ -70,7 +70,7 @@ const ResetPassword = () => {
             if (response.status === 200) {
               // const Customer_id = response.data;
               // dispatch(setUser(Customer_id));
-              navigate("/login")
+              navigate("/")
               toast.success(response.data)
             }
           } catch (error) {

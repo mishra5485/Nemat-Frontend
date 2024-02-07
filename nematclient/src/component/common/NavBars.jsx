@@ -75,6 +75,10 @@ const NavBars = () => {
     },
   ];
 
+  const profileHandler = () => {
+    navigate(`/profile/${_id}`)
+  }
+
   const getAllHomePageData = async () => {
     try {
       let allDataResponse = await axios.get(
@@ -134,10 +138,10 @@ const NavBars = () => {
                   size={30}
                   onClick={() => navigate("/cart")}
                 />
-                <CgProfile onClick={() => navigate("/login")} size={30} />
+                <CgProfile size={30} />
               </div>
               <div className="w-[143px] h-[66px]">
-                <Link to={"/"}>
+                <Link to={"/home"}>
                   <img src={logo} className="w-full h-full " />
                 </Link>
               </div>
@@ -149,7 +153,7 @@ const NavBars = () => {
               {categoryData.map((category) => (
                 <div key={category._id} className="flex flex-col ">
                   <div
-                    className="flex justify-between items-center p-3"
+                    className="flex justify-between items-center p-3 "
                     onClick={() => toggleSubSeries(category._id)}
                   >
                     <button
@@ -246,7 +250,7 @@ const NavBars = () => {
                 </div>
 
                 <div className="w-[143px] h-[66px]">
-                  <Link to={"/"}>
+                  <Link to={"/home"}>
                     <img src={logo} className="w-full h-full " />
                   </Link>
                 </div>
@@ -265,7 +269,7 @@ const NavBars = () => {
                     className="relative"
                     onMouseEnter={() => setShowTooltip(true)}
                   >
-                    <Link to="/login" className="profile-link">
+                    <Link  className="profile-link">
                       <CgProfile size={25} />
                     </Link>
                      
@@ -282,9 +286,9 @@ const NavBars = () => {
             >
                     {showTooltip && (
                         <div className="">
-                          <Link to={`profile/${_id}`}>
-                            <p>Profile</p>
-                          </Link>
+                          
+                            <button type="button" onClick={() => profileHandler()}>Profile</button>
+                          
                           <p>Logout</p>
                         </div>
                       )}
@@ -298,10 +302,10 @@ const NavBars = () => {
               >
                 <div className="flex w-[90%] justify-between ">
                   {categoryData.map((category) => (
-                    <div key={category._id} className="flex  flex-col">
-                      <div className="flex justify-between items-center p-3 cursor-pointer">
+                    <div key={category._id} className="flex  flex-col overflow-hidden">
+                      <div className="flex justify-between items-center p-3 ">
                         <h1
-                          className=" font-Marcellus text-text_Color text-2xl hover:underline"
+                          className=" font-Marcellus text-text_Color text-2xl  "
                           style={{ minHeight: "3em" }}
                         >
                           {category.Name}

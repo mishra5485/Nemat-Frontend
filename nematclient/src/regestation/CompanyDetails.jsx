@@ -364,7 +364,7 @@ const CompanyDetails = () => {
                   <p className="text-sm font-Marcellus text-[#642F29] text-center mt-[1%]  md:text-lg gap-2 md:text-start">
                     Alrady have an account?{" "}
                     <Link className="font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
-                    to={"/login"}>
+                    to={"/"}>
                       LOGIN
                     </Link>
                   </p>

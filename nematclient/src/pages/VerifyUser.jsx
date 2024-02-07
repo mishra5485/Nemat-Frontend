@@ -13,7 +13,7 @@ const VerifyUser = () => {
 
    useEffect(() => {
       verifyUser();
-   })
+   }, [])
 
    const verifyUser = async() => {
             

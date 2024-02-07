@@ -72,7 +72,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
                 //if user success full login and he alredy change the password.
                 // Redirect toward Home or Menu page
                 toast.success("Login successfully");
-                navigate("/");
+                navigate("/home");
               } else {
                 // we need to Render Change Password Component
 
