@@ -77,7 +77,7 @@ const ChangePassword = () => {
           );
 
           if(response.status === 200){
-            navigate("/")
+            navigate("/home")
           }
 
         } catch (error) {

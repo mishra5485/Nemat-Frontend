@@ -246,7 +246,7 @@ const Home = () => {
                             >
                               {subcategories.Name}
                             </h1>
-                            <button className="w-[137px] h-[43px] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
+                            <button className="w-[137px] uppercase h-[43px] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
                               Order NOW
                             </button>
                           </div>
