@@ -162,7 +162,7 @@ const ProfileDetails = () => {
                 <RiEdit2Line
                   size={25}
                   color="#60713A"
-                  className="z-40 sm:mt-2 mobile:mt-2 md:mt-4 -ml-6 "
+                  className="z-0 sm:mt-2 mobile:mt-2 md:mt-4 -ml-6 "
                 />
               </div>
             </div>
@@ -206,7 +206,7 @@ const ProfileDetails = () => {
                 <RiEdit2Line
                   size={25}
                   color="#60713A"
-                  className="z-40 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 "
+                  className="z-0 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 "
                 />
               </div>
             </div>
@@ -396,7 +396,7 @@ const ProfileDetails = () => {
 
               {/* Button Add Address */}
 
-              <button className="mobile:w-[50%] sm:w-[50%] md:w-[70%] lg:w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
+              <button className="mobile:w-[100%] sm:w-[100%] md:w-[70%] lg:w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
                 + add Address
               </button>
               </div>
