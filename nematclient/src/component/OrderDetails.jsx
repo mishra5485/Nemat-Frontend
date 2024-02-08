@@ -7,19 +7,17 @@ const OrderDetails = () => {
 
   const [isChecked, setIsChecked] = useState(false);
   
-
-  
   const toggleSwitch = () => {
     setIsChecked(!isChecked);
   };
 
   return (
-    <div className="text-text_Color mb-6">
-      <div>
-        <div className="flex justify-between mt-4 border-b-2 pb-5 border-Cream">
+    <div className="text-text_Color mb-6 md:mt-3.5 ">
+      <div className="">
+        <div className="flex justify-between mt-4 border-b-2 pb-5 border-Cream ">
           <h1 className="font-roxborough font-bold  text-xl">Orders</h1>
                   <label htmlFor="toggle" className="flex items-center cursor-pointer">
-        <div className="relative">
+        <div className="relative ">
           <input
             id="toggle"
             type="checkbox"

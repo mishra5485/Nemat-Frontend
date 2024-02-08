@@ -33,11 +33,11 @@ const Profile = () => {
             <h1 className="text-2xl">{Company_Name}</h1>
           </div>
 
-          <div className="mt-8 text-white">
-            <div className="flex w-[100%] justify-between mx-auto gap-x-3 ">
+          <div className="mt-8 text-white md:flex md:w-full ">
+            <div className="mobile:flex mobile:w-[100%] mobile:justify-between mobile:mx-auto mobile:gap-x-3 sm:flex sm:w-[100%] sm:justify-between sm:mx-auto sm:gap-x-3  md:flex-col md:justify-start md:w-[20%] md:mt-8  ">
               <button
-                className={`py-2 w-[50%] font-Marcellus uppercase border-2 rounded-3xl ${
-                  clickedButton === "order" ? "bg-text_Color2 text-white"  : "text-text_Color2"
+                className={`mobile:py-2 sm:py-2 mobile:w-[50%] sm:w-[50%] md:w-full font-Marcellus uppercase mobile:border-2 mobile:rounded-3xl sm:border-2 sm:rounded-3xl md:border-none md:rounded-none md:py-0  md:text-start ${
+                  clickedButton === "order" ? "mobile:bg-text_Color2 sm:bg-text_Color2 mobile:text-white sm:text-white md:bg-transparent md:text-text_Color2 mb-3 md:underline "  : "text-text_Color2"
                   
                 }`}
                 onClick={() => {
@@ -47,8 +47,8 @@ const Profile = () => {
                 Order Details
               </button>
               <button
-                className={`py-2 w-[50%] font-Marcellus uppercase border-2 rounded-3xl ${
-                  clickedButton === "profile" ? "bg-text_Color2 text-white"  : "text-text_Color2"
+                className={`mobile:py-2 sm:py-2 mobile:w-[50%] sm:w-[50%] md:w-full font-Marcellus uppercase mobile:border-2 mobile:rounded-3xl sm:border-2 sm:rounded-3xl md:border-none md:rounded-none md:py-0 md:bg-none md:text-start md:mx-0 ${
+                  clickedButton === "profile" ? "mobile:bg-text_Color2 sm:bg-text_Color2 mobile:text-white sm:text-white md:bg-transparent md:text-text_Color2 md:mt-3 md:underline"  : "text-text_Color2"
                 }`}
                 onClick={() => {
                   setClickedButton("profile");
@@ -57,21 +57,25 @@ const Profile = () => {
                 Profile Details
               </button>
             </div>
+            <div className="md:w-[80%]">
 
             {/* If Order Details Click  */}
             {clickedButton === "order" ? (
-               <OrderDetails/>
-            ) : 
-            // If Profile Details selected 
-            clickedButton === "profile" ? (
-               <div>
+              <OrderDetails/>
+              ) : 
+              // If Profile Details selected 
+              clickedButton === "profile" ? (
+                <div>
                   <ProfileDetails />
                </div>
             ) : null}
+            </div>
           </div>
         </div>
       </div>
+      <div className="mt-20">
        <Footer />
+      </div>
     </div>
   );
 };

@@ -50,27 +50,29 @@ const ProfileDetails = () => {
     name: yup.string().min(2).required("Please Enter your Name"),
     CNcountryCode: yup
       .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid Mobile number")
-      .min(1, "Enter valid Country Code")
-      .max(999, "Enter valid Country Code")
-      .required("Enter the valid Number"),
+      // .typeError("Please enter a valid number")
+      // .integer("Please enter a valid Mobile number")
+      // .min(1, "Enter valid Country Code")
+      // .max(999, "Enter valid Country Code")
+      // .required("Enter the valid Number"),
+      ,
     mobileNumber: yup
-      .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid Mobile number")
-      .test((val) => val && val.toString().length === 10)
-      .min(1, "Please Enter 10 digit number")
-      .max(9999999999, "Enter 10 digit number ")
-      .required("Enter the 10 digit no"),
+      .number(),
+      // .typeError("Please enter a valid number")
+      // .integer("Please enter a valid Mobile number")
+      // .test((val) => val && val.toString().length === 10)
+      // .min(1, "Please Enter 10 digit number")
+      // .max(9999999999, "Enter 10 digit number ")
+      // .required("Enter the 10 digit no"),
     landlineNumber: yup
       .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid Mobile number"),
+      // .typeError("Please enter a valid number")
+      // .integer("Please enter a valid Mobile number"),
+      ,
     CNlandlineNumber: yup
       .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid LandLine number"),
+      // .typeError("Please enter a valid number")
+      // .integer("Please enter a valid LandLine number"),
   });
 
   const initialValues = {
@@ -130,11 +132,11 @@ const ProfileDetails = () => {
     });
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 md:h-auto md:border-l-2 border-text_Color">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="md:ml-[7%]">
           <h1 className="text-text_Color font-Marcellus font-bold text-xl">
             Profile Details
           </h1>
@@ -149,9 +151,9 @@ const ProfileDetails = () => {
                 {" "}
                 Contact Name{" "}
               </label>
-              <div className="mobile:mt-0 flex">
+              <div className="mobile:mt-0 mobile:flex sm:flex">
                 <input
-                  className="flex h-10 w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                  className="mobile:flex mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                   type="text"
                   placeholder="Enter Username"
                   value={profileData.CustomerName}
@@ -160,22 +162,23 @@ const ProfileDetails = () => {
                 <RiEdit2Line
                   size={25}
                   color="#60713A"
-                  className="z-40 mt-2 -ml-6 "
+                  className="z-40 sm:mt-2 mobile:mt-2 md:mt-4 -ml-6 "
                 />
               </div>
             </div>
 
-            <div className="mt-5">
+          <div className="md:flex md:w-full md:gap-x-8 ">
+            <div className="mt-5 md:w-[50%]">
               <label
                 htmlFor=""
-                className="mobile:text-xl font-roxborough font-bold  text-[#642F29] md:text-xl "
+                className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl "
               >
                 {" "}
                 Email{" "}
               </label>
-              <div className="mobile:mt-0 flex">
+              <div className="mobile:mt-0 mobile:flex sm:flex md:w-full">
                 <input
-                  className="flex h-10 w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                  className="mobile:flex mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                   type="text"
                   placeholder="Enter Username"
                   id="email"
@@ -184,7 +187,7 @@ const ProfileDetails = () => {
               </div>
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 md:w-[50%]">
               <label
                 htmlFor=""
                 className="mobile:text-xl font-roxborough font-bold  text-[#642F29] md:text-xl "
@@ -192,9 +195,9 @@ const ProfileDetails = () => {
                 {" "}
                 Password{" "}
               </label>
-              <div className="mobile:mt-0 flex">
+              <div className="mobile:mt-0 mobile:flex sm:flex ">
                 <input
-                  className="flex h-10 w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                  className="mobile:flex mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                   type="password"
                   placeholder="Enter Username"
                   value={profileData.CustomerName}
@@ -203,24 +206,27 @@ const ProfileDetails = () => {
                 <RiEdit2Line
                   size={25}
                   color="#60713A"
-                  className="z-40 mt-2 -ml-6 "
+                  className="z-40 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 "
                 />
               </div>
             </div>
+          </div>
 
-            <div className="flex mt-7  w-full ">
-              <div className="flex gap-0 w-[100%] gap-x-2 ">
-                <div className="w-[40%]">
+
+          <div className="md:w-full md:flex md:gap-x-8">
+            <div className="flex mt-7  mobile:w-full sm:w-full md:w-[50%]  ">
+              <div className="flex gap-0 w-[100%] mobile:gap-x-2 sm:gap-x-2 md:gap-x-0 ">
+                <div className="md:w-[45%] mobile:w-[40%]">
                   <label
                     htmlFor=""
-                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl"
-                  >
+                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-sm lg:text-lg"
+                  > 
                     {" "}
                     Country Code
                   </label>
-                  <div className="">
+                  <div className="md:w-[90%]">
                     <select
-                      className="flex h-10 w-[100%] text-text_Color border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                      className="flex h-10 w-[100%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
                       id="CNcountryCode"
                       value={values.CNcountryCode}
                       onChange={handleChange}
@@ -247,17 +253,17 @@ const ProfileDetails = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="w-[60%]">
+                <div className="mobile:w-[60%] sm:w-[60%] md:w-[60%]">
                   <label
                     htmlFor=""
-                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl"
+                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-sm lg:text-lg"
                   >
                     {" "}
                     Mobile Number{" "}
                   </label>
                   <div className="">
                     <input
-                      className="flex h-10 w-full text-text_Color font-semibold sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                      className="flex mobile:h-10 sm:h-10 w-full text-text_Color font-semibold sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg disabled:opacity-50"
                       type="text"
                       placeholder=" Mobile Number"
                       id="mobileNumber"
@@ -275,19 +281,19 @@ const ProfileDetails = () => {
               </div>
             </div>
 
-            <div className="flex mt-7  w-full ">
-              <div className="flex gap-0 w-[100%] gap-x-2 ">
-                <div className="w-[40%]">
+            <div className="flex mt-7 mobile:w-full sm:w-full md:w-[50%] ">
+              <div className="flex gap-0 w-[100%] mobile:gap-x-2 sm:gap-x-2 md:gap-x-0">
+                <div className="mobile:w-[40%] md:w-[45%]">
                   <label
                     htmlFor=""
-                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl"
+                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-sm lg:text-lg"
                   >
                     {" "}
                     Country Code
                   </label>
-                  <div className="">
+                  <div className="md:w-[90%]">
                     <select
-                      className="flex h-10 w-[100%] text-text_Color  border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                      className="flex h-10 w-[100%] text-text_Color  border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
                       id="CNlandlineNumber"
                       value={values.CNlandlineNumber}
                       onChange={handleChange}
@@ -317,14 +323,14 @@ const ProfileDetails = () => {
                 <div className="w-[60%]">
                   <label
                     htmlFor=""
-                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl"
+                    className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-sm lg:text-lg"
                   >
                     {" "}
                     LandLine Number{" "}
                   </label>
                   <div className="">
                     <input
-                      className="flex h-10 w-full text-text_Color font-semibold font-roxborough  sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                      className="flex h-10 w-full text-text_Color font-semibold font-roxborough  sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm disabled:opacity-50"
                       type="text"
                       placeholder=" Mobile Number"
                       id="landlineNumber"
@@ -342,20 +348,20 @@ const ProfileDetails = () => {
               </div>
             </div>
           </div>
-
+          </div>
           {/* Company Details */}
 
-          <div className="mt-10  mb-20">
+          <div className="mobile:mt-10 sm:mt-10 md:mt-14 ">
             <h1 className="text-text_Color font-roxborough font-bold text-2xl">
               Company Details
             </h1>
 
             <div className="w-full mt-4">
-              <div className="flex text-text_Color w-full  justify-between font-roxborough font-bold text-xl">
+              <div className="flex text-text_Color w-full  justify-between font-roxborough font-bold text-xl md:gap-x-8">
                 <p className="w-[50%]">Company Name</p>
                 <p className="w-[50%]">GST Number</p>
               </div>
-              <div className="flex text-text_Color w-full justify-between font-Marcellus mt-3">
+              <div className="flex text-text_Color w-full justify-between font-Marcellus mt-3 md:gap-x-8">
                 <p className="w-[50%]">{profileData.CompanyName}</p>
                 <p className="w-[50%]">{profileData.GstNo}</p>
               </div>
@@ -363,8 +369,9 @@ const ProfileDetails = () => {
 
             {/* Address  */}
 
-            <div className="mt-5">
-              <div className="flex justify-between">
+            <div className="mt-5 md:flex md:w-full md:gap-x-8">
+              <div className="w-[50%]">
+              <div className="flex justify-between md:w-full">
                 <h1 className="text-text_Color font-roxborough font-bold text-xl">
                   Shipping Address{" "}
                 </h1>
@@ -373,12 +380,12 @@ const ProfileDetails = () => {
                 </p>
               </div>
               {profileData.ShippingAddress == [] ? (
-                <p className="text-text_Color w-[70%] font-Marcellus font-medium text-base mt-3">
+                <p className="text-text_Color mobile:w-[70%] sm:w-[70%] md:w-full font-Marcellus font-medium text-base mt-3">
                   Please Add Address
                 </p>
               ) : (
                 profileData.ShippingAddress.map((address, index) => (
-                  <div key={index} className="text-text_Color mt-3 w-[75%]">
+                  <div key={index} className="text-text_Color mt-3 mobile:w-[75%] sm:w-[75%] md:w-full">
                     <p>
                       {address.StreetAddress} {address.LocationName}{" "}
                       {address.City} {address.ZipCode}
@@ -389,13 +396,14 @@ const ProfileDetails = () => {
 
               {/* Button Add Address */}
 
-              <button className="w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
+              <button className="mobile:w-[50%] sm:w-[50%] md:w-[70%] lg:w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
                 + add Address
               </button>
+              </div>
 
               {/* GST ADDRess  */}
 
-              <div className="text-text_Color mt-7">
+              <div className="text-text_Color mobile:mt-7 sm:mt-7 md:mt-0 md:w-[50%]">
                 <h1 className="font-roxborough font-bold text-xl">
                   GST Address
                 </h1>

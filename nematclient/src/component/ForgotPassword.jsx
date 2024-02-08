@@ -140,7 +140,7 @@ const ForgotPassword = () => {
                         </label>
                         <div className="mobile:mt-0 ">
                           <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                            className="flex h-10 w-full text-xl font-Marcellus text-text_Color  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="email"
                             placeholder="Enter Username"
                             value={values.email}

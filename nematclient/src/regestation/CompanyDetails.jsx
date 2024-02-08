@@ -119,10 +119,10 @@ const CompanyDetails = () => {
   return (
     <div className="">
       <Toaster />
-          <div className='w-full  h-full object-cover md:flex md:w-full md:h-[100vh]'>
+          <div className='w-full  h-full object-cover md:flex md:w-full md:h-[100vh] md:overflow-hidden'>
             {/* Image section with Logo */}
             
-            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
+            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[102%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
             <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
                 <Link to={"/"}>
                   <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
@@ -177,7 +177,7 @@ const CompanyDetails = () => {
 
             <form onSubmit={handleSubmit} className="mt-2">
               {nextdiv && sentReview === false ? (
-                <div className="sm:w-[90%] sm:mx-auto mobile:w-[90%] mobile:mx-auto md:h-[100%]">
+                <div className="sm:w-[90%] sm:mx-auto mobile:w-[90%] mobile:mx-auto md:h-[100%] overflow-hidden">
                   <div className="mt-[2%] overflow-hidden">
                     <div className="overflow-hidden">
                       <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-2 ">
@@ -198,7 +198,7 @@ const CompanyDetails = () => {
                           </label>
                           <div className="">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
+                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="Company name"
                               id="camponeyname"
@@ -223,7 +223,7 @@ const CompanyDetails = () => {
                           </label>
                           <div className="sm:mt-[28px] md:mt-0">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
+                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="GST No"
                               id="gstno"
@@ -242,7 +242,7 @@ const CompanyDetails = () => {
                     </div>
 
                     <div className="sm:mt-[50px] mobile:mt-[50px] md:mt-[3%]">
-                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-[2%] ">
+                      <h1 className="sm:text-2xl sm:text-center  mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-[2%] ">
                         ADD GST Address 
                       </h1>
                     </div>
@@ -260,7 +260,7 @@ const CompanyDetails = () => {
                         </label>
                         <div className="">
                           <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50 "
+                            className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50 "
                             type="text"
                             placeholder="Address"
                             id="address"
@@ -276,32 +276,8 @@ const CompanyDetails = () => {
                         </div>
                       </div>
                       <div className="md:flex md:flex-row md:w-[100%] md:mt-[2%]  sm:flex-col mobile:flex-col sm:mt-[30px] mobile:mt-[30px] gap-x-2">
-                        <div className="md:w-[50%]">
-                          <label
-                            htmlFor=""
-                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
-                          >
-                            {" "}
-                            City <span className="text-red-600">*</span>{" "}
-                          </label>
-                          <div className="">
-                            <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
-                              type="text"
-                              placeholder="City"
-                              id="city"
-                              onChange={handleChange}
-                              value={values.city}
-                              onBlur={handleBlur}
-                            ></input>
-                            {errors.city && touched.city ? (
-                              <p className="font-Marcellus text-red-900"> {errors.city}</p>
-                            ) : (
-                              null
-                            )}
-                          </div>
-                        </div>
-                        <div className="sm:mt-[30px] mobile:mt-[30px] md:mt-0 md:w-[50%]">
+                        
+                        <div className=" md:w-[50%]">
                           <label
                             htmlFor=""
                             className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
@@ -311,7 +287,7 @@ const CompanyDetails = () => {
                           </label>
                           <div className="md:w-[100%]">
                             <input
-                              className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
+                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
                               type="text"
                               placeholder="State"
                               id="state"
@@ -321,6 +297,32 @@ const CompanyDetails = () => {
                             ></input>
                             {errors.state && touched.state ? (
                               <p className="font-Marcellus text-red-900">{errors.state}</p>
+                            ) : (
+                              null
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="sm:mt-[30px] mobile:mt-[30px] md:mt-0 md:w-[50%]">
+                          <label
+                            htmlFor=""
+                            className="sm:mt-[30px] mobile:mt-[30px]  md:mt-0 mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                          >
+                            {" "}
+                            City <span className="text-red-600">*</span>{" "}
+                          </label>
+                          <div className="">
+                            <input
+                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
+                              type="text"
+                              placeholder="City"
+                              id="city"
+                              onChange={handleChange}
+                              value={values.city}
+                              onBlur={handleBlur}
+                            ></input>
+                            {errors.city && touched.city ? (
+                              <p className="font-Marcellus text-red-900"> {errors.city}</p>
                             ) : (
                               null
                             )}
@@ -337,7 +339,7 @@ const CompanyDetails = () => {
                         </label>
                         <div className="">
                           <input
-                            className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                            className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="text"
                             placeholder="ZipCode"
                             onChange={handleChange}
@@ -373,7 +375,7 @@ const CompanyDetails = () => {
                 <div>
                   <div>
                   
-                    <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto md:flex md:flex-col md:justify-evenly mobile:h-[80vh] md:h-[100vh] md:w-[90%] mobile:overflow-y-auto">
+                    <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto md:flex md:flex-col md:justify-evenly mobile:h-auto md:h-[100vh] md:w-[90%] ">
                       <div>
                       <div className="inline-flex items-center gap-[30px] md:ml-0 sm:ml-0 mobile:ml-[-40%] relative">
                         <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
@@ -431,7 +433,7 @@ const CompanyDetails = () => {
                             </label>
                             <div className="">
                               <input
-                                className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type="text"
                                 placeholder="Full Name"
                                 id="fullname"
@@ -456,7 +458,7 @@ const CompanyDetails = () => {
                             </label>
                             <div className="">
                               <input
-                                className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type="email"
                                 placeholder="Enter Email"
                                 id="email"
@@ -475,19 +477,19 @@ const CompanyDetails = () => {
                       </div>
 
                       <div className="flex flex-row md:mt-7 mobile:mt-7 sm:mt-7  sm:w-[100%] mobile:w-[100%] ">
-                        <div className="flex flex-row gap-0 md:w-[100%] md:gap-x-2 ">
-                          <div className="w-[45%]">
+                        <div className="flex flex-row gap-0 mobile:w-full sm:w-full md:w-[100%] md:gap-x-2 ">
+                          <div className="w-[35%]">
                             <label
                               htmlFor=""
                               className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
                             >
                               {" "}
-                              Country Code{" "}
+                              Country {" "}
                               <span className="text-red-600">*</span>{" "}
                             </label>
-                            <div className="">
+                            <div className="mobile:w-[90%] ">
                               <input
-                                className="flex h-10 w-full md:w-[80%] sm:w-[70%] mobile:w-[70%]   border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type=""
                                 placeholder="Country Code"
                                 id="countryCode"
@@ -522,7 +524,7 @@ const CompanyDetails = () => {
                               )}
                             </div>
                           </div>
-                          <div className="md:w-[65%]">
+                          <div className="md:w-[65%] mobile:w-[50%]">
                             <label
                               htmlFor=""
                               className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
@@ -533,7 +535,7 @@ const CompanyDetails = () => {
                             </label>
                             <div className="">
                               <input
-                                className="flex h-10 w-full sm:w-[120%] mobile:w-[120%]  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type="text"
                                 placeholder=" Mobile Number"
                                 id="mobileNo"
@@ -566,18 +568,18 @@ const CompanyDetails = () => {
                       </div>
 
                       <div className="flex flex-row mt-7">
-                        <div className="flex flex-row  gap-0 md:w-[100%] md:gap-x-2">
-                          <div className="w-[45%]">
+                        <div className="flex flex-row  mobile:w-full gap-0 md:w-[100%] md:gap-x-2">
+                          <div className="w-[35%]">
                             <label
                               htmlFor=""
                               className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                             >
                               {" "}
-                              Country Code{" "}
+                              Country{" "}
                             </label>
-                            <div className="mt-2">
+                            <div className="mt-2 mobile:w-[90%]">
                               <input
-                                className="flex h-10 md:w-[80%] w-full sm:w-[70%] mobile:w-[70%]   border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 md:w-[90%] text-lg font-Marcellus text-text_Color w-full sm:w-[90%] mobile:w-[90%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type=""
                                 placeholder=" Country Code"
                                 id="countryCode1"
@@ -592,10 +594,10 @@ const CompanyDetails = () => {
                               )}
                             </div>
                           </div>
-                          <div className="md:w-[65%]">
+                          <div className="md:w-[65%] mobile:w-[50%]">
                             <label
                               htmlFor=""
-                              className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                              className="mobile:text-xl font-Marcellus w-full  text-[#642F29] md:text-xl"
                             >
                               {" "}
                               Landline Number{" "}
@@ -603,7 +605,7 @@ const CompanyDetails = () => {
                             </label>
                             <div className="mt-2">
                               <input
-                                className="flex h-10 w-full sm:w-[120%] mobile:w-[120%]  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29]    placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                 type="text"
                                 placeholder=" Landline Number "
                                 id="landlineNo"

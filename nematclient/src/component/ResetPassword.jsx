@@ -142,7 +142,7 @@ const ResetPassword = () => {
                           </label>
                           <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
                             <input
-                              className="flex h-10 w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
+                              className="flex h-10 text-text_Color font-Marcellus text-lg w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50  "
                               type={showPassword ? "text" : "password"}
                               placeholder="Enter New Password "
                               value={values.newpassword}
@@ -178,7 +178,7 @@ const ResetPassword = () => {
                           </label>
                           <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
                             <input
-                              className="flex h-10 w-full bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none text-[#642F29] disabled:cursor-not-allowed disabled:opacity-50  "
+                              className="flex h-10 w-full text-text_Color font-Marcellus text-lg bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50  "
                               type={ConfirmshowPassword ? "text" : "password"}
                               placeholder="Enter New Confrim Password "
                               value={values.confirmPWD}
