@@ -10,11 +10,11 @@ export default {
       },
       colors: {
         bg_green: "#60713a",
-        text_Color2:"#60713A",
+        text_Color2: "#60713A",
         text_Color: "#642F29",
         Cream: "#FEEEE2",
         LightCream: "#FFFBF0",
-        CartRightColor:"#F6F5F0"
+        CartRightColor: "#F6F5F0",
       },
       screens: {
         mobile: "220px",
@@ -37,6 +37,7 @@ export default {
       };
       addUtilities(newUtilities, ["responsive", "hover"]);
     },
+    require("tailwind-scrollbar"),
   ],
 };
 
