@@ -212,7 +212,7 @@ const OpenOrderDetails = () => {
                                   </p>
                                   <button className=" w-[65%] text-start gap-y-2 text-xl font-Marcellus">
                                     {" "}
-                                    {document.DocumentTypeName}
+                                    {document.DocumentName}
                                   </button>
                                 </div>
                               </div>
