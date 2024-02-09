@@ -29,7 +29,7 @@ const Series = () => {
 
   let { user } = useSelector((store) => store.profile);
 
-  console.log("USER +++> " , user.customer_id)
+  // console.log("USER +++> " , user.customer_id)
 
   useEffect(() => {
     getSeriesDataById();
@@ -49,6 +49,8 @@ const Series = () => {
       alltotalValue(response.data.SchemeProductsData);
       setLoading(false);
       setInitialTotal(true);
+
+      console.log(response.data)
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -435,7 +437,7 @@ const Series = () => {
                             }`}
                             onClick={() => handlePackSizeClick(packsize, index)}
                           >
-                            {packsize.size}
+                            {packsize.size} ({packsize.nameConvention})
                           </button>
                         )
                       )}

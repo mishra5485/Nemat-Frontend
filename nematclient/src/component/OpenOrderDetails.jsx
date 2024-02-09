@@ -6,6 +6,7 @@ import { formattedAmount } from "./common/FormatAmount";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
 import { IoRemoveOutline } from "react-icons/io5";
+import toast, { Toaster } from "react-hot-toast";
 
 const OpenOrderDetails = () => {
   const { _id } = useParams();
@@ -68,6 +69,7 @@ const OpenOrderDetails = () => {
 
       if (
         status === 404 ||
+        status === 403 ||
         status === 500 ||
         status === 302 ||
         status === 409 ||
@@ -140,8 +142,61 @@ const OpenOrderDetails = () => {
     });
   };
 
+  // Reorder Api Calling
+  const reorderApiCallHandler = async (orderId, User_id, flag) => {
+    try {
+      const payload = {
+        user_id: User_id,
+        order_id: orderId,
+      };
+
+      console.log(payload);
+      let response 
+      if (flag === 1) {
+        response = await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/reorder`,
+          payload
+        );
+      } else {
+         response = await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/cancelorder`,
+          payload
+        );
+
+
+        setOpenOrderData((openOrderData) => 
+          openOrderData.filter((order) => order._id !== orderId)
+        )
+
+      }
+
+      console.log(response.data);
+
+      toast.success(response.data);
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error.response;
+
+      if (
+        status === 404 ||
+        status === 403 ||
+        status === 500 ||
+        status === 302 ||
+        status === 409 ||
+        status === 401 ||
+        status === 400
+      ) {
+        toast.error(data);
+        console.log(data);
+        setLoading(false);
+      }
+    }
+  };
+  
+
   return (
     <div className="sm:mt-4 mobile:mt-4 md:h-auto ">
+      <Toaster />
       {loading ? (
         <p>Loaddding....</p>
       ) : (
@@ -177,24 +232,55 @@ const OpenOrderDetails = () => {
                           Order Value : {formattedAmount(opneorder.TotalAmount)}
                         </h1>
 
-                        <button
-                          type="button"
-                          onClick={() => {
-                            toggleDocumentVisibility(index);
-                          }}
-                          className="uppercase flex justify-center items-center font-Marcellus text-white bg-text_Color2 w-full p-2.5 rounded-3xl mt-3"
-                        >
-                          Documents{" "}
-                          <span className="ml-5">
-                            {orderShow[index].showDocument ? (
-                              <FaAngleUp size={20} />
-                            ) : (
-                              <FaAngleDown size={20} />
-                            )}
-                          </span>{" "}
-                        </button>
+                        <div className="w-full flex gap-x-2">
+                          {opneorder.status <= 0 ? (
+                            <button
+                              className="w-[50%] text-text_Color2 border-2  border-text_Color  mt-3 rounded-3xl"
+                              onClick={() =>
+                                reorderApiCallHandler(
+                                  opneorder._id,
+                                  opneorder.user_id,
+                                  0
+                                )
+                              }
+                            >
+                              Cancel
+                            </button>
+                          ) : (
+                            <button
+                              className="w-[50%] uppercase font-Marcellus  bg-text_Color2 text-white  mt-3 rounded-3xl"
+                              onClick={() =>
+                                reorderApiCallHandler(
+                                  opneorder._id,
+                                  opneorder.user_id,
+                                  1
+                                )
+                              }
+                            >
+                              Re-order
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              toggleDocumentVisibility(index);
+                            }}
+                            className="w-[50%] uppercase flex justify-center items-center font-Marcellus text-white bg-text_Color2 p-2.5 rounded-3xl mt-3"
+                          >
+                            Documents{" "}
+                            <span className="ml-5">
+                              {orderShow[index].showDocument ? (
+                                <FaAngleUp size={20} />
+                              ) : (
+                                <FaAngleDown size={20} />
+                              )}
+                            </span>{" "}
+                          </button>
+                        </div>
+
                         {orderShow[index].showDocument ? (
-                          <div className="w-[97%] mx-auto bg-Cream rounded-xl pb-3">
+                          <div className="w-[97%] mx-auto bg-Cream rounded-xl pb-3 mt-1">
                             {opneorder.Documents.map((document) => (
                               <div key={document._id}>
                                 <div
@@ -288,7 +374,7 @@ const OpenOrderDetails = () => {
                       >
                         <h1
                           className={`flex items-center w-full ${
-                            opneorder.status <= index-1
+                            opneorder.status <= index - 1
                               ? "text-gray-400"
                               : "text-text_Color"
                           }`}
