@@ -12,6 +12,9 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { ImExit } from "react-icons/im";
+import { useDispatch } from "react-redux";
+import { logout } from "../../slices/profileSlice";
 
 const NavBars = () => {
   const [showNavbar, SetShowNavbar] = useState(true);
@@ -19,16 +22,19 @@ const NavBars = () => {
   const [isHovered, setIsHovered] = useState(false);
   // const [firstApiCall , setFirstApiCall] = useState(true)
   const [selectedSeries, setSelectedSeries] = useState(null);
-  const [categoryData, setCategoryData] = useState([]);
+  const [categoryDatas, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isModal , setIsModal] = useState(false)
+  
+  const { user } = useSelector((store) => store.profile);
+  const {categoryData} = useSelector((store)=> store.category)
+  const _id = user.customer_id
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
-  const { user } = useSelector((store) => store.profile);
-  const _id = user.customer_id
-
   useEffect(() => {
-    getAllHomePageData();
+    // getAllHomePageData();
   }, []);
 
   const mobileNavbar = () => {
@@ -79,39 +85,44 @@ const NavBars = () => {
     navigate(`/profile/${_id}`)
   }
 
-  const getAllHomePageData = async () => {
-    try {
-      let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
-      );
+  useEffect(()=>{
+    setCategoryData(categoryData)
+    setLoading(false)
+  },[categoryDatas])
 
-      // console.log("allDataResponse.data", allDataResponse.data);
+  // const getAllHomePageData = async () => {
+  //   try {
+  //     let allDataResponse = await axios.get(
+  //       `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
+  //     );
 
-      if (allDataResponse.status === 200) {
-        setCategoryData(allDataResponse.data);
-        setLoading(false);
-        //   setFirstApiCall(false)
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
+  //     // console.log("allDataResponse.data", allDataResponse.data);
 
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          // toast.error(data);
-          setLoading(false);
-        }
-      }
-    }
-  };
+  //     if (allDataResponse.status === 200) {
+  //       setCategoryData(allDataResponse.data);
+  //       setLoading(false);
+  //       //   setFirstApiCall(false)
+  //     }
+  //   } catch (error) {
+  //     if (error.response) {
+  //       const { status, data } = error.response;
+
+  //       if (
+  //         status === 404 ||
+  //         status === 403 ||
+  //         status === 500 ||
+  //         status === 302 ||
+  //         status === 409 ||
+  //         status === 401 ||
+  //         status === 400
+  //       ) {
+  //         console.log(error.response);
+  //         // toast.error(data);
+  //         setLoading(false);
+  //       }
+  //     }
+  //   }
+  // };
 
   const handleLinkClick = (link) => {
     navigate(link);
@@ -120,6 +131,14 @@ const NavBars = () => {
   const seriesPageById = (_id) => {
     navigate(`/series/${_id}`);
   };
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
+
+  console.log("categoryData ====> " , categoryData)
+
 
   return (
     <div className="custom-scrollbar  ">
@@ -150,7 +169,7 @@ const NavBars = () => {
             <hr />
 
             <div>
-              {categoryData.map((category) => (
+              {categoryDatas.map((category) => (
                 <div key={category._id} className="flex flex-col ">
                   <div
                     className="flex justify-between items-center p-3 "
@@ -289,10 +308,28 @@ const NavBars = () => {
                           
                             <button type="button" onClick={() => profileHandler()}>Profile</button>
                           
-                          <p>Logout</p>
+                          <p className="" onClick={() => setIsModal(true)}>Logout</p>
                         </div>
                       )}
                   </div>
+
+              
+              {
+                isModal && (
+                  <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
+                    <div className="bg-white p-4 rounded-md w-[300px] h-auto ">
+                      <ImExit size={25}  className="w-full mx-auto text-text_Color"/>
+                      <h1 className="w-[80%] mt-2.5 text-center mx-auto text-xl text-text_Color font-roxborough">
+                        Are you sure you want to log out?
+                      </h1>
+                      <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
+                        <button onClick={() => setIsModal(false)} className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]">Cancel</button>
+                        <button onClick={() => logoutHandler()} className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]">Yes</button>
+                      </div>
+                    </div>
+                  </div>
+                ) 
+              }
 
               {/* Shop On Hover  */}
             {isHovered ? (
@@ -301,7 +338,7 @@ const NavBars = () => {
                 onMouseLeave={() => setIsHovered(false)}
               >
                 <div className="flex w-[90%] justify-between ">
-                  {categoryData.map((category) => (
+                  {categoryDatas.map((category) => (
                     <div key={category._id} className="flex  flex-col overflow-hidden">
                       <div className="flex justify-between items-center p-3 ">
                         <h1
