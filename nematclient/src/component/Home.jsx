@@ -15,6 +15,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NavBars from "./common/NavBars";
 import { useNavigate } from "react-router-dom";
+import Flower from "../assets/HomePage/Flower.png"
+import { useDispatch } from "react-redux";
+import { setCategoryDataStore } from "../slices/categorySlice";
 
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
@@ -31,6 +34,7 @@ const Home = () => {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
+  const dispatch = useDispatch()
 
 
   // useEffect(() => {
@@ -88,6 +92,8 @@ const Home = () => {
         setBannerData(allDataResponse.data.BannerData)
         setLoading(false);
         setFirstApiCall(false)
+        console.log(allDataResponse.data.CategoryData)
+        dispatch(setCategoryDataStore(allDataResponse.data.CategoryData))
       }
     } catch (error) {
       if (error.response) {
@@ -212,13 +218,13 @@ const Home = () => {
             {categoryData.map((category, index) => (
               <>
                 {index % 2 == 0 ? (
-                  <div key={index} className="p-2  w-full mb-2">
+                  <div key={index} className="p-2 py-5  w-full mb-2">
                     <img src={DottedLineGold} className="w-full" />
                     {/* <Goldenline image={DottedLineGold} /> */}
                   </div>
                 ) : (
-                  <div key={index} className="p-2  w-full mb-2">
-                    <img src={FlowerPattern2}  className="w-full object-cover"/>
+                  <div key={index} className="p-2 py-5  w-full mb-2">
+                    <img src={Flower}  className="w-full object-cover"/>
                     {/* <RightToLeftanm image={FlowerPattern2} /> */}
                   </div>
                 )}
