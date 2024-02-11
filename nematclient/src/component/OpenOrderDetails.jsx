@@ -7,6 +7,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
 import { IoRemoveOutline } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const OpenOrderDetails = () => {
   const { _id } = useParams();
@@ -151,23 +152,21 @@ const OpenOrderDetails = () => {
       };
 
       console.log(payload);
-      let response 
+      let response;
       if (flag === 1) {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/reorder`,
           payload
         );
       } else {
-         response = await axios.post(
+        response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/cancelorder`,
           payload
         );
 
-
-        setOpenOrderData((openOrderData) => 
+        setOpenOrderData((openOrderData) =>
           openOrderData.filter((order) => order._id !== orderId)
-        )
-
+        );
       }
 
       console.log(response.data);
@@ -192,10 +191,9 @@ const OpenOrderDetails = () => {
       }
     }
   };
-  
 
   return (
-    <div className="sm:mt-4 mobile:mt-4 md:h-auto ">
+    <div className="sm:mt-4 mobile:mt-4 md:h-auto md:ml-[7%]   ">
       <Toaster />
       {loading ? (
         <p>Loaddding....</p>
@@ -206,33 +204,52 @@ const OpenOrderDetails = () => {
           ) : (
             <div className="text-text_Color">
               {openOrderData.map((opneorder, index) => (
-                <div key={index}>
-                  <div className="flex justify-between items-center pt-4 pb-4 border-b-2 border-text_Color">
-                    <h1 className="font-roxborough text-xl font-bold">
-                      Order No : {opneorder.OrderNumber}
-                    </h1>
-                    {orderShow[index] ? (
-                      <FaAngleUp
-                        size={20}
-                        onClick={() => toggleOrderVisibility(index)}
-                      />
-                    ) : (
-                      <FaAngleDown
-                        size={20}
-                        onClick={() => toggleOrderVisibility(index)}
-                      />
-                    )}
+                <div key={index} className="">
+                  <div className="flex justify-between items-center mobile:pt-4 sm:pt-4 sm:pb-4 mobile:pb-4 md:pb-0 sm:border-b-2 mobile:border-b-2 md:border-none border-text_Color ">
+                    <div className="md:flex ">
+                      <div className="flex md:justify-start md:items-center mobile:w-full sm:w-full mobile:justify-between mobile:items-center ">
+                        <h1 className="font-roxborough text-xl font-bold">
+                          Order No : {opneorder.OrderNumber}
+                        </h1>
+
+                        <div className="ml-4">
+                          {orderShow[index] ? (
+                            <FaAngleUp
+                              size={20}
+                              onClick={() => toggleOrderVisibility(index)}
+                            />
+                          ) : (
+                            <FaAngleDown
+                              size={20}
+                              onClick={() => toggleOrderVisibility(index)}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* For Desktop View  */}
+                    <div className="text-text_Color  mobile:hidden md:block md">
+                      {/* Document Download Section */}
+
+                      <div className="w-full mx-auto mt-4 flex md:justify-center md:items-center mb-3 ">
+                        <h1 className="font-roxborough md:w-full  font-bold text-xl text-center">
+                          Order Value : {formattedAmount(opneorder.TotalAmount)}
+                        </h1>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* For Mobile  */}
                   {orderShow[index] && (
-                    <div>
+                    <div className="">
                       {/* Document Download Section */}
-                      <div className="w-full mx-auto mt-4">
-                        <h1 className="font-roxborough font-bold text-xl text-center">
+                      <div className="w-full mx-auto sm:mobile:mt-4 mobile:mt-4 md:mt-0 ">
+                        <h1 className="font-roxborough font-bold text-xl text-center md:hidden">
                           Order Value : {formattedAmount(opneorder.TotalAmount)}
                         </h1>
 
-                        <div className="w-full flex gap-x-2">
+                        <div className="w-full flex md:flex-row-reverse gap-x-2 ">
                           {opneorder.status <= 0 ? (
                             <button
                               className="w-[50%] text-text_Color2 border-2  border-text_Color  mt-3 rounded-3xl"
@@ -280,7 +297,7 @@ const OpenOrderDetails = () => {
                         </div>
 
                         {orderShow[index].showDocument ? (
-                          <div className="w-[97%] mx-auto bg-Cream rounded-xl pb-3 mt-1">
+                          <div className="mobile:w-[97%] sm:w-[97%] md:w-[49%] md:mx-2  mobile:mx-auto sm:mx-auto md:flex md:flex-col md:justify-end md:pb-2  bg-Cream rounded-xl pb-3 mt-1">
                             {opneorder.Documents.map((document) => (
                               <div key={document._id}>
                                 <div
@@ -291,7 +308,7 @@ const OpenOrderDetails = () => {
                                       opneorder.user_id
                                     )
                                   }
-                                  className="w-full mt-3 flex justify-center items-center cursor-pointer"
+                                  className="w-full mt-3 flex sm:justify-center sm:items-center  mobile:justify-center mobile:items-center cursor-pointer"
                                 >
                                   <p className="w-[35%] flex justify-end mr-5">
                                     <MdOutlineFileDownload size={25} />
@@ -366,21 +383,23 @@ const OpenOrderDetails = () => {
                     </div>
                   )}
 
-                  <div className="w-full flex items-center mt-4 h-16 overflow-x-auto scrollbar scrollbar-w-2">
+                  <div className="w-full flex items-center mt-4 h-16 md:h-12 overflow-x-auto scrollbar scrollbar-w-2 ">
                     {statusData.map((status, index) => (
                       <div
                         key={index}
-                        className="mobile:w-[50%] h-full flex items-center sm:w-[30%] bg-Cream flex-shrink-0"
+                        className="mobile:w-[50%] h-full flex items-center sm:w-[30%] md:w-[20%] md:text-xs lg:text-sm xl:text-base  bg-Cream  mobile:flex-shrink-0 sm:flex-shrink-0 "
                       >
                         <h1
-                          className={`flex items-center w-full ${
+                          className={`flex items-center  w-full ${
                             opneorder.status <= index - 1
                               ? "text-gray-400"
                               : "text-text_Color"
                           }`}
                         >
-                          <FaCircleCheck className="mx-1" /> {status.status}{" "}
-                          <IoRemoveOutline className="mx-1" />{" "}
+                          <FaCircleCheck className="mx-1" /> {status.status}
+                          {index !== statusData.length - 1 && (
+                            <FaLongArrowAltRight className="mx-1" />
+                          )}
                         </h1>
                       </div>
                     ))}
