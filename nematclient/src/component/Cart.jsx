@@ -6,10 +6,19 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { formattedAmount } from "../component/common/FormatAmount";
 import Footer from "../component/footer/footer";
-import AddAddress from "./AddAddress";
 import ContinueCheckout from "./products/ContinueCheckout";
+import { IoMdCloseCircle } from "react-icons/io";
+import { toast } from "react-hot-toast";
 
 const Cart = () => {
+  const stateCityData = {
+    India: {
+      Maharashtra: ["Mumbai", "Pune", "Nagpur"],
+      Delhi: ["New Delhi"],
+      // Add more states and cities as needed
+    },
+  };
+
   const [loading, setLoading] = useState(true);
   const [productDisplay, setProductDisplay] = useState();
   const [expandedIndices, setExpandedIndices] = useState([]);
@@ -22,8 +31,19 @@ const Cart = () => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [nodata, setNoData] = useState(false);
 
+  // address
+  const [country, setCountry] = useState("India");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [statesInCountry, setStatesInCountry] = useState(
+    Object.keys(stateCityData[country])
+  );
+  const [citiesInState, setCitiesInState] = useState([]);
+
   const { user } = useSelector((store) => store.profile);
   const navigate = useNavigate();
+
+  console.log( "citiesInState ==> " , citiesInState )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,15 +147,70 @@ const Cart = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   // Address Selection Function
   const handleRadioChange = (addressId) => {
     setSelectedAddressId(addressId);
   };
   // console.log( "address ===>" , address );
+
+  // address
+  const handleCountryChange = (e) => {
+    const selectedCountry = e.target.value;
+    setCountry(selectedCountry);
+    setState(""); // Reset state selection
+    setCity(""); // Reset city selection
+    setStatesInCountry(Object.keys(stateCityData[selectedCountry]));
+  };
+
+  // Update city options based on the selected state
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setState(selectedState);
+    setCity(""); // Reset city selection
+    setCitiesInState(stateCityData[country][selectedState]);
+  };
+
+
+  const addAddressHandler = async () => {
+    try {
+
+      const payload = {
+        user_id : customer_id , 
+        LocationName : LocationName,
+        StreetAddress: "",
+        Country : "",
+        City : "",
+        ZipCode : "",
+      }
+
+      let response = await axios.post (
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/addshippingaddress`,
+        payload
+      )
+
+      toast.success(response.data)
+
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+        
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  }
+
 
   let nextDiscountPercent = null;
   return (
@@ -299,19 +374,120 @@ const Cart = () => {
                           Add Address
                         </button>
 
-                        {isModalOpen && (
+                        {/* Add address modal */}
+                        { isModalOpen && (
                           <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
                             {/* Your modal content goes here */}
-                            <div className="bg-white p-4 rounded-md">
-                              <h2 className="text-2xl font-bold mb-4">
-                                Add Address
-                              </h2>
+                            <div className="bg-white p-4 rounded-md w-[500px] h-auto">
+                              <div className="flex w-[90%] mx-auto">
+                                <h2 className="w-[100%] mx-auto text-2xl font-bold mb-4 text-text_Color2 font-roxborough ">
+                                  Add Address
+                                </h2>
+                                <p onClick={() => setIsModalOpen(false)}><IoMdCloseCircle className="text-text_Color2" size={25}/></p>
+                              </div>
+
+                              <div>
+                                <div className="md:w-[90%] mx-auto">
+                                  <div className="">
+                                    <input
+                                      className="flex h-8 w-full text-text_Color font-Marcellus  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm md:mt-2 disabled:opacity-50 "
+                                      type="text"
+                                      placeholder="Location Name (Eg: Mumbai Wearhouse)"
+                                      id="camponeyname"
+                                      // value={values.camponeyname}
+                                      required
+                                    ></input>
+                                    {/* {errors.camponeyname && touched.camponeyname ? (
+                              <p className="font-Marcellus text-red-900">{errors.camponeyname}</p>
+                            ) : (
+                              null
+                            )} */}
+                                  </div>
+                                </div>
+                                <div className="md:w-[90%] mx-auto mt-2">
+                                  <div className="">
+                                    <input
+                                      className="flex h-8 w-full text-text_Color font-Marcellus  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm md:mt-2 disabled:opacity-50 "
+                                      type="text"
+                                      placeholder="Street Address *"
+                                      id="camponeyname"
+                                      // value={values.camponeyname}
+                                      required
+                                    ></input>
+                                    {/* {errors.camponeyname && touched.camponeyname ? (
+                              <p className="font-Marcellus text-red-900">{errors.camponeyname}</p>
+                            ) : (
+                              null
+                            )} */}
+                              {/* Selection tage for state and city  */}
+                                   
+
+
+                                  </div>
+                                  <div className="w-full flex gap-x-3 mt-2">
+                                      {/* Country Selection */}
+
+                                      <select
+                                        value={country}
+                                        onChange={handleCountryChange}
+                                        className="flex h-10 w-[30%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
+                                      >
+                                        <option value="India">India</option>
+                                        {/* Add more country options as needed */}
+                                      </select>
+
+                                      {/* State Selection */}
+                                      <select
+                                        value={state}
+                                        onChange={handleStateChange}
+                                        disabled={!statesInCountry.length}
+                                        className="flex h-10 w-[32%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
+                                      >
+                                        <option value="">Select State</option>
+                                        {statesInCountry.map((state) => (
+                                          <option key={state} value={state}>
+                                            {state}
+                                          </option>
+                                        ))}
+                                      </select>
+
+                                      {/* City Selection */}
+                                      <select
+                                        value={city}
+                                        onChange={(e) =>
+                                          setCity(e.target.value)
+                                        }
+                                        disabled={!citiesInState.length}
+                                        className="flex h-10 w-[32%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
+                                      >
+                                        <option value="">Select City</option>
+                                        {citiesInState.map((city) => (
+                                          <option key={city} value={city}>
+                                            {city}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+
+                                    <div className="">
+                                    <input
+                                      className="flex h-10 w-full text-text_Color font-Marcellus  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm md:mt-2 disabled:opacity-50 "
+                                      type="text"
+                                      placeholder="Zip Code  *"
+                                      id="camponeyname"
+                                      pattern="[0-9]*"
+                                      required
+                                    ></input>
+                                  </div>
+                                </div>
+                                
+                              </div>
                               {/* Add your form or any content for adding an address */}
                               <button
-                                onClick={handleCloseModal}
-                                className="py-2 px-4 bg-blue-500 text-white rounded-md"
+                                onClick={addAddressHandler}
+                                className="w-[90%] uppercase flex items-center justify-center mt-3 mx-auto bg-text_Color2 rounded-3xl   py-2 px-4  text-white "
                               >
-                                Close
+                                Add Address
                               </button>
                             </div>
                           </div>
