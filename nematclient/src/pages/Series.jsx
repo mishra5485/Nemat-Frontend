@@ -322,10 +322,12 @@ const Series = () => {
               </div>
             </div>
           </div> */}
+          {/* <div  className="fixed top-[60px] left-0 w-full bg-white z-40"> */}
 
           <div className="mt-8 mb-6">
               <ProgressBar qunantityData={qunantityData} totalvalue={totalvalue}/>
           </div>
+          {/* </div> */}
 
           <div className="w-[100%] flex flex-col justify-center items-center  mt-4 ">
             <div className="w-[90%] flex bg-LightCream  border  font-Marcellus  uppercase">

@@ -12,8 +12,8 @@ const OrderDetails = () => {
   };
 
   return (
-    <div className="text-text_Color mb-6 md:mt-3.5 ">
-      <div className="">
+    <div className="text-text_Color md:border-l-2 border-text_Color  mb-6 md:mt-3.5 ">
+      <div className="md:ml-[7%] ">
         <div className="flex justify-between mt-4 border-b-2 pb-5 border-Cream ">
           <h1 className="font-roxborough font-bold  text-xl">Orders</h1>
                   <label htmlFor="toggle" className="flex items-center cursor-pointer">
