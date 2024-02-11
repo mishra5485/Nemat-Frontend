@@ -37,7 +37,7 @@ const Profile = () => {
             <div className="mobile:flex mobile:w-[100%] mobile:justify-between mobile:mx-auto mobile:gap-x-3 sm:flex sm:w-[100%] sm:justify-between sm:mx-auto sm:gap-x-3  md:flex-col md:justify-start md:w-[20%] md:mt-8  ">
               <button
                 className={`mobile:py-2 sm:py-2 mobile:w-[50%] sm:w-[50%] md:w-full font-Marcellus uppercase mobile:border-2 mobile:rounded-3xl sm:border-2 sm:rounded-3xl md:border-none md:rounded-none md:py-0  md:text-start ${
-                  clickedButton === "order" ? "mobile:bg-text_Color2 sm:bg-text_Color2 mobile:text-white sm:text-white md:bg-transparent md:text-text_Color2  md:underline "  : "text-text_Color2"
+                  clickedButton === "order" ? "mobile:bg-text_Color2 sm:bg-text_Color2 mobile:text-white sm:text-white md:bg-transparent md:text-text_Color2  md:underline  md:mb-3"  : "text-text_Color2"
                   
                 }`}
                 onClick={() => {
