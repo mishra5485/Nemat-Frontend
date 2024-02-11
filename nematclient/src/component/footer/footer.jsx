@@ -4,6 +4,7 @@ import logo from "../../assets/loginImages/nematEnterprisesLogo.png";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const footer = () => {
   
@@ -35,10 +36,13 @@ const footer = () => {
   const [showAngle, setShowAngle] = useState({});
   const [selectedSeries, setSelectedSeries] = useState(null);
   const [currentState, setCurrentState] = useState(window.innerWidth);
-  const [categoryData, setCategoryData] = useState([]);
-  const [ FirstApiCall, setFirstApiCall] = useState(true)
+  const [categoryDatas, setCategoryData] = useState([]);
+  // const [ FirstApiCall, setFirstApiCall] = useState(true)
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
+
+  const {categoryData} = useSelector((store)=> store.category)
+
 
   const toggleSubSeries = (seriesId) => {
     setSelectedSeries((prevSelectedSeries) =>
@@ -71,48 +75,53 @@ const footer = () => {
 
     window.addEventListener("resize", handleResize);
 
-    if(FirstApiCall){
-      getAllHomePageData()
-    }
+    // if(FirstApiCall){
+    //   getAllHomePageData()
+    // }
 
   }, [currentState]);
 
 
+  useEffect(() => {
+    setCategoryData(categoryData)
+    setLoading(false)
+  },[])
 
-  const getAllHomePageData = async () => {
-    try {
-      let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
-      );
 
-      // console.log("allDataResponse.data", allDataResponse.data);
+  // const getAllHomePageData = async () => {
+  //   try {
+  //     let allDataResponse = await axios.get(
+  //       `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getnavbardata`
+  //     );
 
-      if (allDataResponse.status === 200) {
-        setCategoryData(allDataResponse.data);
-        setLoading(false)
-        setFirstApiCall(false)
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
+  //     // console.log("allDataResponse.data", allDataResponse.data);
 
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          // toast.error(data);
-          setLoading(false)
-        }
-      }
-    }
+  //     if (allDataResponse.status === 200) {
+  //       setCategoryData(allDataResponse.data);
+  //       setLoading(false)
+  //       setFirstApiCall(false)
+  //     }
+  //   } catch (error) {
+  //     if (error.response) {
+  //       const { status, data } = error.response;
+
+  //       if (
+  //         status === 404 ||
+  //         status === 403 ||
+  //         status === 500 ||
+  //         status === 302 ||
+  //         status === 409 ||
+  //         status === 401 ||
+  //         status === 400
+  //       ) {
+  //         console.log(error.response);
+  //         // toast.error(data);
+  //         setLoading(false)
+  //       }
+  //     }
+  //   }
     
-  };
+  // };
 
   let isSmallScreen = currentState <= 760;
 
@@ -148,7 +157,7 @@ const footer = () => {
         <div className="mt-10 text-center text-white md:flex ">
           <div className="md:w-[100%] md:h-full ">
             <div className=" md:flex md:justify-between">
-              {categoryData.map((category) => (
+              {categoryDatas.map((category) => (
                 <div key={category._id} className="flex flex-col mb-3 px-2">
                   <div
                     className="flex justify-between items-center pb-1 mb-7 lg:mb-3"
