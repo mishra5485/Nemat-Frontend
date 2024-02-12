@@ -31,6 +31,8 @@ import Policies from "./Component/sidebar/website/Policies";
 import Edit_Policies from "./Component/sidebar/website/Edit_Policies";
 import Vendors from "./Component/sidebar/vendors/Vendors";
 import Edit_Vendors from "./Component/sidebar/vendors/Edit_Vendors";
+import OrderManagement from "./Component/sidebar/orderManagement/OrderManagement";
+import EditOrderManagement from "./Component/sidebar/orderManagement/EditOrderManagement";
 
 
 
@@ -107,6 +109,10 @@ function App() {
           {/* User Mangemant Routes  */}
           <Route path="user-mangement" element={<UserMangement/>} />
             <Route path="user-mangement/user_prev/:_id" element={<Edit_UserManagement/>}/>
+
+          {/* User Management Routes  */}
+          <Route path="order-mangement" element={<OrderManagement/>}/>
+            <Route path="order-mangement/view_order/:_id" element={<EditOrderManagement/>}/>
 
           {/* Setting User or Config Routes  */}
           <Route path="settings/smtp" element={<Smtp/>}/>
