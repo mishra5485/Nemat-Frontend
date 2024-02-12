@@ -59,7 +59,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
           };
           try {
             let response = await axios.post(
-              `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/login`,
+              `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/login`,
               palyload
             );
 
