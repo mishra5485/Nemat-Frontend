@@ -33,9 +33,9 @@ const NavBars = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // getAllHomePageData();
-  }, []);
+  // useEffect(() => {
+  //   // getAllHomePageData();
+  // }, []);
 
   const mobileNavbar = () => {
     SetShowNavbar(!showNavbar);

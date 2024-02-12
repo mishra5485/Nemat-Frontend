@@ -33,7 +33,7 @@ const Series = () => {
 
   useEffect(() => {
     getSeriesDataById();
-  }, []);
+  }, [_id]);
 
   const getSeriesDataById = async () => {
     try {
