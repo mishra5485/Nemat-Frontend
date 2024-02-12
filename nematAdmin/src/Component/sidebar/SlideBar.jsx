@@ -21,12 +21,12 @@ const Sidebar1 = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpenAudit, setIsDropdownOpenAudit] = useState(false);
   const [isDropdownOpenReport, setIsDropdownOpenReport] = useState(false);
-  const [isdropdownSetting  , setDropdownSetting] = useState(false)
-  const [userMangementDrop , setUserMangementDrop ] = useState(false)
+  const [isdropdownSetting, setDropdownSetting] = useState(false);
+  const [userMangementDrop, setUserMangementDrop] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
 
-//   const config = getToken();
+  //   const config = getToken();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -41,12 +41,12 @@ const Sidebar1 = () => {
   };
 
   const settingToggleDropDown = () => {
-    setDropdownSetting(!isdropdownSetting)
-  }
+    setDropdownSetting(!isdropdownSetting);
+  };
 
   const UserHandler = () => {
-    navigate("")
-  }
+    navigate("");
+  };
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -63,7 +63,7 @@ const Sidebar1 = () => {
   const logout = async () => {
     try {
       let response = await axios.post(
-      //   ${import.meta.env.VITE_REACT_APP_BASE_URL}/user/logout,s
+        //   ${import.meta.env.VITE_REACT_APP_BASE_URL}/user/logout,s
         {
           username: userData.username,
         },
@@ -87,7 +87,7 @@ const Sidebar1 = () => {
           status === 400
         ) {
           toast.error(data);
-         //  throw new Error(API Error: Status ${status});
+          //  throw new Error(API Error: Status ${status});
         }
       }
     }
@@ -174,7 +174,7 @@ const Sidebar1 = () => {
                 >
                   <AiOutlineTable />
                   <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    Product Management 
+                    Product Management
                   </span>
                   <svg
                     className="w-6 h-6"
@@ -272,7 +272,7 @@ const Sidebar1 = () => {
                       Quantity Scheme
                     </NavLink>
                   </li>
-                   {/* <li>
+                  {/* <li>
                     <NavLink
                       to="fragrance"
                       onClick={handleMenuItemClick}
@@ -329,7 +329,7 @@ const Sidebar1 = () => {
                       onClick={handleMenuItemClick}
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                     Banner Sliders
+                      Banner Sliders
                     </NavLink>
                   </li>
                   <li>
@@ -347,43 +347,57 @@ const Sidebar1 = () => {
                       onClick={handleMenuItemClick}
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                     Our Policies
+                      Our Policies
                     </NavLink>
                   </li>
                 </ul>
               </li>
-               <li>
-                <button
-                  type="button"
-                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-example"
-                >
-                  <GrDocumentUser/>
-                  <NavLink to={"vendors"}>
+              <NavLink to={"vendors"}>
+                <li>
+                  <button
+                    type="button"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example"
+                  >
+                    <GrDocumentUser />
 
-                  <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    Vendors
-                  </span>
-                  </NavLink>
-                 
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-example"
-                >
-                  <FaUserPlus />
-                  <NavLink to={"user-mangement"}>
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                      Vendors
+                    </span>
+                  </button>
+                </li>
+              </NavLink>
+              <NavLink to={"user-mangement"}>
+                <li>
+                  <button
+                    type="button"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example"
+                  >
+                    <FaUserPlus />
 
-                  <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                    User Mangement
-                  </span>
-                  </NavLink>
-                 
-                </button>
-              </li>
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                      User Mangement
+                    </span>
+                  </button>
+                </li>
+              </NavLink>
+
+              <NavLink to={"order-mangement"}>
+                <li>
+                  <button
+                    type="button"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example"
+                  >
+                    <FaUserPlus />
+
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                      Order Management
+                    </span>
+                  </button>
+                </li>
+              </NavLink>
 
               <li>
                 <button
@@ -415,7 +429,6 @@ const Sidebar1 = () => {
                     isdropdownSetting ? "block" : "hidden"
                   } py-2 space-y-2`}
                 >
-                  
                   <li>
                     <NavLink
                       to="settings/smtp"
@@ -425,11 +438,10 @@ const Sidebar1 = () => {
                       SMTP
                     </NavLink>
                   </li>
-                  
                 </ul>
               </li>
             </ul>
-            
+
             <div className="flex justify-center mt-6">
               <button
                 type="button"
