@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/nematAdmin",
   build: {
-    outDir: "dist",
+    outDir: "admin",
     assetsDir: "",
     sourcemap: false,
     manifest: true,
