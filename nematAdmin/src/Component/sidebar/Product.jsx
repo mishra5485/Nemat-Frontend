@@ -120,13 +120,13 @@ const Product = () => {
       .required("Please Enter Product Decription"),
     CategoryId: yup.string().min(2).required("Please Select Any Category "),
     sub_CategoryId: yup.string().min(2).required("Please Select Any Category "),
-    Price: yup
-      .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid number")
-      .min(1)
-      .max(999999)
-      .required("Enter the Price Code"),
+    // Price: yup
+    //   .number()
+    //   .typeError("Please enter a valid number")
+    //   .integer("Please enter a valid number")
+    //   .min(1)
+    //   .max(999999)
+    //   .required("Enter the Price Code"),
     itemName:yup.string().min(2).required("Please Enter Product Name"),
     hsncode:yup.string().min(2).required("Please Enter Product Name"),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Product "),
@@ -149,7 +149,7 @@ const Product = () => {
     Description: "",
     CategoryId: "",
     sub_CategoryId: "",
-    Price: "",
+    // Price: "",
     itemName:"",
     hsncode:"",
     productimgmultiple: null,
@@ -192,7 +192,7 @@ const Product = () => {
       formData.append("MetaTitle", values.metaTitle);
       formData.append("MetaDesc", values.metaDesc);
       formData.append("MetaKeyWord", values.metaKeyword);
-      formData.append("Price", values.Price);
+      // formData.append("Price", values.Price);
 
       // const payload = {
       //   ProductImage: values.productimg,
@@ -586,7 +586,7 @@ const Product = () => {
             </select>
           </div> */}
 
-            <div>
+            {/* <div>
               <label
                 htmlFor="Price"
                 className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
@@ -602,7 +602,7 @@ const Product = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Doe"
               />
-            </div>
+            </div> */}
 
 
             <div>
@@ -635,6 +635,7 @@ const Product = () => {
               />
             </div>
 
+            <br/>
 
             <div className="m-4 text-start">
               <label className="inline-block text-start mb-2 text-gray-500">

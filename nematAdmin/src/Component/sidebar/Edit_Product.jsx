@@ -128,13 +128,13 @@ const Edit_Product = () => {
     //   .min(1)
     //   .max(999999)
     //   .required("Enter the Zip Code"),
-    Price: yup
-      .number()
-      .typeError("Please enter a valid number")
-      .integer("Please enter a valid number")
-      .min(1)
-      .max(999999)
-      .required("Enter the Zip Code"),
+    // Price: yup
+    //   .number()
+    //   .typeError("Please enter a valid number")
+    //   .integer("Please enter a valid number")
+    //   .min(1)
+    //   .max(999999)
+    //   .required("Enter the Zip Code"),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Product "),
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Product"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
@@ -166,7 +166,7 @@ const Edit_Product = () => {
         sub_CategoryId: ProductData.SubCategoryId,
         // FragranceId: ProductData.FragranceId,
         // AutheticStepFlag: ProductData.AuthenticStepflag,
-        Price: ProductData.Price,
+        // Price: ProductData.Price,
         itemName:ProductData.Item_Name,
         hsncode:ProductData.HSN_Code,
         metaTitle: ProductData.MetaTitle,
@@ -176,6 +176,7 @@ const Edit_Product = () => {
       };
 
   let ProductName = ProductData?.Name;
+  let productItem = ProductData?.Item_Name
 
   const {
     values,
@@ -215,6 +216,10 @@ const Edit_Product = () => {
 
       if (values.productName === ProductName) {
         formData.delete("Name", values.name);
+      }
+
+      if(values.itemName === productItem){
+        formData.delete("Item_Name" , values.itemName)
       }
 
       const payload = {
@@ -492,8 +497,9 @@ const Edit_Product = () => {
                 ))}
               </select>
             </div>
-
-            <div>
+            
+            <br/>
+            {/* <div>
               <label
                 htmlFor="Price"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -510,7 +516,7 @@ const Edit_Product = () => {
                 placeholder="Type product name"
                 required
               />
-            </div>
+            </div> */}
 
             <div>
               <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
