@@ -176,7 +176,7 @@ const OpenOrderDetails = () => {
           payload
         );
 
-        
+        navigate("/cart")
 
       } else {
         response = await axios.post(
@@ -190,7 +190,7 @@ const OpenOrderDetails = () => {
       }
 
       console.log(response.data);
-      navigate("/cart")
+      
       toast.success(response.data);
     } catch (error) {
       console.log(error);
