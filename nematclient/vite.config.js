@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/nemat",
   build: {
-    outDir: "dist",
+    outDir: "client",
     assetsDir: "",
     sourcemap: false,
     manifest: true,
