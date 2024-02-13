@@ -137,7 +137,7 @@ const NavBars = () => {
   }
 
 
-  console.log("categoryData ====> " , categoryData)
+  // console.log("categoryData ====> " , categoryData)  
 
 
   return (

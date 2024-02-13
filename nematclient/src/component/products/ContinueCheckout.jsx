@@ -64,10 +64,10 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
           Continue to checkout
         </button>
       </div>
-      <Toaster/>
 
       {isModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
+          <Toaster/>
           {/* Your modal content goes here */}
           <div className="bg-white p-4 rounded-md w-[600px] h-[230px]">
             <div className="w-[90%] h-[90%] m-auto">

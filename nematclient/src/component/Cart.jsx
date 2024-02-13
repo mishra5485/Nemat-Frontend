@@ -43,7 +43,6 @@ const Cart = () => {
   const { user } = useSelector((store) => store.profile);
   const navigate = useNavigate();
 
-  console.log( "citiesInState ==> " , citiesInState )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,7 +78,7 @@ const Cart = () => {
       setAddress(response.data.ShippingAddress);
       setLoading(false);
 
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
