@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { GoDownload } from "react-icons/go";
 import toast, { Toaster } from "react-hot-toast";
 
-const ContinueCheckout = ({user , selectedAddressId}) => {
+const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
 
 
   console.log("selectedAddressId ===> ", selectedAddressId)
@@ -14,6 +14,7 @@ const ContinueCheckout = ({user , selectedAddressId}) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+      setNoData(true)
   };
 
   const checoutorder = async() => {
@@ -58,12 +59,12 @@ const ContinueCheckout = ({user , selectedAddressId}) => {
 
   return (
     <div>
-      <Toaster/>
       <div className=" w-[80%] mx-auto text-center  items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 ">
         <button className="uppercase text-white " onClick={() => {checoutorder()}}>
           Continue to checkout
         </button>
       </div>
+      <Toaster/>
 
       {isModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">

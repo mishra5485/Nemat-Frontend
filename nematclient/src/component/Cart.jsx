@@ -669,6 +669,7 @@ const Cart = () => {
                       <ContinueCheckout
                         user={user}
                         selectedAddressId={selectedAddressId}
+                        setNoData={setNoData}
                       />
                     )}
                   </div>
