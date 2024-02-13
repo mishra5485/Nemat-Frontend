@@ -30,6 +30,7 @@ const Cart = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [nodata, setNoData] = useState(false);
+  const [countriesData , setCountriesData] = useState([]);
 
   // address
   const [country, setCountry] = useState("India");
@@ -210,6 +211,25 @@ const Cart = () => {
     }
   }
 
+  const getallCountriesData = async () => {
+    try {
+        const API_KEY = 'Mk5hNW5Tb1lZSEhITDg2eTVhMUxhbm5mYjBEbGRER3U4ZHFENXdRQQ=='; // Replace 'your_actual_api_key_here' with your actual API key
+
+        const config = {
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        };
+
+        const response = await axios.get('https://api.countrystatecity.in/v1/countries', config);
+        setCountriesData(response.data  )
+        console.log('Countries Data:', response.data);
+    } catch (error) {
+        console.log('Error:', error);
+    }
+};
+
+getallCountriesData();
 
   let nextDiscountPercent = null;
   return (
@@ -431,6 +451,13 @@ const Cart = () => {
                                         onChange={handleCountryChange}
                                         className="flex h-10 w-[30%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
                                       >
+                                        {
+                                          countriesData.map((country , id) => (
+                                            <option key={country.id} value={country.name}>
+                                              {country.name}
+                                          </option>
+                                          ))
+                                        }
                                         <option value="India">India</option>
                                         {/* Add more country options as needed */}
                                       </select>
