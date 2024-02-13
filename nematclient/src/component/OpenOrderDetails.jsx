@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { formattedAmount } from "./common/FormatAmount";
 import { MdOutlineFileDownload } from "react-icons/md";
@@ -23,6 +23,9 @@ const OpenOrderDetails = () => {
   const [showProduct, setShowProduct] = useState(
     openOrderData.map(() => false)
   );
+
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAllOpenOrderDetails();
@@ -172,6 +175,9 @@ const OpenOrderDetails = () => {
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/reorder`,
           payload
         );
+
+        
+
       } else {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/cancelorder`,
@@ -184,7 +190,7 @@ const OpenOrderDetails = () => {
       }
 
       console.log(response.data);
-
+      navigate("/cart")
       toast.success(response.data);
     } catch (error) {
       console.log(error);

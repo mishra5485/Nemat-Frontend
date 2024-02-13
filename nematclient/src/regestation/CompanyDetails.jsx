@@ -82,7 +82,7 @@ const CompanyDetails = () => {
           const response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
-            }/users/customer/register`,
+            }/user/register`,
             payload
           );
 
@@ -118,8 +118,8 @@ const CompanyDetails = () => {
 
   return (
     <div className="">
-      <Toaster />
           <div className='w-full  h-full object-cover md:flex md:w-full md:h-[100vh] md:overflow-hidden'>
+      <Toaster />
             {/* Image section with Logo */}
             
             <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[102%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 

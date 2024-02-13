@@ -11,7 +11,7 @@ const PasswordUpdated = () => {
 
 
   return (
-    <div className='w-full h-full object-cover md:flex md:w-full md:h-[100vh]'>
+    <div className='w-full h-full object-cover md:flex md:w-full md:h-[100vh] overflow-hidden'>
           <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
             <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
                 <Link to={"/"}>

@@ -72,7 +72,7 @@ const ChangePassword = () => {
             
           //Calling Backend Server To Check he is Valid USer or Not. 
           let response = await axios.post(
-              `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/skipchangedefaultpassword`,
+              `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/skipchangedefaultpassword`,
               payload
           );
 
@@ -113,7 +113,7 @@ const ChangePassword = () => {
         };
         try{
           let response = await axios.post(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/changepassword`,
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/changepassword`,
             palyload
           );
 

@@ -342,7 +342,7 @@ const NavBars = () => {
                     <div key={category._id} className="flex  flex-col overflow-hidden">
                       <div className="flex justify-between items-center p-3 ">
                         <h1
-                          className=" font-Marcellus text-text_Color text-2xl  "
+                          className=" font-Marcellus text-text_Color2 text-xl  "
                           style={{ minHeight: "3em" }}
                         >
                           {category.Name}

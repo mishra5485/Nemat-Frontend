@@ -19,7 +19,7 @@ const VerifyUser = () => {
             
       try {
       let response = await axios.get(
-         `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/verifyemail/${_id}`
+         `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/verifyemail/${_id}`
       )
 
 

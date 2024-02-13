@@ -17,7 +17,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
       </div>
 
       <div className="mt-9 mb-9 md:w-[80%] sm:w-[70%] mobile:w-[96%]">
-        <div className="flex flex-col w-[100%]   border-2 border-text_Color font-Marcellus text-text_Color overflow-hidden">
+        <div className="flex flex-col w-[100%]   border-[1px] border-text_Color font-Marcellus text-text_Color overflow-hidden">
           <div className="flex border-b-2 border-text_Color w-full h-[68px] justify-around items-center text-center mobile:text-xs sm:text-base md:text-xl">
             <h1 className="text-center w-[34%] overflow-hidden">
               ORDER VALUE{" "}
@@ -25,7 +25,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
                 i
               </span>
             </h1>
-            <h1 className="pl-3 text-base w-[33%] border-text_Color border-l-2 border-r-2 text-transform: uppercase">
+            <h1 className="pl-3 text-base w-[33%] border-text_Color border-l-[1px] border-r-[1px] text-transform: uppercase">
               {Dssprays.Name}{" "}
             </h1>
             <h1 className="pl-3 w-[33%] border-text_Color text-transform: uppercase">
@@ -37,7 +37,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
               Dssprays.DiscountSlabs.map((item, index) => (
                 <div
                   key={item._id}
-                  className="w-full mobile:h-[128px] sm:h-[80px] md:h-[68px] flex justify-between items-center text-center border-t-2 border-text_Color border-b-1"
+                  className="w-full mobile:h-[128px] sm:h-[80px] md:h-[50px] flex justify-between items-center text-center border-t-[1px] border-text_Color border-b-[1px]"
                 >
                   {index === 0 ? (
                     <p className="w-[34%] pr-4 text-start pl-3">{`Upto Rs. ${item.to}`}</p>
@@ -47,7 +47,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs }) => {
                     <p className="w-[34%] pr-4 text-start pl-3">{`From Rs. ${item.from} to Rs. ${item.to}`}</p>
                   )}
 
-                  <p className="w-[33%] border-text_Color border-l-2 border-r-2">
+                  <p className="w-[33%] border-text_Color border-l-[1px] border-r-[1px]">
                     {item.discountPercent}%
                   </p>
 

@@ -539,7 +539,7 @@ const Cart = () => {
                         <div className=" w-[100%] mx-auto mt-6 pt-4 border-t-2 border-text_Color mb-8">
                           <div className="flex justify-between w-[90%] mx-auto">
                             <p className="font-roxborough font-semibold">
-                              Total for Fragrances{" "}
+                              Total :- {" "}
                             </p>
                             <p className="font-Marcellus">
                               {formattedAmount(data.Total)}

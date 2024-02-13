@@ -90,9 +90,7 @@ function App() {
         <Route
           path="/companydetails/requestsent"
           element={
-            <PrivateRoute>
               <RequestSent />
-            </PrivateRoute>
           }
         />
 
