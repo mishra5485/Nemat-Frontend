@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
-const DeliveredAddAddress = ({ address }) => {
-  const [selectedAddressId, setSelectedAddressId] = useState(null);
+const DeliveredAddAddress = ({ address , setAddress , selectedAddressId , setSelectedAddressId}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [countriesData, setCountriesData] = useState([]);
   const [State, setState] = useState([]);
@@ -15,7 +14,6 @@ const DeliveredAddAddress = ({ address }) => {
   const [countryIso2, setCountryISO2] = useState("");
   const [country, setCountry] = useState("");
   const [stateName, setStateName] = useState("");
-  const [cityName, setCityName] = useState("");
 
   const API_KEY = "Mk5hNW5Tb1lZSEhITDg2eTVhMUxhbm5mYjBEbGRER3U4ZHFENXdRQQ==";
 
@@ -50,56 +48,20 @@ const DeliveredAddAddress = ({ address }) => {
     setIsModalOpen(true);
   };
 
-  const addAddressHandler = async () => {
-    try {
-      const payload = {
-        user_id: customer_id,
-        LocationName: LocationName,
-        StreetAddress: "",
-        Country: "",
-        City: "",
-        ZipCode: "",
-      };
-
-      let response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/addshippingaddress`,
-        payload
-      );
-
-      toast.success(response.data);
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          toast.error(data);
-        }
-      }
-    }
-  };
-
+  
   const addAddressObject = yup.object({
     location: yup.string().required(),
     streetaddress: yup.string().required(),
-    country: yup.string(),
-    state: yup.string(),
-    city: yup.string(),
+    country: yup.string().required(),
+    state: yup.string().required(),
+    city: yup.string().required(),
     zipcode: yup
       .number()
       .typeError("Please enter a valid number")
       .integer("Please enter a valid number")
       .min(999)
       .max(9999999)
-      // .required("Enter the Price Code"),
+      .required("Enter the Zipcode Code"),
   });
 
   const initialValues = {
@@ -112,7 +74,7 @@ const DeliveredAddAddress = ({ address }) => {
    
   };
 
-  const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+  const { values, errors, handleChange, handleSubmit, touched, handleBlur , resetForm, } =
     useFormik({
       initialValues,
       validationSchema: addAddressObject,
@@ -123,8 +85,8 @@ const DeliveredAddAddress = ({ address }) => {
           StreetAddress: values.streetaddress,
           Country: country,
           State: stateName,
-          City: cityName,
-          zipcode: values.zipcode,
+          City: values.city,
+          ZipCode:values.zipcode,
         };
 
         console.log("Payload ==> " , palyload  )
@@ -141,8 +103,11 @@ const DeliveredAddAddress = ({ address }) => {
 
           if (response.status === 200) {
             console.log(response.data);   
-
-          }
+            setAddress(response.data)
+            resetForm();
+            setIsModalOpen(!isModalOpen)
+         }
+         setIsModalOpen(!isModalOpen)
         } catch (error) {
           //Error which Coming From Server.
           if (error.response) {
@@ -158,6 +123,7 @@ const DeliveredAddAddress = ({ address }) => {
               status === 400
             ) {
               toast.error(data);
+              console.log(error)
             }
           }
         }
@@ -226,8 +192,13 @@ const DeliveredAddAddress = ({ address }) => {
     }
   };
 
+  const handleRadioChange = (addressId) => {
+    setSelectedAddressId(addressId);
+  };
+
   return (
     <div>
+         <Toaster/>
       <div className="mt-6">
         <div>
           <div>
@@ -390,19 +361,8 @@ const DeliveredAddAddress = ({ address }) => {
                       <select
                         id="city"
                         name="city"
-                        onChange={async (event)=> {
-                           await handleChange(event)
-
-                           const selectedIso2 = event.target.value;
-
-                        
-                          const selectedCountry = citys.find(
-                            (country) => country.iso2 === selectedIso2
-                          );
-                          setCityName(
-                            selectedCountry ? selectedCountry.name : ""
-                          );
-                        }
+                        onChange={
+                           handleChange
                         }
                         value={values.city}
                         className="flex h-10 w-[32%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
@@ -410,7 +370,7 @@ const DeliveredAddAddress = ({ address }) => {
                       >
                         <option value="">Select City</option>
                         {citys?.map((city) => (
-                          <option key={city.id} value={city.iso2}>
+                          <option key={city.id} value={city.name}>
                             {city.name}
                           </option>
                         ))}
@@ -423,8 +383,8 @@ const DeliveredAddAddress = ({ address }) => {
                         type="text"
                         placeholder="Zip Code  *"
                         id="zipcode"
+                        onChange={handleChange}
                         value={values.zipcode}
-                         onChange={handleChange}
                         pattern="[0-9]*"
                         required
                       ></input>

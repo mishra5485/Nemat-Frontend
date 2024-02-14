@@ -25,6 +25,8 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
       }
 
 
+      console.log(payload)
+
       try {
 
          let response = await axios.post(

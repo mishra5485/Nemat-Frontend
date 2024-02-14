@@ -136,17 +136,7 @@ const Cart = () => {
     }
   };
 
-  // Update city options based on the selected state
-  const handleStateChange = (e) => {
-    const selectedState = e.target.value;
-    setState(selectedState);
-    setCity(""); // Reset city selection
-    setCitiesInState(stateCityData[country][selectedState]);
-  };
 
-  
-
-  
 
   let nextDiscountPercent = null;
   return (
@@ -271,7 +261,7 @@ const Cart = () => {
                     ))}
 
                     {/* Add Address  */}
-                    <DeliveredAddAddress address={address}/>
+                    <DeliveredAddAddress address={address} setAddress={setAddress} selectedAddressId={selectedAddressId} setSelectedAddressId={setSelectedAddressId}/>
                   </div>
 
                   <div className="mobile:w-[96%] sm:w-[96%]  mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
