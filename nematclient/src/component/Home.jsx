@@ -15,27 +15,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NavBars from "./common/NavBars";
 import { useNavigate } from "react-router-dom";
-import Flower from "../assets/HomePage/Flower.png"
+import Flower from "../assets/HomePage/Flower.png";
 import { useDispatch } from "react-redux";
 import { setCategoryDataStore } from "../slices/categorySlice";
 
+
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
-  const [firstApiCall , setFirstApiCall] = useState(true)
+  const [firstApiCall, setFirstApiCall] = useState(true);
   const [categoryData, setCategoryData] = useState([]);
   // const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
   const [loading, setLoading] = useState(true);
-  const [BannerData , setBannerData] = useState([])
+  const [BannerData, setBannerData] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [Dssprays , setDsSprays] = useState()
-  const [agarbattisDs , setAgarbattisDs] = useState();
+  const [Dssprays, setDsSprays] = useState();
+  const [agarbattisDs, setAgarbattisDs] = useState();
+  const [isModalOpen , setIsModalOpen] = useState(false);
 
-  
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   // const handleScroll = () => {
@@ -47,14 +47,13 @@ const Home = () => {
   //   //   setPrevScrollPos(currentScrollPos);
   //   // };
 
-   
   //   // window.addEventListener('scroll', handleScroll);
   //   // return () => {
   //   //   window.removeEventListener('scroll', handleScroll);
   //   // };
   // }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     // Automatically change banner after 10 seconds
     const changeBanner = () => {
       if (sliderRef.current) {
@@ -65,17 +64,30 @@ const Home = () => {
 
     const timeoutId = setTimeout(changeBanner, 3000);
 
-    
-
-    if(firstApiCall){
-       getAllHomePageData();
+    if (firstApiCall) {
+      getAllHomePageData();
     }
 
     return () => clearTimeout(timeoutId);
-
   }, [currentSlide, BannerData.length]);
+  
+  
+ useEffect(() => {
+  const modalDisplayedBefore = sessionStorage.getItem('modalDisplayed');
+  
+  if (modalDisplayedBefore !== 'true') {
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+       sessionStorage.setItem('modalDisplayed', 'true');
+    }, 3000);
 
+    return () => clearTimeout(timer);
+  } else {
+    setIsModalOpen(false);
+  }
+}, []);
 
+  
   const getAllHomePageData = async () => {
     try {
       let allDataResponse = await axios.get(
@@ -86,14 +98,14 @@ const Home = () => {
 
       if (allDataResponse.status === 200) {
         setCategoryData(allDataResponse.data.CategoryData);
-        const checkDS = allDataResponse.data.CartDiscountSchemeData
-        setDsSprays(checkDS[0])
-        setAgarbattisDs(checkDS[1])
-        setBannerData(allDataResponse.data.BannerData)
+        const checkDS = allDataResponse.data.CartDiscountSchemeData;
+        setDsSprays(checkDS[0]);
+        setAgarbattisDs(checkDS[1]);
+        setBannerData(allDataResponse.data.BannerData);
         setLoading(false);
-        setFirstApiCall(false)
-        console.log(allDataResponse.data.CategoryData)
-        dispatch(setCategoryDataStore(allDataResponse.data.CategoryData))
+        setFirstApiCall(false);
+        console.log(allDataResponse.data.CategoryData);
+        dispatch(setCategoryDataStore(allDataResponse.data.CategoryData));
       }
     } catch (error) {
       if (error.response) {
@@ -113,15 +125,11 @@ const Home = () => {
         }
       }
     }
-    
   };
 
   // console.log("show data =====>", showdata)
-  
 
-
-
- const settings = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -131,52 +139,53 @@ const Home = () => {
     autoplay: true,
     autoplaySpeed: 10000, // 10 seconds
     beforeChange: (current, next) => {
-    // If transitioning from the last to the first slide
-    if (next === 0 && current === BannerData.length - 1) {
-      // Move the first slide to the right
-      const slider = sliderRef.current;
-      if (slider) {
-        slider.slickGoTo(current + 1);
+      // If transitioning from the last to the first slide
+      if (next === 0 && current === BannerData.length - 1) {
+        // Move the first slide to the right
+        const slider = sliderRef.current;
+        if (slider) {
+          slider.slickGoTo(current + 1);
+        }
       }
-    }
-  },
+    },
   };
 
-   const seriesPageById = (_id) => {
-    navigate(`/series/${_id}`)
-  }
+  const seriesPageById = (_id) => {
+    navigate(`/series/${_id}`);
+  };
+
+  
 
   return (
-    <div className="mt-0  overflow-auto custom-scrollbar"> 
-      {
-        loading ? (
-          <p>Loaddding </p>
-        ) : (
-          <NavBars/>
-        )
-      }
-        
+    <div className="mt-0  overflow-auto custom-scrollbar">
+      {loading ? <p>Loaddding </p> : <NavBars />}
 
       {loading ? (
         <p>Loading </p>
       ) : (
         <div className="relative">
-      <Slider {...settings} ref={sliderRef} className="overflow-hidden z-10">
-        {BannerData.map((bannerItem) => (
-          <div
-            key={bannerItem._id}
-            className="w-full h-[85vh] object-cover sm:bg-center overflow-hidden relative"
-            onClick={() => seriesPageById(bannerItem.SubcategoryId)}
-            >
-            <img
-              src={`${baseURL}/${
-                isMobile ? bannerItem.MobilebannerImage : bannerItem.DesktopbannerImage
-              }`}
-              alt={bannerItem.Heading}
-              className="w-full h-full object-cover"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
-            />
-            {/* <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center">
+          <Slider
+            {...settings}
+            ref={sliderRef}
+            className="overflow-hidden z-10"
+          >
+            {BannerData.map((bannerItem) => (
+              <div
+                key={bannerItem._id}
+                className="w-full h-[85vh] object-cover sm:bg-center overflow-hidden relative"
+                onClick={() => seriesPageById(bannerItem.SubcategoryId)}
+              >
+                <img
+                  src={`${baseURL}/${
+                    isMobile
+                      ? bannerItem.MobilebannerImage
+                      : bannerItem.DesktopbannerImage
+                  }`}
+                  alt={bannerItem.Heading}
+                  className="w-full h-full object-cover"
+                  style={{ maxWidth: "100%", maxHeight: "100%" }}
+                />
+                {/* <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center">
               <h1 className="font-Abel md:text-start font-[25px] text-2xl">
                 {bannerItem.Heading}
               </h1>
@@ -190,24 +199,25 @@ const Home = () => {
                 SHOP NOW
               </button>
             </div> */}
+              </div>
+            ))}
+          </Slider>
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+            <div className="flex space-x-2 ">
+              {[...Array(3)].map((_, dotIndex) => (
+                <span
+                  key={dotIndex}
+                  className={`h-2 w-2 rounded-full bg-black ${
+                    dotIndex === currentSlide % 3 ? "opacity-100" : "opacity-50"
+                  }`}
+                  onClick={() =>
+                    sliderRef.current &&
+                    sliderRef.current.slickGoTo(currentSlide + dotIndex)
+                  }
+                ></span>
+              ))}
+            </div>
           </div>
-        ))}
-      </Slider>
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-        <div className="flex space-x-2 ">
-          {[...Array(3)].map((_, dotIndex) => (
-            <span
-              key={dotIndex}
-              className={`h-2 w-2 rounded-full bg-black ${
-                dotIndex === currentSlide % 3 ? "opacity-100" : "opacity-50"
-              }`}
-              onClick={() =>
-                sliderRef.current && sliderRef.current.slickGoTo(currentSlide + dotIndex)
-              }
-            ></span>
-          ))}
-        </div>
-      </div>
         </div>
       )}
       <div>
@@ -216,7 +226,7 @@ const Home = () => {
         ) : (
           <div>
             {categoryData.map((category, index) => (
-              <>
+              <div key={index}>
                 {index % 2 == 0 ? (
                   <div key={index} className="p-2 py-5  w-full mb-2">
                     <img src={DottedLineGold} className="w-full" />
@@ -224,7 +234,7 @@ const Home = () => {
                   </div>
                 ) : (
                   <div key={index} className="p-2 py-5  w-full mb-2">
-                    <img src={Flower}  className="w-full object-cover"/>
+                    <img src={Flower} className="w-full object-cover" />
                     {/* <RightToLeftanm image={FlowerPattern2} /> */}
                   </div>
                 )}
@@ -237,7 +247,7 @@ const Home = () => {
                           <div
                             key={subcategories._id}
                             className="flex w-full flex-col justify-center gap-y-3 items-center mb-2"
-                             onClick={() => seriesPageById(subcategories._id)}
+                            onClick={() => seriesPageById(subcategories._id)}
                           >
                             <img
                               src={`${
@@ -260,7 +270,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))}
           </div>
         )}
@@ -274,12 +284,20 @@ const Home = () => {
       <Non_Alcoholic/>
       <RightToLeftanm image={FlowerPattern2}/>
       <Agarabtti/> */}
-      {loading ? <p>Loading </p> : (
+      {loading ? (
+        <p>Loading </p>
+      ) : (
         <>
-      <Discountslabe  Dssprays = {Dssprays} agarbattisDs={agarbattisDs}/>
-      </>
+          <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} />
+        </>
       )}
-        
+
+      {isModalOpen  && !loading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 my-auto flex items-center justify-center z-50">
+          <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen}/>
+        </div>
+      )}
+
       {loading ? <p>Loading </p> : <Footer categoryData={categoryData} />}
     </div>
   );
