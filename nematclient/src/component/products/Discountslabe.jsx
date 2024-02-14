@@ -1,20 +1,26 @@
 import ProductHeader from "../common/ProductHeader";
+import { FaWindowClose } from "react-icons/fa";
 
-const Discountslabe = ({ Dssprays, agarbattisDs }) => {
+const Discountslabe = ({ Dssprays, agarbattisDs , isModalOpen , setIsModalOpen}) => {
   
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-  // {
-  //   console.log("props  Dssprays ==>", Dssprays);
-  // }
-  // {
-  //   console.log("props agarbattisDs ==>", agarbattisDs);
-  // }
+
+  // console.log(isModalOpen)
 
   return (
     <div className="flex w-[100%]  flex-col justify-center items-center  mt-8 bg-Cream ">
-      <div className="mt-10">
+      
+      <div className="mt-10 flex">
         <ProductHeader title={"DISCOUNT SLABS"} className="pt-4 " />
       </div>
+      {
+          isModalOpen && (
+            <button className="w-[90%] flex justify-end -mt-7" onClick={closeModal}><span className><FaWindowClose color="" size={25}/></span></button>
+          )
+        }
 
       <div className="mt-9 mb-9 md:w-[80%] sm:w-[70%] mobile:w-[96%]">
         <div className="flex flex-col w-[100%]   border-[1px] border-text_Color font-Marcellus text-text_Color overflow-hidden">
