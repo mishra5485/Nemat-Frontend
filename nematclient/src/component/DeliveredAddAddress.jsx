@@ -140,7 +140,8 @@ const DeliveredAddAddress = ({ address }) => {
           console.log(response)
 
           if (response.status === 200) {
-            console.log(response.data);
+            console.log(response.data);   
+
           }
         } catch (error) {
           //Error which Coming From Server.
@@ -336,7 +337,7 @@ const DeliveredAddAddress = ({ address }) => {
                             (country) => country.iso2 === selectedIso2
                           );
                           setCountry(
-                            selectedCountry ? selectedCountry.name : ""
+                            selectedCountry ? selectedCountry.name :""
                           );
 
                         }}
