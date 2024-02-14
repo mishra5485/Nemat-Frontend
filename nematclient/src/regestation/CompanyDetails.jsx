@@ -76,7 +76,10 @@ const CompanyDetails = () => {
           ReciveUpdates: values.whatappcheck,
         };
 
-        // console.log("values inside sumit -> ",payload)
+        if(values.landlineNo === ""){
+          delete payload.Country_LandlineNumber
+          delete payload.LandlineNumber
+        }
 
         try {
           const response = await axios.post(
