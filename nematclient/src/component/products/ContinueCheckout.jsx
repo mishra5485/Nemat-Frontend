@@ -36,7 +36,7 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
 
          if(response.status === 200){
           setIsModalOpen(true)
-          toast.success(response.data)
+          toast.success("Order Placed Successfully")
          }
 
       } catch (error) {
