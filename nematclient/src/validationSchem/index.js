@@ -27,11 +27,8 @@ export const RegisterobjectSchema = yup.object({
     .email("Enter the Valid Email id")
     .required("Enter Your Email"),
   countryCode: yup
-    .number()
-    .typeError("Please enter a valid number")
-    .integer("Please enter a valid Mobile number")
+    .string()
     .min(1, "Enter valid Country Code")
-    .max(999, "Enter valid Country Code")
     .required("Enter the valid Number"),
   mobileNo: yup
     .number()
