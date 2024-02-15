@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import OrderDetailsData from './common/orderDetailsData';
 
 const DeliveredOrderDetails = () => {
 
    const {_id} = useParams()
    const [loading, setLoading] = useState(true);
    const [nodata, setNoData] = useState(false);
+   const [data , setData] = useState([])
 
    useEffect(() => {
       getAllDeliveredOrderDetails();
@@ -26,6 +28,7 @@ const DeliveredOrderDetails = () => {
          )
 
          console.log(response.data)
+         setData(response.data)
          setLoading(false)
       } catch (error) {
           const { status, data } = error.response;
@@ -51,13 +54,15 @@ const DeliveredOrderDetails = () => {
   return (
     <div>
        {loading ? (
-        <p>Loaddding....</p>
+        <p>Loa</p>
       ) : (
         <>
           {nodata ? (
             <p>No Delivered Orders Found</p>
           ) : ( 
-            <div></div> )
+            <div>
+              <OrderDetailsData data={data} _id={_id}/>
+            </div> )
           }
          </> 
       )}
