@@ -306,9 +306,9 @@ const NavBars = () => {
                     {showTooltip && (
                         <div className="">
                           
-                            <button type="button" onClick={() => profileHandler()}>Profile</button>
+                            <button type="button" className="cursor-pointer" onClick={() => profileHandler()}>Profile</button>
                           
-                          <p className="" onClick={() => setIsModal(true)}>Logout</p>
+                          <p className="cursor-pointer" onClick={() => setIsModal(true)}>Logout</p>
                         </div>
                       )}
                   </div>

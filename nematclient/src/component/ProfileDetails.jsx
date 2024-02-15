@@ -23,6 +23,7 @@ const ProfileDetails = () => {
 
       
       setProfileData(response.data);
+      console.log(response.data)
       setLoading(false);
     } catch (error) {
       if (error.response) {
@@ -386,7 +387,7 @@ const ProfileDetails = () => {
               ) : (
                 profileData.ShippingAddress.map((address, index) => (
                   <div key={index} className="text-text_Color mt-3 mobile:w-[75%] sm:w-[75%] md:w-full">
-                    <p>
+                    <p className="text-text_Color font-Marcellus w-[90%]">
                       {address.StreetAddress} {address.LocationName}{" "}
                       {address.City} {address.ZipCode}
                     </p>
