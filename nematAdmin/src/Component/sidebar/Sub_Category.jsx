@@ -127,10 +127,9 @@ const Sub_Category = () => {
     sub_category_ML: yup
       .number()
       .typeError("Please enter a valid number")
-      .integer("Please enter a valid number")
-      .min(1)
-      .max(999999)
-      .required("Enter the Zip Code"),
+      .min(1, "Value must be greater than or equal to 1")
+      .max(999999, "Value must be less than or equal to 999999")
+      .required("Enter the ML"),
     sub_category_SGST: yup
       .number()
       .typeError("Please enter a valid number")
@@ -154,7 +153,7 @@ const Sub_Category = () => {
             .typeError("Please enter a valid number")
             .integer("Please enter a valid number")
             .min(1)
-            .max(999999)
+            .max(999999),
 
           // nameConvention: yup.string(),
         })
@@ -225,6 +224,9 @@ const Sub_Category = () => {
         formData.delete("Priority", values.priority);
       }
 
+
+      console.log("packsizes ==> ",values.packSizes)
+
       // const payload = {
       //   // Name: values.name,
       //   // Category: values.category,
@@ -255,8 +257,9 @@ const Sub_Category = () => {
         if (response.status === 200) {
           console.log("New Sub_Category Created ");
           toast.success("New Sub_Category Created  ");
-          fetchData();
+          getAllSubCategory();
           setShowModal(false);
+          resetForm()
         }
       } catch (error) {
         if (error.response) {
@@ -536,7 +539,7 @@ const Sub_Category = () => {
                         className="mt-1 p-2 w-full border rounded-md"
                       >
                         <option value="" disabled>
-                          Select Quantity Schemeld{" "}
+                          Select Vendor{" "}
                         </option>
                         {allvendor?.map((allvendorName) => (
                           <option
