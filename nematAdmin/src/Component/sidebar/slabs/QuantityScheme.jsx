@@ -219,7 +219,7 @@ const QuantityScheme = () => {
                 onChange={handleChange}
                 value={values.name}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[50%] p-2.5  "
-                placeholder="Type product name"
+                placeholder="Enter Quantity Scheme Name"
               />
             </div>
 
@@ -236,13 +236,23 @@ const QuantityScheme = () => {
                 </button>
               </div>
 
+              <div className="flex w-[70%] justify-around">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  Min
+                </label>
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  Max
+                </label>
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  value
+                </label>
+              </div>
+
               <div className="">
                 {inputSets.map((set) => (
                   <div key={set.id} className="flex gap-x-3">
                     <div>
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Min
-                      </label>
+                     
                       <input
                         className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`min_${set.id}`}
@@ -254,14 +264,10 @@ const QuantityScheme = () => {
                         }
                         placeholder="min"
                       />
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Please Enter Only Number
-                      </label>
+                     
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Max
-                      </label>
+                      
                       <input
                         className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`max_${set.id}`}
@@ -273,14 +279,10 @@ const QuantityScheme = () => {
                         }
                         placeholder="max"
                       />
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Please Enter Only Number
-                      </label>
+                      
                     </div>
                     <div>
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        value
-                      </label>
+                     
                       <input
                         className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`discountSlabe_${set.id}`}
@@ -296,9 +298,7 @@ const QuantityScheme = () => {
                         }
                         placeholder="Jane"
                       />
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Please Enter Only Number
-                      </label>
+                     
                     </div>
                     {set.id !== 1 && (
                       <button onClick={() => removeInputSet(set.id)}>
