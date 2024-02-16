@@ -12,6 +12,7 @@ const DiscountSlabe = () => {
   const [TableDiscountSlabs, setTableDiscountSlabs] = useState();
   const [loading, setLoading] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
+  
 
   const navigate = useNavigate();
 
@@ -35,10 +36,30 @@ const DiscountSlabe = () => {
     }
   };
 
-  const addInputSet = (e) => {
-    e.preventDefault();
-    setInputSets((prevSets) => [...prevSets, { id: prevSets.length + 1 }]);
+const addInputSet = (e) => {
+  e.preventDefault();
+
+  
+  
+  const hasEmptyField = inputSets.some(set => !set.from || !set.to || !set.discountSlabe);
+  
+  // If any field is empty, prevent adding a new input field
+  const isFirstSet = inputSets.length === 0;
+  if (hasEmptyField) {
+    toast.error("Please fill in all fields before adding a new input set.");
+    return;
+  }
+
+  const lastSet = inputSets[inputSets.length - 1];
+   const nextFrom = isFirstSet ? 0 : (parseInt(inputSets[inputSets.length - 1].to, 10) + 1);
+  const newSet = {
+    id: lastSet.id + 1,
+    from: nextFrom,
+    to: 0,
+    discountSlabe: null
   };
+  setInputSets([...inputSets, newSet]);
+};
 
   const removeInputSet = (idToRemove) => {
     setInputSets((prevSets) => prevSets.filter((set) => set.id !== idToRemove));
@@ -141,13 +162,16 @@ const DiscountSlabe = () => {
     },
   });
 
-  const handleRowChange = (rowId, field, value) => {
-    setInputSets((prevSets) =>
-      prevSets.map((set) =>
-        set.id === rowId ? { ...set, [field]: value } : set
-      )
-    );
-  };
+ const handleRowChange = (id, field, value) => {
+  setInputSets(prevSets =>
+    prevSets.map(set => {
+      if (set.id === id) {
+        return { ...set, [field]: value };
+      }
+      return set;
+    })
+  );
+};
 
   const handleForm = () => {};
 
@@ -204,7 +228,7 @@ const DiscountSlabe = () => {
   return (
     <div>
       <Toaster />
-
+      {console.log(errors)}
       <h1 class="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <span class="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
           Discount Slabe
@@ -261,7 +285,7 @@ const DiscountSlabe = () => {
                 </label>
               </div>
               <div className="">
-                {inputSets.map((set) => (
+                {inputSets.map((set , index) => (
                   <div key={set.id} className="flex gap-x-3">
                     <div>
                       <input
@@ -270,9 +294,8 @@ const DiscountSlabe = () => {
                         name={`from_${set.id}`}
                         type="text"
                         value={set.from}
-                        onChange={(e) =>
-                          handleRowChange(set.id, "from", e.target.value)
-                        }
+                        onChange={(e) => handleRowChange(set.id, "from", e.target.value)}
+            disabled={index !== 0} // Disable the "From" field for all sets except the first one
                         placeholder="From"
                       />
                       

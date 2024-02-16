@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-import DiscountSlabe from "./DiscountSlabe";
+
 
 const Edit_DiscountSlabe = () => {
   const { _id } = useParams();
