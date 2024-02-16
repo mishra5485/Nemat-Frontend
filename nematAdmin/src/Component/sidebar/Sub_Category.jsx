@@ -437,8 +437,12 @@ const Sub_Category = () => {
                         id="name"
                         value={values.name}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.name && touched.name ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.name}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -453,6 +457,7 @@ const Sub_Category = () => {
                         name="category"
                         value={values.category}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
                         <option value="" disabled>
@@ -464,6 +469,9 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
+                       {errors.category && touched.category ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.category}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -479,8 +487,12 @@ const Sub_Category = () => {
                         name="metaTitle"
                         value={values.metaTitle}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.metaTitle && touched.metaTitle ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -495,8 +507,12 @@ const Sub_Category = () => {
                         name="metaDesc"
                         value={values.metaDesc}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md resize-none"
                       />
+                       {errors.metaDesc && touched.metaDesc ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -511,8 +527,12 @@ const Sub_Category = () => {
                         id="metaKeyword"
                         onChange={handleChange}
                         value={values.metaKeyword}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.metaKeyword && touched.metaKeyword ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -528,8 +548,12 @@ const Sub_Category = () => {
                         name="slugUrl"
                         value={values.slugUrl}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.slugUrl && touched.slugUrl ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -543,6 +567,7 @@ const Sub_Category = () => {
                         id="vendor"
                         name="vendor"
                         value={values.vendor}
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
@@ -558,6 +583,9 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
+                       {errors.vendor && touched.vendor ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.vendor}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -572,6 +600,7 @@ const Sub_Category = () => {
                         name="quantity"
                         value={values.quantity}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
                         <option value="" disabled>
@@ -583,6 +612,9 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
+                       {errors.quantity && touched.quantity ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.quantity}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -596,7 +628,7 @@ const Sub_Category = () => {
                         id="priority"
                         name="priority"
                         value={values.priority}
-                        onChange={handleChange}
+                        onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
                         <option value="">
@@ -608,6 +640,9 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
+                       {errors.priority && touched.priority ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.priority}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -622,9 +657,13 @@ const Sub_Category = () => {
                         id="sub_category_ML"
                         name="sub_category_ML"
                         value={values.sub_category_ML}
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.sub_category_ML && touched.sub_category_ML ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_ML}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -639,9 +678,13 @@ const Sub_Category = () => {
                         id="sub_category_SGST"
                         name="sub_category_SGST"
                         value={values.sub_category_SGST}
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.sub_category_SGST && touched.sub_category_SGST ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_SGST}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -656,9 +699,13 @@ const Sub_Category = () => {
                         id="sub_category_CGST"
                         name="sub_category_CGST"
                         value={values.sub_category_CGST}
+                        onBlur={handleBlur}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.sub_category_CGST && touched.sub_category_CGST ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_CGST}</p>
+                ) : null}
                     </div>
 
                     <div className="flex">
@@ -772,6 +819,9 @@ const Sub_Category = () => {
                         onChange={(e) => handleFileChange(e, "seriesImage")}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.seriesImage && touched.seriesImage ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.seriesImage}</p>
+                ) : null}
                       {seriesImage && (
                         <img
                           src={seriesImage}

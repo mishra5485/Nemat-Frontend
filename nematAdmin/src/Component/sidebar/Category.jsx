@@ -293,10 +293,15 @@ const Category = () => {
                       <input
                         type="text"
                         id="name"
+                        name="name"
                         value={values.name}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.name && touched.name ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.name}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -312,8 +317,12 @@ const Category = () => {
                         name="metaTitle"
                         value={values.metaTitle}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.metaTitle && touched.metaTitle ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -328,8 +337,12 @@ const Category = () => {
                         name="metaDesc"
                         value={values.metaDesc}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md resize-none"
                       />
+                       {errors.metaDesc && touched.metaDesc ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -344,8 +357,12 @@ const Category = () => {
                         id="metaKeyword"
                         onChange={handleChange}
                         value={values.metaKeyword}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.metaKeyword && touched.metaKeyword ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -361,8 +378,12 @@ const Category = () => {
                         name="slugUrl"
                         value={values.slugUrl}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
+                       {errors.slugUrl && touched.slugUrl ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
+                ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -377,6 +398,7 @@ const Category = () => {
                         name="cartDiscount"
                         value={values.cartDiscount}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                       >
@@ -389,10 +411,14 @@ const Category = () => {
                           </option>
                         ))}
                       </select>
+                           {errors.cartDiscount && touched.cartDiscount ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.cartDiscount}</p>
+                ) : null}
                     </div>
+
                     <div className="mb-4">
                       <label
-                        htmlFor="cartDiscount"
+                        htmlFor="priority"
                         className="block text-sm font-medium text-gray-600"
                       >
                         Category Priority
@@ -402,6 +428,7 @@ const Category = () => {
                         name="priority"
                         value={values.priority}
                         onChange={handleChange}
+                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
                         <option value="" disabled>
@@ -413,6 +440,9 @@ const Category = () => {
                           </option>
                         ))}
                       </select>
+                       {errors.priority && touched.priority ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.priority}</p>
+                ) : null}
                     </div>
 
                     {/* File inputs */}

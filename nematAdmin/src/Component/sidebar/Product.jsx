@@ -462,9 +462,13 @@ const Product = () => {
                 name="productName"
                 value={values.productName}
                 onChange={handleChange}
+                 onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Product Name"
               />
+              {errors.productName && touched.productName ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.productName}</p>
+                ) : null}
             </div>
             <div className="mb-4">
               <label
@@ -477,6 +481,7 @@ const Product = () => {
                 id="CategoryId"
                 name="CategoryId"
                 value={values.CategoryId}
+                 onBlur={handleBlur}
                 onChange={async (event) => {
                   await handleChange(event);
                   handlerChangefunction(event); // removed from here
@@ -492,6 +497,9 @@ const Product = () => {
                   </option>
                 ))}
               </select>
+              {errors.CategoryId && touched.CategoryId ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.CategoryId}</p>
+                ) : null}
             </div>
             <div className="md:col-span-2 mb-4">
               <label
@@ -505,8 +513,12 @@ const Product = () => {
                 name="Description"
                 value={values.Description}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
+              {errors.Description && touched.Description ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.Description}</p>
+                ) : null}
             </div>
 
             <div className="mb-4">
@@ -521,6 +533,7 @@ const Product = () => {
                 name="sub_CategoryId"
                 value={values.sub_CategoryId}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="" disabled>
@@ -532,6 +545,9 @@ const Product = () => {
                   </option>
                 ))}
               </select>
+              {errors.sub_CategoryId && touched.sub_CategoryId ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.sub_CategoryId}</p>
+                ) : null}
             </div>
 
             {/* Multiplse section tag for Fragrance */}
@@ -624,9 +640,13 @@ const Product = () => {
                 name="itemName"
                 value={values.itemName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Product Item Name "
               />
+              {errors.itemName && touched.itemName ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.itemName}</p>
+                ) : null}
             </div>
 
             <div>
@@ -639,9 +659,13 @@ const Product = () => {
                 name="hsncode"
                 value={values.hsncode}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Product Name"
               />
+              {errors.hsncode && touched.hsncode ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.hsncode}</p>
+                ) : null}
             </div>
 
             <br/>
@@ -657,9 +681,13 @@ const Product = () => {
                       type="file"
                       id="productimgmultiple"
                       onChange={handleFileChangeMultiples}
+                      onBlur={handleBlur}
                       className="mt-1 p-2 w-full h-full border rounded-md opacity-0 absolute inset-0"
                       multiple
                     />
+                    {errors.file && touched.file ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.file}</p>
+                ) : null}
                   </div>
                 </label>
               </div>
@@ -721,10 +749,14 @@ const Product = () => {
                 name="slugUrl"
                 value={values.slugUrl}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Flowbite"
                 required
               />
+              {errors.slugUrl && touched.slugUrl ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
+                ) : null}
             </div>
             <div>
               <label
@@ -739,9 +771,13 @@ const Product = () => {
                 name="metaTitle"
                 value={values.metaTitle}
                 onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onBlur={handleBlur}
+                className="bg-gray-50 border text-start border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
+              {errors.metaTitle && touched.metaTitle ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
+                ) : null}
             </div>
             <div>
               <label
@@ -756,10 +792,14 @@ const Product = () => {
                 name="metaKeyword"
                 value={values.metaKeyword}
                 onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onBlur={handleBlur}
+                className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="flowbite.com"
                 required
               />
+              {errors.metaKeyword && touched.metaKeyword ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
+                ) : null}
             </div>
             <div className="md:col-span-2 mb-4">
               <label
@@ -773,8 +813,12 @@ const Product = () => {
                 name="metaDesc"
                 value={values.metaDesc}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
+              {errors.metaDesc && touched.metaDesc ? (
+                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
+                ) : null}
             </div>
           </div>
           <div className="flex justify-start gap-4">
