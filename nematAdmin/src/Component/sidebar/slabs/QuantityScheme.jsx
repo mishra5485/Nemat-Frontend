@@ -11,6 +11,7 @@ const QuantityScheme = () => {
   const [showForm, setShowForm] = useState(false);
   const [TableDiscountSlabs, setTableDiscountSlabs] = useState();
   const [loading, setLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ const QuantityScheme = () => {
       );
 
       setTableDiscountSlabs(response.data);
+      setFilteredData(response.data)
       setLoading(false);
     } catch (error) {
       toast.error(error.response.data);
@@ -187,6 +189,13 @@ const QuantityScheme = () => {
     }
   }
 
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value.toLowerCase(); 
+    const filtered = TableDiscountSlabs.filter(item => item.Name.toLowerCase().includes(searchTerm)); 
+    setFilteredData(filtered);
+  };
+
+
   return (
     <div>
       <Toaster />
@@ -342,6 +351,7 @@ const QuantityScheme = () => {
                         type="text"
                         id="simple-search"
                         placeholder="Search for products"
+                        onChange={(event) => handleSearch(event)}
                         required=""
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       />
@@ -391,7 +401,7 @@ const QuantityScheme = () => {
                         </tr>
                       </thead>
 
-                      {TableDiscountSlabs?.map((item) => (
+                      {filteredData?.map((item) => (
                         <tbody key={item._id}>
                           <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td className="p-4 w-4">
