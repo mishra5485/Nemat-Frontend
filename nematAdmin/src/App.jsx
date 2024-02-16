@@ -33,6 +33,7 @@ import Vendors from "./Component/sidebar/vendors/Vendors";
 import Edit_Vendors from "./Component/sidebar/vendors/Edit_Vendors";
 import OrderManagement from "./Component/sidebar/orderManagement/OrderManagement";
 import EditOrderManagement from "./Component/sidebar/orderManagement/EditOrderManagement";
+import AboutUs from "./Component/sidebar/website/AboutUs";
 
 
 
@@ -100,6 +101,8 @@ function App() {
 
            <Route path="website/policies" element={<Policies/>}/>
            <Route path="website/policies/edit_policies/:_id" element={<Edit_Policies/>}/>
+
+           <Route path="website/aboutus" element={<AboutUs/>}/>
 
           {/* Vendors Details */}
 
