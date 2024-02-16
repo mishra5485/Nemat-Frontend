@@ -151,138 +151,140 @@ const EditOrderManagement = () => {
 }
 
   return (
-    <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Order view
-        </span>
-      </h1>
-      <Toaster />
-      {loading ? (
-        <p>loadding</p>
-      ) : (
+    <div className="container mx-auto px-4 py-8">
+  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-900 dark:text-white mb-8">
+    <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-emerald-600">
+      Order View
+    </span>
+  </h1>
+  <Toaster />
+
+  {loading ? (
+    <p className="text-center text-gray-600 dark:text-gray-400">Loading...</p>
+  ) : (
+    <div className="max-w-3xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <div className="w-full mt-6">
-            <div className="flex justify-between gap-x-2">
-              <p className="w-[50%]">Company Name :- {orderData.CompanyName}</p>
-              <p className="w-[50%]">GST No:- {orderData.UserGSTNO}</p>
-            </div>
-            <p className="w-full mt-4">Email :- {orderData.UserEmail}</p>
-            <div className="flex gap-x-1 mt-4">
-              <p className="w-[50%]">
-                Billing Address :- {orderData.Billing_Address}
-              </p>
-              <p className="w-[50%]">
-                Shipping Address :- {orderData.Shipping_Address}
-              </p>
-            </div>
-
-            <div className="w-[100%] mt-5 flex">
-              <div className="w-[50%]"></div>
-              <div className="w-[50%] flex  flex-col ">
-                <p>Order No:- {orderData.OrderNo}</p>
-                <p>Order Date :- {orderData.OrderedDate}</p>
-                <p>Total Amount :- {formattedAmount(orderData.TotalAmount)}</p>
-                {orderData.Status !== 5 ? (
-                  <div className="mt-4">
-                    <label>Update Order Status</label>
-                    <select
-                      value={currentState}
-                      onChange={handleStatusChange}
-                      className="bg-gray-50 border w-[90%] mt-1 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block  pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    >
-                      {statusData.map((status) => (
-                        <option key={status.id} value={status.id}>
-                          {status.title}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ) : (
-                  <p>Order Status: Cancelled</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-center my-6">
-            <button
-               type="button"
-              onClick={() => uploadDocumentHandler()}
-              className="p-2 bg-green-500 rounded-3xl text-white"
-            >
-              Upload Documents
-            </button>
-          </div>
-
-          {/* If Modal is True  */}
-          {Modal && (
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 z-50 flex items-center justify-center">
-              <div className="h-auto w-[350px] bg-white p-3 rounded-xl">
-                <div>
-                  <label className="ml-5">Select Order Status</label>
-                  <select
-                    onChange={filehandlerselect}
-                    className="bg-gray-50 border w-[90%] mx-auto mt-1 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block  pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  >
-                    {Documents.map((status , index) => (
-                      <option key={status.id} value={status.title}>
-                        {status.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {fileuploadModal && (
-                  <div>
-                     
-                  <div className="w-[90%] mx-auto mt-4">
-                    <input
-                      autoComplete="off"
-                      id="File"
-                      accept=".pdf"
-                      type="file"
-                      multiple
-                      onChange={(e) => setFile(e.target.files)}
-                      className="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    />
-                  </div>
-
-                  <button type="submit" onClick={uploadFileHandler} className="w-[90%] p-2 mt-4 bg-green-600 text-white text-center rounded-3xl uppercase ml-5">Upload</button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          <div>
-            {orderData.OrderData.map((productData, index) => (
-              <div key={index} className="mt-3 mb-3">
-                <div className=" w-[100%]  gap-x-2 flex ">
-                  <p className="w-[55%]">
-                    Series Name :- {productData.seriesName}
-                  </p>
-                  <p className="w-[45%]">
-                    Total Quantity :- {productData.totalQuantity}
-                  </p>
-                </div>
-                {productData.Products.map((product, index) => (
-                  <div key={index} className="">
-                    <div className="flex  gap-x-2">
-                      <p className="w-[55%]">
-                        Product Name :- {product.ProductName}
-                      </p>
-                      <p className="w-[45%]">
-                        Total Quantity :- {product.totalQuantity}
-                      </p>
-                    </div>
-                  </div>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Company Name: {orderData.CompanyName}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            GST No: {orderData.UserGSTNO}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Email: {orderData.UserEmail}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Billing Address: {orderData.Billing_Address}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Shipping Address: {orderData.Shipping_Address}
+          </p>
+        </div>
+        <div>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Order No: {orderData.OrderNo}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Order Date: {orderData.OrderedDate}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Total Amount: {formattedAmount(orderData.TotalAmount)}
+          </p>
+          {orderData.Status !== 5 ? (
+            <div className="mb-4">
+              <label htmlFor="status" className="block text-gray-700 dark:text-gray-300 mb-2">
+                Update Order Status
+              </label>
+              <select
+                id="status"
+                value={currentState}
+                onChange={handleStatusChange}
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
+              >
+                {statusData.map((status) => (
+                  <option key={status.id} value={status.id}>
+                    {status.title}
+                  </option>
                 ))}
+              </select>
+            </div>
+          ) : (
+            <p className="text-red-500 font-semibold">Order Status: Cancelled</p>
+          )}
+        </div>
+      </div>
+
+      {orderData.Status !== 5 && (
+        <div className="text-center mt-8">
+          <button
+            type="button"
+            onClick={() => uploadDocumentHandler()}
+            className="bg-green-500 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out hover:bg-green-600"
+          >
+            Upload Documents
+          </button>
+        </div>
+      )}
+
+      {Modal && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
+            <label htmlFor="docStatus" className="block text-gray-700 dark:text-gray-300 mb-2">
+              Select Order Status
+            </label>
+            <select
+              id="docStatus"
+              onChange={filehandlerselect}
+              className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 mb-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
+            >
+              {Documents.map((status) => (
+                <option key={status.id} value={status.title}>
+                  {status.title}
+                </option>
+              ))}
+            </select>
+            {fileuploadModal && (
+              <div>
+                <input
+                  autoComplete="off"
+                  id="File"
+                  accept=".pdf"
+                  type="file"
+                  multiple
+                  onChange={(e) => setFile(e.target.files)}
+                  className="border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 w-full py-2 px-4 mb-4"
+                />
+                <button
+                  type="submit"
+                  onClick={uploadFileHandler}
+                  className="bg-green-600 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out hover:bg-green-700"
+                >
+                  Upload
+                </button>
               </div>
-            ))}
+            )}
           </div>
         </div>
       )}
+
+      <div className="mt-8">
+        {orderData.OrderData.map((productData, index) => (
+          <div key={index} className="border border-gray-200 dark:border-gray-700 p-4 mb-4">
+            <p className="text-lg font-semibold mb-2">Series Name: {productData.seriesName}</p>
+            <p className="text-gray-700 dark:text-gray-300 mb-2">Total Quantity: {productData.totalQuantity}</p>
+            {productData.Products.map((product, idx) => (
+              <div key={idx} className="pl-4 border-l-2 border-gray-200 dark:border-gray-700">
+                <p className="text-lg font-semibold mb-2">Product Name: {product.ProductName}</p>
+                <p className="text-gray-700 dark:text-gray-300">Total Quantity: {product.totalQuantity}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
+  )}
+</div>
   );
 };
 
