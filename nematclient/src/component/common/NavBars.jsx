@@ -83,6 +83,7 @@ const NavBars = () => {
 
   const profileHandler = () => {
     navigate(`/profile/${_id}`)
+    setIsHovered(false)
   }
 
   useEffect(()=>{
@@ -130,6 +131,7 @@ const NavBars = () => {
 
   const seriesPageById = (_id) => {
     navigate(`/series/${_id}`);
+
   };
 
   const logoutHandler = () => {
