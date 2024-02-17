@@ -5,11 +5,14 @@ import { counntryCode } from "../CountryCode/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import AddAddress from "./common/AddAddress";
 
 const ProfileDetails = () => {
   const { _id } = useParams();
   const [profileData, setProfileData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [address , setAddress ] = useState([]) 
 
   useEffect(() => {
     getAllData();
@@ -23,6 +26,8 @@ const ProfileDetails = () => {
 
       
       setProfileData(response.data);
+      setAddress(response.data.ShippingAddress)
+
       console.log(response.data)
       setLoading(false);
     } catch (error) {
@@ -46,6 +51,8 @@ const ProfileDetails = () => {
     }
   };
 
+
+  console.log("address" , address)
 
   const UpdateProfileObject = yup.object({
     name: yup.string().min(2).required("Please Enter your Name"),
@@ -131,6 +138,10 @@ const ProfileDetails = () => {
         }
       },
     });
+
+    const handleAddAddressClick = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="mt-8 md:h-auto md:border-l-2 border-text_Color">
@@ -380,15 +391,15 @@ const ProfileDetails = () => {
                   <RiEdit2Line size={25} color="#60713A" className="" />
                 </p>
               </div>
-              {profileData.ShippingAddress == [] ? (
+              {address.length == 0 ? (
                 <p className="text-text_Color mobile:w-[70%] sm:w-[70%] md:w-full font-Marcellus font-medium text-base mt-3">
                   Please Add Address
                 </p>
               ) : (
-                profileData.ShippingAddress.map((address, index) => (
+                address.map((address, index) => (
                   <div key={index} className="text-text_Color mt-3 mobile:w-[75%] sm:w-[75%] md:w-full">
                     <p className="text-text_Color font-Marcellus w-[90%]">
-                      {address.StreetAddress} {address.LocationName}{" "}
+                       {address.StreetAddress} {address.LocationName}{" "}
                       {address.City} {address.ZipCode}
                     </p>
                   </div>
@@ -397,11 +408,17 @@ const ProfileDetails = () => {
 
               {/* Button Add Address */}
 
-              <button className="mobile:w-[100%] sm:w-[100%] md:w-[70%] lg:w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
+              <button 
+                 onClick={handleAddAddressClick}
+              className="mobile:w-[100%] sm:w-[100%] md:w-[70%] lg:w-[50%] p-2.5 bg-text_Color2 font-Marcellus text-lg  text-white uppercase mt-5 mx-auto rounded-3xl">
                 + add Address
               </button>
               </div>
-
+                
+                { isModalOpen && (  
+                   <AddAddress isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} address={address}  setAddress={setAddress}/>
+                  )
+                }
               {/* GST ADDRess  */}
 
               <div className="text-text_Color mobile:mt-7 sm:mt-7 md:mt-0 md:w-[50%]">
