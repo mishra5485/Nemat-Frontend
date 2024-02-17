@@ -14,7 +14,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
 
   const findMaxValue = () => {
     const maxMinValue = Math.max(
-      ...qunantityData.SchemeValues.map((item) => item.min)
+      ...qunantityData?.SchemeValues?.map((item) => item.min)
     );
     setMaxValue(maxMinValue);
   };
@@ -61,7 +61,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
   } else {
     setNextSlabe(0);
   }
-}, [totalvalue, qunantityData.SchemeValues]);
+}, [totalvalue, qunantityData?.SchemeValues]);
   const calculateWidth = (min, max) => {
     if (totalvalue >= min && totalvalue <= max) {
       return `${(totalvalue / max) * 100}%`;
@@ -77,7 +77,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
   return (
     <div>
       <div className="w-[90%] mx-auto flex relative">
-        {qunantityData.SchemeValues.map((data) => (
+        {qunantityData?.SchemeValues?.map((data) => (
           <div
             key={data._id}
             className="w-full relative font-roxborough font-semibold text-lg"
@@ -112,7 +112,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
       </div>
     </div> */}
       <div className=" h-auto flex w-[90%] mx-auto ">
-        {qunantityData.SchemeValues.map((data) => (
+        {qunantityData?.SchemeValues?.map((data) => (
           <div
             key={data._id}
             className="w-[90%] h-[50px] bg-[#8FA75B] mx-auto relative mb-2"
@@ -138,7 +138,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
       
       <div className=" w-[90%] mx-auto ">
         {
-          qunantityData.SchemeValues.map((data, index, array) => {
+          qunantityData?.SchemeValues?.map((data, index, array) => {
             const isLastItem = index === array.length - 1;
             const isInRange = isLastItem
               ? totalvalue >= data.min && totalvalue

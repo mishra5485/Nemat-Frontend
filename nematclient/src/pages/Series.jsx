@@ -25,33 +25,91 @@ const Series = () => {
   );
   const [productTotals, setProductTotals] = useState([]);
   const [productDataCart, setProductDataCart] = useState();
+  // const [pauseApiCall, setpauseApiCall] = useState(false);
   const [initialTotal, setInitialTotal] = useState(true);
   const [totalvalue, setTotalValue] = useState(0);
+  const [page, setPage] = useState(0); // Current page
+  const [perPage] = useState(1); // Products per page
+  const [observer, setObserver] = useState(null);
+  const bottomElementRef = useRef(null);
 
   let { user } = useSelector((store) => store.profile);
 
+  console.log("page ===> ", page);
+
   // console.log("USER +++> " , user.customer_id)
 
-  useEffect(() => {
-    getSeriesDataById();
-  }, [_id]);
+    useEffect(() => {
+      getSeriesDataById()
+    }, [page]);
+
+    useEffect(() => {
+    
+        setPage(0);
+        setProducts([]); 
+        getSeriesDataById();
+      console.log("we are here useEffect");
+    }, [_id]);
+
+    useEffect(() => {
+      if (!observer) {
+        setObserver(
+          new IntersectionObserver((entries) => {
+            const firstEntry = entries[0];
+            if (firstEntry.isIntersecting) {
+              setPage((prevPage) => prevPage + 1);
+            }
+          })
+        );
+      }
+
+      return () => {
+        if (observer && bottomElementRef.current) {
+          observer.unobserve(bottomElementRef.current);
+        }
+      };
+    }, [observer, loading]);
+
+    useEffect(() => {
+      if (observer && bottomElementRef.current) {
+        observer.observe(bottomElementRef.current);
+      }
+
+      return () => {
+        if (observer && bottomElementRef.current) {
+          observer.unobserve(bottomElementRef.current);
+        }
+      };
+    }, [observer, loading]);
+
+  // Rest of your component logic here
 
   const getSeriesDataById = async () => {
     try {
       let response = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/subcategorypage/getdata/${_id}/6/0`
+        }/subcategorypage/getdata/${_id}/${perPage}/${page}`
       );
 
       setSeriesData(response.data);
-      setQuantityData(response.data.QuantitySchemeData);
-      setProducts(response.data.SchemeProductsData);
-      alltotalValue(response.data.SchemeProductsData);
+      setQuantityData(response?.data?.QuantitySchemeData);
+      const seriesPrdouctData = response.data.SchemeProductsData;
+      // seriesPrdouctData.length === 0
+      //   ? setpauseApiCall(true)
+      //   : setpauseApiCall(false);
+      alltotalValue(response?.data?.SchemeProductsData);
       setLoading(false);
       setInitialTotal(true);
 
-      console.log(response.data);
+      if (page === 0) {
+        return setProducts(seriesPrdouctData);
+      }
+      setProducts((prevProducts) => [...prevProducts, ...seriesPrdouctData]);
+
+      // setProducts((prevdata) => [response?.data?.SchemeProductsData)];
+
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -59,7 +117,7 @@ const Series = () => {
   };
 
   // console.log("qunantityData ===> " ,  qunantityData)
-  // console.log("products ===>", Products)
+  console.log("products ===>", Products);
   const title = seriesData?.SubCategoriesData?.Name;
 
   // Slider Functions
@@ -342,7 +400,7 @@ const Series = () => {
                 </p>
                 <p className="w-[50%] text-center p-3">Price per PC</p>
               </div>
-              {qunantityData.SchemeValues.map((data, index) => (
+              {qunantityData?.SchemeValues?.map((data, index) => (
                 <div
                   key={data._id}
                   className="w-[90%] bg-LightCream border-l border-r font-Marcellus"
@@ -436,29 +494,27 @@ const Series = () => {
                         </h1>
                       </div>
                       <div className="mobile:w-full mobile:flex mobile:flex-row mobile:mt-2 sm:w-full sm:flex sm:flex-row sm:mt-2">
-                        {seriesData.SubCategoriesData.PackSizes.map(
+                        {seriesData?.SubCategoriesData?.PackSizes?.map(
                           (packsize, currentIndex) =>
-                         
-                          (currentIndex ===
-                            seriesData.SubCategoriesData.PackSizes.length 
-                             || 
-                            packsize.size === null ) ? console.log(currentIndex )  : (
-                             
+                            currentIndex ===
+                              seriesData.SubCategoriesData.PackSizes.length ||
+                            packsize.size === null ? (
+                              console.log(currentIndex)
+                            ) : (
                               <button
-                              key={packsize._id}
-                              className={`mobile:p-2 border-2 mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
-                                selectedPackSizes[index] === packsize
-                                ? "bg-text_Color text-white"
-                                : ""
-                              }`}
-                              onClick={() =>
+                                key={packsize._id}
+                                className={`mobile:p-2 border-2 mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
+                                  selectedPackSizes[index] === packsize
+                                    ? "bg-text_Color text-white"
+                                    : ""
+                                }`}
+                                onClick={() =>
                                   handlePackSizeClick(packsize, index)
                                 }
                               >
                                 {/* Render packsize information */}
                                 {packsize.size} {packsize.nameConvention}
                               </button>
-                            
                             )
                         )}
                       </div>
@@ -503,6 +559,7 @@ const Series = () => {
                 </div>
               </div>
             ))}
+            <div ref={bottomElementRef} style={{ height: "10px" }}></div>
           </div>
         </div>
       )}
