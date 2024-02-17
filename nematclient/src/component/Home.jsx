@@ -79,7 +79,7 @@ const Home = () => {
     const timer = setTimeout(() => {
       setIsModalOpen(true);
        sessionStorage.setItem('modalDisplayed', 'true');
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   } else {
