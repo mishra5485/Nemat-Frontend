@@ -29,7 +29,7 @@ const Series = () => {
   const [initialTotal, setInitialTotal] = useState(true);
   const [totalvalue, setTotalValue] = useState(0);
   const [page, setPage] = useState(0); // Current page
-  const [perPage] = useState(1); // Products per page
+  const [perPage] = useState(6); // Products per page
   const [observer, setObserver] = useState(null);
   const bottomElementRef = useRef(null);
 
