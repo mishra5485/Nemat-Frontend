@@ -11,9 +11,12 @@ const categorySlice = createSlice({
     setCategoryDataStore(state , value){
          state.categoryData = value.payload
       },
+      setcategoryEmpty(state , value){
+         state.categoryData = null
+      }
    }
 })
 
 
-export const { setCategoryDataStore  } = categorySlice.actions
+export const { setCategoryDataStore , setcategoryEmpty } = categorySlice.actions;
 export default categorySlice.reducer
