@@ -15,6 +15,7 @@ import ContactUs from "./pages/ContactUs";
 import Series from "./pages/Series";
 import VerifyUser from "./pages/VerifyUser";
 import Profile from "./pages/Profile";
+import ChangePasswordComponent from "./component/ChangePasswordComponent";
 
 function App() {
   return (
@@ -65,6 +66,15 @@ function App() {
           element={
             <PrivateRoute>
               <ChangePassword />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/changepasswordprofile"
+          element={
+            <PrivateRoute>
+              <ChangePasswordComponent />
             </PrivateRoute>
           }
         />
