@@ -10,10 +10,11 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
 
   const [countriesData, setCountriesData] = useState([]);
   const [State, setState] = useState([]);
-  const [citys, setCity] = useState([]);
+  const [citydata, setCitydata] = useState([]);
   const [countryIso2, setCountryISO2] = useState("");
   const [country, setCountry] = useState("");
   const [stateName, setStateName] = useState("");
+  const [city , setCity] = useState("")
 
    const API_KEY = "Mk5hNW5Tb1lZSEhITDg2eTVhMUxhbm5mYjBEbGRER3U4ZHFENXdRQQ==";
 
@@ -35,7 +36,7 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
           config
         );
         setCountriesData(response.data);
-        console.log("Countries Data:", response.data);
+        // console.log("Countries Data:", response.data);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -80,8 +81,11 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
           LocationName: values.location,
           StreetAddress: values.streetaddress,
           Country: country,
+          CountryIsoCode : values.country,
           State: stateName,
-          City: values.city,
+          StateIsoCode:values.state,
+          City: city,
+          CityIsoCode:values.city,
           ZipCode:values.zipcode,
         };
 
@@ -129,10 +133,10 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
 
   let countryiso2 = "";
   const handlerChangeState = async (event) => {
-    console.log("Selected _id:", event);
+    // console.log("Selected _id:", event);
 
     countryiso2 = event.target.value;
-    console.log("iso2", countryiso2);
+    // console.log("iso2", countryiso2);
     setCountryISO2(event.target.value);
     try {
       const config = {
@@ -160,10 +164,10 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
 
   let stateiso2 = "";
   const handlerChangeCity = async (event) => {
-    console.log("Selected _id:", event);
+    // console.log("Selected _id:", event);
 
     stateiso2 = event.target.value;
-    console.log("iso2", stateiso2);
+    // console.log("iso2", stateiso2);
 
     try {
       const config = {
@@ -178,7 +182,7 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
       );
 
       console.log(response.data);
-      setCity(response.data);
+      setCitydata(response.data);
     } catch (error) {
       console.error("Error:", error);
 
@@ -189,6 +193,19 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
     }
   };
 
+
+  // console.log("Citys" , citydata)
+
+  const handlerchangecity =async (event) =>  {
+
+    const selectedIso2 = event.target.value;
+
+    const selectedCountry = citydata.find((city) => city.id == selectedIso2);
+
+    setCity(selectedCountry ? selectedCountry.name : "", () => {
+     
+    });
+  }
 
   return (
     <div>
@@ -320,15 +337,18 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
                         id="city"
                         name="city"
                         onChange={
-                           handleChange
+                          async (event) => {
+                           await handleChange(event)
+                            handlerchangecity(event)
+                          } 
                         }
                         value={values.city}
                         className="flex h-10 w-[32%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29]"
 
                       >
                         <option value="">Select City</option>
-                        {citys?.map((city) => (
-                          <option key={city.id} value={city.name}>
+                        {citydata?.map((city) => (
+                          <option key={city.id} value={city.id}>
                             {city.name}
                           </option>
                         ))}
