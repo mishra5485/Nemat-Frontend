@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import AddAddress from "./common/AddAddress";
+import EditAddress from "./common/EditAddress";
+import { TbPasswordUser } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 const ProfileDetails = () => {
   const { _id } = useParams();
@@ -13,6 +16,12 @@ const ProfileDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [address , setAddress ] = useState([]) 
+  const [editModalOpen , setEditModalOpen] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState([]);
+  const [changePasswordModal , setChangePasswordModal] = useState(false)
+
+
+  const navigate =  useNavigate()
 
   useEffect(() => {
     getAllData();
@@ -27,8 +36,6 @@ const ProfileDetails = () => {
       
       setProfileData(response.data);
       setAddress(response.data.ShippingAddress)
-
-      console.log(response.data)
       setLoading(false);
     } catch (error) {
       if (error.response) {
@@ -51,8 +58,6 @@ const ProfileDetails = () => {
     }
   };
 
-
-  console.log("address" , address)
 
   const UpdateProfileObject = yup.object({
     name: yup.string().min(2).required("Please Enter your Name"),
@@ -143,6 +148,17 @@ const ProfileDetails = () => {
     setIsModalOpen(true);
   };
 
+  const handlerEdit = (addres) => {
+    setEditModalOpen(true)
+    setSelectedAddress(addres); 
+  }
+
+  const changehandlerPassword = () => {
+    setChangePasswordModal(true)
+  }
+
+
+
   return (
     <div className="mt-8 md:h-auto md:border-l-2 border-text_Color">
       {loading ? (
@@ -219,8 +235,26 @@ const ProfileDetails = () => {
                   size={25}
                   color="#60713A"
                   className="z-0 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 "
+                  onClick={changehandlerPassword}
                 />
               </div>
+
+              {
+                changePasswordModal && (
+                  <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
+                    <div className="bg-white p-4 rounded-md w-[300px] h-auto ">
+                      <TbPasswordUser size={35}  className="w-full mx-auto text-text_Color"/>
+                      <h1 className="w-[90%] mt-2.5 text-center mx-auto text-xl text-text_Color font-roxborough">
+                        Are you sure you want to Change Password?
+                      </h1>
+                      <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
+                        <button onClick={() => setChangePasswordModal(false)} className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]">Cancel</button>
+                        <button onClick={() => navigate("/changepasswordprofile")} className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]">Yes</button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
             </div>
           </div>
 
@@ -391,20 +425,27 @@ const ProfileDetails = () => {
                   <RiEdit2Line size={25} color="#60713A" className="" />
                 </p>
               </div>
+              
               {address.length == 0 ? (
                 <p className="text-text_Color mobile:w-[70%] sm:w-[70%] md:w-full font-Marcellus font-medium text-base mt-3">
                   Please Add Address
                 </p>
               ) : (
-                address.map((address, index) => (
+                address.map((addres, index) => (
                   <div key={index} className="text-text_Color mt-3 mobile:w-[75%] sm:w-[75%] md:w-full">
-                    <p className="text-text_Color font-Marcellus w-[90%]">
-                       {address.StreetAddress} {address.LocationName}{" "}
-                      {address.City} {address.ZipCode}
+                    <p className="text-text_Color font-Marcellus w-[90% cursor-pointer"  onClick={() => handlerEdit(addres)}>
+                       {index+1}. {addres.StreetAddress} {addres.LocationName}{" "}
+                      {addres.City} {addres.ZipCode}
                     </p>
                   </div>
                 ))
               )}
+
+              {
+                editModalOpen && (
+                  <EditAddress editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} selectedAddress={selectedAddress} setAddress={setAddress}/>
+                )
+              }
 
               {/* Button Add Address */}
 
