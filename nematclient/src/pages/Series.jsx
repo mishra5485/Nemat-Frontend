@@ -232,10 +232,12 @@ const Series = () => {
 
         if (response.status === 200) {
           setInitialTotal(false);
+          toast.success("Product added to cart")
           setProductDataCart(response.data);
           // console.log("Response Add Cart ====>" , response.data);
           setTotalValue(totalvalue + payload.quantity);
           alltotalValue(response.data);
+        
         }
       } catch (error) {
         if (error.response) {
@@ -251,8 +253,8 @@ const Series = () => {
             status === 400
           ) {
             // console.error(response)
-            console.log(data);
-            // toast.error(data);
+            // console.log(data);
+            toast.error(data);
           }
         }
       }
@@ -298,6 +300,7 @@ const Series = () => {
           );
         });
 
+        toast.success(response.data)
         setTotalValue((prevTotalValue) => {
           // console.log("Previous Total Value:", prevTotalValue);
 
@@ -319,6 +322,7 @@ const Series = () => {
         status === 400
       ) {
         console.log(data);
+        toast.error(data)
       }
     }
   };

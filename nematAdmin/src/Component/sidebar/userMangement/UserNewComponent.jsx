@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 const UserNewComponent = ({selectedArray }) => {
 
    console.log(selectedArray)
-
-   
-   
+      
   return (
 
 
