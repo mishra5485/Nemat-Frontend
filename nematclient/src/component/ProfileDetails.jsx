@@ -171,10 +171,10 @@ const ProfileDetails = () => {
 
           {/* All Inputs Field  */}
           <div className="mt-6">
-            <div>
+            <div className="md:w-[48%]">
               <label
                 htmlFor=""
-                className="mobile:text-xl font-roxborough font-bold  text-[#642F29] md:text-xl "
+                className="mobile:text-xl  font-roxborough font-bold  text-[#642F29] md:text-xl "
               >
                 {" "}
                 Contact Name{" "}
@@ -234,7 +234,7 @@ const ProfileDetails = () => {
                 <RiEdit2Line
                   size={25}
                   color="#60713A"
-                  className="z-0 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 "
+                  className="z-0 sm:mt-2 mobile:mt-2 md:mt-3 -ml-6 cursor-pointer "
                   onClick={changehandlerPassword}
                 />
               </div>

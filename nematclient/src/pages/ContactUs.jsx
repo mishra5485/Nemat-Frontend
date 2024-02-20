@@ -40,7 +40,7 @@ const ContactUs = () => {
     userMessage: "",
   };
 
-  const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+  const { values, errors, handleChange, handleSubmit, touched, handleBlur , resetForm } =
     useFormik({
       initialValues,
       validationSchema: objectSchema,
@@ -63,6 +63,7 @@ const ContactUs = () => {
 
           if (response.status === 200) {
             toast.success(response.data);
+            resetForm();
             formik.resetForm();
           }
         } catch (error) {
