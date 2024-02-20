@@ -1,151 +1,212 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdVerified } from "react-icons/md";
 import toast, { Toaster } from "react-hot-toast";
-import { formattedAmount } from "../../common/FormatAmount"
-import { OrderStatus } from "../../common/FormatAmount"
+import { formattedAmount } from "../../common/FormatAmount";
+import { OrderStatus } from "../../common/FormatAmount";
 
 const Edit_UserManagement = () => {
+  const { _id } = useParams();
+  console.log(_id);
+  const [PrevUserID, setPrevUserID] = useState();
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [orderData, setOrderData] = useState([]);
 
-   const {_id} = useParams();
-   console.log(_id)
-   const [PrevUserID , setPrevUserID] = useState();
-   const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-   const [filteredOrders, setFilteredOrders] = useState([]);
-   const [orderData , setOrderData] = useState([])
+  const navigator = useNavigate();
 
-   const navigator = useNavigate();
+  useEffect(() => {
+    fetechUserData();
+  }, []);
 
-   useEffect(() => {
-      fetechUserData();
-   } , [])
+  const fetechUserData = async () => {
+    try {
+      let userDetails = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/users/customer/getuserdetails/${_id}`
+      );
 
-   const fetechUserData = async () => {
-      try {
-         
-         let userDetails = await axios.get(
-             `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/getuserdetails/${_id}`
-         )
+      console.log(userDetails.data);
 
-         console.log(userDetails.data)
+      setPrevUserID(userDetails.data.CustomerData);
+      setOrderData(userDetails.data.OrderData);
+      setFilteredOrders(userDetails.data.OrderData);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
-         setPrevUserID(userDetails.data.CustomerData)
-         setOrderData(userDetails.data.OrderData)
-         setFilteredOrders(userDetails.data.OrderData)
-         setLoading(false)
-      } catch (error) {
-         console.log(error)
-         setLoading(false)
+  const activeateUserHandler = async () => {
+    try {
+      let activateUser = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/users/customer/activate/${_id}`
+      );
+
+      if (activateUser.status === 200) {
+        toast.success("User activate Scessfully");
       }
-   }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
 
-   const activeateUserHandler = async() => {
-      try{
-        let activateUser = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/customer/activate/${_id}`
-        )
-
-        if(activateUser.status === 200){
-          toast.success("User activate Scessfully")
-          
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
         }
-
       }
-      catch(error){
-         if (error.response) {
-              const { status, data } = error.response;
+    }
+  };
 
-              if (
-                status === 404 ||
-                status === 403 ||
-                status === 500 ||
-                status === 302 ||
-                status === 409 ||
-                status === 401 ||
-                status === 400
-              ) {
-                console.log(error.response);
-                toast.error(data)
-              }
-            }
-      }
-   }
+  const getStatusName = (status) => {
+    switch (status) {
+      case OrderStatus.OpenOrder:
+        return "Open Order";
+      case OrderStatus.InvoicePaid:
+        return "Invoice Paid";
+      case OrderStatus.Packed:
+        return "Packed";
+      case OrderStatus.OutForDelivery:
+        return "Out for Delivery";
+      case OrderStatus.Delivered:
+        return "Delivered";
+      case OrderStatus.Cancelled:
+        return "Cancelled";
+      default:
+        return "Unknown Status";
+    }
+  };
 
-    const  getStatusName = (status) => {
-  switch (status) {
-    case OrderStatus.OpenOrder:
-      return "Open Order";
-    case OrderStatus.InvoicePaid:
-      return "Invoice Paid";
-    case OrderStatus.Packed:
-      return "Packed";
-    case OrderStatus.OutForDelivery:
-      return "Out for Delivery";
-    case OrderStatus.Delivered:
-      return "Delivered";
-    case OrderStatus.Cancelled:
-      return "Cancelled";
-    default:
-      return "Unknown Status";
-  }
-}
-
-    const handleSearch = (event) => {
+  const handleSearch = (event) => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
-    const filtered = orderData.filter(item => item.OrderNo.includes(searchTerm));
+    const filtered = orderData.filter((item) =>
+      item.OrderNo.includes(searchTerm)
+    );
     setFilteredOrders(filtered);
   };
 
   const handleForm = () => {};
 
   const editHandlerDir = (orderId) => {
-      navigator(`/dashboard/order-mangement/view_order/${orderId}`)
-  }
+    navigator(`/dashboard/order-mangement/view_order/${orderId}`);
+  };
+
+  const activeUserAgain = async () => {
+    try {
+      let activateUser = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/users/customer/enable/${_id}`
+      );
+
+      if (activateUser.status === 200) {
+        toast.success("User activate Scessfully");
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  };
+
+  const disableUser = async () => {
+    try {
+      let activateUser = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/users/customer/disable/${_id}`
+      );
+
+      if (activateUser.status === 200) {
+        toast.success(activateUser.data);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  };
 
   return (
     <div>
-      <Toaster/>
-          {loading ? (
+      <Toaster />
+      {loading ? (
         <p>Loading...</p>
       ) : (
-        <form
-         
-        >
+        <form>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
             <div>
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 "
               >
-               User Name
+                User Name
               </label>
               <input
                 type="text"
                 name="name"
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                
-                value={PrevUserID.CustomerName}
+                value={PrevUserID?.CustomerName}
                 placeholder="Type product name"
               />
             </div>
-             <div>
+            <div>
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 "
               >
-               Mobile Number
+                Mobile Number
               </label>
               <input
                 type="text"
                 name="name"
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                
-                value={[`+ ${PrevUserID.Country_MobileNumber} ${PrevUserID.MobileNumber}`]}
+                value={[
+                  `+ ${PrevUserID.Country_MobileNumber} ${PrevUserID.MobileNumber}`,
+                ]}
                 placeholder="Type product name"
               />
             </div>
@@ -154,38 +215,54 @@ const Edit_UserManagement = () => {
                 htmlFor="metaTitle"
                 className="mb-2 text-sm flex font-medium text-gray-900 dark:text-white"
               >
-                Email Address {
-                  PrevUserID.email_verified === 1 ? (<span className='ml-1'><MdVerified color='green' size={18}/></span>) : ( null )
-                } 
+                Email Address{" "}
+                {PrevUserID.email_verified === 1 ? (
+                  <span className="ml-1">
+                    <MdVerified color="green" size={18} />
+                  </span>
+                ) : null}
               </label>
               <input
                 type="text"
                 name="metaTitle"
                 id="metaTitle"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              
                 value={PrevUserID.Email}
                 placeholder="Type product name"
               />
             </div>
 
-           <br/>
+            <br />
 
-               <div className='flex gap-6'>
-                   <h1>Status :- {PrevUserID.status === 1 ? (
-                     <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">Active</span>
-                   ) : (
-                     <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">Inactive</span>
-                   )} </h1>
+            <div className="flex gap-6">
+              <h1>
+                Status :-{" "}
+                {PrevUserID.status === 1 ? (
+                  <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">
+                    Active
+                  </span>
+                ) : (
+                  <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">
+                    Inactive
+                  </span>
+                )}{" "}
+              </h1>
 
-                   <h1 className=''>DefaultpasswordChanged :-{PrevUserID.DefaultpasswordChanged === 1 ? (
-                     <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">Yes</span>
-                   ) : (
-                     <span className=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">No</span>
-                   )} </h1>
-               </div>
+              <h1 className="">
+                DefaultpasswordChanged :-
+                {PrevUserID.DefaultpasswordChanged === 1 ? (
+                  <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">
+                    Yes
+                  </span>
+                ) : (
+                  <span className=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">
+                    No
+                  </span>
+                )}{" "}
+              </h1>
+            </div>
 
-           <br/>
+            <br />
             <div>
               <label
                 htmlFor="slugUrl"
@@ -202,7 +279,7 @@ const Edit_UserManagement = () => {
                 value={PrevUserID.CompanyName}
               />
             </div>
-             <div>
+            <div>
               <label
                 htmlFor="slugUrl"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -219,8 +296,6 @@ const Edit_UserManagement = () => {
               />
             </div>
 
-           
-
             <div className="sm:col-span-2">
               <label
                 htmlFor="description"
@@ -233,23 +308,45 @@ const Edit_UserManagement = () => {
                 name="metaDesc"
                 rows="3"
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value={[`${PrevUserID.Company_StreetAddress} , ${PrevUserID.Company_City} , ${PrevUserID.Company_State} , ${PrevUserID.Company_ZipCode}`]}
+                value={[
+                  `${PrevUserID.Company_StreetAddress} , ${PrevUserID.Company_City} , ${PrevUserID.Company_State} , ${PrevUserID.Company_ZipCode}`,
+                ]}
                 placeholder="Write product description here"
               ></textarea>
             </div>
-          </div>         
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+          </div>
 
-             <button
-               onClick={activeateUserHandler}
-              type="button"
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
-            >
-              Activate
-            </button>
+          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+            {PrevUserID.email_verified !== 0 ? (
+              PrevUserID.status === 2 && PrevUserID.email_verified === 1 ? (
+                <button
+                  onClick={() => activeUserAgain()}
+                  type="button"
+                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                >
+                  Activate Again
+                </button>
+              ) : PrevUserID.status === 1 ? (
+                <button
+                  onClick={() => disableUser()}
+                  type="button"
+                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                >
+                  Disable
+                </button>
+              ) : (
+                <button
+                  onClick={() => activeateUserHandler()}
+                  type="button"
+                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                >
+                  Activate
+                </button>
+              )
+            ) : null}
 
             <button
-               onClick={() => navigator("/dashboard/user-mangement")}
+              onClick={() => navigator("/dashboard/user-mangement")}
               type="button"
               className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
             >
@@ -259,9 +356,14 @@ const Edit_UserManagement = () => {
         </form>
       )}
 
-      <div className=''>
-        <h1 className='mt-6 text-2xl text-center font-bold mb-4'>Order Managemet Of User </h1>
-         <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+
+    {
+      orderData && orderData.length !== 0? (
+         <div className="">
+        <h1 className="mt-6 text-2xl text-center font-bold mb-4">
+          Order Managemet Of User{" "}
+        </h1>
+        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
@@ -277,13 +379,12 @@ const Edit_UserManagement = () => {
                         id="simple-search"
                         placeholder="Search for Order Number"
                         required=""
-                         onChange={handleSearch}
+                        onChange={handleSearch}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       />
                     </div>
                   </form>
                 </div>
-                
               </div>
 
               <div className="">
@@ -316,7 +417,7 @@ const Edit_UserManagement = () => {
                             Order Status
                           </th>
                           <th scope="col" className="p-4">
-                             Order Amount
+                            Order Amount
                           </th>
                           <th scope="col" className="p-4">
                             Actions
@@ -350,7 +451,7 @@ const Edit_UserManagement = () => {
                                 scope="row"
                                 className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
-                               {item.OrderNo}
+                                {item.OrderNo}
                               </th>
 
                               <td className="px-4 py-3">
@@ -365,7 +466,6 @@ const Edit_UserManagement = () => {
                               <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {formattedAmount(item.TotalAmount)}
                               </td>
-                             
 
                               <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div className="flex items-center space-x-4">
@@ -376,8 +476,6 @@ const Edit_UserManagement = () => {
                                   >
                                     View
                                   </button>
-
-                                 
                                 </div>
                               </td>
                             </tr>
@@ -457,9 +555,11 @@ const Edit_UserManagement = () => {
           </div>
         </section>
       </div>
-
+      ) : null
+    }
+     
     </div>
-  )
-}
+  );
+};
 
-export default Edit_UserManagement
+export default Edit_UserManagement;
