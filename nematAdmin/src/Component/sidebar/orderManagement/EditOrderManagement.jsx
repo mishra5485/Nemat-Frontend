@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { formattedAmount } from "../../common/FormatAmount";
 import { statusData } from "../../common/FormatAmount";
 import { Documents } from "../../common/FormatAmount"
+import { IoClose } from "react-icons/io5";
  
 const EditOrderManagement = () => {
   const [orderData, setOrderData] = useState([]);
@@ -230,9 +231,12 @@ const EditOrderManagement = () => {
       {Modal && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
+            <div className="flex justify-between mb-3">
             <label htmlFor="docStatus" className="block text-gray-700 dark:text-gray-300 mb-2">
               Select Order Status
             </label>
+            <IoClose size={25} onClick={() => setModal(false)} />
+              </div>
             <select
               id="docStatus"
               onChange={filehandlerselect}
@@ -251,6 +255,7 @@ const EditOrderManagement = () => {
                   id="File"
                   accept=".pdf"
                   type="file"
+                  placeholder="Select Only PDF File"
                   multiple
                   onChange={(e) => setFile(e.target.files)}
                   className="border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 w-full py-2 px-4 mb-4"
