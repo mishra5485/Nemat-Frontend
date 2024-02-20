@@ -9,6 +9,7 @@ import { SiWebpack } from "react-icons/si";
 import { FaUserPlus } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { GrDocumentUser } from "react-icons/gr";
+import { RiCustomerService2Line } from "react-icons/ri";
 // import { logoutAsync } from "../features/auth.js";
 // import getToken from "../commonfunctions/getToken.js";
 
@@ -407,6 +408,23 @@ const Sidebar1 = () => {
                   </button>
                 </li>
               </NavLink>
+
+              <NavLink to={"customer-queries"}>
+                <li>
+                  <button
+                    type="button"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example"
+                  >
+                    <RiCustomerService2Line />
+
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                        Customer Queries
+                    </span>
+                  </button>
+                </li>
+              </NavLink>
+
 
               <li>
                 <button

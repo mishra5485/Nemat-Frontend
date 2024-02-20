@@ -34,6 +34,8 @@ import Edit_Vendors from "./Component/sidebar/vendors/Edit_Vendors";
 import OrderManagement from "./Component/sidebar/orderManagement/OrderManagement";
 import EditOrderManagement from "./Component/sidebar/orderManagement/EditOrderManagement";
 import AboutUs from "./Component/sidebar/website/AboutUs";
+import CustomerQueries from "./Component/sidebar/customerQueries/CustomerQueries";
+import PrevCustomerQueries from "./Component/sidebar/customerQueries/PrevCustomerQueries";
 
 
 
@@ -116,6 +118,11 @@ function App() {
           {/* User Management Routes  */}
           <Route path="order-mangement" element={<OrderManagement/>}/>
             <Route path="order-mangement/view_order/:_id" element={<EditOrderManagement/>}/>
+
+          {/* Customer Queries  */}
+          <Route path="customer-queries" element={<CustomerQueries/>}/>
+            <Route path="customer-queries/prev-queries/:_id" element={<PrevCustomerQueries/>}/>
+            
 
           {/* Setting User or Config Routes  */}
           <Route path="settings/smtp" element={<Smtp/>}/>
