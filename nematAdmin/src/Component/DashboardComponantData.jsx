@@ -1,78 +1,43 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { MdVerified } from "react-icons/md";
 import toast, { Toaster } from "react-hot-toast";
-import { formattedAmount } from "../../common/FormatAmount";
-import { OrderStatus } from "../../common/FormatAmount";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import moment from "moment";
+import { formattedAmount } from "./common/FormatAmount";
+import { OrderStatus } from "./common/FormatAmount";
+import { useNavigate } from "react-router-dom";
 
-const Edit_UserManagement = () => {
-  const { _id } = useParams();
-  console.log(_id);
-  const [PrevUserID, setPrevUserID] = useState();
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+const DashboardComponantData = () => {
+  const [OrderManagement, setOrderManagement] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [orderData, setOrderData] = useState([]);
-  const [orderStatus , setOrderStatus] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [orderStatus, setOrderStatus] = useState([]);
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetechUserData();
+    getAllDashBoardData();
   }, []);
 
-  const fetechUserData = async () => {
-    try {
-      let userDetails = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/getuserdetails/${_id}`
-      );
-
-      console.log(userDetails.data.OrderStats);
-
-      setPrevUserID(userDetails.data.CustomerData);
-      setOrderData(userDetails.data.OrderData);
-      setFilteredOrders(userDetails.data.OrderData);
-      setOrderStatus(userDetails.data.OrderStats)
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  const activeateUserHandler = async () => {
-    try {
-      let activateUser = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/activate/${_id}`
-      );
-
-      if (activateUser.status === 200) {
-        toast.success("User activate Scessfully");
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          toast.error(data);
-        }
-      }
-    }
-  };
+  const dropDownData = [
+    {
+      id: 1,
+      Value: "Today",
+    },
+    {
+      id: 2,
+      Value: "Yesterday",
+    },
+    {
+      id: 3,
+      Value: "Last 7 Days",
+    },
+    {
+      id: 4,
+      Value: "Last 30 Days",
+    },
+  ];
 
   const getStatusName = (status) => {
     switch (status) {
@@ -93,10 +58,185 @@ const Edit_UserManagement = () => {
     }
   };
 
+  const getAllDashBoardData = async () => {
+    try {
+      const payload = {
+        filterString: "Last 7 Days",
+      };
+
+      let response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
+        payload
+      );
+
+      console.log("New  Data is here ===> ", response.data);
+      setOrderManagement(response.data.OrderData);
+      setFilteredOrders(response.data.OrderData);
+      setOrderStatus(response.data.OrderStats);
+      setLoading(false);
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          setLoading(false);
+          toast.error(data);
+        }
+      }
+    }
+  };
+
+  console.log("LOaddding ", loading);
+
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    return `${formattedDate.getDate()}-${
+      formattedDate.getMonth() + 1
+    }-${formattedDate.getFullYear()}`;
+  };
+
+  const validationSchema = yup.object().shape({
+    fromDate: yup.date().required("From date is required"),
+    toDate: yup
+      .date()
+      .required("To date is required")
+      .min(yup.ref("fromDate"), "To date must be after from date"),
+  });
+
+  const initialValues = {
+    fromDate: "",
+    toDate: "",
+  };
+
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    touched,
+    handleBlur,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      const payload = {
+        From: formatDate(values.fromDate),
+        To: formatDate(values.toDate),
+      };
+
+      setLoading(true);
+
+      console.log("PAyload ==> ", payload);
+
+      const dateDifference = moment(values.toDate).diff(
+        moment(values.fromDate),
+        "days"
+      );
+
+      if (dateDifference > 30) {
+        toast.error("Date range cannot exceed 30 days");
+        return;
+      }
+
+      try {
+        let response = await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
+          payload
+        );
+
+        if (response.status === 200) {
+          console.log(response.data);
+          setFilteredOrders([]);
+          setOrderManagement([]);
+          setOrderStatus([]);
+          setOrderManagement(response.data.OrderData);
+          setFilteredOrders(response.data.OrderData);
+          setOrderStatus(response.data.OrderStats);
+          setLoading(false);
+        }
+      } catch (error) {
+        if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            toast.error(data);
+            setLoading(false);
+          }
+        }
+      }
+    },
+  });
+
+  const filehandlerselect = async (event) => {
+    console.log(event.target.value);
+    const fillterData = event.target.value;
+
+    try {
+      setLoading(true);
+
+      const payload = {
+        filterString: fillterData,
+      };
+
+      let response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
+        payload
+      );
+
+      if (response.status === 200) {
+        console.log("Filltered Data is here ===> ", response.data);
+        setFilteredOrders([]);
+        setOrderManagement([]);
+        setOrderStatus([])
+        setOrderManagement(response.data.OrderData);
+        setFilteredOrders(response.data.OrderData);
+        setOrderStatus(response.data.OrderStats);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+          setLoading(false);
+        }
+      }
+    }
+  };
+
   const handleSearch = (event) => {
     const searchTerm = event.target.value;
-    setSearchTerm(searchTerm);
-    const filtered = orderData.filter((item) =>
+    const filtered = OrderManagement.filter((item) =>
       item.OrderNo.includes(searchTerm)
     );
     setFilteredOrders(filtered);
@@ -105,283 +245,111 @@ const Edit_UserManagement = () => {
   const handleForm = () => {};
 
   const editHandlerDir = (orderId) => {
-    navigator(`/dashboard/order-mangement/view_order/${orderId}`);
-  };
-
-  const activeUserAgain = async () => {
-    try {
-      let activateUser = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/enable/${_id}`
-      );
-
-      if (activateUser.status === 200) {
-        toast.success("User activate Scessfully");
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          toast.error(data);
-        }
-      }
-    }
-  };
-
-  const disableUser = async () => {
-    try {
-      let activateUser = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/disable/${_id}`
-      );
-
-      if (activateUser.status === 200) {
-        toast.success(activateUser.data);
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          toast.error(data);
-        }
-      }
-    }
+    navigate(`/dashboard/order-mangement/view_order/${orderId}`);
   };
 
   return (
-    <div>
+    <div className="">
       <Toaster />
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <form>
-          <div className="grid gap-4 mb-4 sm:grid-cols-2">
-            <div>
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 "
+      <div className="w-full">
+        <select
+          id="docStatus"
+          onChange={filehandlerselect}
+          className="w-[70%] bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 mb-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
+        >
+          <option>Select Date</option>
+          {dropDownData.map((filterData) => (
+            <option key={filterData.id} value={filterData.Value}>
+              {filterData.Value}
+            </option>
+          ))}
+        </select>
+
+        <form
+          onSubmit={handleSubmit}
+          className="w-full mx-auto p-4 bg-gray-100 shadow-md rounded-md "
+        >
+          <div className="w-[100%] flex justify-end items-end ">
+            <div className="flex justify-center items-center">
+              <div className="flex flex-col w-full lg:w-auto">
+                <label htmlFor="fromDate" className="text-gray-700">
+                  From Date
+                </label>
+                <input
+                  id="fromDate"
+                  name="fromDate"
+                  type="date"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.fromDate}
+                  className={`w-full px-4 py-2 rounded-md border ${
+                    touched.fromDate && errors.fromDate
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                />
+                {touched.fromDate && errors.fromDate && (
+                  <div className="text-red-500">{errors.fromDate}</div>
+                )}
+              </div>
+
+              <div className="flex flex-col w-full lg:w-auto">
+                <label htmlFor="toDate" className="text-gray-700">
+                  To Date
+                </label>
+                <input
+                  id="toDate"
+                  name="toDate"
+                  type="date"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.toDate}
+                  className={`w-full px-4 py-2 rounded-md border ${
+                    touched.toDate && errors.toDate
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                />
+                {touched.toDate && errors.toDate && (
+                  <div className="text-red-500">{errors.toDate}</div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full mt-6 lg:w-auto bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600"
               >
-                User Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                value={PrevUserID?.CustomerName}
-                placeholder="Type product name"
-              />
+                Submit
+              </button>
             </div>
-            <div>
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 "
-              >
-                Mobile Number
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                value={[
-                  `+ ${PrevUserID.Country_MobileNumber} ${PrevUserID.MobileNumber}`,
-                ]}
-                placeholder="Type product name"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="metaTitle"
-                className="mb-2 text-sm flex font-medium text-gray-900 dark:text-white"
-              >
-                Email Address{" "}
-                {PrevUserID.email_verified === 1 ? (
-                  <span className="ml-1">
-                    <MdVerified color="green" size={18} />
-                  </span>
-                ) : null}
-              </label>
-              <input
-                type="text"
-                name="metaTitle"
-                id="metaTitle"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value={PrevUserID.Email}
-                placeholder="Type product name"
-              />
-            </div>
-
-            <br />
-
-            <div className="flex gap-6">
-              <h1>
-                Status :-{" "}
-                {PrevUserID.status === 1 ? (
-                  <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">
-                    Active
-                  </span>
-                ) : (
-                  <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">
-                    Inactive
-                  </span>
-                )}{" "}
-              </h1>
-
-              <h1 className="">
-                DefaultpasswordChanged :-
-                {PrevUserID.DefaultpasswordChanged === 1 ? (
-                  <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-green-500 rounded">
-                    Yes
-                  </span>
-                ) : (
-                  <span className=" ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-red-500 rounded">
-                    No
-                  </span>
-                )}{" "}
-              </h1>
-            </div>
-
-            <br />
-            <div>
-              <label
-                htmlFor="slugUrl"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Company Name
-              </label>
-              <input
-                type="text"
-                name="slugUrl"
-                id="slugUrl"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Type product name"
-                value={PrevUserID.CompanyName}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="slugUrl"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                GST Number
-              </label>
-              <input
-                type="text"
-                name="slugUrl"
-                id="slugUrl"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Type product name"
-                value={PrevUserID.GstNo}
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Company Address
-              </label>
-              <textarea
-                id="metaDesc"
-                name="metaDesc"
-                rows="3"
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value={[
-                  `${PrevUserID.Company_StreetAddress} , ${PrevUserID.Company_City} , ${PrevUserID.Company_State} , ${PrevUserID.Company_ZipCode}`,
-                ]}
-                placeholder="Write product description here"
-              ></textarea>
-            </div>
-          </div>
-
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
-            {PrevUserID.email_verified !== 0 ? (
-              PrevUserID.status === 2 && PrevUserID.email_verified === 1 ? (
-                <button
-                  onClick={() => activeUserAgain()}
-                  type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
-                >
-                  Activate Again
-                </button>
-              ) : PrevUserID.status === 1 ? (
-                <button
-                  onClick={() => disableUser()}
-                  type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
-                >
-                  Disable
-                </button>
-              ) : (
-                <button
-                  onClick={() => activeateUserHandler()}
-                  type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
-                >
-                  Activate
-                </button>
-              )
-            ) : null}
-
-            <button
-              onClick={() => navigator("/dashboard/user-mangement")}
-              type="button"
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
-            >
-              Go Back
-            </button>
           </div>
         </form>
-      )}
-
-    
-    {
-  orderStatus && orderStatus.length !== 0 ? (
-    <div>
-      <h1 className="mt-6 text-2xl text-center font-bold mb-4">Order Status</h1>
-      <div className="flex flex-wrap  gap-x-1 justify-center items-center">
-        {
-          orderStatus.map((orderData , index) => (
-            <div key={index} className="w-[90%] sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 sm:h-[150px] lg:h-[100px] xl:h-[100px] bg-gray-400 mb-4 rounded-lg p-4">
-              <p className="text-center text-lg text-gray-800 font-semibold">{orderData.Name}</p>
-              <h1 className="text-3xl text-center text-white mt-2 font-bold">{orderData.Value}</h1>
-            </div>
-          ))
-        }
       </div>
-    </div>
-  ) : null
-}
-    {
-      orderData && orderData.length !== 0? (
-         <div className="">
-        <h1 className="mt-6 text-2xl text-center font-bold mb-4">
-          Order Managemet Of User{" "}
-        </h1>
+
+      {orderStatus && orderStatus.length !== 0 ? (
+        <div>
+          <h1 className="mt-6 text-2xl text-center font-bold mb-4">
+            Order Status
+          </h1>
+          <div className="flex flex-wrap justify-center items-center">
+            {orderStatus.map((orderData, index) => (
+              <div
+                key={index}
+                className="w-[90%] sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 sm:h-[150px] lg:h-[100px] xl:h-[100px] bg-gray-400  border-2 border-black mb-4  p-4"
+              >
+                <p className="text-center text-lg text-gray-800 font-semibold">
+                  {orderData.Name}
+                </p>
+                <h1 className="text-3xl text-center text-white mt-2 font-bold">
+                  {orderData.Value}
+                </h1>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <div>
         <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -574,11 +542,8 @@ const Edit_UserManagement = () => {
           </div>
         </section>
       </div>
-      ) : null
-    }
-     
     </div>
   );
 };
 
-export default Edit_UserManagement;
+export default DashboardComponantData;
