@@ -10,6 +10,7 @@ import { FaUserPlus } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { GrDocumentUser } from "react-icons/gr";
 import { RiCustomerService2Line } from "react-icons/ri";
+import { MdManageAccounts } from "react-icons/md";
 // import { logoutAsync } from "../features/auth.js";
 // import getToken from "../commonfunctions/getToken.js";
 
@@ -58,7 +59,7 @@ const Sidebar1 = () => {
   };
 
   const handleMenuItemClick = () => {
-    closeSidebar();
+    navigate("")
   };
 
   const logout = async () => {
@@ -131,7 +132,7 @@ const Sidebar1 = () => {
             <div className="flex items-center justify-between my-3 ">
               <NavLink
                 onClick={handleMenuItemClick}
-                to="compressionmachinemaster"
+                to="/dashboard"
                 className="flex items-center flex-shrink-0 text-xl text-gray-800 dark:text-gray-200 my-2"
               >
                 <img
@@ -384,7 +385,7 @@ const Sidebar1 = () => {
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-example"
                   >
-                    <FaUserPlus />
+                    <FaUserPlus size={20}/>
 
                     <span className="flex-1 ml-3 text-left whitespace-nowrap">
                       User Mangement
@@ -400,7 +401,7 @@ const Sidebar1 = () => {
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-example"
                   >
-                    <FaUserPlus />
+                    <MdManageAccounts size={20} />
 
                     <span className="flex-1 ml-3 text-left whitespace-nowrap">
                       Order Management
@@ -416,7 +417,7 @@ const Sidebar1 = () => {
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-example"
                   >
-                    <RiCustomerService2Line />
+                    <RiCustomerService2Line size={20}/>
 
                     <span className="flex-1 ml-3 text-left whitespace-nowrap">
                         Customer Queries

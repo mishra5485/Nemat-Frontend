@@ -102,7 +102,6 @@ const EditOrderManagement = () => {
     setFileUploadModal(true);
   };
 
-  console.log("file ====> ", file)
 
   const uploadFileHandler = async () => {
       try {
