@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import { ImExit } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slices/profileSlice";
+import { BiSolidUser } from "react-icons/bi";
+import { RxExit } from "react-icons/rx";
 
 const NavBars = () => {
   const [showNavbar, SetShowNavbar] = useState(true);
@@ -72,7 +74,7 @@ const NavBars = () => {
     {
       id: 2,
       title: "POLICIES",
-      link: "/contactus",
+      link: "/policies",
     },
     {
       id: 3,
@@ -279,7 +281,9 @@ const NavBars = () => {
                   {showNavbar ? <GiHamburgerMenu size={30} color="" /> : null}
                 </div>
                 <div className="flex items-center gap-x-4 sm:hidden mobile:hidden md:flex lg:flex font-Marcellus text-text_Color">
+                  <Link to={"/policies"}>
                   <h1 className="cursor-pointer font-semibold">POLICIES</h1>
+                  </Link>
                   <Link>
                     <IoSearchOutline size={25} color="" />
                   </Link>
@@ -307,10 +311,14 @@ const NavBars = () => {
             >
                     {showTooltip && (
                         <div className="">
-                          
-                            <button type="button" className="cursor-pointer" onClick={() => profileHandler()}>Profile</button>
-                          
-                          <p className="cursor-pointer" onClick={() => setIsModal(true)}>Logout</p>
+                            <div className="flex cursor-pointer " onClick={() => profileHandler()}>
+                              <BiSolidUser  className="my-auto mr-2" size={15}/>
+                              <button type="button" className="cursor-pointer text-lg font-Marcellus" >Profile</button>
+                            </div>
+                            <div className="flex cursor-pointer">
+                              <RxExit className="my-auto mr-2" size={15}/>
+                              <p className="cursor-pointer text-lg font-Marcellus" onClick={() => setIsModal(true)}>Logout</p>
+                            </div>
                         </div>
                       )}
                   </div>

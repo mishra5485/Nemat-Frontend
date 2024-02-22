@@ -253,7 +253,7 @@ const Home = () => {
                               src={`${
                                 import.meta.env.VITE_REACT_APP_BASE_URL
                               }/${subcategories.Image}`}
-                              className="mobile:p-2 sm:p-5 md:p-5 flex justify-center items-center"
+                              className="mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
                               alt={subcategories?.title}
                             />
                             <h1

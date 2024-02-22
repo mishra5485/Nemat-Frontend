@@ -27,6 +27,7 @@ const OrderDetailsData = ({ data, _id }) => {
   );
 
   const [cancelOrderModal, setCancelOrderModal] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     setOpenOrderData(data);
@@ -66,6 +67,8 @@ const OrderDetailsData = ({ data, _id }) => {
       document_id: DocumentID,
     };
 
+    setClicked(true)
+
     try {
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/downloadDocuments`,
@@ -74,6 +77,8 @@ const OrderDetailsData = ({ data, _id }) => {
           responseType: "blob",
         }
       );
+
+      setClicked(false)
 
       const blob = new Blob([response.data], { type: "application/zip" });
 
@@ -88,6 +93,8 @@ const OrderDetailsData = ({ data, _id }) => {
 
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+
+      
     } catch (error) {
       const { status, data } = error.response;
 
@@ -101,6 +108,7 @@ const OrderDetailsData = ({ data, _id }) => {
         status === 400
       ) {
         console.log(error.response);
+         setClicked(false)
       }
     }
   };
@@ -143,6 +151,7 @@ const OrderDetailsData = ({ data, _id }) => {
       };
 
       console.log(payload);
+      setClicked(true)
       let response;
       if (flag === 1) {
         response = await axios.post(
@@ -165,6 +174,7 @@ const OrderDetailsData = ({ data, _id }) => {
       console.log(response.data);
 
       toast.success(response.data);
+      setClicked(false)
     } catch (error) {
       console.log(error);
       const { status, data } = error.response;
@@ -181,6 +191,7 @@ const OrderDetailsData = ({ data, _id }) => {
         toast.error(data);
         console.log(data);
         setLoading(false);
+        setClicked(false)
       }
     }
   };
@@ -237,24 +248,72 @@ const OrderDetailsData = ({ data, _id }) => {
                         onClick={() => {
                           toggleOrderVisibilitydesktop(index);
                         }}
+                        disabled={clicked}   
                         className="w-[50%] md:hidden xl:block uppercase  font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2  rounded-3xl mt-1"
                       >
                         Documents
                       </button>
 
                       {opneorder.status <= 0 ? (
-                        <button
-                          className="w-[50%] text-text_Color2 border-2 md:hidden xl:block  border-text_Color p-2 mb-3  mt-1 rounded-3xl"
-                          onClick={() =>
-                            reorderApiCallHandler(
-                              opneorder._id,
-                              opneorder.user_id,
-                              0
-                            )
-                          }
-                        >
-                          Cancel
-                        </button>
+                        <div className="w-[50%]  mb-3  mt-1">
+                            <button
+                              type="button"
+                              className="w-full text-text_Color2 border-2 p-2 border-text_Color rounded-3xl"
+                              onClick={() => cacelOrderHandler()
+                              }
+                              
+                            >
+                              Cancel
+                            </button>
+                            {cancelOrderModal && (
+                              <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
+                                <div className="bg-white p-4 rounded-md w-[300px] h-auto ">
+                                  <MdDeliveryDining
+                                    size={35}
+                                    className="w-full mx-auto text-text_Color"
+                                  />
+                                  <h1 className="w-[90%] mt-2.5 text-center mx-auto text-xl text-text_Color font-roxborough">
+                                    Are you sure you want to Cancel Order?
+                                  </h1>
+                                  <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
+                                    <button
+                                      onClick={() =>
+                                        setCancelOrderModal(false)
+                                      }
+                                      className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]"
+                                    >
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                reorderApiCallHandler(
+                                  opneorder._id,
+                                  opneorder.user_id,
+                                  0
+                                )
+                                      }
+                                      disabled={clicked}
+                                      className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"
+                                    >
+                                      Yes
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        // <button
+                        //   className="w-[50%] text-text_Color2 border-2 md:hidden xl:block  border-text_Color p-2 mb-3  mt-1 rounded-3xl"
+                        //   onClick={() =>
+                        //     reorderApiCallHandler(
+                        //       opneorder._id,
+                        //       opneorder.user_id,
+                        //       0
+                        //     )
+                        //   }
+                        // >
+                        //   Cancel
+                        // </button>
                       ) : (
                         <button
                           className="w-[50%] uppercase font-Marcellus md:hidden xl:block  bg-text_Color2 text-white mb-3  mt-1 p-2 rounded-3xl"
@@ -265,6 +324,7 @@ const OrderDetailsData = ({ data, _id }) => {
                               1
                             )
                           }
+                          disabled={clicked}
                         >
                           Re-order
                         </button>
@@ -286,6 +346,7 @@ const OrderDetailsData = ({ data, _id }) => {
                               opneorder.user_id
                             )
                           }
+                          disabled={clicked}
                           className="w-full mt-3 flex sm:justify-center sm:items-center  mobile:justify-center mobile:items-center cursor-pointer"
                         >
                           <p className="w-[35%] flex justify-end mr-5">
@@ -348,6 +409,7 @@ const OrderDetailsData = ({ data, _id }) => {
                                   0
                                 )
                                       }
+                                      disabled={clicked}
                                       className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"
                                     >
                                       Yes
@@ -367,6 +429,7 @@ const OrderDetailsData = ({ data, _id }) => {
                                 1
                               )
                             }
+                            disabled={clicked}
                           >
                             Re-order
                           </button>
@@ -377,6 +440,7 @@ const OrderDetailsData = ({ data, _id }) => {
                           onClick={() => {
                             toggleDocumentVisibility(index);
                           }}
+                          disabled={clicked}
                           className="w-[50%] uppercase flex justify-center items-center font-Marcellus text-white bg-text_Color2 p-2.5 rounded-3xl mt-3"
                         >
                           Documents{" "}
@@ -402,6 +466,7 @@ const OrderDetailsData = ({ data, _id }) => {
                                     opneorder.user_id
                                   )
                                 }
+                                disabled={clicked}
                                 className="w-full mt-3 flex sm:justify-center sm:items-center  mobile:justify-center mobile:items-center cursor-pointer"
                               >
                                 <p className="w-[35%] flex justify-end mr-5">

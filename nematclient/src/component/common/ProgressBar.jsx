@@ -84,7 +84,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
           >
             <h1>{data.min}</h1>
             <h1 className="">PCS</h1>
-            <h1 className="border-r-2 h-4 border-l-2 border-text_Color relative z-10"></h1>
+            <h1 className="border-r-[1px] h-4 border-l-[1px] border-text_Color relative z-10"></h1>
           </div>
         ))}
       </div>
@@ -126,7 +126,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
             >
               <div className="flex w-full h-full justify-evenly items-center absolute">
                 <div className="w-full flex h-full font-Marcellus ">
-                  <h1 className="w-full border-text_Color border-r-2 border-l-2 h-full flex justify-center items-center text-center text-white ">
+                  <h1 className="w-full border-text_Color border-r-[1px] border-l-[1px] h-full flex justify-center items-center text-center text-white ">
                     Rs.{data.value} / PC
                   </h1>
                 </div>
