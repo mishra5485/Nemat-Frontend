@@ -16,6 +16,8 @@ import Series from "./pages/Series";
 import VerifyUser from "./pages/VerifyUser";
 import Profile from "./pages/Profile";
 import ChangePasswordComponent from "./component/ChangePasswordComponent";
+import Policies from "./pages/Policies";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -109,6 +111,24 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        /> 
+
+        <Route
+          path="/policies"
+          element={
+            <PrivateRoute>
+              <Policies />
+            </PrivateRoute>
+          }
+        />
+
+         <Route
+          path="/ourfamily"
+          element={
+            <PrivateRoute>
+              <AboutUs />
             </PrivateRoute>
           }
         />
