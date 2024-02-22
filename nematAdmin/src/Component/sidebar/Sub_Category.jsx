@@ -628,6 +628,7 @@ const Sub_Category = () => {
                         id="priority"
                         name="priority"
                         value={values.priority}
+                        onChange={handleChange}
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       >
