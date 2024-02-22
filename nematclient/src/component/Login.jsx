@@ -14,6 +14,7 @@ import { LoginObjectSchema } from "../validationSchem/index.js";
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 import RightToLeftanm from "../style/RightToLeftanm";
+import { showToast } from "./common/CustomToast.jsx";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -76,20 +77,7 @@ const Login = () => {
             if (response?.data?.SkipChangeDefaultPasswordPage === 1) {
               //if user success full login and he alredy change the password.
               // Redirect toward Home or Menu page
-              toast.success(
-                "Login successfully",
-                toast.success("Login successfully", {
-                  style: {
-                    background: "#FEEEE2", // Background color for success toast
-                    color: "#642F29", // Font color for success toast
-                    fontFamily: "Marcellus", // Font family for success toast
-                  },
-                  iconTheme: {
-                    primary: "#FFFFFF", // Color of success icon
-                    secondary: "#FEEEE2", // Background color of success icon
-                  },
-                })
-              );
+              showToast(response.data , "success")
               navigate("/home");
             } else {
               // we need to Render Change Password Component
@@ -112,17 +100,7 @@ const Login = () => {
               status === 401 ||
               status === 400
             ) {
-              toast.error(data, {
-                style: {
-                  background: "#FEEEE2", // Background color for success toast
-                  color: "#642F29", // Font color for success toast
-                  fontFamily: "Marcellus", // Font family for success toast
-                },
-                iconTheme: {
-                  primary: " #642F29", // Color of success icon
-                  secondary: "#FFFFFF", // Background color of success icon
-                },
-              });
+              showToast(data , "error")
               setClicked(false)
             }
           }
