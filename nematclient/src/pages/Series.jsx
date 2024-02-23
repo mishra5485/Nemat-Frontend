@@ -35,9 +35,14 @@ const Series = () => {
 
   let { user } = useSelector((store) => store.profile);
 
-  console.log("page ===> ", page);
 
-  // console.log("USER +++> " , user.customer_id)
+
+   if (!user) {
+    return <div>No user information available</div>;
+  }
+
+
+  console.log("USER +++> " , user.customer_id)
 
     useEffect(() => {
       getSeriesDataById()
@@ -232,7 +237,7 @@ const Series = () => {
 
         if (response.status === 200) {
           setInitialTotal(false);
-          toast.success("Product added to cart")
+          // toast.success("Product added to cart")
           setProductDataCart(response.data);
           // console.log("Response Add Cart ====>" , response.data);
           setTotalValue(totalvalue + payload.quantity);

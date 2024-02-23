@@ -20,7 +20,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [changePassword, setChangePassword] = useState(true);
-  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
 
   //Toggling for show password or hide password
@@ -60,7 +59,6 @@ const Login = () => {
           password: values.password,
         };
 
-        setClicked(true)
 
         try {
           let response = await axios.post(
@@ -72,12 +70,11 @@ const Login = () => {
 
           if (response.status === 200) {
             const Customer_id = response.data;
-            setClicked(false)
             dispatch(setUser(Customer_id));
             if (response?.data?.SkipChangeDefaultPasswordPage === 1) {
               //if user success full login and he alredy change the password.
               // Redirect toward Home or Menu page
-              showToast(response.data , "success")
+              // showToast(response.data , "success")
               navigate("/home");
             } else {
               // we need to Render Change Password Component
@@ -100,8 +97,8 @@ const Login = () => {
               status === 401 ||
               status === 400
             ) {
-              showToast(data , "error")
-              setClicked(false)
+              // showToast(data , "error")
+              toast.error(data)
             }
           }
         }
@@ -228,9 +225,8 @@ const Login = () => {
                     <button
                       type="submit"
                       className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
-                       disabled={clicked}
                     >
-                      {clicked ? 'Logging in...' : 'LOG IN'}
+                      {/* {clicked ? 'Logging in...' : 'LOG IN'} */} LOG IN
                     </button>
                     <p className=" text-sm md:text-start font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
                       Don&apos;t have an account? {""}

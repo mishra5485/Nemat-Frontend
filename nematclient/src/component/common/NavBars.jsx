@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slices/profileSlice";
 import { BiSolidUser } from "react-icons/bi";
 import { RxExit } from "react-icons/rx";
+import { setcategoryEmpty } from "../../slices/categorySlice";
 
 const NavBars = () => {
   const [showNavbar, SetShowNavbar] = useState(true);
@@ -31,9 +32,11 @@ const NavBars = () => {
   
   const { user } = useSelector((store) => store.profile);
   const {categoryData} = useSelector((store)=> store.category)
-  const _id = user.customer_id
+  const _id = user?.customer_id
   const dispatch = useDispatch()
   const navigate = useNavigate();
+
+  // console.log("User=========> Navbar" , user)
 
   // useEffect(() => {
   //   // getAllHomePageData();
@@ -136,8 +139,9 @@ const NavBars = () => {
     setIsHovered(false)
   };
 
-  const logoutHandler = () => {
-    dispatch(logout())
+  const logoutHandler = async() => {
+     dispatch(setcategoryEmpty())
+     dispatch(logout())
   }
 
 
