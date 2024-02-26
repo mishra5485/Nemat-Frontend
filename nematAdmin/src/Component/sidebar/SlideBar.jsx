@@ -28,7 +28,7 @@ const Sidebar1 = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  //   const config = getToken();
+    // const config = getToken();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -69,7 +69,6 @@ const Sidebar1 = () => {
         {
           username: userData.username,
         },
-        config
       );
       if (response.status === 200) {
         localStorage.clear();
@@ -352,7 +351,7 @@ const Sidebar1 = () => {
                       Our Policies
                     </NavLink>
                   </li>
-                  {/* <li>
+                  <li>
                     <NavLink
                       to="website/aboutus "
                       onClick={handleMenuItemClick}
@@ -360,7 +359,7 @@ const Sidebar1 = () => {
                     >
                      About Us
                     </NavLink>
-                  </li> */}
+                  </li>
                 </ul>
               </li>
               <NavLink to={"vendors"}>
