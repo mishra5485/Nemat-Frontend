@@ -57,6 +57,7 @@ const Sub_Category = () => {
       if (SubCategory.status === 200) {
         setcategoryData(SubCategory.data);
          setFilteredData(SubCategory.data)
+         console.log(SubCategory.data)
         toast.success(data);
         setLoading(false);
       }
