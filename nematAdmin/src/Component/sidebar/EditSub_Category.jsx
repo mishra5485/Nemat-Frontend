@@ -129,8 +129,14 @@ const EditSub_Category = () => {
     metaDesc: yup.string().min(2).nullable(),
     metaKeyword: yup.string().min(2).nullable(),
     slugUrl: yup.string().nullable(),
-    sgst: yup.string().nullable(),
-    cgst: yup.string().nullable(),
+    sgst: yup.number()
+    .typeError("Please enter a valid number")
+    .integer("Please enter a valid number")
+    .required("Enter the SGST Value"),
+    cgst: yup.number()
+    .typeError("Please enter a valid number")
+    .integer("Please enter a valid number")
+    .required("Enter the CGST Value"),
     packSizes: yup
     .array()
     .of(
@@ -326,6 +332,8 @@ const EditSub_Category = () => {
       value:10
     },
   ]
+
+  // toast.error(errors)
 
   return (
     <div className="overflow-x-hidden">
