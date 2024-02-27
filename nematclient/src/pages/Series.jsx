@@ -29,7 +29,7 @@ const Series = () => {
   const [initialTotal, setInitialTotal] = useState(true);
   const [totalvalue, setTotalValue] = useState(0);
   const [page, setPage] = useState(0); // Current page
-  const [perPage] = useState(6); // Products per page
+  const [perPage] = useState(1); // Products per page
   const [observer, setObserver] = useState(null);
   const bottomElementRef = useRef(null);
 
@@ -90,20 +90,28 @@ const Series = () => {
   // Rest of your component logic here
 
   const getSeriesDataById = async () => {
+
+    const payload = {
+      subcategory_id : _id, 
+      user_id : user.customer_id
+    }
+
     try {
-      let response = await axios.get(
+      let response = await axios.post(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/subcategorypage/getdata/${_id}/${perPage}/${page}`
+        }/subcategorypage/getdata/${perPage}/${page}`,
+        payload
       );
 
       setSeriesData(response.data);
       setQuantityData(response?.data?.QuantitySchemeData);
       const seriesPrdouctData = response.data.SchemeProductsData;
-      // seriesPrdouctData.length === 0
-      //   ? setpauseApiCall(true)
-      //   : setpauseApiCall(false);
-      alltotalValue(response?.data?.SchemeProductsData);
+
+      // alltotalValue(seriesPrdouctData);
+
+      setTotalValue(response.data.SeriestotalQuantity)
+      
       setLoading(false);
       setInitialTotal(true);
 
@@ -332,16 +340,13 @@ const Series = () => {
     }
   };
 
-  const alltotalValue = async (Products) => {
-    // console.log("Products Here ===>", Products);
-
-    const calculatedTotalValue = Products.reduce(
-      (acc, item) => acc + item.TotalQuantityInCart,
-      0
-    );
-    setTotalValue(calculatedTotalValue);
-  };
-
+//   const alltotalValue = async (Products) => {
+//     const calculatedTotalValue = Products.reduce(
+//       (acc, item) => acc + item.TotalQuantityInCart,
+//       totalvalue // Use the current totalValue as the initial accumulator value
+//     );
+//     setTotalValue(calculatedTotalValue);
+// };
   return (
     <div>
       <div>
