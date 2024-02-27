@@ -9,6 +9,7 @@ import Footer from "../component/footer/footer";
 import ContinueCheckout from "./products/ContinueCheckout";
 import { toast } from "react-hot-toast";
 import DeliveredAddAddress from "./DeliveredAddAddress";
+import ProductAddModal from "./ProductAddModal";
 
 const Cart = () => {
   const stateCityData = {
@@ -29,6 +30,8 @@ const Cart = () => {
   const [address, setAddress] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [nodata, setNoData] = useState(false);
+  const [productModal , setProductModal] = useState(false)
+  const [productId , setProductId] = useState()
   
 
   // address
@@ -137,6 +140,11 @@ const Cart = () => {
   };
 
 
+  const handlerPopProduct = (productId) => {
+    setProductId(productId)
+    setProductModal(true)
+  }
+
 
   let nextDiscountPercent = null;
   return (
@@ -196,7 +204,7 @@ const Cart = () => {
                                   key={index}
                                   className="mobile:flex mt-4  mobile:h-[180px] sm:flex sm:h-[180px]"
                                 >
-                                  <div className="mobile:w-[38%] sm:w-[38%] mr-4">
+                                  <div className="mobile:w-[38%] sm:w-[38%] mr-4 ">
                                     <img
                                       src={`${
                                         import.meta.env.VITE_REACT_APP_BASE_URL
@@ -207,7 +215,9 @@ const Cart = () => {
                                       className="mobile:w-full mobile:h-full mobile:object-contain sm:w-full sm:h-full sm:object-contain "
                                     />
                                   </div>
-                                  <div className="mobile:w-[60%] font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center">
+                                  <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center"
+                                    onClick={() => handlerPopProduct(cartProduct.product_id)}
+                                  >
                                     <h1 className="">
                                       {cartProduct.product_name}
                                     </h1>
@@ -228,6 +238,14 @@ const Cart = () => {
                                 </div>
                               ))}
                             </div>
+
+                            {/* Product Pop Details */}
+                            {
+                              productModal && (
+                                <ProductAddModal productId={productId} user={user} setProductModal={setProductModal}/>
+                              )
+                            }
+
                             {/* Mobile View Slider  */}
                             {product.UpsellString !== null ? (
                               <div className="mobile:w-full sm:w-full mt-6 mb-14 border-t-2 border-text_Color border-b-2 cursor-pointer md:hidden sm:block mobile:block font-Marcellus">
