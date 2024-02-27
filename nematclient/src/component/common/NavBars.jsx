@@ -76,7 +76,7 @@ const NavBars = () => {
     {
       id: 1,
       title: "ABOUT",
-      link: "/about",
+      link: "/ourfamily",
     },
     {
       id: 2,
@@ -285,9 +285,11 @@ const NavBars = () => {
                         )}
                       </span>
                     </h1>
+                    <Link to={"/ourfamily"}>
                     <h1 className="hover:underline cursor-pointer font-semibold">
                       ABOUT
                     </h1>
+                    </Link>
                     <Link to={"/contactus"}>
                       <h1 className="hover:underline cursor-pointer font-semibold ">
                         CONTACT
