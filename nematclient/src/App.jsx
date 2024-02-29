@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import ChangePasswordComponent from "./component/ChangePasswordComponent";
 import Policies from "./pages/Policies";
 import AboutUs from "./pages/AboutUs";
+import Search from "./component/Search";
 
 function App() {
   return (
@@ -129,6 +130,15 @@ function App() {
           element={
             <PrivateRoute>
               <AboutUs />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/search"
+          element={
+            <PrivateRoute>
+              <Search />
             </PrivateRoute>
           }
         />
