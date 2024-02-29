@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 const Edit_BannerSlider = () => {
 
@@ -212,7 +213,7 @@ const Edit_BannerSlider = () => {
        <div className="overflow-x-hidden">
          <Toaster/>
       {loading ? (
-        <p>Loading...</p>
+        <p><LoadingSpinner/></p>
       ) : (
         <form
           onSubmit={(e) => {

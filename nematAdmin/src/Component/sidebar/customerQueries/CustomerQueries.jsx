@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../common/LoadingSpinner';
 
 const CustomerQueries = () => {
 
@@ -101,7 +102,7 @@ const CustomerQueries = () => {
 
               <div className="">
                 {loading ? (
-                  <p>Loading...</p>
+                  <p><LoadingSpinner/></p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

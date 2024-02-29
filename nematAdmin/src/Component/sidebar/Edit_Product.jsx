@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const Edit_Product = () => {
   const { _id } = useParams();
@@ -357,7 +358,7 @@ const Edit_Product = () => {
     <div>
       <Toaster />
       {loading ? (
-        <p>Loading...</p>
+        <p><LoadingSpinner/></p>
       ) : (
         <form
           onSubmit={(e) => {

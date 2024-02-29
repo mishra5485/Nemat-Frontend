@@ -6,6 +6,7 @@ import { categoryObjectSchema } from "../../FormValidations/data";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const EditCategory = () => {
   const { _id } = useParams();
@@ -253,7 +254,7 @@ const EditCategory = () => {
     <div className="overflow-x-hidden">
       <Toaster/>
       {loading ? (
-        <p>Loading...</p>
+        <p><LoadingSpinner/></p>
       ) : (
         <form
           onSubmit={(e) => {

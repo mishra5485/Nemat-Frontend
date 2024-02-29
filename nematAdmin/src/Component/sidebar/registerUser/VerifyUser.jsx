@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
 import verifyImage from "../../../assets/verified.gif"
+import LoadingSpinner from '../../common/LoadingSpinner'
 
 
 const VerifyUser = () => {
@@ -44,7 +45,7 @@ const VerifyUser = () => {
       <div>
          <Toaster/>
          {loading ? (
-            <p>Loading...</p>
+            <p><LoadingSpinner/></p>
          ) : (
             displayData ? (
 

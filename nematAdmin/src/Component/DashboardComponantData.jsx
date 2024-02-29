@@ -7,6 +7,7 @@ import moment from "moment";
 import { formattedAmount } from "./common/FormatAmount";
 import { OrderStatus } from "./common/FormatAmount";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 const DashboardComponantData = () => {
   const [OrderManagement, setOrderManagement] = useState([]);
@@ -376,7 +377,7 @@ const DashboardComponantData = () => {
 
               <div className="">
                 {loading ? (
-                  <p>Loading...</p>
+                  <p><LoadingSpinner/></p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

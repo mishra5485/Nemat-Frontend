@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const Category = () => {
   const [showModal, setShowModal] = useState(false);
@@ -553,7 +554,7 @@ const Category = () => {
 
             <div className="overflow-y-auto">
               {loading ? (
-                <p>Loading...</p>
+                <p><LoadingSpinner/></p>
               ) : (
                 <div className="overflow-x-auto overflow-y-auto">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

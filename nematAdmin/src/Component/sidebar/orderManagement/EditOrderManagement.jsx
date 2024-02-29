@@ -6,6 +6,7 @@ import { formattedAmount } from "../../common/FormatAmount";
 import { statusData } from "../../common/FormatAmount";
 import { Documents } from "../../common/FormatAmount"
 import { IoClose } from "react-icons/io5";
+import LoadingSpinner from "../../common/LoadingSpinner";
  
 const EditOrderManagement = () => {
   const [orderData, setOrderData] = useState([]);
@@ -160,7 +161,7 @@ const EditOrderManagement = () => {
   <Toaster />
 
   {loading ? (
-    <p className="text-center text-gray-600 dark:text-gray-400">Loading...</p>
+    <p className="text-center text-gray-600 dark:text-gray-400"><LoadingSpinner/></p>
   ) : (
     <div className="max-w-3xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import LoadingSpinner from '../../common/LoadingSpinner'
 
 const PrevCustomerQueries = () => {
 
@@ -54,7 +55,7 @@ const PrevCustomerQueries = () => {
     </span>
   </h1>
        {loading ? (
-        <p>Loading...</p>
+        <p><LoadingSpinner/></p>
       ) : ( 
          <div>
             <div className="grid gap-4 mb-4 sm:grid-cols-2">

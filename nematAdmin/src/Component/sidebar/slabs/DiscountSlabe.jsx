@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 const DiscountSlabe = () => {
   const [inputSets, setInputSets] = useState([{ id: 1 }]);
@@ -394,7 +395,7 @@ const addInputSet = (e) => {
 
               <div className="">
                 {loading ? (
-                  <p>Loading...</p>
+                  <p><LoadingSpinner/></p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

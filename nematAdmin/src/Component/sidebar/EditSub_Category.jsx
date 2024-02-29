@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const EditSub_Category = () => {
   const { _id } = useParams();
@@ -339,7 +340,7 @@ const EditSub_Category = () => {
     <div className="overflow-x-hidden">
       <Toaster/>
       {loading ? (
-        <p>Loading...</p>
+        <p><LoadingSpinner/></p>
       ) : (
         <form
           onSubmit={(e) => {

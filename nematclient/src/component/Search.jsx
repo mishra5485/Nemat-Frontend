@@ -342,7 +342,7 @@ const Search = () => {
                           {product?.PackSizes.map((packsize, currentIndex) =>
                             currentIndex === product.PackSizes.length ||
                             packsize.size === null ? (
-                              console.log(currentIndex)
+                              ""
                             ) : (
                               <button
                                 key={packsize._id}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import axios from "axios";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const Smtp = () => {
 
@@ -128,7 +129,7 @@ const Smtp = () => {
 
       <div>
         {loading ? (
-          <p>Loading...</p>
+          <p><LoadingSpinner/></p>
         ) : (
           <form
            onSubmit={handleSubmit}
