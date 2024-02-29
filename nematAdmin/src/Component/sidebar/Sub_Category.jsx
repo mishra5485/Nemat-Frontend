@@ -19,6 +19,7 @@ const Sub_Category = () => {
   const [seriesImage, setSeriesImage] = useState(null);
   const [Nodata, setNodata] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,8 +57,8 @@ const Sub_Category = () => {
       );
       if (SubCategory.status === 200) {
         setcategoryData(SubCategory.data);
-         setFilteredData(SubCategory.data)
-         console.log(SubCategory.data)
+        setFilteredData(SubCategory.data);
+        console.log(SubCategory.data);
         toast.success(data);
         setLoading(false);
       }
@@ -227,8 +228,7 @@ const Sub_Category = () => {
         formData.delete("Priority", values.priority);
       }
 
-
-      console.log("packsizes ==> ",values.packSizes)
+      console.log("packsizes ==> ", values.packSizes);
 
       // const payload = {
       //   // Name: values.name,
@@ -262,7 +262,7 @@ const Sub_Category = () => {
           toast.success("New Sub_Category Created  ");
           getAllSubCategory();
           setShowModal(false);
-          resetForm()
+          resetForm();
         }
       } catch (error) {
         if (error.response) {
@@ -401,9 +401,36 @@ const Sub_Category = () => {
   ];
 
   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); 
-    const filtered = categoryData.filter(item => item.Name.toLowerCase().includes(searchTerm)); 
+    const searchTerm = event.target.value.toLowerCase();
+    const filtered = categoryData.filter((item) =>
+      item.Name.toLowerCase().includes(searchTerm)
+    );
     setFilteredData(filtered);
+  };
+
+
+  const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+
+
+    if(selectedCategoryId === "All"){
+             setSelectedCategory("ALL")
+
+      setFilteredData(categoryData)
+
+    }  else{
+             setSelectedCategory(selectedCategoryId)
+
+    // Perform filtering based on the selected category ID
+    // For example, filter your data array based on the selected category ID
+    const filteredItems = categoryData.filter(item => item.Category === selectedCategoryId)
+    setFilteredData(filteredItems)
+    }
+   
+
+
+
+   
   };
 
   return (
@@ -441,9 +468,11 @@ const Sub_Category = () => {
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.name && touched.name ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.name}</p>
-                ) : null}
+                      {errors.name && touched.name ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.name}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -470,9 +499,11 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
-                       {errors.category && touched.category ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.category}</p>
-                ) : null}
+                      {errors.category && touched.category ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.category}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -491,9 +522,11 @@ const Sub_Category = () => {
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.metaTitle && touched.metaTitle ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
-                ) : null}
+                      {errors.metaTitle && touched.metaTitle ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.metaTitle}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -511,9 +544,11 @@ const Sub_Category = () => {
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md resize-none"
                       />
-                       {errors.metaDesc && touched.metaDesc ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
-                ) : null}
+                      {errors.metaDesc && touched.metaDesc ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.metaDesc}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -531,9 +566,11 @@ const Sub_Category = () => {
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.metaKeyword && touched.metaKeyword ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
-                ) : null}
+                      {errors.metaKeyword && touched.metaKeyword ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.metaKeyword}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -552,9 +589,11 @@ const Sub_Category = () => {
                         onBlur={handleBlur}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.slugUrl && touched.slugUrl ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
-                ) : null}
+                      {errors.slugUrl && touched.slugUrl ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.slugUrl}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -584,9 +623,11 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
-                       {errors.vendor && touched.vendor ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.vendor}</p>
-                ) : null}
+                      {errors.vendor && touched.vendor ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.vendor}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -613,9 +654,11 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
-                       {errors.quantity && touched.quantity ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.quantity}</p>
-                ) : null}
+                      {errors.quantity && touched.quantity ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.quantity}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -642,9 +685,11 @@ const Sub_Category = () => {
                           </option>
                         ))}
                       </select>
-                       {errors.priority && touched.priority ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.priority}</p>
-                ) : null}
+                      {errors.priority && touched.priority ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.priority}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -663,9 +708,11 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.sub_category_ML && touched.sub_category_ML ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_ML}</p>
-                ) : null}
+                      {errors.sub_category_ML && touched.sub_category_ML ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.sub_category_ML}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -684,9 +731,11 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.sub_category_SGST && touched.sub_category_SGST ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_SGST}</p>
-                ) : null}
+                      {errors.sub_category_SGST && touched.sub_category_SGST ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.sub_category_SGST}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4">
@@ -705,9 +754,11 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.sub_category_CGST && touched.sub_category_CGST ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.sub_category_CGST}</p>
-                ) : null}
+                      {errors.sub_category_CGST && touched.sub_category_CGST ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.sub_category_CGST}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="flex">
@@ -821,9 +872,11 @@ const Sub_Category = () => {
                         onChange={(e) => handleFileChange(e, "seriesImage")}
                         className="mt-1 p-2 w-full border rounded-md"
                       />
-                       {errors.seriesImage && touched.seriesImage ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.seriesImage}</p>
-                ) : null}
+                      {errors.seriesImage && touched.seriesImage ? (
+                        <p className="font-Marcellus text-start text-red-900">
+                          {errors.seriesImage}
+                        </p>
+                      ) : null}
                       {seriesImage && (
                         <img
                           src={seriesImage}
@@ -879,6 +932,27 @@ const Sub_Category = () => {
                     />
                   </div>
                 </form>
+              </div>
+              <div>
+                <select
+                  id="category"
+                  name="category"
+                  className="py-2 w-full border rounded-md"
+                  onChange={handleCategoryChange}
+                  value={selectedCategory}
+                >
+                  <option value="" disabled>
+                    Select Category
+                  </option>
+                  <option value="All">
+                    All
+                  </option>
+                  {categorySelection?.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.Name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <button
