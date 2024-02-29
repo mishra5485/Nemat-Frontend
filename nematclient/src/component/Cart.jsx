@@ -32,30 +32,32 @@ const Cart = () => {
   const [nodata, setNoData] = useState(false);
   const [productModal , setProductModal] = useState(false)
   const [productId , setProductId] = useState()
-  
-
-  // address
-  const [country, setCountry] = useState([]);
+  const [loadCartData , setLoadCartData] = useState(true)
  
 
   const { user } = useSelector((store) => store.profile);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Promise.all([
-          getAllCartData(),
-          getAllDiscountSlabe(),
-        ]);
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await Promise.all([
+        getAllCartData(),
+        getAllDiscountSlabe(),
+      ]);
 
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  if (loadCartData) {
     fetchData();
-  }, []);
+  }
+
+  setLoadCartData(false)
+}, [loadCartData]);
 
   const getAllCartData = async () => {
     try {
@@ -202,7 +204,8 @@ const Cart = () => {
                               {product.data.map((cartProduct, index) => (
                                 <div
                                   key={index}
-                                  className="mobile:flex mt-4  mobile:h-[180px] sm:flex sm:h-[180px]"
+                                  className="mobile:flex mt-4  mobile:h-[180px] sm:flex sm:h-[180px] cursor-pointer"
+                                  onClick={() => handlerPopProduct(cartProduct.product_id)}
                                 >
                                   <div className="mobile:w-[38%] sm:w-[38%] mr-4 ">
                                     <img
@@ -216,7 +219,7 @@ const Cart = () => {
                                     />
                                   </div>
                                   <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center"
-                                    onClick={() => handlerPopProduct(cartProduct.product_id)}
+                                    
                                   >
                                     <h1 className="">
                                       {cartProduct.product_name}
@@ -242,7 +245,7 @@ const Cart = () => {
                             {/* Product Pop Details */}
                             {
                               productModal && (
-                                <ProductAddModal productId={productId} user={user} setProductModal={setProductModal}/>
+                                <ProductAddModal productId={productId} user={user} setProductModal={setProductModal} setLoadCartData={setLoadCartData}/>
                               )
                             }
 

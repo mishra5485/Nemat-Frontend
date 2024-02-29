@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { formattedAmount } from "./common/FormatAmount";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const ProductAddModal = ({ productId, user, setProductModal }) => {
+const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData }) => {
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState();
   const [packsizeProduct, setPackSizeProduct] = useState([]);
@@ -12,6 +12,7 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
   const [inputValue, setInputValue] = useState();
 
   const [totalQuantity, setTotalQuantity] = useState();
+  const [totalData , setTotalData] = useState(0)
 
   useEffect(() => {
     getProductDataByID();
@@ -57,15 +58,26 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
 
   const validateInput = (event) => {
     let inputValue = event.target.value;
-    console.log(inputValue);
     let numericValue = inputValue.replace(/[^0-9]/g, "");
     event.target.value = numericValue;
     setInputValue(numericValue);
+
+    calculateTotalQuantity(selectedPackSize, numericValue);
   };
 
   const handlePackSizeSelection = (packsize) => {
-    console.log(packsize);
     setSelectedPackSize(packsize);
+    calculateTotalQuantity(packsize, inputValue);
+  };
+
+   const calculateTotalQuantity = (packsize, inputValue) => {
+    if (packsize && inputValue) {
+      const quantity = parseInt(inputValue);
+      const totalQuantity = quantity * packsize; 
+      setTotalData(totalQuantity);
+    } else {
+      setTotalData(0);
+    }
   };
 
   const addToCart = async () => {
@@ -92,6 +104,8 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
           console.log(response.data);
 
           setTotalQuantity(totalQuantity + multipliedValue)
+          setLoadCartData(true)
+          setProductModal(false)
 
         } catch (error) {
           if (error.response) {
@@ -114,6 +128,46 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
       }
     } catch (error) {}
   };
+
+  const resetCartHandler = async () => {
+    try {
+      
+      const payload = {
+        subcategory_id:productData.SubCategoryId,
+         product_id: productData._id,
+          user_id: user.customer_id,
+      }
+
+      let response = await axios.post(
+         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/removeproduct`,
+            payload
+      )
+
+      console.log(response.data);
+      toast.success(response.data)
+      setTotalQuantity(0)
+      setLoadCartData(true)
+      setProductModal(false)
+
+    } catch (error) {
+      if (error.response) {
+            const { status, data } = error.response;
+
+            if (
+              status === 404 ||
+              status === 403 ||
+              status === 500 ||
+              status === 302 ||
+              status === 409 ||
+              status === 401 ||
+              status === 400
+            ) {
+              console.log(error.response);
+              toast.error(data);
+            }
+          }
+    }
+  }
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
@@ -147,7 +201,9 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
                   // onClick={() => handlerPopProduct(cartProduct.product_id)}
                 >
                   <div className="flex justify-end items-end">
-                    <button className="p-2 w-[50%] border-2 border-text_Color rounded-3xl ">
+                    <button className="p-2 w-[50%] border-2 border-text_Color rounded-3xl "
+                      onClick={() => resetCartHandler()}
+                    >
                       Reset Qty
                     </button>
                   </div>
@@ -195,7 +251,7 @@ const ProductAddModal = ({ productId, user, setProductModal }) => {
                         className="mobile:w-full sm:w-full mobile:p-3 sm:p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
                         onClick={() => addToCart()}
                       >
-                        ADD TO CART PCS
+                        ADD TO CART {totalData} PCS
                       </button>
                     </div>
                     <button className="mobile:w-full sm:w-full p-1 border-2 rounded-3xl mt-2 bg-Cream font-Marcellus ">
