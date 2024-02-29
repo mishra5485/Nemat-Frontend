@@ -6,7 +6,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const Product = () => {
   const [AllCategoryData, setAllCategoryData] = useState();
   const [AllSub_CategoryData, setAllSub_CategoryData] = useState();
@@ -22,12 +21,17 @@ const Product = () => {
   // const [isChecked, setIsChecked] = useState(0);
   // const [selectedFragrance, setSelectedFragrance] = useState([]);
 
+  const [subCategoryData, setSubCategoryData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   useEffect(() => {
     if (showModal) {
       getAllData();
+     
       // handlerChangefunction(values.CategoryId);
     }
     getAllProductData();
+     getAllSubCategoryDropDown();
   }, [showModal]);
 
   const getAllData = async () => {
@@ -89,7 +93,7 @@ const Product = () => {
 
       if (FetchAllProductData.status === 200) {
         setAllProductData(FetchAllProductData.data);
-        setFilteredData(FetchAllProductData.data)
+        setFilteredData(FetchAllProductData.data);
         setLoading(false);
       }
     } catch (error) {
@@ -112,6 +116,35 @@ const Product = () => {
     }
   };
 
+  const getAllSubCategoryDropDown = async () => {
+    try {
+      let response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getallforfilter`
+      );
+
+      console.log("dropdown" , response.data);
+      setSubCategoryData(response.data);
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
+    }
+  };
+
+
   console.log(allProductData);
 
   const ProductObject = yup.object({
@@ -129,8 +162,8 @@ const Product = () => {
     //   .min(1)
     //   .max(999999)
     //   .required("Enter the Price Code"),
-    itemName:yup.string().min(2).required("Please Enter Product Name"),
-    hsncode:yup.string().min(2).required("Please Enter Product Name"),
+    itemName: yup.string().min(2).required("Please Enter Product Name"),
+    hsncode: yup.string().min(2).required("Please Enter Product Name"),
     metaTitle: yup.string().min(2).required("Enter Meta Title For Product "),
     metaDesc: yup.string().min(2).required("Emter Meta Desc for Product"),
     metaKeyword: yup.string().min(2).required("Enter Meta Keywords"),
@@ -152,8 +185,8 @@ const Product = () => {
     CategoryId: "",
     sub_CategoryId: "",
     // Price: "",
-    itemName:"",
-    hsncode:"",
+    itemName: "",
+    hsncode: "",
     productimgmultiple: null,
     metaTitle: "",
     metaDesc: "",
@@ -188,8 +221,8 @@ const Product = () => {
       // const selectedFragranceValues = selectedFragrance.map(item => ({ value: item._id }));
       // formData.append("Fragrances", JSON.stringify(selectedFragranceValues));
       // formData.append("AuthenticStepflag", values.AutheticStepFlag);
-      formData.append("Item_Name" , values.itemName)
-      formData.append("HSN_Code" , values.hsncode)
+      formData.append("Item_Name", values.itemName);
+      formData.append("HSN_Code", values.hsncode);
       formData.append("SlugUrl", values.slugUrl);
       formData.append("MetaTitle", values.metaTitle);
       formData.append("MetaDesc", values.metaDesc);
@@ -230,7 +263,7 @@ const Product = () => {
           console.log("New Product Created ");
           toast.success("New Product Created");
           resetForm();
-          setImages([])
+          setImages([]);
         }
       } catch (error) {
         if (error.response) {
@@ -253,12 +286,12 @@ const Product = () => {
     },
   });
 
-    // const handleFileChange = (e) => {
-    //   const File = e.target.files[0];
-    //   console.log( "File ==========>" , File)
-    //   setSelectedImage(URL.createObjectURL(File));
-    //   setFieldValue("productimg", File);
-    // };
+  // const handleFileChange = (e) => {
+  //   const File = e.target.files[0];
+  //   console.log( "File ==========>" , File)
+  //   setSelectedImage(URL.createObjectURL(File));
+  //   setFieldValue("productimg", File);
+  // };
 
   //   const handleFileChange = (e) => {
   //   const file = e.target.files[0];
@@ -374,11 +407,31 @@ const Product = () => {
   //   setSelectedImage('');
   // };
 
-
   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); 
-    const filtered = allProductData.filter(item => item.Name.toLowerCase().includes(searchTerm)); 
+    const searchTerm = event.target.value.toLowerCase();
+    const filtered = allProductData.filter((item) =>
+      item.Name.toLowerCase().includes(searchTerm)
+    );
     setFilteredData(filtered);
+  };
+
+   const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+
+
+    if(selectedCategoryId === "All"){
+             setSelectedCategory("ALL")
+
+      setFilteredData(allProductData)
+
+    }  else{
+             setSelectedCategory(selectedCategoryId)
+
+    // Perform filtering based on the selected category ID
+    // For example, filter your data array based on the selected category ID
+    const filteredItems = allProductData.filter(item => item.SubCategoryId === selectedCategoryId)
+    setFilteredData(filteredItems)
+    }
   };
 
   return (
@@ -398,7 +451,6 @@ const Product = () => {
             handleSubmit(e);
           }}
         >
-
           {/* <div className="m-4 text-start">
       <label className="inline-block text-start mb-2 text-gray-500">
         Upload Image (jpg, png, svg, jpeg)
@@ -462,13 +514,15 @@ const Product = () => {
                 name="productName"
                 value={values.productName}
                 onChange={handleChange}
-                 onBlur={handleBlur}
+                onBlur={handleBlur}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Product Name"
               />
               {errors.productName && touched.productName ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.productName}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.productName}
+                </p>
+              ) : null}
             </div>
             <div className="mb-4">
               <label
@@ -481,16 +535,14 @@ const Product = () => {
                 id="CategoryId"
                 name="CategoryId"
                 value={values.CategoryId}
-                 onBlur={handleBlur}
+                onBlur={handleBlur}
                 onChange={async (event) => {
                   await handleChange(event);
                   handlerChangefunction(event); // removed from here
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="" >
-                  Select Category
-                </option>
+                <option value="">Select Category</option>
                 {AllCategoryData?.map((category) => (
                   <option key={category._id} value={category._id}>
                     {category.Name}
@@ -498,8 +550,10 @@ const Product = () => {
                 ))}
               </select>
               {errors.CategoryId && touched.CategoryId ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.CategoryId}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.CategoryId}
+                </p>
+              ) : null}
             </div>
             <div className="md:col-span-2 mb-4">
               <label
@@ -517,8 +571,10 @@ const Product = () => {
                 className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
               {errors.Description && touched.Description ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.Description}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.Description}
+                </p>
+              ) : null}
             </div>
 
             <div className="mb-4">
@@ -546,8 +602,10 @@ const Product = () => {
                 ))}
               </select>
               {errors.sub_CategoryId && touched.sub_CategoryId ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.sub_CategoryId}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.sub_CategoryId}
+                </p>
+              ) : null}
             </div>
 
             {/* Multiplse section tag for Fragrance */}
@@ -629,7 +687,6 @@ const Product = () => {
               />
             </div> */}
 
-
             <div>
               <label className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white">
                 Item Name
@@ -645,8 +702,10 @@ const Product = () => {
                 placeholder="Enter Product Item Name "
               />
               {errors.itemName && touched.itemName ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.itemName}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.itemName}
+                </p>
+              ) : null}
             </div>
 
             <div>
@@ -664,11 +723,13 @@ const Product = () => {
                 placeholder="Enter Product Name"
               />
               {errors.hsncode && touched.hsncode ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.hsncode}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.hsncode}
+                </p>
+              ) : null}
             </div>
 
-            <br/>
+            <br />
 
             <div className="m-4 text-start">
               <label className="inline-block text-start mb-2 text-gray-500">
@@ -686,22 +747,24 @@ const Product = () => {
                       multiple
                     />
                     {errors.file && touched.file ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.file}</p>
-                ) : null}
+                      <p className="font-Marcellus text-start text-red-900">
+                        {errors.file}
+                      </p>
+                    ) : null}
                   </div>
                 </label>
               </div>
             </div>
-             <div className="grid grid-cols-3 gap-4 w-full">
-                      {images.map((blobUrl, index) => (
-                        <img
-                          key={index}
-                          src={blobUrl}
-                          alt={`Selected Product Image ${index + 1}`}
-                          className="object-cover w-full h-[200px] rounded-lg"
-                        />
-                      ))}
-                </div>
+            <div className="grid grid-cols-3 gap-4 w-full">
+              {images.map((blobUrl, index) => (
+                <img
+                  key={index}
+                  src={blobUrl}
+                  alt={`Selected Product Image ${index + 1}`}
+                  className="object-cover w-full h-[200px] rounded-lg"
+                />
+              ))}
+            </div>
             <br />
 
             {/* { Other Section  } */}
@@ -755,8 +818,10 @@ const Product = () => {
                 required
               />
               {errors.slugUrl && touched.slugUrl ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.slugUrl}
+                </p>
+              ) : null}
             </div>
             <div>
               <label
@@ -776,8 +841,10 @@ const Product = () => {
                 required
               />
               {errors.metaTitle && touched.metaTitle ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaTitle}
+                </p>
+              ) : null}
             </div>
             <div>
               <label
@@ -798,8 +865,10 @@ const Product = () => {
                 required
               />
               {errors.metaKeyword && touched.metaKeyword ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaKeyword}
+                </p>
+              ) : null}
             </div>
             <div className="md:col-span-2 mb-4">
               <label
@@ -817,26 +886,27 @@ const Product = () => {
                 className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
               {errors.metaDesc && touched.metaDesc ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
-                ) : null}
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaDesc}
+                </p>
+              ) : null}
             </div>
           </div>
           <div className="flex justify-start gap-4">
-
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowModal(false)}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              Submit
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-            Back
-          </button>
-            </div>
+              Back
+            </button>
+          </div>
         </form>
       ) : (
         // Display All Data OF Product
@@ -862,6 +932,27 @@ const Product = () => {
                     </div>
                   </form>
                 </div>
+                 <div>
+                <select
+                  id="category"
+                  name="category"
+                  className="py-2 w-full border rounded-md"
+                  onChange={handleCategoryChange}
+                  value={selectedCategory}
+                >
+                  <option value="" disabled>
+                    Select Sub-Category
+                  </option>
+                  <option value="All">
+                    All
+                  </option>
+                  {subCategoryData?.map((subcategory) => (
+                    <option key={subcategory._id} value={subcategory._id}>
+                      {subcategory.Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                   <button
                     className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
