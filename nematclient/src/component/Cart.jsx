@@ -12,14 +12,6 @@ import DeliveredAddAddress from "./DeliveredAddAddress";
 import ProductAddModal from "./ProductAddModal";
 
 const Cart = () => {
-  const stateCityData = {
-    India: {
-      Maharashtra: ["Mumbai", "Pune", "Nagpur"],
-      Delhi: ["New Delhi"],
-      // Add more states and cities as needed
-    },
-  };
-
   const [loading, setLoading] = useState(true);
   const [productDisplay, setProductDisplay] = useState();
   const [expandedIndices, setExpandedIndices] = useState([]);
@@ -30,34 +22,33 @@ const Cart = () => {
   const [address, setAddress] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [nodata, setNoData] = useState(false);
-  const [productModal , setProductModal] = useState(false)
-  const [productId , setProductId] = useState()
-  const [loadCartData , setLoadCartData] = useState(true)
- 
+  const [productModal, setProductModal] = useState(false);
+  const [productId, setProductId] = useState();
+  const [loadCartData, setLoadCartData] = useState(true);
 
   const { user } = useSelector((store) => store.profile);
   const navigate = useNavigate();
 
- useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await Promise.all([
-        getAllCartData(),
-        getAllDiscountSlabe(),
-      ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Promise.all([
+          getAllCartData(),
+          getAllDiscountSlabe(),
+        ]);
 
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    if (loadCartData) {
+      fetchData();
     }
-  };
 
-  if (loadCartData) {
-    fetchData();
-  }
-
-  setLoadCartData(false)
-}, [loadCartData]);
+    setLoadCartData(false);
+  }, [loadCartData]);
 
   const getAllCartData = async () => {
     try {
@@ -77,7 +68,7 @@ const Cart = () => {
       setAddress(response.data.ShippingAddress);
       setLoading(false);
 
-      // console.log(response.data);
+      console.log(response.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -141,12 +132,10 @@ const Cart = () => {
     }
   };
 
-
   const handlerPopProduct = (productId) => {
-    setProductId(productId)
-    setProductModal(true)
-  }
-
+    setProductId(productId);
+    setProductModal(true);
+  };
 
   let nextDiscountPercent = null;
   return (
@@ -205,7 +194,9 @@ const Cart = () => {
                                 <div
                                   key={index}
                                   className="mobile:flex mt-4  mobile:h-[180px] sm:flex sm:h-[180px] cursor-pointer"
-                                  onClick={() => handlerPopProduct(cartProduct.product_id)}
+                                  onClick={() =>
+                                    handlerPopProduct(cartProduct.product_id)
+                                  }
                                 >
                                   <div className="mobile:w-[38%] sm:w-[38%] mr-4 ">
                                     <img
@@ -218,9 +209,7 @@ const Cart = () => {
                                       className="mobile:w-full mobile:h-full mobile:object-contain sm:w-full sm:h-full sm:object-contain "
                                     />
                                   </div>
-                                  <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center"
-                                    
-                                  >
+                                  <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center">
                                     <h1 className="">
                                       {cartProduct.product_name}
                                     </h1>
@@ -243,11 +232,14 @@ const Cart = () => {
                             </div>
 
                             {/* Product Pop Details */}
-                            {
-                              productModal && (
-                                <ProductAddModal productId={productId} user={user} setProductModal={setProductModal} setLoadCartData={setLoadCartData}/>
-                              )
-                            }
+                            {productModal && (
+                              <ProductAddModal
+                                productId={productId}
+                                user={user}
+                                setProductModal={setProductModal}
+                                setLoadCartData={setLoadCartData}
+                              />
+                            )}
 
                             {/* Mobile View Slider  */}
                             {product.UpsellString !== null ? (
@@ -282,7 +274,12 @@ const Cart = () => {
                     ))}
 
                     {/* Add Address  */}
-                    <DeliveredAddAddress address={address} setAddress={setAddress} selectedAddressId={selectedAddressId} setSelectedAddressId={setSelectedAddressId}/>
+                    <DeliveredAddAddress
+                      address={address}
+                      setAddress={setAddress}
+                      selectedAddressId={selectedAddressId}
+                      setSelectedAddressId={setSelectedAddressId}
+                    />
                   </div>
 
                   <div className="mobile:w-[96%] sm:w-[96%]  mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
@@ -360,7 +357,7 @@ const Cart = () => {
                                         // Store the next value in the variable
                                         if (nextMatch) {
                                           nextDiscountPercent =
-                                            nextMatch.discountPercent;
+                                            nextMatch.discountPercent;  
                                         }
 
                                         return (
@@ -391,12 +388,12 @@ const Cart = () => {
                                     }
                                   )}
                                 </div>
-                                <div className="bg-text_Color2 p-2  text-center">
+                                <div className="bg-text_Color2 p-2 text-center">
                                   {discountItem.DiscountSlabs.map(
                                     (total, index) => (
                                       <div
                                         key={index}
-                                        className="w-[80%] mx-auto text-white font-Marcellus "
+                                        className="w-[80%] mx-auto text-white font-Marcellus"
                                       >
                                         {data.totalSeriesPrice >= total.from &&
                                         data.totalSeriesPrice <= total.to ? (
@@ -412,8 +409,18 @@ const Cart = () => {
                                       </div>
                                     )
                                   )}
+                                  {discountItem.DiscountSlabs.every(
+                                    (total) =>
+                                      data.totalSeriesPrice > total.from
+                                  ) && (
+                                    <div className="w-[80%] mx-auto text-white font-Marcellus">
+                                      <h1>
+                                        Congratulations You Reach Your max Limit
+                                      </h1>
+                                    </div>
+                                  )}
                                 </div>
-                              </div>
+                              </div>  
                             )}
                           </div>
                         ))}
