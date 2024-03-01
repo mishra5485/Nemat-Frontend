@@ -487,7 +487,7 @@ const Series = () => {
                     <div className="mobile:w-[55%] sm:w-[55%]">
                       <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                         {product.Name}{" "}
-                        <span className="px-2 bg-text_Color text-white rounded-xl md:ml-3">
+                        <span className="px-3 bg-text_Color text-white rounded-full mobile:ml-2 md:ml-3">
                           i
                         </span>
                       </h1>
@@ -527,7 +527,7 @@ const Series = () => {
                                 }
                               >
                                 {/* Render packsize information */}
-                                {packsize.size} {packsize.nameConvention}
+                                {packsize.size}  {packsize.nameConvention}
                               </button>
                             )
                         )}
@@ -542,7 +542,7 @@ const Series = () => {
                           <input
                             type="text"
                             id={`quantity_${index}`}
-                            className="p-2 border-2 rounded-3xl mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
+                            className="p-2 border-[1px] rounded-3xl border-text_Color mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
                             value={quantities[index]}
                             onChange={(event) => validateInput(event, index)}
                             required

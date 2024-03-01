@@ -25,7 +25,7 @@ const Profile = () => {
 
       <div className="w-full">
         <div className="w-[90%] mx-auto ">
-          <div className="flex w-full text-text_Color font-roxborough font-bold border-b-2 pb-5 border-text_Color ">
+          <div className="flex w-full mt-8 text-text_Color font-roxborough font-bold border-b-2 pb-5 border-text_Color ">
             <VscAccount
               size={25}
               className="bg-Cream rounded-full my-auto mr-5 ml-2"
