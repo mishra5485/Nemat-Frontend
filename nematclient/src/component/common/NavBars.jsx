@@ -30,9 +30,9 @@ const NavBars = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isModal, setIsModal] = useState(false);
 
-  // const [isScrollingUp, setIsScrollingUp] = useState(false);
-  // const [prevScrollPos, setPrevScrollPos] = useState(0);
-  // const [isHovereds, setIsHovereds] = useState(false);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isHovereds, setIsHovereds] = useState(false);
 
   const { user } = useSelector((store) => store.profile);
   const { categoryData } = useSelector((store) => store.category);
@@ -148,23 +148,23 @@ const NavBars = () => {
     dispatch(logout());
   };
 
-  // console.log("categoryData ====> " , categoryData)
+  console.log("categoryData ====> " , categoryData)
 
-  //  useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollPos = window.pageYOffset;
-  //     setIsScrollingUp(currentScrollPos < prevScrollPos && currentScrollPos > 0);
-  //     setPrevScrollPos(currentScrollPos);
-  //   };
+   useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setIsScrollingUp(currentScrollPos < prevScrollPos && currentScrollPos > 0);
+      setPrevScrollPos(currentScrollPos);
+    };
 
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [prevScrollPos]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
   return (
-    // <header
-    //   className={`w-full  bg-Cream left-0 z-40 top-0 ${isScrollingUp  ? "fixed" : ""}`}
-    // >
+    <header
+      className={`w-full  bg-LightCream left-0 z-40 top-0 ${isScrollingUp  ? "fixed" : ""}`}
+    >
     <div className="custom-scrollbar  ">
       <header className=" w-full left-0 z-0 top-0">
         <div className="w-[100%]">
@@ -262,7 +262,9 @@ const NavBars = () => {
                 onS
               >
                 <div className="md:hidden">
+                  <Link to={"/search"}>
                   <IoSearchOutline size={30} color="" />
+                  </Link>
                 </div>
                 <div className="flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  font-Marcellus relative ">
                   <h1
@@ -392,7 +394,7 @@ const NavBars = () => {
             {/* Shop On Hover  */}
             {isHovered ? (
               <div
-                className="absolute w-full bg-LightCream  flex justify-center z-20"
+                className=" w-full bg-LightCream h-auto flex justify-center z-20"
                 onMouseLeave={() => setIsHovered(false)}
               >
                 <div className="flex w-[90%] justify-between ">
@@ -437,7 +439,7 @@ const NavBars = () => {
         )}
       </header>
     </div>
-    // </header>
+    </header>
   );
 };
 
