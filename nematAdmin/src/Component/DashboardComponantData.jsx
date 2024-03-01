@@ -208,7 +208,7 @@ const DashboardComponantData = () => {
         console.log("Filltered Data is here ===> ", response.data);
         setFilteredOrders([]);
         setOrderManagement([]);
-        setOrderStatus([])
+        setOrderStatus([]);
         setOrderManagement(response.data.OrderData);
         setFilteredOrders(response.data.OrderData);
         setOrderStatus(response.data.OrderStats);
@@ -252,11 +252,11 @@ const DashboardComponantData = () => {
   return (
     <div className="">
       <Toaster />
-      <div className="w-full">
+      <div className="w-full flex justify-between  border-b-2 border-text_Color">
         <select
           id="docStatus"
           onChange={filehandlerselect}
-          className="w-[70%] bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 mb-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
+          className="w-[25%] h-11 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-1  px-2 mb-4 "
         >
           <option>Select Date</option>
           {dropDownData.map((filterData) => (
@@ -268,11 +268,11 @@ const DashboardComponantData = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="w-full mx-auto p-4 bg-gray-100 shadow-md rounded-md "
+          className="w-[50%] shadow-md rounded-md mb-4 "
         >
-          <div className="w-[100%] flex justify-end items-end ">
-            <div className="flex justify-center items-center">
-              <div className="flex flex-col w-full lg:w-auto">
+          <div className="w-[100%]">
+            <div className="flex justify-between text-text_Color ">
+              <div className="flex flex-col w-full pr-3 ">
                 <label htmlFor="fromDate" className="text-gray-700">
                   From Date
                 </label>
@@ -288,13 +288,17 @@ const DashboardComponantData = () => {
                       ? "border-red-500"
                       : "border-gray-300"
                   }`}
+                  style={{
+                    border: "1px solid #60713A", // Set border color to #60713A // Set background color to #60713A
+                    color: "#60713A", // Set text color to white, assuming #ffffff contrasts well with #60713A
+                  }}
                 />
                 {touched.fromDate && errors.fromDate && (
                   <div className="text-red-500">{errors.fromDate}</div>
                 )}
               </div>
 
-              <div className="flex flex-col w-full lg:w-auto">
+              <div className="flex flex-col w-full pr-3">
                 <label htmlFor="toDate" className="text-gray-700">
                   To Date
                 </label>
@@ -318,7 +322,7 @@ const DashboardComponantData = () => {
 
               <button
                 type="submit"
-                className="w-full mt-6 lg:w-auto bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600"
+                className="w-full mt-6 pr-3 lg:w-auto bg-text_Color2 text-white font-semibold py-2 px-4 rounded-xl"
               >
                 Submit
               </button>
@@ -327,74 +331,68 @@ const DashboardComponantData = () => {
         </form>
       </div>
 
+     
       {orderStatus && orderStatus.length !== 0 ? (
-        <div>
-          <h1 className="mt-6 text-2xl text-center font-bold mb-4">
+        <div className="mt-6">
+          <h1 className="mt-6 text-2xl text-text_Color  font-bold mb-4">
             Order Status
           </h1>
-          <div className="flex flex-wrap justify-center items-center">
+          <div className="flex justify-between mx-auto">
             {orderStatus.map((orderData, index) => (
               <div
                 key={index}
-                className="w-[90%] sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 sm:h-[150px] lg:h-[100px] xl:h-[100px] bg-gray-400  border-2 border-black mb-4  p-4"
+                className="w-[95%] flex justify-center items-center "
               >
-                <p className="text-center text-lg text-gray-800 font-semibold">
-                  {orderData.Name}
+                <div className="p-3 border-2 border-text_Color rounded-xl w-[90%] flex flex-col justify-between ">
+                <p className="text-start text-xl h-[45px] text-text_Color  font-semibold w-[90%]">
+                  {orderData.Name} :-
                 </p>
-                <h1 className="text-3xl text-center text-white mt-2 font-bold">
+                <h1 className="text-3xl text-start text-text_Color mt-2 font-bold">
                   {orderData.Value}
                 </h1>
+                  </div>
               </div>
             ))}
           </div>
         </div>
       ) : null}
 
-      <div>
-        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
-          <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
-            <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-                <div className="w-full md:w-1/2">
+      <div className="">
+        <section className=" p-3 sm:p-5 antialiased mt-4">
+          <div className="mx-auto   ">
+            <div className=" relative ">
+              
+                <div className="w-full md:w-1/2 mb-4">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
                     </label>
-                    <div className="relative w-full">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
+                    <div className="relative w-[70%]">
+                      <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
                         id="simple-search"
                         placeholder="Search for Order Number"
                         required=""
                         onChange={handleSearch}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        className="border-[1px] border-text_Color text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2 "
                       />
                     </div>
                   </form>
                 </div>
-              </div>
+             
 
               <div className="">
                 {loading ? (
-                  <p><LoadingSpinner/></p>
+                  <p>
+                    <LoadingSpinner />
+                  </p>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                      <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <div className="overflow-x-auto  border-[1px] border-text_Color rounded-lg">
+                   <table className="w-full text-sm text-left rounded-2xl  ">
+                      <thead className="text-xs w-full text-white border-[1px] uppercase bg-text_Color2 rounded-2xl">
                         <tr className="w-full ">
-                          <th scope="col" className="p-4">
-                            <div className="flex items-center">
-                              <input
-                                id="checkbox-all"
-                                type="checkbox"
-                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label htmlFor="checkbox-all" className="sr-only">
-                                checkbox
-                              </label>
-                            </div>
-                          </th>
+                          <th></th>
                           <th scope="col" className="p-4">
                             Order Number
                           </th>
@@ -414,7 +412,7 @@ const DashboardComponantData = () => {
                       </thead>
 
                       {!filteredOrders || filteredOrders.length === 0 ? (
-                        <p>NO data Found</p>
+                        <p className="px-4 text-xl  mt-2">NO data Found</p>
                       ) : (
                         filteredOrders?.map((item) => (
                           <tbody key={item._id}>
@@ -474,71 +472,6 @@ const DashboardComponantData = () => {
                   </div>
                 )}
               </div>
-
-              <nav
-                className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                aria-label="Table navigation"
-              >
-                <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </section>

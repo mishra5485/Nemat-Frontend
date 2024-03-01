@@ -33,7 +33,7 @@ const Category = () => {
       );
 
       setAllCategoryData(allCategoryResponse.data);
-      setFilteredData(allCategoryResponse.data)
+      setFilteredData(allCategoryResponse.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -260,194 +260,209 @@ const Category = () => {
     },
   ];
 
-   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); 
-    const filtered = allCategoryData.filter(item => item.Name.toLowerCase().includes(searchTerm)); 
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    const filtered = allCategoryData.filter((item) =>
+      item.Name.toLowerCase().includes(searchTerm)
+    );
     setFilteredData(filtered);
   };
 
   return (
     <div className="overflow-hidden">
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Category Page
-        </span>
-      </h1>
+
+        <div className="mt-4 mb-6 text-text_Color text-4xl text-start pb-6 border-b-2 border-text_Color">
+
+          <h1>Category Page</h1>
+        </div>
+      
+      <Toaster />
       {showModal ? (
         <>
-          <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="  z-50 outline-none focus:outline-none">
-                  <form
-                    className="max-w-md mx-auto p-4 bg-white rounded-md shadow-md"
-                    onSubmit={handleSubmit}
-                  >
-                    {/* Input fields */}
-                    <div className="mb-4">
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={values.name}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      />
-                       {errors.name && touched.name ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.name}</p>
-                ) : null}
-                    </div>
+          <form
+            onSubmit={handleSubmit}
+          >
+            {/* Input fields */}
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="">
+              <label
+                htmlFor="name"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              {errors.name && touched.name ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.name}
+                </p>
+              ) : null}
+            </div>
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="metaTitle"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Meta Title
-                      </label>
-                      <input
-                        type="text"
-                        id="metaTitle"
-                        name="metaTitle"
-                        value={values.metaTitle}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      />
-                       {errors.metaTitle && touched.metaTitle ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaTitle}</p>
-                ) : null}
-                    </div>
+            <div className="">
+              <label
+                htmlFor="metaTitle"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta Title
+              </label>
+              <input
+                type="text"
+                id="metaTitle"
+                name="metaTitle"
+                value={values.metaTitle}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="metaDesc"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Meta Description
-                      </label>
-                      <textarea
-                        id="metaDesc"
-                        name="metaDesc"
-                        value={values.metaDesc}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md resize-none"
-                      />
-                       {errors.metaDesc && touched.metaDesc ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaDesc}</p>
-                ) : null}
-                    </div>
+              />
+              {errors.metaTitle && touched.metaTitle ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaTitle}
+                </p>
+              ) : null}
+            </div>
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="metaKeyword"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Meta Keyword
-                      </label>
-                      <input
-                        type="text"
-                        id="metaKeyword"
-                        onChange={handleChange}
-                        value={values.metaKeyword}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      />
-                       {errors.metaKeyword && touched.metaKeyword ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.metaKeyword}</p>
-                ) : null}
-                    </div>
+            <div className="md:col-span-2 mb-4">
+              <label
+                htmlFor="metaDesc"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta Description
+              </label>
+              <textarea
+                id="metaDesc"
+                name="metaDesc"
+                value={values.metaDesc}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              {errors.metaDesc && touched.metaDesc ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaDesc}
+                </p>
+              ) : null}
+            </div>
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="slugUrl"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Slug URL
-                      </label>
-                      <input
-                        type="text"
-                        id="slugUrl"
-                        name="slugUrl"
-                        value={values.slugUrl}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      />
-                       {errors.slugUrl && touched.slugUrl ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.slugUrl}</p>
-                ) : null}
-                    </div>
+            <div className="">
+              <label
+                htmlFor="metaKeyword"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Meta Keyword
+              </label>
+              <input
+                type="text"
+                id="metaKeyword"
+                onChange={handleChange}
+                value={values.metaKeyword}
+                onBlur={handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              {errors.metaKeyword && touched.metaKeyword ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.metaKeyword}
+                </p>
+              ) : null}
+            </div>
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="cartDiscount"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Cart Discount Slab
-                      </label>
-                      <select
-                        id="cartDiscount"
-                        name="cartDiscount"
-                        value={values.cartDiscount}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                        required
-                      >
-                        <option value="" disabled>
-                          Select Cart Discount Slab
-                        </option>
-                        {slabeData?.map((slaboption) => (
-                          <option key={slaboption._id} value={slaboption._id}>
-                            {slaboption.Name}
-                          </option>
-                        ))}
-                      </select>
-                           {errors.cartDiscount && touched.cartDiscount ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.cartDiscount}</p>
-                ) : null}
-                    </div>
+            <div className="">
+              <label
+                htmlFor="slugUrl"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Slug URL
+              </label>
+              <input
+                type="text"
+                id="slugUrl"
+                name="slugUrl"
+                value={values.slugUrl}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              {errors.slugUrl && touched.slugUrl ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.slugUrl}
+                </p>
+              ) : null}
+            </div>
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="priority"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Category Priority
-                      </label>
-                      <select
-                        id="priority"
-                        name="priority"
-                        value={values.priority}
-                        onChange={handleChange}
-                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
-                      >
-                        <option value="" disabled>
-                          Select Priority of Category
-                        </option>
-                        {privorityCategory.map((number) => (
-                          <option key={number.id} value={number.value}>
-                            {number.value}
-                          </option>
-                        ))}
-                      </select>
-                       {errors.priority && touched.priority ? (
-                  <p className="font-Marcellus text-start text-red-900">{errors.priority}</p>
-                ) : null}
-                    </div>
+            <div className="">
+              <label
+                htmlFor="cartDiscount"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Cart Discount Slab
+              </label>
+              <select
+                id="cartDiscount"
+                name="cartDiscount"
+                value={values.cartDiscount}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              >
+                <option value="" disabled>
+                  Select Cart Discount Slab
+                </option>
+                {slabeData?.map((slaboption) => (
+                  <option key={slaboption._id} value={slaboption._id}>
+                    {slaboption.Name}
+                  </option>
+                ))}
+              </select>
+              {errors.cartDiscount && touched.cartDiscount ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.cartDiscount}
+                </p>
+              ) : null}
+            </div>
 
-                    {/* File inputs */}
-                    {/* <div className="mb-4">
+            <div className="">
+              <label
+                htmlFor="priority"
+                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Category Priority
+              </label>
+              <select
+                id="priority"
+                name="priority"
+                value={values.priority}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="" disabled>
+                  Select Priority of Category
+                </option>
+                {privorityCategory.map((number) => (
+                  <option key={number.id} value={number.value}>
+                    {number.value}
+                  </option>
+                ))}
+              </select>
+              {errors.priority && touched.priority ? (
+                <p className="font-Marcellus text-start text-red-900">
+                  {errors.priority}
+                </p>
+              ) : null}
+            </div>
+
+            {/* File inputs */}
+            {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
@@ -471,7 +486,7 @@ const Category = () => {
                       )}
                     </div> */}
 
-                    {/* <div className="mb-4">
+            {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
@@ -495,128 +510,125 @@ const Category = () => {
                       )}
                     </div> */}
 
-                    {/* Submit button */}
-                    <div className="flex justify-between mt-4">
-                      <button
-                        type="button"
-                        onClick={() => setShowModal(false)}
-                        className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      >
-                        Submit
-                      </button>
+            {/* Submit button */}
+            <div className="flex mt-4">
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 mr-5  text-black border-2 rounded-md hover:bg-gray-600"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2  bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              >
+                Submit
+              </button>
+            </div>
+            </div>
+          </form>
+        </>
+      ) : (
+        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased ">
+          <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
+            <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+                <div className="w-full md:w-1/2">
+                  <form className="flex items-center">
+                    <label htmlFor="simple-search" className="sr-only">
+                      Search
+                    </label>
+                    <div className="relative w-full">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
+                      <input
+                        type="text"
+                        placeholder="Search for products"
+                        required=""
+                        onChange={(event) => handleSearch(event)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      />
                     </div>
                   </form>
                 </div>
+                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                  <button
+                    className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(true)}
+                  >
+                    + Create Category
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-      <Toaster />
-      <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased ">
-        <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
-          <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-              <div className="w-full md:w-1/2">
-                <form className="flex items-center">
-                  <label htmlFor="simple-search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
-                    <input
-                      type="text"
-                      placeholder="Search for products"
-                      required=""
-                      onChange={(event) => handleSearch(event)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                <button
-                  className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setShowModal(true)}
-                >
-                  + Create Category
-                </button>
-              </div>
-            </div>
 
-            <div className="overflow-y-auto">
-              {loading ? (
-                <p><LoadingSpinner/></p>
-              ) : (
-                <div className="overflow-x-auto overflow-y-auto">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr className="w-full ">
-                        <th scope="col" className="p-4">
-                          <div className="flex items-center">
-                            <input
-                              id="checkbox-all"
-                              type="checkbox"
-                              className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label htmlFor="checkbox-all" className="sr-only">
-                              checkbox
-                            </label>
-                          </div>
-                        </th>
-                        {/* <th scope="col" className="p-4">
+              <div className="overflow-y-auto">
+                {loading ? (
+                  <p>
+                    <LoadingSpinner />
+                  </p>
+                ) : (
+                  <div className="overflow-x-auto overflow-y-auto">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                      <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr className="w-full ">
+                          <th scope="col" className="p-4">
+                            <div className="flex items-center">
+                              <input
+                                id="checkbox-all"
+                                type="checkbox"
+                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              />
+                              <label htmlFor="checkbox-all" className="sr-only">
+                                checkbox
+                              </label>
+                            </div>
+                          </th>
+                          {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
                         <th scope="col" className="p-4">
                           Desktop Image
                         </th> */}
-                        <th scope="col" className="p-4">
-                          Category
-                        </th>
-                        <th scope="col" className="p-4">
-                          Cart Discount Name
-                        </th>
-                        <th scope="col" className="p-4">
-                          PRIORITY
-                        </th>
+                          <th scope="col" className="p-4">
+                            Category
+                          </th>
+                          <th scope="col" className="p-4">
+                            Cart Discount Name
+                          </th>
+                          <th scope="col" className="p-4">
+                            PRIORITY
+                          </th>
 
-                        <th scope="col" className="p-4">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
+                          <th scope="col" className="p-4">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
 
-                    {!filteredData || filteredData.length === 0 ? (
-                      <p>NO data Found</p>
-                    ) : (
-                      filteredData.map((item) => (
-                        <tbody key={item._id}>
-                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td className="p-4 w-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="checkbox-table-search-1"
-                                  type="checkbox"
-                                  onClick={handleForm}
-                                  className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                  htmlFor="checkbox-table-search-1"
-                                  className="sr-only"
-                                >
-                                  checkbox
-                                </label>
-                              </div>
-                            </td>
-                            {/* <th
+                      {!filteredData || filteredData.length === 0 ? (
+                        <p>NO data Found</p>
+                      ) : (
+                        filteredData.map((item) => (
+                          <tbody key={item._id}>
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <td className="p-4 w-4">
+                                <div className="flex items-center">
+                                  <input
+                                    id="checkbox-table-search-1"
+                                    type="checkbox"
+                                    onClick={handleForm}
+                                    className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label
+                                    htmlFor="checkbox-table-search-1"
+                                    className="sr-only"
+                                  >
+                                    checkbox
+                                  </label>
+                                </div>
+                              </td>
+                              {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -630,7 +642,7 @@ const Category = () => {
                               />
                             </div>
                           </th> */}
-                            {/* <th
+                              {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
@@ -643,115 +655,116 @@ const Category = () => {
                               />
                             </div>
                           </th> */}
-                            <td className="px-4 py-3">
-                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                                {item.Name}
-                              </span>
-                            </td>
-                            <td className="px-4 py-3">
-                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                                {item.CartDiscountName}
-                              </span>
-                            </td>
-                            <td className="px-8 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.Priority}
-                            </td>
+                              <td className="px-4 py-3">
+                                <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                  {item.Name}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3">
+                                <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                  {item.CartDiscountName}
+                                </span>
+                              </td>
+                              <td className="px-8 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.Priority}
+                              </td>
 
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              <div className="flex items-center space-x-4">
-                                <button
-                                  type="button"
-                                  onClick={() => editHandlerDir(item._id)}
-                                  className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
-                                  Edit
-                                </button>
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div className="flex items-center space-x-4">
+                                  <button
+                                    type="button"
+                                    onClick={() => editHandlerDir(item._id)}
+                                    className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                  >
+                                    Edit
+                                  </button>
 
-                                <button
-                                  type="button"
-                                  onClick={() => DeleteHandler(item._id)}
-                                  className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      ))
-                    )}
-                  </table>
-                </div>
-              )}
+                                  <button
+                                    type="button"
+                                    onClick={() => DeleteHandler(item._id)}
+                                    className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      )}
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <nav
+                className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                aria-label="Table navigation"
+              >
+                <ul className="inline-flex items-stretch -space-x-px">
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <span className="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      1
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      2
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      aria-current="page"
+                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                    >
+                      3
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      ...
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      100
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <span className="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-
-            <nav
-              className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-              aria-label="Table navigation"
-            >
-              <ul className="inline-flex items-stretch -space-x-px">
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    <span className="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    1
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    2
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    aria-current="page"
-                    className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                  >
-                    3
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    ...
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    100
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    <span className="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };
