@@ -19,6 +19,7 @@ import ChangePasswordComponent from "./component/ChangePasswordComponent";
 import Policies from "./pages/Policies";
 import AboutUs from "./pages/AboutUs";
 import Search from "./component/Search";
+import SellesOrder from "./component/SellesOrder";
 
 function App() {
   return (
@@ -142,6 +143,16 @@ function App() {
             </PrivateRoute>
           }
         />
+
+           <Route
+          path="/seles"
+          element={
+            <PrivateRoute>
+              <SellesOrder/>
+            </PrivateRoute>
+          }
+        />
+
 
         {/* Error Router  */}
         <Route path="*" element={<Error />} />
