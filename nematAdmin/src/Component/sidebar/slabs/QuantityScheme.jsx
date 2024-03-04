@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-import { FaTrashAlt } from "react-icons/fa";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { IoMdAddCircle } from "react-icons/io";
 
 const QuantityScheme = () => {
   const [inputSets, setInputSets] = useState([{ id: 1 }]);
@@ -200,11 +201,10 @@ const QuantityScheme = () => {
     <div>
       <Toaster />
 
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Quantity Scheme
-        </span>
-      </h1>
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+          <h1>Quantity Scheme </h1>
+        </div>
+
 
       {showForm ? (
         <form
@@ -214,7 +214,7 @@ const QuantityScheme = () => {
           }}
         >
           <div className="grid gap-4 mb-4 sm:grid-cols-1">
-            <div className="mt-[5%]">
+            <div className="mt-[3%]">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 "
@@ -232,24 +232,14 @@ const QuantityScheme = () => {
               />
             </div>
 
-            <div>
-              <div className="flex">
-                <h1 className="bg-black text-white p-3 rounded-full w-fit mb-6">
-                  Dynamically Add and Remove Input Fields
-                </h1>
-                <button
-                  onClick={addInputSet}
-                  className="mb-6 p-3 ml-3 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 "
-                >
-                  Add
-                </button>
-              </div>
+            <div>       
+                
 
-              <div className="flex w-[70%] justify-around">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <div className="flex w-[100%]">
+                <label className="ml-2 w-[30%] text-start block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Min
                 </label>
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label className=" w-[30%] block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Max
                 </label>
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -257,13 +247,13 @@ const QuantityScheme = () => {
                 </label>
               </div>
 
-              <div className="">
+              <div className="w-full justify-between">
                 {inputSets.map((set) => (
-                  <div key={set.id} className="flex gap-x-3">
-                    <div>
+                  <div key={set.id} className="flex w-full justify-between gap-x-3">
+                    <div className="w-[30%]">
                      
                       <input
-                        className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className="appearance-none block w-[100%]  text-gray-700 border border-[#868686] rounded-xl py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`min_${set.id}`}
                         name={`min_${set.id}`}
                         type="text"
@@ -275,13 +265,13 @@ const QuantityScheme = () => {
                       />
                      
                     </div>
-                    <div>
+                    <div className="w-[30%]">
                       
                       <input
-                        className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className="appearance-none block w-[100%]   text-gray-700 border border-[#868686] rounded-xl py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`max_${set.id}`}
                         name={`max_${set.id}`}
-                        type="text"
+                        type="text" 
                         value={set.to}
                         onChange={(e) =>
                           handleRowChange(set.id, "max", e.target.value)
@@ -290,10 +280,10 @@ const QuantityScheme = () => {
                       />
                       
                     </div>
-                    <div>
+                    <div className="w-[30%]">
                      
                       <input
-                        className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className="appearance-none block w-[100%] text-gray-700 border border-[#868686] rounded-xl  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id={`discountSlabe_${set.id}`}
                         type="text"
                         name={`discountSlabe_${set.id}`}
@@ -309,25 +299,36 @@ const QuantityScheme = () => {
                       />
                      
                     </div>
-                    {set.id !== 1 && (
-                      <button onClick={() => removeInputSet(set.id)}>
+
+                    {set.id !== 1 ? (
+                      <button onClick={() => removeInputSet(set.id)} className="w-[10%] mb-3">
                         Delete
                       </button>
-                    )}
+                    ) : <div className="w-[10%]"></div> }
                   </div>
                 ))}
               </div>
+
             </div>
+            <h1
+                  onClick={addInputSet}
+                  className="mb-6 text-gray-500 flex  text-xl  items-center cursor-pointer uppercase"
+                >
+                  <span className="mr-2">
+                  <IoMdAddCircle size={25} /> 
+                  </span>
+                 Add Input Fields
+                </h1>
           </div>
-          <div>
+          <div className="w-full flex justify-end">
             <button
-              className="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
               type="submit"
             >
               Submit
             </button>
             <button
-              className="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
               type="button"
               onClick={() => setShowForm(false)}
             >
@@ -336,10 +337,10 @@ const QuantityScheme = () => {
           </div>
         </form>
       ) : (
-        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+        <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 ">
                 <div className="w-full md:w-1/2">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
@@ -360,7 +361,7 @@ const QuantityScheme = () => {
                 </div>
                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                   <button
-                    className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-[#868686] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowForm(true)}
                   >
@@ -403,7 +404,7 @@ const QuantityScheme = () => {
 
                       {filteredData?.map((item) => (
                         <tbody key={item._id}>
-                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                          <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black dark:hover:bg-gray-700">
                             <td className="p-4 w-4">
                               <div className="flex items-center">
                                 <input
@@ -456,71 +457,6 @@ const QuantityScheme = () => {
                   </div>
                 )}
               </div>
-
-              <nav
-                className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                aria-label="Table navigation"
-              >
-                <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </section>

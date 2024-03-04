@@ -148,7 +148,10 @@ const Edit_DiscountSlabe = () => {
 
   return (
     <div>
-       <h1 className="text-4xl  text-center mb-4"> Discount Slabe </h1>
+       <div className="mt-4 font-bold text-4xl text-start pb-6 border-b-2 border-black mb-6">
+          <h1> Edit Discount Slabe</h1>
+        </div>
+
       <Toaster/>
       {loading ? (
         <p>Loading...</p>
@@ -160,10 +163,10 @@ const Edit_DiscountSlabe = () => {
           }}
         >
           <div className="grid gap-4 mb-4 sm:grid-cols-1">
-            <div>
+            <div className="w-[60%]">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 "
+                className="block mb-2 text-xl font-medium text-gray-900 "
               >
                 Name
               </label>
@@ -181,12 +184,12 @@ const Edit_DiscountSlabe = () => {
             <div className="">
               {values.discountSlabs.map((set, index) => (
                 <div key={index} className="flex gap-x-3">
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       From
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`from_${index}`}
                       name={`discountSlabs.${index}.from`}
                       type="text"
@@ -200,12 +203,12 @@ const Edit_DiscountSlabe = () => {
                       Please Enter Only Number
                     </label>
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       To
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`to_${index}`}
                       name={`discountSlabs.${index}.to`}
                       type="text"
@@ -219,12 +222,12 @@ const Edit_DiscountSlabe = () => {
                       Please Enter Only Number
                     </label>
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       DS Slabe
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`discountSlabe_${index}`}
                       name={`discountSlabs.${index}.discountSlabe`}
                       type="text"
@@ -243,16 +246,16 @@ const Edit_DiscountSlabe = () => {
             </div>
           </div>
 
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+          <div className="w-full flex justify-end ">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
             >
               Submit
             </button>
 
              <button
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+              className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
                onClick={handleGoBack}
                type="button"
             >

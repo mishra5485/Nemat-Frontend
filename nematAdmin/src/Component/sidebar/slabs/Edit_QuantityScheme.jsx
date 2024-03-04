@@ -148,11 +148,9 @@ const Edit_QuantityScheme = () => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Edit Quantity Scheme
-        </span>
-      </h1>
+       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+          <h1>Edit Quantity Scheme </h1>
+        </div>
       <Toaster/>
       {loading ? (
         <p>Loading...</p>
@@ -163,8 +161,8 @@ const Edit_QuantityScheme = () => {
             handleSubmit(e);
           }}
         >
-          <div className="grid gap-4 mb-4 sm:grid-cols-1">
-            <div>
+          <div className="grid gap-4 mb-4 sm:grid-cols-1 mt-6">
+            <div className="w-[50%]">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 "
@@ -182,15 +180,15 @@ const Edit_QuantityScheme = () => {
               />
             </div>
 
-            <div className="">
+            <div className="w-full justify-between">
               {values.discountSlabs.map((set, index) => (
-                <div key={index} className="flex gap-x-3">
-                  <div>
+                <div key={index} className="flex gap-x-3 w-full justify-between">
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       Min
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%] text-gray-700 border border-[#868686] rounded-xl py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`from_${index}`}
                       name={`discountSlabs.${index}.from`}
                       type="text"
@@ -198,18 +196,16 @@ const Edit_QuantityScheme = () => {
                       onChange={(e) =>
                         handleRowChange(index, "from", e.target.value)
                       }
-                      placeholder="From"
+                      placeholder="Enter Only Valid Number "
                     />
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                      Please Enter Only Number
-                    </label>
+                   
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       Max
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%]  text-gray-700 border border-[#868686] rounded-xl py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`to_${index}`}
                       name={`discountSlabs.${index}.to`}
                       type="text"
@@ -217,18 +213,16 @@ const Edit_QuantityScheme = () => {
                       onChange={(e) =>
                         handleRowChange(index, "to", e.target.value)
                       }
-                      placeholder="To"
+                      placeholder="Enter Only Valid Number "
                     />
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                      Please Enter Only Number
-                    </label>
+                   
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       Value
                     </label>
                     <input
-                      className="appearance-none block w-[100%] bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[100%] text-gray-700 border border-[#868686] rounded-xl py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id={`discountSlabe_${index}`}
                       name={`discountSlabs.${index}.discountSlabe`}
                       type="text"
@@ -236,27 +230,25 @@ const Edit_QuantityScheme = () => {
                       onChange={(e) =>
                         handleRowChange(index, "discountSlabe", e.target.value)
                       }
-                      placeholder="Jane"
+                      placeholder="Enter Only Valid Number "
                     />
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                      Please Do not Include Percentage Sign (%)
-                    </label>
                   </div>
+                  <div className="w-[10%]"></div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+          <div className="w-[90%] flex justify-end items-end space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-10 py-2 text-white bg-[#868686] rounded-xl"
             >
               Submit
             </button>
             
               <button
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-10 py-2.5 hover:text-gray-900 "
                onClick={handleGoBack}
                type="button"
             >
