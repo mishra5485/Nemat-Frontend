@@ -199,13 +199,10 @@ const AboutUs = () => {
 
   return (
     <div>
-      <div>
-        <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-            About Us Page
-          </span>
-        </h1>
-      </div>
+      <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+
+          <h1>About us Page</h1>
+        </div>
       <Toaster />
       <div>
         {loading ? (
@@ -217,11 +214,12 @@ const AboutUs = () => {
               handleSubmit(e);
             }}
           >
-            <div>
-              <div className="mb-4">
+            <div className="">
+              <div className="grid gap-6 mb-6 md:grid-cols-2">
+              <div className="mb-2">
                 <label
                   htmlFor="bannerHeading"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   BannerHeading
                 </label>
@@ -231,7 +229,7 @@ const AboutUs = () => {
                   value={values.bannerHeading}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="mt-1 p-2 w-[70%] border rounded-md"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
                 {errors.bannerHeading && touched.bannerHeading ? (
                   <p className="font-Marcellus text-start text-red-900">
@@ -240,10 +238,10 @@ const AboutUs = () => {
                 ) : null}
               </div>
 
-              <div className="mb-4">
+              <div className="md:col-span-2 mb-4">
                 <label
                   htmlFor="Bannerdesc"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Banner Description
                 </label>
@@ -253,7 +251,7 @@ const AboutUs = () => {
                   value={values.Bannerdesc}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="mt-1 p-2 w-full border rounded-md resize-none"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
                 {errors.Bannerdesc && touched.Bannerdesc ? (
                   <p className="font-Marcellus text-start text-red-900">
@@ -313,7 +311,7 @@ const AboutUs = () => {
                     <img
                       src={imagePreviewDesktop}
                       alt="Banner Desktop"
-                      className="mt-2 w-[90%] h-[250px]"
+                      className="mt-2 w-[90%] h-[250px] object-contain"
                     />
                   ) : (
                     <img
@@ -326,16 +324,19 @@ const AboutUs = () => {
                   )}
                 </div>
               </div>
+            </div>
+
 
               {/* Family Banner Images */}
               <h1 className="text-2xl font-bold text-start my-6">
                 Family Details{" "}
               </h1>
 
-              <div className="mb-4">
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
+              <div className="mb-2">
                 <label
                   htmlFor="familyheading"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   FamilyDetail Heading
                 </label>
@@ -345,7 +346,7 @@ const AboutUs = () => {
                   value={values.familyheading}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="mt-1 p-2 w-[70%] border rounded-md"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
                 {errors.familyheading && touched.familyheading ? (
                   <p className="font-Marcellus text-start text-red-900">
@@ -354,10 +355,10 @@ const AboutUs = () => {
                 ) : null}
               </div>
 
-              <div className="mb-4">
+              <div className="md:col-span-2 mb-4">
                 <label
                   htmlFor="Bannerdesc"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   FamilyDetails Description
                 </label>
@@ -459,11 +460,15 @@ const AboutUs = () => {
                   )}
                 </div>
               </div>
+            </div>
+
 
               <h1 className="text-2xl font-bold text-start my-6 uppercase">
                 {" "}
                 RoadMapData Details{" "}
               </h1>
+
+              
 
               <div className="overflow-x-auto w-full">
                 <table className="table-auto border-collapse border border-gray-800 w-full">

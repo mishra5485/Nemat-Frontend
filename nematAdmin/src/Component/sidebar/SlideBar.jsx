@@ -20,10 +20,10 @@ const Sidebar1 = () => {
 
   const userData = useSelector((state) => state.profile);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownOpenAudit, setIsDropdownOpenAudit] = useState(false);
-  const [isDropdownOpenReport, setIsDropdownOpenReport] = useState(false);
-  const [isdropdownSetting, setDropdownSetting] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpenAudit, setIsDropdownOpenAudit] = useState(true);
+  const [isDropdownOpenReport, setIsDropdownOpenReport] = useState(true);
+  const [isdropdownSetting, setDropdownSetting] = useState(true);
   const [userMangementDrop, setUserMangementDrop] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);

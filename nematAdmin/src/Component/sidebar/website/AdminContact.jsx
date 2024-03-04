@@ -104,11 +104,10 @@ const AdminContact = () => {
   return (
 
     <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Admin Contact us Page
-        </span>
-      </h1>
+      <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+
+          <h1>Admin Contact us Page</h1>
+        </div>
       <Toaster />
 
       <div>
@@ -118,11 +117,11 @@ const AdminContact = () => {
           <form
            onSubmit={handleSubmit}
           >
-            <div>
-              <div className="mb-4">
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
+              <div className="">
                 <label
                   htmlFor="adminemail"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Email Id
                 </label>
@@ -131,15 +130,15 @@ const AdminContact = () => {
                   id="adminemail"
                   value={values.adminemail}
                   onChange={handleChange}
-                  className="mt-1 p-2 w-full border rounded-md"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="md:col-span-2">
                 <label
                   htmlFor="adminaddress"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Address
                 </label>
@@ -148,7 +147,7 @@ const AdminContact = () => {
                   name="adminaddress"
                   value={values.adminaddress}
                   onChange={handleChange}
-                  className="mt-1 p-2 w-full border rounded-md resize-none"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
               </div>
@@ -156,7 +155,7 @@ const AdminContact = () => {
               <div className="mb-4">
                 <label
                   htmlFor="adminmobile"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Mobile
                 </label>
@@ -165,17 +164,17 @@ const AdminContact = () => {
                   id="adminmobile"
                   value={values.adminmobile}
                   onChange={handleChange}
-                  className="mt-1 p-2 w-full border rounded-md"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
               </div>
+              </div>
               <button
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+              className="px-10  text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
                type="submit"
             >
               Update
             </button>
-            </div>
           </form>
         )}
       </div>

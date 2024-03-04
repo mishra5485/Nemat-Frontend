@@ -211,6 +211,9 @@ const Edit_BannerSlider = () => {
 
   return (
        <div className="overflow-x-hidden">
+        <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>Edit Banner Slider</h1>
+      </div>
          <Toaster/>
       {loading ? (
         <p><LoadingSpinner/></p>
@@ -221,7 +224,7 @@ const Edit_BannerSlider = () => {
             handleSubmit(e);
           }}
         >
-          <div className="grid gap-4 mb-4 sm:grid-cols-2">
+          <div className="grid gap-4 mb-4 sm:grid-cols-2 mt-6">
             <div>
               <label
                 htmlFor="heading"
@@ -326,7 +329,7 @@ const Edit_BannerSlider = () => {
               <textarea
                 id="desc"
                 name="desc"
-                rows="4"
+                rows="2"
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 onChange={handleChange}
                 value={values.desc}
@@ -334,7 +337,7 @@ const Edit_BannerSlider = () => {
                 required
               ></textarea>
             </div>
-          </div>
+         
 
           <div className="mb-4">
             <label
@@ -354,7 +357,7 @@ const Edit_BannerSlider = () => {
                 <img
                   src={imagePreviewMobile}
                   alt="Banner Mobile"
-                  className="mt-2 w-[90%] h-[250px]"
+                  className="mt-2 w-[90%] h-[250px] object-contain"
                 />
               ) : (
                 <img
@@ -362,7 +365,7 @@ const Edit_BannerSlider = () => {
                     showBannerData?.MobilebannerImage
                   }`}
                   alt="Banner Mobile"
-                  className="mt-2 w-[90%] h-[250px]"
+                  className="mt-2 w-[90%] h-[250px] object-contain"
                 />
               )}
             </div>
@@ -385,7 +388,7 @@ const Edit_BannerSlider = () => {
                 <img
                   src={imagePreviewDesktop}
                   alt="Banner Desktop"
-                  className="mt-2 w-[90%] h-[250px]"
+                  className="mt-2 w-[90%] h-[250px] object-contain"
                 />
               ) : (
                 <img
@@ -393,15 +396,16 @@ const Edit_BannerSlider = () => {
                     showBannerData?.DesktopbannerImage
                   }`}
                   alt="Banner Desktop"
-                  className="mt-2 w-[90%] h-[250px]"
+                  className="mt-2 w-[90%] h-[250px] object-contain"
                 />
               )}
             </div>
           </div>
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+           </div>
+          <div className="w-full flex justify-end ">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
             >
               Submit
             </button>
@@ -409,7 +413,7 @@ const Edit_BannerSlider = () => {
             <button
               data-modal-toggle="createProductModal"
               type="button"
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+              className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
             >
               Discard
             </button>
