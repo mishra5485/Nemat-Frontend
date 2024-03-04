@@ -9,6 +9,7 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
   console.log("selectedAddressId ===> ", selectedAddressId)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [downloadSalesOrderPDF , setDownloadSalesOrderPDF] = useState();
 
   const user_id = user.customer_id
 
@@ -31,12 +32,19 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
 
          let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/placeorder` ,
-            payload
+            payload,
+             {
+            responseType: "blob",
+          }
+            
          )
 
+         
+         
          if(response.status === 200){
-          setIsModalOpen(true)
-          toast.success("Order Placed Successfully")
+           setIsModalOpen(true)
+           toast.success("Order Placed Successfully")
+           setDownloadSalesOrderPDF(response.data)
          }
 
       } catch (error) {
@@ -58,6 +66,20 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
       }
       }
   };
+
+
+
+  const downloadSalesOrder = () => {
+    const blob = new Blob([downloadSalesOrderPDF], { type: "application/zip" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "documents.zip");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+};
 
   return (
     <div>
@@ -93,6 +115,7 @@ const ContinueCheckout = ({user , selectedAddressId , setNoData}) => {
                 <button
                   type="button"
                   className="text-white w-[55%] bg-text_Color2 rounded-3xl   font-medium  flex justify-center py-2 text-center  items-center  uppercase"
+                  onClick={()=>downloadSalesOrder()}
                 >
                   <GoDownload  size={25} className="mr-2"/>
                      Sales order
