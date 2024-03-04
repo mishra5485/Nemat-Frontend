@@ -6,15 +6,14 @@ export const formattedAmount = (amount) => {
   return formatAmount;
 };
 
-
 export const OrderStatus = {
-   OpenOrder: 0,
-   InvoicePaid: 1,
-   Packed: 2,
-   OutForDelivery: 3,
-   Delivered: 4,
-   Cancelled: 5,
- };
+  OpenOrder: 0,
+  InvoicePaid: 1,
+  Packed: 2,
+  OutForDelivery: 3,
+  Delivered: 4,
+  Cancelled: 5,
+};
 
 export const statusData = [
   {
@@ -42,26 +41,22 @@ export const statusData = [
 export const Documents = [
   {
     id: 0,
-    title: "Sales Order",
-  },
-  {
-    id: 1,
     title: "GST Invoice",
   },
   {
-    id: 2,
+    id: 1,
     title: "E-Invoice",
   },
   {
-    id: 3,
+    id: 2,
     title: "E Way Bill",
   },
   {
-    id: 4,
+    id: 3,
     title: "Transport Form",
   },
   {
-    id: 5,
+    id: 4,
     title: "Lorry Receipt",
   },
 ];
