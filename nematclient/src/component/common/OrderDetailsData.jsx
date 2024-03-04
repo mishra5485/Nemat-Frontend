@@ -168,7 +168,8 @@ const OrderDetailsData = ({ data, _id }) => {
 
         setOpenOrderData((openOrderData) =>
           openOrderData.filter((order) => order._id !== orderId)
-        );
+          );
+          setCancelOrderModal(false)
       }
 
       console.log(response.data);

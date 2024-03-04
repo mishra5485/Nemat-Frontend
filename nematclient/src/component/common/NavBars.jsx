@@ -148,7 +148,6 @@ const NavBars = () => {
     dispatch(logout());
   };
 
-  console.log("categoryData ====> " , categoryData)
 
    useEffect(() => {
     const handleScroll = () => {
