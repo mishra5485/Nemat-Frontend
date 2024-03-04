@@ -713,7 +713,7 @@ const EditSub_Category = () => {
                     Sub_CategoryData?.Image
                   }`}
                   alt="Banner Desktop"
-                  className="mt-2 w-[90%] h-[250px]"
+                  className="mt-2 w-[90%] h-[250px] object-contain"
                 />
               )}
             </div>

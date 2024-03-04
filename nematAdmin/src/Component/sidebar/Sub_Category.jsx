@@ -20,7 +20,7 @@ const Sub_Category = () => {
   const [seriesImage, setSeriesImage] = useState(null);
   const [Nodata, setNodata] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -409,55 +409,43 @@ const Sub_Category = () => {
     setFilteredData(filtered);
   };
 
-
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
 
+    if (selectedCategoryId === "All") {
+      setSelectedCategory("ALL");
 
-    if(selectedCategoryId === "All"){
-             setSelectedCategory("ALL")
+      setFilteredData(categoryData);
+    } else {
+      setSelectedCategory(selectedCategoryId);
 
-      setFilteredData(categoryData)
-
-    }  else{
-             setSelectedCategory(selectedCategoryId)
-
-    // Perform filtering based on the selected category ID
-    // For example, filter your data array based on the selected category ID
-    const filteredItems = categoryData.filter(item => item.Category === selectedCategoryId)
-    setFilteredData(filteredItems)
+      // Perform filtering based on the selected category ID
+      // For example, filter your data array based on the selected category ID
+      const filteredItems = categoryData.filter(
+        (item) => item.Category === selectedCategoryId
+      );
+      setFilteredData(filteredItems);
     }
-   
-
-
-
-   
   };
 
   return (
     <div className="text-center">
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Sub-Category Page
-        </span>
-      </h1>
-      {console.log(errors)}
+       <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+
+          <h1>Sub-Category Page</h1>
+        </div>
       <Toaster />
       {showModal ? (
-        <>
-          <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="  z-50 outline-none focus:outline-none">
+        <>         
                   <form
-                    className="max-w-md mx-auto p-4 bg-white rounded-md shadow-md"
                     onSubmit={handleSubmit}
                   >
                     {/* Input fields */}
+                    <div className="grid gap-6 mb-6 md:grid-cols-2">
                     <div className="mb-4">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Name
                       </label>
@@ -467,7 +455,7 @@ const Sub_Category = () => {
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.name && touched.name ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -479,7 +467,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="cartDiscount"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Category deside
                       </label>
@@ -489,7 +477,7 @@ const Sub_Category = () => {
                         value={values.category}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       >
                         <option value="" disabled>
                           Select Category
@@ -510,7 +498,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="metaTitle"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Meta Title
                       </label>
@@ -521,7 +509,7 @@ const Sub_Category = () => {
                         value={values.metaTitle}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.metaTitle && touched.metaTitle ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -529,11 +517,11 @@ const Sub_Category = () => {
                         </p>
                       ) : null}
                     </div>
-
-                    <div className="mb-4">
+                      <br/>
+                    <div className="md:col-span-2 mb-4">
                       <label
                         htmlFor="metaDesc"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Meta Description
                       </label>
@@ -543,7 +531,7 @@ const Sub_Category = () => {
                         value={values.metaDesc}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md resize-none"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.metaDesc && touched.metaDesc ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -555,7 +543,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="metaKeyword"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Meta Keyword
                       </label>
@@ -565,7 +553,7 @@ const Sub_Category = () => {
                         onChange={handleChange}
                         value={values.metaKeyword}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.metaKeyword && touched.metaKeyword ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -577,7 +565,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="slugUrl"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Slug URL
                       </label>
@@ -588,7 +576,7 @@ const Sub_Category = () => {
                         value={values.slugUrl}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.slugUrl && touched.slugUrl ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -600,7 +588,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="vendor"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Vendor Selection
                       </label>
@@ -610,7 +598,7 @@ const Sub_Category = () => {
                         value={values.vendor}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       >
                         <option value="" disabled>
                           Select Vendor{" "}
@@ -634,7 +622,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="cartDiscount"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Quantity Schemeld
                       </label>
@@ -644,7 +632,7 @@ const Sub_Category = () => {
                         value={values.quantity}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       >
                         <option value="" disabled>
                           Select Quantity Schemeld{" "}
@@ -665,7 +653,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="cartDiscount"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Category Priority
                       </label>
@@ -675,7 +663,7 @@ const Sub_Category = () => {
                         value={values.priority}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       >
                         <option value="">
                           Select Priority of Sub_Category
@@ -696,7 +684,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="slugUrl"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         ML
                       </label>
@@ -707,7 +695,7 @@ const Sub_Category = () => {
                         value={values.sub_category_ML}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.sub_category_ML && touched.sub_category_ML ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -719,7 +707,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="slugUrl"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         SGST
                       </label>
@@ -730,7 +718,7 @@ const Sub_Category = () => {
                         value={values.sub_category_SGST}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.sub_category_SGST && touched.sub_category_SGST ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -742,7 +730,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="slugUrl"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         CGST
                       </label>
@@ -753,7 +741,7 @@ const Sub_Category = () => {
                         value={values.sub_category_CGST}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.sub_category_CGST && touched.sub_category_CGST ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -762,7 +750,7 @@ const Sub_Category = () => {
                       ) : null}
                     </div>
 
-                    <div className="flex">
+                    <div className="flex mt-4">
                       <div className="mb-4 flex flex-col text-center">
                         <label
                           htmlFor="packSizes"
@@ -863,7 +851,7 @@ const Sub_Category = () => {
                     <div className="mb-4">
                       <label
                         htmlFor="seriesImage"
-                        className="block text-sm font-medium text-gray-600"
+                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Sub-Category Series Image
                       </label>
@@ -871,7 +859,7 @@ const Sub_Category = () => {
                         type="file"
                         id="seriesImage"
                         onChange={(e) => handleFileChange(e, "seriesImage")}
-                        className="mt-1 p-2 w-full border rounded-md"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
                       {errors.seriesImage && touched.seriesImage ? (
                         <p className="font-Marcellus text-start text-red-900">
@@ -882,163 +870,159 @@ const Sub_Category = () => {
                         <img
                           src={seriesImage}
                           alt="Banner Mobile"
-                          className="mt-2 w-full h-auto"
+                          className="mt-2 w-[400px] h-[300px] object-contain flex justify-center items-center"
                         />
                       )}
                     </div>
 
                     {/* Submit button */}
-                    <div className="flex justify-between mt-4">
+                    <div className="md:col-span-2 mb-4 flex justify-end mt-4 mr-9">
                       <button
                         type="button"
                         onClick={() => setShowModal(false)}
-                        className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                        className="px-8 py-2 mr-6 bg-gray-500 text-white rounded-md hover:bg-gray-600"
                       >
                         Close
                       </button>
                       <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        className="px-8 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                       >
                         Submit
                       </button>
                     </div>
+                    </div>
+                  </form>
+                
+        </>
+      ) : (
+        <section className=" p-3 sm:p-5 antialiased">
+          <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
+            <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+                <div className="w-full md:w-1/2">
+                  <form className="flex items-center">
+                    <label htmlFor="simple-search" className="sr-only">
+                      Search
+                    </label>
+                    <div className="relative w-full">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
+                      <input
+                        type="text"
+                        id="simple-search"
+                        placeholder="Search for Sub-Category"
+                        required=""
+                        onChange={(event) => handleSearch(event)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      />
+                    </div>
                   </form>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-
-      <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
-        <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
-          <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-              <div className="w-full md:w-1/2">
-                <form className="flex items-center">
-                  <label htmlFor="simple-search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
-                    <input
-                      type="text"
-                      id="simple-search"
-                      placeholder="Search for Sub-Category"
-                      required=""
-                      onChange={(event) => handleSearch(event)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    />
-                  </div>
-                </form>
-              </div>
-              <div>
-                <select
-                  id="category"
-                  name="category"
-                  className="py-2 w-full border rounded-md"
-                  onChange={handleCategoryChange}
-                  value={selectedCategory}
-                >
-                  <option value="" disabled>
-                    Select Category
-                  </option>
-                  <option value="All">
-                    All
-                  </option>
-                  {categorySelection?.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.Name}
+                <div>
+                  <select
+                    id="category"
+                    name="category"
+                    className="py-2 w-full border rounded-md"
+                    onChange={handleCategoryChange}
+                    value={selectedCategory}
+                  >
+                    <option value="" disabled>
+                      Select Category
                     </option>
-                  ))}
-                </select>
+                    <option value="All">All</option>
+                    {categorySelection?.map((category) => (
+                      <option key={category._id} value={category._id}>
+                        {category.Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                  <button
+                    className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(true)}
+                  >
+                    + Create Sub-Category
+                  </button>
+                </div>
               </div>
-              <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                <button
-                  className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setShowModal(true)}
-                >
-                  + Create Sub-Category
-                </button>
-              </div>
-            </div>
 
-            <div className="">
-              {loading ? (
-                <p><LoadingSpinner/></p>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr className="w-full ">
-                        <th scope="col" className="p-4">
-                          <div className="flex items-center">
-                            <input
-                              id="checkbox-all"
-                              type="checkbox"
-                              className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label htmlFor="checkbox-all" className="sr-only">
-                              checkbox
-                            </label>
-                          </div>
-                        </th>
-                        {/* <th scope="col" className="p-4">
+              <div className="">
+                {loading ? (
+                  <p>
+                    <LoadingSpinner />
+                  </p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                      <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr className="w-full ">
+                          <th scope="col" className="p-4">
+                            <div className="flex items-center">
+                              <input
+                                id="checkbox-all"
+                                type="checkbox"
+                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              />
+                              <label htmlFor="checkbox-all" className="sr-only">
+                                checkbox
+                              </label>
+                            </div>
+                          </th>
+                          {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
                         <th scope="col" className="p-4">
                           Desktop Image
                         </th> */}
-                        <th scope="col" className="p-4">
-                          Series Image
-                        </th>
-                        <th scope="col" className="p-4">
-                          Name
-                        </th>
-                        <th scope="col" className="p-4">
-                          Ml
-                        </th>
-                        <th scope="col" className="p-4">
-                          SGST{" "}
-                        </th>
-                        <th scope="col" className="p-4">
-                          CGST{" "}
-                        </th>
-                        <th scope="col" className="p-4">
-                          PRIORITY
-                        </th>
-                        <th scope="col" className="p-4">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
+                          <th scope="col" className="p-4">
+                            Series Image
+                          </th>
+                          <th scope="col" className="p-4">
+                            Name
+                          </th>
+                          <th scope="col" className="p-4">
+                            Ml
+                          </th>
+                          <th scope="col" className="p-4">
+                            SGST{" "}
+                          </th>
+                          <th scope="col" className="p-4">
+                            CGST{" "}
+                          </th>
+                          <th scope="col" className="p-4">
+                            PRIORITY
+                          </th>
+                          <th scope="col" className="p-4">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
 
-                    {Nodata ? (
-                      <p>No data available</p>
-                    ) : (
-                      filteredData?.map((item) => (
-                        <tbody key={item._id}>
-                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td className="p-4 w-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="checkbox-table-search-1"
-                                  type="checkbox"
-                                  onClick={handleForm}
-                                  className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                  htmlFor="checkbox-table-search-1"
-                                  className="sr-only"
-                                >
-                                  checkbox
-                                </label>
-                              </div>
-                            </td>
-                            {/* <th
+                      {Nodata ? (
+                        <p>No data available</p>
+                      ) : (
+                        filteredData?.map((item) => (
+                          <tbody key={item._id}>
+                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black hover:font-bold dark:hover:bg-gray-700">
+                              <td className="p-4 w-4">
+                                <div className="flex items-center">
+                                  <input
+                                    id="checkbox-table-search-1"
+                                    type="checkbox"
+                                    onClick={handleForm}
+                                    className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label
+                                    htmlFor="checkbox-table-search-1"
+                                    className="sr-only"
+                                  >
+                                    checkbox
+                                  </label>
+                                </div>
+                              </td>
+                              {/* <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
@@ -1052,7 +1036,7 @@ const Sub_Category = () => {
                                 />
                               </div>
                             </th> */}
-                            {/* <th
+                              {/* <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
@@ -1065,133 +1049,69 @@ const Sub_Category = () => {
                                 />
                               </div>
                             </th> */}
-                            <th
-                              scope="row"
-                              className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
-                              <div className="flex items-center mr-3">
-                                <img
-                                  src={`${
-                                    import.meta.env.VITE_REACT_APP_BASE_URL
-                                  }/${item?.Image}`}
-                                  className="h-8 w-auto mr-3"
-                                />
-                              </div>
-                            </th>
-                            <td className="px-4 py-3">
-                              <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                                {item.Name}
-                              </span>
-                            </td>
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.Ml}
-                            </td>
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.SGST}
-                            </td>
+                              <th
+                                scope="row"
+                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                              >
+                                <div className="flex items-center mr-3">
+                                  <img
+                                    src={`${
+                                      import.meta.env.VITE_REACT_APP_BASE_URL
+                                    }/${item?.Image}`}
+                                    className="h-8 w-auto mr-3"
+                                  />
+                                </div>
+                              </th>
+                              <td className="px-4 py-3">
+                                <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                  {item.Name}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.Ml}
+                              </td>
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.SGST}
+                              </td>
 
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.CGST}
-                            </td>
-                            <td className="px-9 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {item.Priority}
-                            </td>
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.CGST}
+                              </td>
+                              <td className="px-9 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.Priority}
+                              </td>
 
-                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              <div className="flex items-center space-x-4">
-                                <button
-                                  type="button"
-                                  onClick={() => editHandlerDir(item._id)}
-                                  className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
-                                  Edit
-                                </button>
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div className="flex items-center space-x-4">
+                                  <button
+                                    type="button"
+                                    onClick={() => editHandlerDir(item._id)}
+                                    className="py-2 px-3 flex items-center text-sm font-medium text-center text-black bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                  >
+                                    Edit
+                                  </button>
 
-                                <button
-                                  type="button"
-                                  onClick={() => DeleteHandler(item._id)}
-                                  className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      ))
-                    )}
-                  </table>
-                </div>
-              )}
+                                  <button
+                                    type="button"
+                                    onClick={() => DeleteHandler(item._id)}
+                                    className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      )}
+                    </table>
+                  </div>
+                )}
+              </div>
             </div>
-
-            <nav
-              className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-              aria-label="Table navigation"
-            >
-              <ul className="inline-flex items-stretch -space-x-px">
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    <span className="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    1
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    2
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    aria-current="page"
-                    className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                  >
-                    3
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    ...
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    100
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                  >
-                    <span className="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };

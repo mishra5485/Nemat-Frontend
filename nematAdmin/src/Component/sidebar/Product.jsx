@@ -438,11 +438,10 @@ const Product = () => {
   return (
     <div className="text-center">
       <Toaster />
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Product Page
-        </span>
-      </h1>
+      <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+
+          <h1>Product Page</h1>
+        </div>
 
       {showModal ? (
         // Form Createation div
@@ -911,7 +910,7 @@ const Product = () => {
         </form>
       ) : (
         // Display All Data OF Product
-        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+        <section className=" p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
@@ -1008,7 +1007,7 @@ const Product = () => {
                       ) : (
                         filteredData?.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black hover:font-bold dark:hover:bg-gray-700">
                               <td className="p-4 w-4">
                                 <div className="flex items-center">
                                   <input

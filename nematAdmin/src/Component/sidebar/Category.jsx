@@ -271,7 +271,7 @@ const Category = () => {
   return (
     <div className="overflow-hidden">
 
-        <div className="mt-4 mb-6 text-text_Color text-4xl text-start pb-6 border-b-2 border-text_Color">
+        <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-text_Color">
 
           <h1>Category Page</h1>
         </div>
@@ -530,7 +530,7 @@ const Category = () => {
           </form>
         </>
       ) : (
-        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased ">
+        <section className=" p-3 sm:p-5 antialiased ">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
@@ -611,7 +611,7 @@ const Category = () => {
                       ) : (
                         filteredData.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 dark:hover:bg-gray-700">
                               <td className="p-4 w-4">
                                 <div className="flex items-center">
                                   <input
@@ -696,71 +696,6 @@ const Category = () => {
                   </div>
                 )}
               </div>
-
-              <nav
-                className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                aria-label="Table navigation"
-              >
-                <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </section>
