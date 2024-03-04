@@ -242,6 +242,7 @@ const EditOrderManagement = () => {
               onChange={filehandlerselect}
               className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 mb-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
             >
+               <option disabled selected value="">Select Status</option>
               {Documents.map((status) => (
                 <option key={status.id} value={status.title}>
                   {status.title}
