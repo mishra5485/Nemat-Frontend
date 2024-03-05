@@ -120,11 +120,9 @@ const Smtp = () => {
   return (
 
        <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-            SMTP Config
-        </span>
-      </h1>
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>STMP Config</h1>
+      </div>
       <Toaster />
 
       <div>
@@ -133,6 +131,7 @@ const Smtp = () => {
         ) : (
           <form
            onSubmit={handleSubmit}
+           className="mt-6"
           >
             <div>
               <div className="mb-4">

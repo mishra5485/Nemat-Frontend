@@ -165,14 +165,10 @@ const Edit_Vendors = () => {
   return (
     <div>
       <Toaster />
-      <div>
-        <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-            Edit Vendor Page
-          </span>
-        </h1>
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>Edit Vendor Page</h1>
       </div>
-      <div>
+      <div className='mt-6'>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -287,10 +283,10 @@ const Edit_Vendors = () => {
               </div>
             </div>
 
-            <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+            <div className="w-full flex justify-end ">
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
               >
                 Submit
               </button>
@@ -298,7 +294,7 @@ const Edit_Vendors = () => {
               <button
                 type="button"
                 onClick={() => navigator('/dashboard/vendors')}
-                className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+                className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
               >
                 Discard
               </button>

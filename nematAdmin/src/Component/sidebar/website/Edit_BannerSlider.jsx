@@ -17,6 +17,8 @@ const Edit_BannerSlider = () => {
    const [allCategoryData , setAllCategoryData ] = useState()
    const [AllSub_CategoryData , setAllSub_CategoryData] = useState([])
 
+   const navigator = useNavigate();
+
    useEffect(() => {
       getBannerById();
    } , [])
@@ -413,6 +415,7 @@ const Edit_BannerSlider = () => {
             <button
               data-modal-toggle="createProductModal"
               type="button"
+              onClick={()=> navigator("/dashboard/website/bannerSlider")}
               className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
             >
               Discard

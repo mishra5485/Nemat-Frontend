@@ -49,15 +49,14 @@ const PrevCustomerQueries = () => {
 
   return (
     <div>
-       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-900 dark:text-white mb-8">
-    <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-emerald-600">
-       Contact Us Details
-    </span>
-  </h1>
+       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1> Prev Customer Queries </h1>
+      </div> 
+
        {loading ? (
         <p><LoadingSpinner/></p>
       ) : ( 
-         <div>
+         <div className='mt-6'>
             <div className="grid gap-4 mb-4 sm:grid-cols-2">
             <div>
               <label

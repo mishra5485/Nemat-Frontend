@@ -67,18 +67,16 @@ const CustomerQueries = () => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Customer Queries
-        </span>
-      </h1>
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>Customer Queries</h1>
+      </div>
       <Toaster />
 
       <div>
-         <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+         <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 ">
                 <div className="w-full md:w-1/2">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
