@@ -47,6 +47,7 @@ const DeliveredAddAddress = ({ address , setAddress , selectedAddressId , setSel
               </div>
             ))}
           <button
+            type="button"
             onClick={handleAddAddressClick}
             className="mt-10 py-2  px-3  uppercase font-Marcellus font-semibold rounded-3xl text-text_Color border border-text_Color"
           >
