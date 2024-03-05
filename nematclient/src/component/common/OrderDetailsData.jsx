@@ -11,9 +11,6 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { MdDeliveryDining } from "react-icons/md";
 
 const OrderDetailsData = ({ data, _id }) => {
-  console.log("data ==> ", data);
-  console.log("id", _id);
-
   const [nodata, setNoData] = useState(false);
   const [openOrderData, setOpenOrderData] = useState([]);
   const [showDocument, setShowDocument] = useState(
@@ -67,7 +64,7 @@ const OrderDetailsData = ({ data, _id }) => {
       document_id: DocumentID,
     };
 
-    setClicked(true)
+    setClicked(true);
 
     try {
       let response = await axios.post(
@@ -78,7 +75,7 @@ const OrderDetailsData = ({ data, _id }) => {
         }
       );
 
-      setClicked(false)
+      setClicked(false);
 
       const blob = new Blob([response.data], { type: "application/zip" });
 
@@ -93,8 +90,6 @@ const OrderDetailsData = ({ data, _id }) => {
 
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-
-      
     } catch (error) {
       const { status, data } = error.response;
 
@@ -108,7 +103,7 @@ const OrderDetailsData = ({ data, _id }) => {
         status === 400
       ) {
         console.log(error.response);
-         setClicked(false)
+        setClicked(false);
       }
     }
   };
@@ -150,8 +145,8 @@ const OrderDetailsData = ({ data, _id }) => {
         order_id: orderId,
       };
 
-      console.log(payload);
-      setClicked(true)
+      console.log("Check ORder id For PayLoad", payload);
+
       let response;
       if (flag === 1) {
         response = await axios.post(
@@ -167,15 +162,18 @@ const OrderDetailsData = ({ data, _id }) => {
         );
 
         setOpenOrderData((openOrderData) =>
-          openOrderData.filter((order) => order._id !== orderId)
-          );
-          setCancelOrderModal(false)
+          openOrderData.filter(
+            (order) => order._id !== orderId,
+
+            console.log("order._id ", orderId)
+          )
+        );
+        setCancelOrderModal(false);
       }
 
       console.log(response.data);
 
       toast.success(response.data);
-      setClicked(false)
     } catch (error) {
       console.log(error);
       const { status, data } = error.response;
@@ -192,7 +190,6 @@ const OrderDetailsData = ({ data, _id }) => {
         toast.error(data);
         console.log(data);
         setLoading(false);
-        setClicked(false)
       }
     }
   };
@@ -249,60 +246,56 @@ const OrderDetailsData = ({ data, _id }) => {
                         onClick={() => {
                           toggleOrderVisibilitydesktop(index);
                         }}
-                        disabled={clicked}   
+                        disabled={clicked}
                         className="w-[50%] md:hidden xl:block uppercase  font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2  rounded-3xl mt-1"
                       >
                         Documents
                       </button>
 
                       {opneorder.status <= 0 ? (
-                        <div className="w-[50%]  mb-3  mt-1">
-                            <button
-                              type="button"
-                              className="w-full text-text_Color2 border-2 p-2 border-text_Color rounded-3xl"
-                              onClick={() => cacelOrderHandler()
-                              }
-                              
-                            >
-                              Cancel
-                            </button>
-                            {cancelOrderModal && (
-                              <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
-                                <div className="bg-white p-4 rounded-md w-[300px] h-auto ">
-                                  <MdDeliveryDining
-                                    size={35}
-                                    className="w-full mx-auto text-text_Color"
-                                  />
-                                  <h1 className="w-[90%] mt-2.5 text-center mx-auto text-xl text-text_Color font-roxborough">
-                                    Are you sure you want to Cancel Order?
-                                  </h1>
-                                  <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
-                                    <button
-                                      onClick={() =>
-                                        setCancelOrderModal(false)
-                                      }
-                                      className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]"
-                                    >
-                                      Cancel
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                reorderApiCallHandler(
-                                  opneorder._id,
-                                  opneorder.user_id,
-                                  0
-                                )
-                                      }
-                                      disabled={clicked}
-                                      className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"
-                                    >
-                                      Yes
-                                    </button>
-                                  </div>
+                        <div className="w-[50%] md:hidden xl:block  mb-3  mt-1">
+                          <button
+                            type="button"
+                            className="w-full text-text_Color2 border-2 md:hidden xl:block p-2 border-text_Color rounded-3xl"
+                            onClick={() => cacelOrderHandler()}
+                          >
+                            Cancel
+                          </button>
+                          {cancelOrderModal && (
+                            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-5 flex items-center justify-center z-50">
+                              <div className="bg-white p-4 rounded-md w-[300px] h-auto ">
+                                <MdDeliveryDining
+                                  size={35}
+                                  className="w-full mx-auto text-text_Color"
+                                />
+                                <h1 className="w-[90%] mt-2.5 text-center mx-auto text-xl text-text_Color font-roxborough">
+                                  Are you sure you want to Cancel Order?
+                                </h1>
+                                <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
+                                  <button
+                                    onClick={() => setCancelOrderModal(false)}
+                                    className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]"
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      reorderApiCallHandler(
+                                        opneorder._id,
+                                        opneorder.user_id,
+                                          0
+                                      )
+                                    }
+                                    className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"
+                                  >
+                                    Yes
+                                  </button>
                                 </div>
                               </div>
-                            )}
-                          </div>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
                         // <button
                         //   className="w-[50%] text-text_Color2 border-2 md:hidden xl:block  border-text_Color p-2 mb-3  mt-1 rounded-3xl"
                         //   onClick={() =>
@@ -315,7 +308,6 @@ const OrderDetailsData = ({ data, _id }) => {
                         // >
                         //   Cancel
                         // </button>
-                      ) : (
                         <button
                           className="w-[50%] uppercase font-Marcellus md:hidden xl:block  bg-text_Color2 text-white mb-3  mt-1 p-2 rounded-3xl"
                           onClick={() =>
@@ -378,8 +370,7 @@ const OrderDetailsData = ({ data, _id }) => {
                             <button
                               type="button"
                               className="w-full text-text_Color2 border-2  border-text_Color  py-2 rounded-3xl"
-                              onClick={() => cacelOrderHandler()
-                              }
+                              onClick={() => cacelOrderHandler()}
                             >
                               Cancel
                             </button>
@@ -395,20 +386,18 @@ const OrderDetailsData = ({ data, _id }) => {
                                   </h1>
                                   <div className="w-[90%] flex justify-between gap-x-2 mt-3 mx-auto font-Marcellus">
                                     <button
-                                      onClick={() =>
-                                        setCancelOrderModal(false)
-                                      }
+                                      onClick={() => setCancelOrderModal(false)}
                                       className="uppercase p-2 border border-text_Color2 text-text_Color2 rounded-3xl w-[50%]"
                                     >
                                       Cancel
                                     </button>
                                     <button
                                       onClick={() =>
-                                reorderApiCallHandler(
-                                  opneorder._id,
-                                  opneorder.user_id,
-                                  0
-                                )
+                                        reorderApiCallHandler(
+                                          opneorder._id,
+                                          opneorder.user_id,
+                                          0
+                                        )
                                       }
                                       disabled={clicked}
                                       className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"

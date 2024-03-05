@@ -411,7 +411,7 @@ const Cart = () => {
                                   )}
                                   {discountItem.DiscountSlabs.every(
                                     (total) =>
-                                      data.totalSeriesPrice > total.from
+                                      data.totalSeriesPrice >= total.from
                                   ) && (
                                     <div className="w-[80%] mx-auto text-white font-Marcellus">
                                       <h1>
