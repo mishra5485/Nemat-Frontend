@@ -172,11 +172,15 @@ const Edit_UserManagement = () => {
 
   return (
     <div>
+
+       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>User Management</h1>
+      </div>
       <Toaster />
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <form>
+        <form className="mt-8">
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
             <div>
               <label
@@ -318,13 +322,13 @@ const Edit_UserManagement = () => {
             </div>
           </div>
 
-          <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+          <div className="flex justify-end w-[98%]">
             {PrevUserID.email_verified !== 0 ? (
               PrevUserID.status === 2 && PrevUserID.email_verified === 1 ? (
                 <button
                   onClick={() => activeUserAgain()}
                   type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                  className="w-full justify-center bg-[#666666] text-white sm:w-auto  inline-flex items-center  hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
                 >
                   Activate Again
                 </button>
@@ -332,7 +336,7 @@ const Edit_UserManagement = () => {
                 <button
                   onClick={() => disableUser()}
                   type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                  className="w-full bg-[#666666] text-white justify-center sm:w-auto inline-flex items-center  hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
                 >
                   Disable
                 </button>
@@ -340,7 +344,7 @@ const Edit_UserManagement = () => {
                 <button
                   onClick={() => activeateUserHandler()}
                   type="button"
-                  className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
+                  className="w-full justify-center bg-[#666666] text-white sm:w-auto inline-flex items-center  hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900"
                 >
                   Activate
                 </button>
@@ -350,7 +354,7 @@ const Edit_UserManagement = () => {
             <button
               onClick={() => navigator("/dashboard/user-mangement")}
               type="button"
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+              className="w-full justify-center sm:w-auto ml-6 text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
             >
               Go Back
             </button>
@@ -358,34 +362,46 @@ const Edit_UserManagement = () => {
         </form>
       )}
 
-    
-    {
-  orderStatus && orderStatus.length !== 0 ? (
-    <div>
-      <h1 className="mt-6 text-2xl text-center font-bold mb-4">Order Status</h1>
-      <div className="flex flex-wrap  gap-x-1 justify-center items-center">
-        {
-          orderStatus.map((orderData , index) => (
-            <div key={index} className="w-[90%] sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 sm:h-[150px] lg:h-[100px] xl:h-[100px] bg-gray-400 mb-4 rounded-lg p-4">
-              <p className="text-center text-lg text-gray-800 font-semibold">{orderData.Name}</p>
-              <h1 className="text-3xl text-center text-white mt-2 font-bold">{orderData.Value}</h1>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  ) : null
-}
+      <hr className="mt-6"/>
+
+      {orderStatus && orderStatus.length !== 0 ? (
+        <div className="mt-6">
+          <h1 className="mt-6 text-2xl text-black  font-bold mb-4">
+            Order Status
+          </h1>
+          <div className="flex justify-between mx-auto">
+            {orderStatus.map((orderData, index) => (
+              <div
+                key={index}
+                className="w-[95%] flex justify-center items-center "
+              >
+                <div className="p-3 border-2 border-[#868686] rounded-xl w-[90%] flex flex-col justify-between ">
+                <p className="text-start text-xl h-[45px] text-[#868686]  font-semibold w-[90%]">
+                  {orderData.Name} :-
+                </p>
+                <h1 className="text-3xl text-start text-black   mt-2 font-bold">
+                  {orderData.Value}
+                </h1>
+                  </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+
+      <hr className="mt-6"/>
+
     {
       orderData && orderData.length !== 0? (
          <div className="">
-        <h1 className="mt-6 text-2xl text-center font-bold mb-4">
-          Order Managemet Of User{" "}
+        <h1 className="mt-6 text-2xl ml-10 text-start font-bold mb-4">
+          User’s Order Management
         </h1>
-        <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+        <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 ">
                 <div className="w-full md:w-1/2">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
@@ -505,71 +521,6 @@ const Edit_UserManagement = () => {
                   </div>
                 )}
               </div>
-
-              <nav
-                className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                aria-label="Table navigation"
-              >
-                <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </section>
