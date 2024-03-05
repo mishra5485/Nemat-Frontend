@@ -84,24 +84,21 @@ const OrderManagement = () => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl text-center font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r  to-emerald-600 from-sky-400">
-          Order Management
-        </span>
-      </h1>
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>Order Management</h1>
+      </div>
       <Toaster />
-      <div>
-         <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+      <div className="mt-6">
+         <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 ">
                 <div className="w-full md:w-1/2">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
                     </label>
                     <div className="relative w-full">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
                       <input
                         type="text"
                         id="simple-search"
@@ -159,7 +156,7 @@ const OrderManagement = () => {
                       ) : (
                         filteredOrders?.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-500 hover:text-white dark:hover:bg-gray-700">
                               <td className="p-4 w-4">
                                 <div className="flex items-center">
                                   <input
@@ -178,7 +175,7 @@ const OrderManagement = () => {
                               </td>
                               <th
                                 scope="row"
-                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-4 py-3  font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
                                {item.OrderNo}
                               </th>
