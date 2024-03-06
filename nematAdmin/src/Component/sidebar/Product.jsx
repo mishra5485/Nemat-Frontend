@@ -23,16 +23,19 @@ const Product = () => {
   // const [selectedFragrance, setSelectedFragrance] = useState([]);
 
   const [subCategoryData, setSubCategoryData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [selectedArray, setSelectedArray] = useState([]);
+  const [allSelected, setAllSelected] = useState(false);
 
   useEffect(() => {
     if (showModal) {
       getAllData();
-     
+
       // handlerChangefunction(values.CategoryId);
     }
     getAllProductData();
-     getAllSubCategoryDropDown();
+    getAllSubCategoryDropDown();
   }, [showModal]);
 
   const getAllData = async () => {
@@ -123,7 +126,7 @@ const Product = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getallforfilter`
       );
 
-      console.log("dropdown" , response.data);
+      console.log("dropdown", response.data);
       setSubCategoryData(response.data);
     } catch (error) {
       if (error.response) {
@@ -144,7 +147,6 @@ const Product = () => {
       }
     }
   };
-
 
   console.log(allProductData);
 
@@ -416,22 +418,98 @@ const Product = () => {
     setFilteredData(filtered);
   };
 
-   const handleCategoryChange = (e) => {
+  const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
 
+    if (selectedCategoryId === "All") {
+      setSelectedCategory("ALL");
 
-    if(selectedCategoryId === "All"){
-             setSelectedCategory("ALL")
+      setFilteredData(allProductData);
+    } else {
+      setSelectedCategory(selectedCategoryId);
 
-      setFilteredData(allProductData)
+      // Perform filtering based on the selected category ID
+      // For example, filter your data array based on the selected category ID
+      const filteredItems = allProductData.filter(
+        (item) => item.SubCategoryId === selectedCategoryId
+      );
+      setFilteredData(filteredItems);
+    }
+  };
 
-    }  else{
-             setSelectedCategory(selectedCategoryId)
+  const handleParentCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setAllSelected(isChecked);
+    if (isChecked) {
+      const allItemIds = allProductData.map((item) => item._id);
+      setSelectedArray(allItemIds);
+    } else {
+      setSelectedArray([]);
+    }
+  };
 
-    // Perform filtering based on the selected category ID
-    // For example, filter your data array based on the selected category ID
-    const filteredItems = allProductData.filter(item => item.SubCategoryId === selectedCategoryId)
-    setFilteredData(filteredItems)
+  //   console.log("selectedArray check ===> ", selectedArray);
+
+  const handleCheckboxChange = (event, itemId) => {
+    const isChecked = event.target.checked;
+    let updatedSelectedArray;
+    if (isChecked) {
+      updatedSelectedArray = [...selectedArray, itemId];
+    } else {
+      updatedSelectedArray = selectedArray?.filter((id) => id !== itemId);
+    }
+    setSelectedArray(updatedSelectedArray);
+    setAllSelected(updatedSelectedArray.length === allProductData.length);
+  };
+
+  console.log("Selected Items:", selectedArray);
+
+  const handleDeleteCheckBox = async () => {
+    console.log("Selected Items:", selectedArray);
+
+    if (selectedArray.length == 0) {
+      toast.error("Item is Not selected");
+      return;
+    }
+
+    try {
+      const payload = {
+        ProductIds: selectedArray,
+      };
+
+      console.log("payload", payload);
+
+      let response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/bulkdelete`,
+        payload
+      );
+
+      if (response.status === 200) {
+        const updatedData = allProductData.filter(
+          (item) => !selectedArray.includes(item._id)
+        );
+        setAllProductData(updatedData);
+        setFilteredData(updatedData)
+        setSelectedArray([]);
+        toast.success(response.data);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          toast.error(data);
+        }
+      }
     }
   };
 
@@ -439,9 +517,8 @@ const Product = () => {
     <div className="text-center">
       <Toaster />
       <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
-
-          <h1>Product Page</h1>
-        </div>
+        <h1>Product Page</h1>
+      </div>
 
       {showModal ? (
         // Form Createation div
@@ -932,27 +1009,25 @@ const Product = () => {
                     </div>
                   </form>
                 </div>
-                 <div>
-                <select
-                  id="category"
-                  name="category"
-                  className="py-2 w-full border rounded-md"
-                  onChange={handleCategoryChange}
-                  value={selectedCategory}
-                >
-                  <option value="" disabled>
-                    Select Sub-Category
-                  </option>
-                  <option value="All">
-                    All
-                  </option>
-                  {subCategoryData?.map((subcategory) => (
-                    <option key={subcategory._id} value={subcategory._id}>
-                      {subcategory.Name}
+                <div>
+                  <select
+                    id="category"
+                    name="category"
+                    className="py-2 w-full border rounded-md"
+                    onChange={handleCategoryChange}
+                    value={selectedCategory}
+                  >
+                    <option value="" disabled>
+                      Select Sub-Category
                     </option>
-                  ))}
-                </select>
-              </div>
+                    <option value="All">All</option>
+                    {subCategoryData?.map((subcategory) => (
+                      <option key={subcategory._id} value={subcategory._id}>
+                        {subcategory.Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                   <button
                     className="bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -966,7 +1041,9 @@ const Product = () => {
 
               <div className="">
                 {loading ? (
-                  <p><LoadingSpinner/></p>
+                  <p>
+                    <LoadingSpinner />
+                  </p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -978,6 +1055,8 @@ const Product = () => {
                                 id="checkbox-all"
                                 type="checkbox"
                                 className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                checked={allSelected}
+                                onChange={handleParentCheckboxChange}
                               />
                               <label htmlFor="checkbox-all" className="sr-only">
                                 checkbox
@@ -1011,13 +1090,16 @@ const Product = () => {
                               <td className="p-4 w-4">
                                 <div className="flex items-center">
                                   <input
-                                    id="checkbox-table-search-1"
+                                    id={`checkbox-table-search-${item._id}`}
                                     type="checkbox"
-                                    onClick={handleForm}
                                     className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    onChange={(e) =>
+                                      handleCheckboxChange(e, item._id)
+                                    }
+                                    checked={selectedArray.includes(item._id)}
                                   />
                                   <label
-                                    htmlFor="checkbox-table-search-1"
+                                    htmlFor={`checkbox-table-search-${item._id}`}
                                     className="sr-only"
                                   >
                                     checkbox
@@ -1152,6 +1234,16 @@ const Product = () => {
               </nav>
             </div>
           </div>
+          {selectedArray.length != 0 && (
+            <div className="w-[100%] flex justify-end ">
+              <button
+                className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
+                onClick={() => handleDeleteCheckBox()}
+              >
+                Bulk Delete
+              </button>
+            </div>
+          )}
         </section>
       )}
     </div>
