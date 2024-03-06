@@ -7,6 +7,7 @@ import axios from "axios";
 const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
   //   console.log("selectedArray ===>", selectedArrays);
 
+  const [orderData , setOrderData] = useState(selectedArrays)
   const [selectedArray, setSelectedArray] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -14,7 +15,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
     const isChecked = event.target.checked;
     setAllSelected(isChecked);
     if (isChecked) {
-      const allItemIds = selectedArrays.map((item) => item.id);
+      const allItemIds = orderData.map((item) => item.id);
       setSelectedArray(allItemIds);
     } else {
       setSelectedArray([]);
@@ -32,7 +33,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
       updatedSelectedArray = selectedArray.filter((id) => id !== itemId);
     }
     setSelectedArray(updatedSelectedArray);
-    setAllSelected(updatedSelectedArray.length === selectedArrays.length);
+    setAllSelected(updatedSelectedArray.length === orderData.length);
   };
 
   const handleDeleteCheckBox = async() => {
@@ -57,7 +58,16 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
          payload
       )
 
-      toast.success(response.data)
+      if (response.status === 200) {
+      const updatedData = orderData.filter(item => !selectedArray.includes(item.id));
+      setOrderData(updatedData);
+      setSelectedArray([]);
+      toast.success(response.data);
+    }
+
+
+    console.log( " orderData ===> " ,orderData)
+
       
     } catch (error) {
       if (error.response) {
@@ -122,10 +132,10 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
           </tr>
         </thead>
         <tbody>
-          {selectedArrays?.map((item) => (
+          {orderData?.map((item) => (
             <tr
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              key={item._id}
+              key={item.id}
             >
               {checkboxCheck == "PlacedOrders" && (
                 <td className="p-4 w-4">
