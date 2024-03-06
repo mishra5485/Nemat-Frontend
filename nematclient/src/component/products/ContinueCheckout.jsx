@@ -137,7 +137,7 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
           <div className="bg-white p-4 rounded-md w-[600px] h-[230px] flex flex-col justify-center items-center">
             <div className="w-[100%] h-[95%] font-bold text-xl">
               <div className="w-[90%] text-center mt-2 mx-auto text-text_Color">
-                <h1 className="mb-2">Wait For Sales Order </h1>
+                <h1 className="mb-2">Generating Sales Order</h1>
                 <div className="animate-pulse h-8 bg-gray-300 rounded-md mb-4"></div>
                 <div className="animate-pulse h-6 bg-gray-300 rounded-md"></div>
               </div>
