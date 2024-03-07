@@ -190,7 +190,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
             className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
             onClick={() => handleDeleteCheckBox()}
           >
-            Bulk Delete
+            Bulk Cancel
           </button>
         </div>
       )}
