@@ -7,7 +7,7 @@ import axios from "axios";
 const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
   //   console.log("selectedArray ===>", selectedArrays);
 
-  const [orderData , setOrderData] = useState(selectedArrays)
+  // const [orderData , setOrderData] = useState(selectedArrays)
   const [selectedArray, setSelectedArray] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -15,7 +15,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
     const isChecked = event.target.checked;
     setAllSelected(isChecked);
     if (isChecked) {
-      const allItemIds = orderData.map((item) => item.id);
+      const allItemIds = selectedArrays.map((item) => item.id);
       setSelectedArray(allItemIds);
     } else {
       setSelectedArray([]);
@@ -33,7 +33,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
       updatedSelectedArray = selectedArray.filter((id) => id !== itemId);
     }
     setSelectedArray(updatedSelectedArray);
-    setAllSelected(updatedSelectedArray.length === orderData.length);
+    setAllSelected(updatedSelectedArray.length === selectedArrays.length);
   };
 
   const handleDeleteCheckBox = async() => {
@@ -59,14 +59,14 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
       )
 
       if (response.status === 200) {
-      const updatedData = orderData.filter(item => !selectedArray.includes(item.id));
-      setOrderData(updatedData);
-      setSelectedArray([]);
+      // const updatedData = orderData.filter(item => !selectedArray.includes(item.id));
+      // setOrderData(updatedData);
+      // setSelectedArray([]);
       toast.success(response.data);
     }
 
 
-    console.log( " orderData ===> " ,orderData)
+    console.log( " orderData ===> " ,selectedArrays)
 
       
     } catch (error) {
@@ -132,7 +132,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
           </tr>
         </thead>
         <tbody>
-          {orderData?.map((item) => (
+          {selectedArrays?.map((item) => (
             <tr
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               key={item.id}
