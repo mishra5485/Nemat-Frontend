@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formattedAmount } from "../../common/FormatAmount";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
-const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
+const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) => {
   //   console.log("selectedArray ===>", selectedArrays);
 
   // const [orderData , setOrderData] = useState(selectedArrays)
   const [selectedArray, setSelectedArray] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
+
+  const [storeDataCase , setStoreDataCase] = useState();
+  const [storeDataCheck , setStoreDataCheck] = useState(true)
+
+  useEffect(() => {
+    if(checkboxCheck == "PlacedOrders"){
+      setStoreDataCase(selectedArrays)
+    }
+  },[checkboxCheck])
+  
+
 
   const handleParentCheckboxChange = (event) => {
     const isChecked = event.target.checked;
@@ -44,6 +55,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
       return
     }
 
+    
 
     try {
 
@@ -63,6 +75,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
       // setOrderData(updatedData);
       // setSelectedArray([]);
       toast.success(response.data);
+      setFlagGetData(true)
     }
 
 
@@ -84,6 +97,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
           ) {
             console.log(error.response);
             toast.error(data);
+            setFlagGetData(true)
           }
         }
     }
@@ -132,6 +146,9 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck }) => {
           </tr>
         </thead>
         <tbody>
+          {
+            
+          }
           {selectedArrays?.map((item) => (
             <tr
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

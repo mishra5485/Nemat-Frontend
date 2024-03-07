@@ -5,13 +5,16 @@ import OrderManagementList from './OrderManagementList';
 const OrderManagementTable = () => {
 
     const [selectedArray, setSelectedArray] = useState(null);
-  const [apiData, setApiData] = useState(null);
-   const [loading, setLoading] = useState(true);
-   const [checkboxCheck , setCheckboxCheck] = useState("PlacedOrders");
+    const [apiData, setApiData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [checkboxCheck , setCheckboxCheck] = useState("PlacedOrders");
+    const [flagGetData , setFlagGetData] = useState(true)
 
    useEffect(() => {
+    if(flagGetData){
       getallOrder();
-   },[])
+    }
+   },[flagGetData])
 
    const getallOrder = async () => {
     try {
@@ -23,6 +26,7 @@ const OrderManagementTable = () => {
       setSelectedArray(Object.keys(response.data)[0]);
       console.log(response.data);
       setLoading(false)
+      setFlagGetData(false)
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -39,6 +43,7 @@ const OrderManagementTable = () => {
           console.log(error.response);
           toast.error(data);
           setLoading(false)
+          setFlagGetData(false)
         }
       }
     }
@@ -82,7 +87,7 @@ const OrderManagementTable = () => {
             </div>
           </nav>
           {selectedArray && apiData && (
-            <OrderManagementList selectedArrays={apiData[selectedArray]} checkboxCheck={checkboxCheck} />
+            <OrderManagementList selectedArrays={apiData[selectedArray]} checkboxCheck={checkboxCheck}  setFlagGetData={setFlagGetData}/>
           )}
         </div>
       )}
