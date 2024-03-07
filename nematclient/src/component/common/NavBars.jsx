@@ -217,7 +217,7 @@ const NavBars = () => {
 
                   {selectedSeries === category._id && (
                     <div className="z-10 ">
-                      <ul className="py-2 text-base pl-3 font-Marcellus text-text_Color  ">
+                      <ul className="py-2 text-base pl-3 font-Marcellus text-text_Color">
                         {category.SubCategories &&
                           category.SubCategories.map((subcategories) => (
                             <li
@@ -411,7 +411,7 @@ const NavBars = () => {
                         </h1>
                       </div>
 
-                      <div className="pl-3 h-[70%]">
+                      <div className="pl-3 h-auto">
                         <ul className="py-2 text-base font-Marcellus text-text_Color ">
                           {category.SubCategories &&
                             category.SubCategories.map((subcategories) => (

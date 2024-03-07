@@ -228,7 +228,7 @@ const Home = () => {
             {categoryData.map((category, index) => (
               <div key={index}>
                 {index % 2 == 0 ? (
-                  <div key={index} className="p-2 py-5  w-full mb-2">
+                  <div key={index} className="p-2 py-5   w-full mb-2">
                     <img src={DottedLineGold} className="w-full" />
                     {/* <Goldenline image={DottedLineGold} /> */}
                   </div>
@@ -246,7 +246,7 @@ const Home = () => {
                         category.SubCategories.map((subcategories) => (
                           <div
                             key={subcategories._id}
-                            className="flex w-full flex-col justify-center gap-y-3 items-center mb-2"
+                            className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2"
                             onClick={() => seriesPageById(subcategories._id)}
                           >
                             <img
