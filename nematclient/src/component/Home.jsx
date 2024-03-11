@@ -167,7 +167,7 @@ const Home = () => {
           <Slider
             {...settings}
             ref={sliderRef}
-            className="overflow-hidden z-10"
+            className="overflow-hidden z-10 cursor-pointer"
           >
             {BannerData.map((bannerItem) => (
               <div
@@ -246,14 +246,14 @@ const Home = () => {
                         category.SubCategories.map((subcategories) => (
                           <div
                             key={subcategories._id}
-                            className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2"
+                            className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 "
                             onClick={() => seriesPageById(subcategories._id)}
                           >
                             <img
                               src={`${
                                 import.meta.env.VITE_REACT_APP_BASE_URL
                               }/${subcategories.Image}`}
-                              className="mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
+                              className="hover:scale-125 transition-transform duration-300 mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
                               alt={subcategories?.title}
                             />
                             <h1
