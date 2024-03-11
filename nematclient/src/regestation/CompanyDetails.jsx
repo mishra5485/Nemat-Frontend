@@ -1,16 +1,19 @@
-import  { useState } from "react";
-import loginBG  from "../assets/loginImages/loginImage.png"
+import { useState } from "react";
+import loginBG from "../assets/loginImages/loginImage.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../assets/loginImages/nematEnterprisesLogo.png";
 
-// import { counntryCode } from "../CountryCode/data";
+import { counntryCode } from "../CountryCode/data";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {RegisterobjectSchema , CompanyschemaObject} from "../validationSchem/index.js"
+import {
+  RegisterobjectSchema,
+  CompanyschemaObject,
+} from "../validationSchem/index.js";
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
-import "../App.css"
+import "../App.css";
 import RightToLeftanm from "../style/RightToLeftanm";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 
@@ -19,8 +22,6 @@ const CompanyDetails = () => {
   const [isChecked, setIsChecked] = useState(0);
   const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
-
-
 
   const initialValues = {
     camponeyname: "",
@@ -41,7 +42,6 @@ const CompanyDetails = () => {
   const onSubmit2 = async (event) => {
     event.preventDefault();
 
-   
     try {
       await CompanyschemaObject.validate(values, { abortEarly: false });
       setnextDiv(false);
@@ -51,14 +51,15 @@ const CompanyDetails = () => {
     }
   };
 
-
-
   const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
     useFormik({
       initialValues,
       validationSchema: RegisterobjectSchema,
       onSubmit: async (values, actions) => {
         // console.log("values inside sumit -> ",values);
+
+        const numericCountryCode = values.countryCode.replace(/\D/g, '');
+        const numericCountryCode1 = values.countryCode1.replace(/\D/g, '');
 
         const payload = {
           CompanyName: values.camponeyname,
@@ -70,19 +71,21 @@ const CompanyDetails = () => {
           CustomerName: values.fullname,
           Email: values.email,
           MobileNumber: values.mobileNo,
-          Country_MobileNumber: values.countryCode,
-          Country_LandlineNumber: values.countryCode1,
+          Country_MobileNumber: numericCountryCode,
+          Country_LandlineNumber: numericCountryCode1,
           LandlineNumber: values.landlineNo,
           ReciveUpdates: values.whatappcheck,
         };
 
-        if(values.landlineNo === ""){
-          delete payload.Country_LandlineNumber
-          delete payload.LandlineNumber
+        console.log("Payload regestor", payload);
+
+        if (values.landlineNo === "") {
+          delete payload.Country_LandlineNumber;
+          delete payload.LandlineNumber;
         }
 
         try {
-          const response = await axios.post(
+           const response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
             }/user/register`,
@@ -121,62 +124,92 @@ const CompanyDetails = () => {
 
   return (
     <div className="">
-          <div className='w-full  h-full object-cover md:flex md:w-full md:h-[100vh] md:overflow-hidden'>
-      <Toaster />
-            {/* Image section with Logo */}
-            
-            <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[102%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
-            <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
-                <Link to={"/"}>
-                  <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
-                </Link>
-              </div>  
-            </div>
+      <div className="w-full  h-full object-cover md:flex md:w-full md:h-[100vh] md:overflow-hidden">
+        <Toaster />
+        {/* Image section with Logo */}
 
+        <div
+          style={{
+            backgroundImage: `url(${loginBG})`,
+            backgroundRepeat: "no-repeat",
+          }}
+          className="mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[102%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]"
+        >
+          <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
+            <Link to={"/"}>
+              <img
+                src={logo}
+                className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] "
+                alt=""
+              />
+            </Link>
+          </div>
+        </div>
 
-            {/* Infinite Scroll section */}
-            <div className=' overflow-hidden mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2'>
-                <RightToLeftanm image={FlowerPattern2}/>
+        {/* Infinite Scroll section */}
+        <div className=" overflow-hidden mobile:w-full mobile:h-[45px] sm:w-full sm:h-[45px] min-h-[5%] md:max-w-[4%] md:h-full md:mt-2">
+          <RightToLeftanm image={FlowerPattern2} />
 
-                {/* Show FlowerPattern for md and larger screens */}
-               <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden  md:inline-block"/>
-            </div>
+          {/* Show FlowerPattern for md and larger screens */}
+          <InfiniteScrollImage className="w-full h-full animate-img mobile:hidden sm:hidden  md:inline-block" />
+        </div>
 
-
-          <div className="w-[100%] h-[100%] overflow-hidden ">
-            <div className="h-full mt-[1%] flex flex-col justify-evenly overflow-x-hidden">
-                {
-                  nextdiv && sentReview === false  ? (
-                      <div className="frame_554 flex  items-center sm:w-full md:w-[120%] md:justify-between xl:w-[80%] mobile:w-[150%] mobile:pl-[3%] mobile:flex mobile:justify-start  justify-evenly mt-3   ">
-              <div className="frame_551 gap-2 flex  items-end">
-                <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                  1
+        <div className="w-[100%] h-[100%] overflow-hidden ">
+          <div className="h-full mt-[1%] flex flex-col justify-evenly overflow-x-hidden">
+            {nextdiv && sentReview === false ? (
+              <div className="frame_554 flex  items-center sm:w-full md:w-[120%] md:justify-between xl:w-[80%] mobile:w-[150%] mobile:pl-[3%] mobile:flex mobile:justify-start  justify-evenly mt-3   ">
+                <div className="frame_551 gap-2 flex  items-end">
+                  <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                    1
+                  </div>
+                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">
+                    Company details
+                  </div>
                 </div>
-                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">Company details</div>
-              </div>
-              <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-              </svg>
-              <div className="frame_552 flex gap-2 items-end opacity-[0.4] mobile:ml-2">
-                <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                  2
+                <svg
+                  width={33}
+                  height={7}
+                  viewBox="0 0 33 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.4"
+                    d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z"
+                    fill="#60713A"
+                  />
+                </svg>
+                <div className="frame_552 flex gap-2 items-end opacity-[0.4] mobile:ml-2">
+                  <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                    2
+                  </div>
+                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">
+                    Contact info
+                  </div>
                 </div>
-                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">Contact info</div>
-              </div>
-              <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-              </svg>
-              <div className="frame_553 gap-2 flex items-end opacity-[0.4]  mobile:ml-2">
-                <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                  3
+                <svg
+                  width={33}
+                  height={7}
+                  viewBox="0 0 33 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.4"
+                    d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z"
+                    fill="#60713A"
+                  />
+                </svg>
+                <div className="frame_553 gap-2 flex items-end opacity-[0.4]  mobile:ml-2">
+                  <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                    3
+                  </div>
+                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%]">
+                    Request sent
+                  </div>
                 </div>
-                <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%]">Request sent</div>
               </div>
-                      </div>
-                ) : (
-                  null
-                )
-              }
+            ) : null}
 
             <form onSubmit={handleSubmit} className="mt-2">
               {nextdiv && sentReview === false ? (
@@ -196,8 +229,9 @@ const CompanyDetails = () => {
                             className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
                           >
                             {" "}
-                            Company name{" "}
-                            <span className="text-red-600">*</span>{" "}
+                            Company name <span className="text-red-600">
+                              *
+                            </span>{" "}
                           </label>
                           <div className="">
                             <input
@@ -210,10 +244,10 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.camponeyname && touched.camponeyname ? (
-                              <p className="font-Marcellus text-red-900">{errors.camponeyname}</p>
-                            ) : (
-                              null
-                            )}
+                              <p className="font-Marcellus text-red-900">
+                                {errors.camponeyname}
+                              </p>
+                            ) : null}
                           </div>
                         </div>
                         <div className="sm:mt-7 mobile:mt-7 md:mt-0 md:w-[50%]">
@@ -235,10 +269,10 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.gstno && touched.gstno ? (
-                              <p className="font-Marcellus text-red-900">{errors.gstno}</p>
-                            ) : (
-                              null
-                            )}
+                              <p className="font-Marcellus text-red-900">
+                                {errors.gstno}
+                              </p>
+                            ) : null}
                           </div>
                         </div>
                       </div>
@@ -246,7 +280,7 @@ const CompanyDetails = () => {
 
                     <div className="sm:mt-[50px] mobile:mt-[50px] md:mt-[3%]">
                       <h1 className="sm:text-2xl sm:text-center  mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-[2%] ">
-                        ADD GST Address 
+                        ADD GST Address
                       </h1>
                     </div>
 
@@ -272,14 +306,13 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.address && touched.address ? (
-                            <p className="font-Marcellus text-red-900">{errors.address}</p>
-                          ) : (
-                            null
-                          )}
+                            <p className="font-Marcellus text-red-900">
+                              {errors.address}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                       <div className="md:flex md:flex-row md:w-[100%] md:mt-[2%]  sm:flex-col mobile:flex-col sm:mt-[30px] mobile:mt-[30px] gap-x-2">
-                        
                         <div className=" md:w-[50%]">
                           <label
                             htmlFor=""
@@ -299,10 +332,10 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.state && touched.state ? (
-                              <p className="font-Marcellus text-red-900">{errors.state}</p>
-                            ) : (
-                              null
-                            )}
+                              <p className="font-Marcellus text-red-900">
+                                {errors.state}
+                              </p>
+                            ) : null}
                           </div>
                         </div>
 
@@ -325,10 +358,11 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.city && touched.city ? (
-                              <p className="font-Marcellus text-red-900"> {errors.city}</p>
-                            ) : (
-                              null
-                            )}
+                              <p className="font-Marcellus text-red-900">
+                                {" "}
+                                {errors.city}
+                              </p>
+                            ) : null}
                           </div>
                         </div>
                       </div>
@@ -351,10 +385,10 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.zipcode && touched.zipcode ? (
-                            <p className="font-Marcellus text-red-900">{errors.zipcode}</p>
-                          ) : (
-                            null
-                          )}
+                            <p className="font-Marcellus text-red-900">
+                              {errors.zipcode}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -368,8 +402,10 @@ const CompanyDetails = () => {
                   </button>
                   <p className="text-sm font-Marcellus text-[#642F29] text-center mt-[1%]  md:text-lg gap-2 md:text-start">
                     Alrady have an account?{" "}
-                    <Link className="font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl" 
-                    to={"/"}>
+                    <Link
+                      className="font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl"
+                      to={"/"}
+                    >
                       LOGIN
                     </Link>
                   </p>
@@ -377,260 +413,285 @@ const CompanyDetails = () => {
               ) : (
                 <div>
                   <div>
-                  
                     <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto md:flex md:flex-col md:justify-evenly mobile:h-auto md:h-[100vh] md:w-[90%] ">
                       <div>
-                      <div className="inline-flex items-center gap-[30px] md:ml-0 sm:ml-0 mobile:ml-[-40%] relative">
-                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
-                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                              1
+                        <div className="inline-flex items-center gap-[30px] md:ml-0 sm:ml-0 mobile:ml-[-40%] relative">
+                          <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
+                            <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                              <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                                1
+                              </div>
+                            </div>
+                            <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                              Company details
                             </div>
                           </div>
-                          <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-                            Company details
+                          <svg
+                            width={33}
+                            height={7}
+                            viewBox="0 0 33 7"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              opacity="0.4"
+                              d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z"
+                              fill="#60713A"
+                            />
+                          </svg>
+                          <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
+                            <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[8px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                              <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                                2
+                              </div>
+                            </div>
+                            <div className="relative w-fit font-['Marcellus'] text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                              Contact info
+                            </div>
+                          </div>
+                          <svg
+                            width={33}
+                            height={7}
+                            viewBox="0 0 33 7"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              opacity="0.4"
+                              d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z"
+                              fill="#60713A"
+                            />
+                          </svg>
+                          <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] opacity-40 font-['Marcellus']">
+                            <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
+                              <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
+                                3
+                              </div>
+                            </div>
+                            <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                              Request sent
+                            </div>
                           </div>
                         </div>
-                                  <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-                                </svg>
-                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
-                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[8px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                              2
-                            </div>
-                          </div>
-                          <div className="relative w-fit font-['Marcellus'] text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-                            Contact info
-                          </div>
-                        </div>
-                                    <svg width={33} height={7} viewBox="0 0 33 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path opacity="0.4" d="M27.3333 3.5C27.3333 4.97276 28.5272 6.16667 30 6.16667C31.4728 6.16667 32.6667 4.97276 32.6667 3.5C32.6667 2.02724 31.4728 0.833333 30 0.833333C28.5272 0.833333 27.3333 2.02724 27.3333 3.5ZM0 4H30V3H0V4Z" fill="#60713A" />
-                                </svg>
-                        <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] opacity-40 font-['Marcellus']">
-                          <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
-                            <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
-                              3
-                            </div>
-                          </div>
-                          <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
-                            Request sent
-                          </div>
-                      </div>
-                      </div>
                       </div>
                       <div className="">
-                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-8 md:mt-6" >Contact Info</h1>
+                        <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-8 md:mt-6">
+                          Contact Info
+                        </h1>
 
-                      <div className="md:flex md:flex-row sm:flex-col mt-6 md:w-[100%] overflow-hidden">
-                        <div className="md:flex md:flex-row sm:flex-col gap-x-2  mobile:w-[90%]  sm:w-[90%] md:w-[100%]">
-                          <div className="md:w-[50%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Full Name <span className="text-red-600">
-                                *
-                              </span>{" "}
-                            </label>
-                            <div className="">
-                              <input
-                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type="text"
-                                placeholder="Full Name"
-                                id="fullname"
-                                value={values.fullname}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              ></input>
-                              {errors.fullname && touched.fullname ? (
-                                <p className="font-Marcellus text-red-900">{errors.fullname}</p>
-                              ) : (
-                                null
-                              )}
+                        <div className="md:flex md:flex-row sm:flex-col mt-6 md:w-[100%] overflow-hidden">
+                          <div className="md:flex md:flex-row sm:flex-col gap-x-2  mobile:w-[90%]  sm:w-[90%] md:w-[100%]">
+                            <div className="md:w-[50%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Full Name{" "}
+                                <span className="text-red-600">*</span>{" "}
+                              </label>
+                              <div className="">
+                                <input
+                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  type="text"
+                                  placeholder="Full Name"
+                                  id="fullname"
+                                  value={values.fullname}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                ></input>
+                                {errors.fullname && touched.fullname ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.fullname}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
-                          </div>
-                          <div className="sm:mt-7 mobile:mt-7 md:mt-0 md:w-[50%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Email <span className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl">*</span>{" "}
-                            </label>
-                            <div className="">
-                              <input
-                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type="email"
-                                placeholder="Enter Email"
-                                id="email"
-                                value={values.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              ></input>
-                              {errors.email && touched.email ? (
-                                <p className="font-Marcellus text-red-900">{errors.email}</p>
-                              ) : (
-                                  null
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-row md:mt-7 mobile:mt-7 sm:mt-7  sm:w-[100%] mobile:w-[100%] ">
-                        <div className="flex flex-row gap-0 mobile:w-full sm:w-full md:w-[100%] md:gap-x-2 ">
-                          <div className="w-[35%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Country {" "}
-                              <span className="text-red-600">*</span>{" "}
-                            </label>
-                            <div className="mobile:w-[90%] ">
-                              <input
-                                className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type=""
-                                placeholder="Country Code"
-                                id="countryCode"
-                                value={values.countryCode}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              ></input>
-
-                              {/* 
-                                                 <select
-                                                      className="flex h-10 w-[50%] border-b-2 border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
-                                                      id="countryCode"
-                                                      value={values.countryCode}
-                                                      onChange={handleChange}
-                                                      onBlur={handleBlur}
-                                                   >
-                                                      <option value="" disabled>
-                                                         Select Country Code
-                                                      </option>
-                                                      {counntryCode.map((country) => (
-                                                         <option key={country.code} value={country.code}>
-                                                         {country.name} ({country.code})
-                                                         </option>
-                                                      ))}
-                                                   </select>
-                                             */}
-
-                              {errors.countryCode && touched.countryCode ? (
-                                <p className="font-Marcellus text-red-900">{errors.countryCode}</p>
-                              ) : (
-                                null
-                              )}
-                            </div>
-                          </div>
-                          <div className="md:w-[65%] mobile:w-[50%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Mobile Number{" "}
-                              <span className="text-red-600">*</span>{" "}
-                            </label>
-                            <div className="">
-                              <input
-                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type="text"
-                                placeholder=" Mobile Number"
-                                id="mobileNo"
-                                value={values.mobileNo}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              ></input>
-                              {errors.mobileNo && touched.mobileNo ? (
-                                <p className="font-Marcellus text-red-900">{errors.mobileNo}</p>
-                              ) : (
-                                null
-                              )}
+                            <div className="sm:mt-7 mobile:mt-7 md:mt-0 md:w-[50%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Email{" "}
+                                <span className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl">
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div className="">
+                                <input
+                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  type="email"
+                                  placeholder="Enter Email"
+                                  id="email"
+                                  value={values.email}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                ></input>
+                                {errors.email && touched.email ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.email}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex mt-7 md:gap-2 gap-1 md:w-full md:text-lg">
-                        <input
-                          className=""
-                          type="checkbox"
-                          id="whatappcheck"
-                          checked={isChecked === 1}
-                          onChange={handleCheckboxChange}
-                        />
-                        {/* {console.log(values.whatappcheck)} */}
-                        <label className="w-full text-sm font-Marcellus text-[#642F29] md:text-xlw das d">
-                          Recieve discounts and order updates on whatapp
-                        </label>
-                      </div>
+                        <div className="flex flex-row md:mt-7 mobile:mt-7 sm:mt-7  sm:w-[100%] mobile:w-[100%] ">
+                          <div className="flex flex-row gap-0 mobile:w-full sm:w-full md:w-[100%] md:gap-x-2 ">
+                            <div className="w-[35%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Country <span className="text-red-600">
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div className="mobile:w-[90%] ">
+                                <select
+                                  className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  id="countryCode"
+                                  value={values.countryCode}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                >
+                                  <option value="" disabled>
+                                    Select Country
+                                  </option>
+                                  {counntryCode.map((country , index) => (
+                                    <option
+                                      key={index}
+                                      value={country.code}
+                                    >
+                                      {country.name} ({country.code})
+                                    </option>
+                                  ))}
+                                </select>
 
-                      <div className="flex flex-row mt-7">
-                        <div className="flex flex-row  mobile:w-full gap-0 md:w-[100%] md:gap-x-2">
-                          <div className="w-[35%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Country{" "}
-                            </label>
-                            <div className="mt-2 mobile:w-[90%]">
-                              <input
-                                className="flex h-10 md:w-[90%] text-lg font-Marcellus text-text_Color w-full sm:w-[90%] mobile:w-[90%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type=""
-                                placeholder=" Country Code"
+                                {errors.countryCode && touched.countryCode ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.countryCode}
+                                  </p>
+                                ) : null}
+                              </div>
+                            </div>
+                            <div className="md:w-[65%] mobile:w-[50%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Mobile Number{" "}
+                                <span className="text-red-600">*</span>{" "}
+                              </label>
+                              <div className="">
+                                <input
+                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  type="text"
+                                  placeholder=" Mobile Number"
+                                  id="mobileNo"
+                                  value={values.mobileNo}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                ></input>
+                                {errors.mobileNo && touched.mobileNo ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.mobileNo}
+                                  </p>
+                                ) : null}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex mt-7 md:gap-2 gap-1 md:w-full md:text-lg">
+                          <input
+                            className=""
+                            type="checkbox"
+                            id="whatappcheck"
+                            checked={isChecked === 1}
+                            onChange={handleCheckboxChange}
+                          />
+                          {/* {console.log(values.whatappcheck)} */}
+                          <label className="w-full text-sm font-Marcellus text-[#642F29] md:text-xlw das d">
+                            Recieve discounts and order updates on whatapp
+                          </label>
+                        </div>
+
+                        <div className="flex flex-row mt-7">
+                          <div className="flex flex-row  mobile:w-full gap-0 md:w-[100%] md:gap-x-2">
+                            <div className="w-[35%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Country{" "}
+                              </label>
+                              <div className="mt-2 mobile:w-[90%]">
+                                 <select
+                                  className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  placeholder=" Country Code"
                                 id="countryCode1"
                                 value={values.countryCode1}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                              ></input>
-                              {errors.countryCode1 && touched.countryCode1 ? (
-                                <p className="font-Marcellus text-red-900">{errors.countryCode1}</p>
-                              ) : (
-                                null
-                              )}
+                                >
+                                  <option value="" disabled>
+                                    Select Country
+                                  </option>
+                                  {counntryCode.map((country , index) => (
+                                    <option
+                                      key={index}
+                                      value={country.code}
+                                    >
+                                      {country.name} ({country.code})
+                                    </option>
+                                  ))}
+                                </select>
+                                {errors.countryCode1 && touched.countryCode1 ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.countryCode1}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
-                          </div>
-                          <div className="md:w-[65%] mobile:w-[50%]">
-                            <label
-                              htmlFor=""
-                              className="mobile:text-xl font-Marcellus w-full  text-[#642F29] md:text-xl"
-                            >
-                              {" "}
-                              Landline Number{" "}
-                              
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29]    placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
-                                type="text"
-                                placeholder=" Landline Number "
-                                id="landlineNo"
-                                value={values.landlineNo}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              ></input>
-                              {errors.landlineNo && touched.landlineNo ? (
-                                <p className="font-Marcellus text-red-900">{errors.landlineNo}</p>
-                              ) : (
-                                null
-                              )}
+                            <div className="md:w-[65%] mobile:w-[50%]">
+                              <label
+                                htmlFor=""
+                                className="mobile:text-xl font-Marcellus w-full  text-[#642F29] md:text-xl"
+                              >
+                                {" "}
+                                Landline Number{" "}
+                              </label>
+                              <div className="mt-2">
+                                <input
+                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29]    placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  type="text"
+                                  placeholder=" Landline Number "
+                                  id="landlineNo"
+                                  value={values.landlineNo}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                ></input>
+                                {errors.landlineNo && touched.landlineNo ? (
+                                  <p className="font-Marcellus text-red-900">
+                                    {errors.landlineNo}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <button
-                        type="submit"
-                        className="p-2 mobile:pb-5 mobile:mt-[30px] sm:mt-[30px] mobile:w-full mobile:text-xl text-center rounded-3xl bg-[#60713A] text-white font-Marcellus text-base  leading-17 md:w-[25%] h-[43px] overflow-y-hidden"
+                        <button
+                          type="submit"
+                          className="p-2 mobile:pb-5 mobile:mt-[30px] sm:mt-[30px] mobile:w-full mobile:text-xl text-center rounded-3xl bg-[#60713A] text-white font-Marcellus text-base  leading-17 md:w-[25%] h-[43px] overflow-y-hidden"
                         >
-                        Next
-                      </button>
+                          Next
+                        </button>
                       </div>
                     </div>
                   </div>
