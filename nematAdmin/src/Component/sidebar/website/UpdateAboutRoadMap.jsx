@@ -4,7 +4,7 @@ import * as yup from "yup";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData}) => {
+const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData , setCallApiAfterUpdate}) => {
   const [roadmapImage, setRoadmapImage] = useState(null);
 
   const updateRoadMapObject = yup.object({
@@ -66,6 +66,7 @@ const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData})
         if (response.status === 200) {
           toast.success(response.data);
           setUpdateData(false)
+          setCallApiAfterUpdate(true)
         }
       } catch (error) {
         if (error.response) {

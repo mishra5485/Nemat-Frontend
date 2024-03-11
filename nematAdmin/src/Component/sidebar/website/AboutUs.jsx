@@ -14,10 +14,13 @@ const AboutUs = () => {
   const [allImageFile, setAllImageFile] = useState([]);
   const [updateData, setUpdateData] = useState(false);
   const [roadMapDataUpdate, setRoadMapDataUpdate] = useState();
+  const [callApiAfterUpdate , setCallApiAfterUpdate] = useState(true)
 
   useEffect(() => {
-    AboutUsData();
-  }, []);
+    if(callApiAfterUpdate){
+      AboutUsData();
+    }
+  }, [callApiAfterUpdate]);
 
   let _id = "";
 
@@ -31,6 +34,7 @@ const AboutUs = () => {
       setAboutUsData(response.data);
       _id = response.data._id;
       setLoading(false);
+      setCallApiAfterUpdate(false)
     } catch (error) {
       const { status, data } = error.response;
       if (
@@ -45,6 +49,7 @@ const AboutUs = () => {
         console.log(error.response);
         toast.error(error.message);
         setLoading(false);
+        setCallApiAfterUpdate(false)
       }
     }
   };
@@ -521,6 +526,7 @@ const AboutUs = () => {
                   roadMapDataUpdate={roadMapDataUpdate}
                   aboutUsdata={aboutUsdata}
                   setUpdateData={setUpdateData}
+                  setCallApiAfterUpdate={setCallApiAfterUpdate}
                 />
               )}
             </div>
