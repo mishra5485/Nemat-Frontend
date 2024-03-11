@@ -28,15 +28,21 @@ const Product = () => {
   const [selectedArray, setSelectedArray] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 5;
+  const [maxData, setMaxData] = useState(1);
+
   useEffect(() => {
     if (showModal) {
       getAllData();
-
       // handlerChangefunction(values.CategoryId);
     }
-    getAllProductData();
     getAllSubCategoryDropDown();
   }, [showModal]);
+
+  useEffect(() => {
+    getAllProductData();
+  }, [currentPage]);
 
   const getAllData = async () => {
     let allDataLoadedSuccessfully = true;
@@ -90,35 +96,52 @@ const Product = () => {
   // console.log("AllFragranceData => ", AllFragranceData);
 
   const getAllProductData = async () => {
-    try {
-      const FetchAllProductData = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/getall`
-      );
+    if (currentPage < maxData) {
+      try {
+        const FetchAllProductData = await axios.get(
+          `${
+            import.meta.env.VITE_REACT_APP_BASE_URL
+          }/product/get/${pageSize}/${currentPage}`
+        );
 
-      if (FetchAllProductData.status === 200) {
-        setAllProductData(FetchAllProductData.data);
-        setFilteredData(FetchAllProductData.data);
-        setLoading(false);
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
+        if (FetchAllProductData.status === 200) {
+          setAllProductData(FetchAllProductData.data.Products);
+          setFilteredData(FetchAllProductData.data.Products);
+          if (currentPage == 0) {
+            setMaxData(
+              Math.ceil(
+                FetchAllProductData.data.TotalProductDataLength / pageSize
+              )
+            );
+          }
           setLoading(false);
+
+          console.log("ProductApi ", FetchAllProductData.data);
+        }
+      } catch (error) {
+        if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            setLoading(false);
+          }
         }
       }
+    } else {
+      toast.error("No Data Found");
     }
   };
+
+  // console.log(" maxData ==> ", maxData);
 
   const getAllSubCategoryDropDown = async () => {
     try {
@@ -126,7 +149,7 @@ const Product = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getallforfilter`
       );
 
-      console.log("dropdown", response.data);
+      // console.log("dropdown", response.data);
       setSubCategoryData(response.data);
     } catch (error) {
       if (error.response) {
@@ -148,7 +171,7 @@ const Product = () => {
     }
   };
 
-  console.log(allProductData);
+  // console.log(allProductData);
 
   const ProductObject = yup.object({
     productName: yup.string().min(2).required("Please Enter Product Name"),
@@ -326,7 +349,7 @@ const Product = () => {
     setAllImageFile(files);
   };
 
-  console.log("setImages data => ", images);
+  // console.log("setImages data => ", images);
 
   // const handleCheckboxChange = () => {
   //   setIsChecked((prevValue) => (prevValue === 1 ? 0 : 1));
@@ -462,7 +485,7 @@ const Product = () => {
     setAllSelected(updatedSelectedArray.length === allProductData.length);
   };
 
-  console.log("Selected Items:", selectedArray);
+  // console.log("Selected Items:", selectedArray);
 
   const handleDeleteCheckBox = async () => {
     console.log("Selected Items:", selectedArray);
@@ -489,7 +512,7 @@ const Product = () => {
           (item) => !selectedArray.includes(item._id)
         );
         setAllProductData(updatedData);
-        setFilteredData(updatedData)
+        setFilteredData(updatedData);
         setSelectedArray([]);
         toast.success(response.data);
       }
@@ -1173,62 +1196,31 @@ const Product = () => {
                 aria-label="Table navigation"
               >
                 <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                    </a>
+                  <li
+                    onClick={() => {
+                      if (currentPage > 0) {
+                        setCurrentPage(currentPage - 1);
+                      }
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <span className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                      Prev
+                    </span>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
+                    <span className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                      {currentPage < maxData && currentPage + 1}
+                    </span>
                   </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                    </a>
+
+                  <li
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    className="cursor-pointer"
+                  >
+                    <span className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                      Next
+                    </span>
                   </li>
                 </ul>
               </nav>
