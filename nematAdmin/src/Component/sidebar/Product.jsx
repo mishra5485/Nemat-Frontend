@@ -30,7 +30,7 @@ const Product = () => {
   const [allSelected, setAllSelected] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const pageSize = 5;
+  const pageSize = 25;
   const [maxData, setMaxData] = useState(1);
 
   useEffect(() => {
