@@ -434,14 +434,6 @@ const Product = () => {
   //   setSelectedImage('');
   // };
 
-  const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const filtered = allProductData.filter((item) =>
-      item.Name.toLowerCase().includes(searchTerm)
-    );
-    setFilteredData(filtered);
-  };
-
   const handleCategoryChange = (e) => {
     const selectedCategoryId = e.target.value;
 
