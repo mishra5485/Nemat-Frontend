@@ -16,13 +16,13 @@ const UserNewComponent = ({selectedArray }) => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" className="px-6 py-3">
-                    User Name
+                    Company Name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                     User GST No.
+                     Company GST No.
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Mobile Number
+                    Company Number
                 </th>
                 <th scope="col" className="px-6 py-3">
                     status

@@ -39,7 +39,7 @@ const UserManagement = () => {
   return (
     <div className="overflow-x-auto">
       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
-        <h1>User Management</h1>
+        <h1>Company Management</h1>
       </div>
 
       {loading ? (
