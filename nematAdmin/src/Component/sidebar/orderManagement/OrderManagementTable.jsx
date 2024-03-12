@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OrderManagementList from "./OrderManagementList";
-import SearchOrder from "./SearchOrder";
 import toast, { Toaster } from "react-hot-toast";
 
 const OrderManagementTable = () => {
@@ -83,6 +82,7 @@ const OrderManagementTable = () => {
           console.log(error.response);
           toast.error(data);
           setApiData(null);
+          setOriginalData(null)
           setLoading(false);
           setFlagGetData(false);
         }
@@ -205,7 +205,7 @@ const OrderManagementTable = () => {
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
                         <input
                           type="text"
-                          placeholder="Search"
+                          placeholder="Enter Order Number"
                           id="camponeyorder"
                           value={searchTerm}
                           onChange={handleChange}

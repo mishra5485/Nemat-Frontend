@@ -168,12 +168,10 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
           </tr>
         </thead>
         <tbody>
-          {
-            
-          }
+
           {selectedArrays?.map((item) => (
             <tr
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              className="bg-white border-b hover:bg-gray-200"
               key={item.id}
             >
               {checkboxCheck == "PlacedOrders" && (
