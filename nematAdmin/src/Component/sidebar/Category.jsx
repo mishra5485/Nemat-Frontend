@@ -572,18 +572,7 @@ const Category = () => {
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                       <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="w-full ">
-                          <th scope="col" className="p-4">
-                            <div className="flex items-center">
-                              <input
-                                id="checkbox-all"
-                                type="checkbox"
-                                className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label htmlFor="checkbox-all" className="sr-only">
-                                checkbox
-                              </label>
-                            </div>
-                          </th>
+                          
                           {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
@@ -612,22 +601,7 @@ const Category = () => {
                         filteredData.map((item) => (
                           <tbody key={item._id}>
                             <tr className="border-b dark:border-gray-600 hover:bg-red-400 dark:hover:bg-gray-700">
-                              <td className="p-4 w-4">
-                                <div className="flex items-center">
-                                  <input
-                                    id="checkbox-table-search-1"
-                                    type="checkbox"
-                                    onClick={handleForm}
-                                    className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                  />
-                                  <label
-                                    htmlFor="checkbox-table-search-1"
-                                    className="sr-only"
-                                  >
-                                    checkbox
-                                  </label>
-                                </div>
-                              </td>
+                              
                               {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
