@@ -3,9 +3,10 @@ import { formattedAmount } from "../../common/FormatAmount";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { OrderStatus } from "../../common/FormatAmount"
 
 const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) => {
-  //   console.log("selectedArray ===>", selectedArrays);
+    console.log("checkboxCheck ===>", checkboxCheck);
 
   // const [orderData , setOrderData] = useState(selectedArrays)
   const [selectedArray, setSelectedArray] = useState([]);
@@ -55,8 +56,6 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
       return
     }
 
-    
-
     try {
 
       const payload = {
@@ -66,7 +65,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
       console.log("payload" , payload);
 
       let response = await axios.post(
-         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/bulk_delete`,
+         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/bulk_cancel`,
          payload
       )
 
@@ -104,6 +103,26 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
 
   };
 
+
+  const  getStatusName = (status) => {
+  switch (status) {
+    case OrderStatus.OpenOrder:
+      return "Open Order";
+    case OrderStatus.InvoicePaid:
+      return "Invoice Paid";
+    case OrderStatus.Packed:
+      return "Packed";
+    case OrderStatus.OutForDelivery:
+      return "Out for Delivery";
+    case OrderStatus.Delivered:
+      return "Delivered";
+    case OrderStatus.Cancelled:
+      return "Cancelled";
+    default:
+      return "Unknown Status";
+  }
+}
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-2">
       <Toaster />
@@ -134,10 +153,13 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
               Company Name
             </th>
             <th scope="col" className="px-6 py-3">
-              OrderedDate
+              Order Date
             </th>
             <th scope="col" className="px-6 py-3">
-              Order Amount
+              Order Status
+            </th>
+            <th scope="col" className="px-6 py-3">
+               Amount
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -182,6 +204,8 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
               </th>
               <td className="px-6 py-4">{item.CompanyName}</td>
               <td className="px-6 py-4">{item.OrderedDate}</td>
+              <td className="px-6 py-4">{getStatusName(item.Status)}</td>
+
               <td className="px-6 py-4 ">
                 {formattedAmount(item.TotalAmount)}
               </td>
