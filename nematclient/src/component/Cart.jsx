@@ -10,6 +10,7 @@ import ContinueCheckout from "./products/ContinueCheckout";
 import { toast } from "react-hot-toast";
 import DeliveredAddAddress from "./DeliveredAddAddress";
 import ProductAddModal from "./ProductAddModal";
+import NoProductFound from "../assets/HomePage/empty-cart.webp"
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
@@ -149,7 +150,12 @@ const Cart = () => {
       ) : (
         <>
           {nodata ? (
-            <p>No Products Found in Cart</p>
+            <div className="w-full h-[100%] flex justify-center items-center">
+              <img
+                src={NoProductFound}
+                className=" w-[50%] h-[50%] object-cover my-auto"
+              />
+            </div>
           ) : (
             <div className="mt-10 w-[100%]">
               <div className="w-[90%] mx-auto ">
