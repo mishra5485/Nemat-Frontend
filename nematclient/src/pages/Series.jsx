@@ -451,15 +451,15 @@ const Series = () => {
                   <Slider
                     ref={(slider) => (sliderRefs[index] = slider)}
                     {...settings}
-                    className="mobile:overflow-hidden sm:overflow-hidden md:overflow-hidden"
+                    className="mobile:overflow-hidden sm:overflow-hidden md:overflow-hidden "
                   >
                     {product.ProductOtherImage.map((images, imageIndex) => (
-                      <div key={imageIndex} className="mt-8 md:relative">
+                      <div key={imageIndex} className="mt-8 md:relative ">
                         <img
                           src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                             images.OtherImagesName
                           }`}
-                          className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover  md:w-[320px] md:h-[245px] md:object-contain "
+                          className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover  md:w-[320px] md:h-[245px] md:object-contain hover:scale-110 transition-transform duration-300 "
                           alt={`Slide ${imageIndex + 1}`}
                         />
                       </div>
@@ -527,7 +527,7 @@ const Series = () => {
                                 }
                               >
                                 {/* Render packsize information */}
-                                {packsize.size}  {packsize.nameConvention}
+                                {packsize.size}  {(packsize.nameConvention)}
                               </button>
                             )
                         )}

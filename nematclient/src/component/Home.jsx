@@ -246,22 +246,24 @@ const Home = () => {
                         category.SubCategories.map((subcategories) => (
                           <div
                             key={subcategories._id}
-                            className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 "
+                            className=" flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 "
                             onClick={() => seriesPageById(subcategories._id)}
                           >
+                            <div className="hover:scale-110 transition-transform duration-300">
                             <img
                               src={`${
                                 import.meta.env.VITE_REACT_APP_BASE_URL
                               }/${subcategories.Image}`}
-                              className="hover:scale-125 transition-transform duration-300 mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
+                              className=" mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
                               alt={subcategories?.title}
                             />
                             <h1
-                              className="font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
+                              className=" font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
                               style={{ minHeight: "3em" }}
                             >
                               {subcategories.Name}
                             </h1>
+                            </div>
                             <button className="w-[137px] uppercase h-[43px] hover:bg-[#293821] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
                               Order NOW
                             </button>

@@ -264,6 +264,7 @@ const Search = () => {
                     className="flex w-full flex-col justify-center gap-y-3 cursor-pointer items-center mb-2"
                     onClick={() => seriesPageById(subcategories._id)}
                   >
+                    <div className="hover:scale-110 transition-transform duration-300">
                     <img
                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                         subcategories.Image
@@ -277,6 +278,7 @@ const Search = () => {
                     >
                       {subcategories.Name}
                     </h1>
+                    </div>
                     <button className="w-[137px] uppercase h-[43px] hover:bg-[#006400] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
                       Order NOW
                     </button>
