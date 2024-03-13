@@ -162,7 +162,7 @@ const NavBars = () => {
 
   return (
     <header
-      className={`w-full  bg-LightCream left-0 z-40 top-0 ${isScrollingUp  ? "fixed" : ""}`}
+      className={`w-full  bg-LightCream left-0 z-40 top-0 ${isScrollingUp  ? "fixed" : ""} transition-transform duration-300`}
     >
     <div className="custom-scrollbar  ">
       <header className=" w-full left-0 z-0 top-0">
