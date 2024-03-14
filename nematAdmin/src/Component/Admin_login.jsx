@@ -1,4 +1,3 @@
-
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState  } from "react";
@@ -8,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAddmin } from "../slice/AdminProfileSlice";
 import { useNavigate } from "react-router-dom";
+import loginImage from "../assets/loginImage.png"
 
 const  Admin_login = () => {
    
@@ -85,10 +85,10 @@ const  Admin_login = () => {
       <div className="h-full grid grid-cols-1 md:grid-cols-2 ">
         <Toaster/>
         <div className="relative flex items-end px-4 pb-10 pt-60 sm:px-6 sm:pb-16 md:justify-center lg:px-8 lg:pb-24 ">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 w-[100%] h-full">
             <img
-              className="h-full w-full rounded-md object-cover object-top"
-              src="https://images.unsplash.com/photo-1534120247760-c44c3e4a62f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk0fHxkZXNpZ25lcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+              className="h-full w-[100%] rounded-md object-cover"
+              src={loginImage}
               alt=""
             />
           </div>
