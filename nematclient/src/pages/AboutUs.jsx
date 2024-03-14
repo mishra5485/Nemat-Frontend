@@ -166,7 +166,8 @@ const AboutUs = () => {
           {/* RoadMapModal open Section */}
           {roadmapModal && (
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
-              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%]">
+              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%] lg:h-auto">
+                <div className="h-[92%]">
                 {roadmapdataModal.map((data, index) => (
                   <div
                     key={index}
@@ -205,6 +206,7 @@ const AboutUs = () => {
                     </div>
                   </div>
                 ))}
+                </div>
                 <p
                   onClick={() => setRoadMapModal(false)}
                   className="w-full uppercase underline text-text_Color2 font-Marcellus text-lg text-center mt-4 cursor-pointer"
