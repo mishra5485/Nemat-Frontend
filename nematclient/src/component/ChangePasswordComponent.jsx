@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logout } from "../slices/profileSlice.js";
 import { setcategoryEmpty } from "../slices/categorySlice.js";
+import getToken from "./auth/GetToken.js";
 
 const ChangePasswordComponent = () => {
   const navigate = useNavigate();
@@ -78,9 +79,13 @@ const ChangePasswordComponent = () => {
           NewPassword: values.confirmPWD,
         };
         try {
+
+          const header = getToken();
+
           let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/changepassword`,
-            palyload
+            palyload,
+            header
           );
 
           // console.log("chnage password -> " , response)

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import OrderDetailsData from './common/orderDetailsData';
+import getToken from './auth/GetToken';
 
 const DeliveredOrderDetails = () => {
 
@@ -21,10 +22,13 @@ const DeliveredOrderDetails = () => {
       }
 
       try {
-         
+          
+        const header = getToken();
+
          let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/getdeliveredorders`,
-            payload
+            payload , 
+            header
          )
 
          console.log(response.data)

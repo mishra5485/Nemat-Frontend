@@ -7,6 +7,7 @@ import Flower from "../assets/HomePage/Flower.png";
 import Footer from "../component/footer/footer";
 import ProductHeader from "../component/common/ProductHeader";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import getToken from "../component/auth/GetToken";
 
 const AboutUs = () => {
   const [aboutUsData, setAboutUsData] = useState([]);
@@ -23,11 +24,7 @@ const AboutUs = () => {
     };
 
     window.addEventListener("resize", handleResize);
-
-    // Initial call to set initial state
     handleResize();
-
-    // Cleanup the event listener
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -35,10 +32,15 @@ const AboutUs = () => {
     AboutUsData();
   }, []);
 
+  
   const AboutUsData = async () => {
     try {
+
+      const header = getToken()
+
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/getData`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/getData`,
+        header
       );
 
       console.log("About Us Data ===> ", response.data);
@@ -97,13 +99,19 @@ const AboutUs = () => {
     setRoadMapModal(true);
   };
 
+  const checkHandler = () => {
+    if(roadmapModal){
+      setRoadMapModal(false)
+    }
+  }
+
   return (
-    <div>
+    <div onClick={() => checkHandler()} >
       <NavBars />
       {loading ? (
         <p>Loaddding </p>
       ) : (
-        <div id="mainSection" className="aboutSection">
+        <div id="mainSection" className="aboutSection" >
           <div className="heroSection">
             <div className="banner">
               <img
@@ -131,7 +139,7 @@ const AboutUs = () => {
             <img src={DottedLineGold} className="w-full" />
           </div>
 
-          <div className="w-full mobile:mt-4 mobile:mb-4 h-auto z-10 bg-Cream md:flex md:justify-between relative">
+          <div className="w-full mobile:mt-4 mobile:mb-4 h-auto z-10 bg-Cream md:flex md:justify-between relative"  >
             {aboutUsData.RoadMapData?.map((roadmapdata, index) => (
               <div
                 key={index}

@@ -51,6 +51,8 @@ const  Admin_login = () => {
              console.log("response -> ",response)
             if (response.status === 200) {
                 dispatch(setAddmin(response.data))
+                const AdminLogin = response.data
+                localStorage.setItem("token",AdminLogin.token)
                 toast.success("Login successfully");
                 navigate("/dashboard");
             }

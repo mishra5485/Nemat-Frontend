@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ProductHeader from "./common/ProductHeader";
 import Flower from "../assets/HomePage//Flower.png";
 import Footer from "../component/footer/footer"
+import getToken from "./auth/GetToken";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,11 +42,12 @@ const Search = () => {
             user_id: user.customer_id,
           };
 
-          console.log("Payload ", payload);
+          const header = getToken()
 
           let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/search/getdata`,
-            payload
+            payload , 
+            header
           );
 
           console.log(response.data);
@@ -130,9 +132,12 @@ const Search = () => {
           user_id: user.customer_id,
         };
 
+        const header = getToken()
+
         const response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/add`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response.data);
@@ -185,9 +190,13 @@ const Search = () => {
     console.log("PAyload ===> ", payload);
 
     try {
+
+      const header = getToken()
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/removeproduct`,
-        payload
+        payload , 
+        header
       );
 
       if (response.status === 200) {

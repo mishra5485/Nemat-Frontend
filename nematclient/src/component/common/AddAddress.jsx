@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../auth/GetToken";
 
 const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
 
@@ -92,11 +93,15 @@ const AddAddress = ({setIsModalOpen, isModalOpen , setAddress }) => {
         console.log("Payload ==> " , palyload  )
 
         try {
+
+          const header = getToken()
+
           let response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
             }/user/addshippingaddress`,
-            palyload
+            palyload ,
+            header
           );
 
           console.log(response)

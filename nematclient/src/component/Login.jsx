@@ -69,18 +69,13 @@ const Login = () => {
           // console.log(response)
 
           if (response.status === 200) {
-            const Customer_id = response.data;
-            dispatch(setUser(Customer_id));
+            const CustomerData = response.data;
+            dispatch(setUser(CustomerData));
+            localStorage.setItem("token",CustomerData.token)
             if (response?.data?.SkipChangeDefaultPasswordPage === 1) {
-              //if user success full login and he alredy change the password.
-              // Redirect toward Home or Menu page
-              // showToast(response.data , "success")
               navigate("/home");
             } else {
-              // we need to Render Change Password Component
-
               setChangePassword(false);
-              
             }
           }
         } catch (error) {

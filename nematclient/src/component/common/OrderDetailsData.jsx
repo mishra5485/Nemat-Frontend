@@ -9,6 +9,7 @@ import { IoRemoveOutline } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { MdDeliveryDining } from "react-icons/md";
+import getToken from "../auth/GetToken";
 
 const OrderDetailsData = ({ data, _id }) => {
   const [nodata, setNoData] = useState(false);
@@ -68,9 +69,13 @@ const OrderDetailsData = ({ data, _id }) => {
     setClicked(true);
 
     try {
+
+      const header = getToken();
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/downloadDocuments`,
         payload,
+        header,
         {
           responseType: "blob",
         }
@@ -151,18 +156,22 @@ const OrderDetailsData = ({ data, _id }) => {
 
       console.log("Check ORder id For PayLoad", payload);
 
+      const header = getToken();
+
       let response;
       if (flag === 1) {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/reorder`,
-          payload
+          payload , 
+          header
         );
 
         navigate("/cart");
       } else {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/cancelorder`,
-          payload
+          payload , 
+          header
         );
 
         setOpenOrderData((openOrderData) =>

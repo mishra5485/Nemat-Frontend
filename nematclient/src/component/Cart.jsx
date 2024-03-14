@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import DeliveredAddAddress from "./DeliveredAddAddress";
 import ProductAddModal from "./ProductAddModal";
 import NoProductFound from "../assets/HomePage/empty-cart.webp"
+import getToken  from "./auth/GetToken";
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
@@ -57,9 +58,12 @@ const Cart = () => {
         user_id: user.customer_id,
       };
 
+      const header = getToken()
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/getcartpagedata`,
-        payload
+        payload , 
+        header
       );
 
       setProductDisplay(response.data.LeftSideData);
@@ -96,8 +100,12 @@ const Cart = () => {
 
   const getAllDiscountSlabe = async () => {
     try {
+
+      const header = getToken()
+
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`,
+        header
       );
 
       setDiscountSlabe(response.data);

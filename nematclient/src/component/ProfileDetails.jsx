@@ -9,6 +9,7 @@ import AddAddress from "./common/AddAddress";
 import EditAddress from "./common/EditAddress";
 import { TbPasswordUser } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import getToken from "./auth/GetToken"
 
 const ProfileDetails = () => {
   const { _id } = useParams();
@@ -29,8 +30,11 @@ const ProfileDetails = () => {
 
   const getAllData = async () => {
     try {
+
+      const header = getToken()
+
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/getuserdetails/${_id}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/getuserdetails/${_id}` , header
       );
 
       

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import getToken  from "../auth/GetToken";
 
 const EditAddress = ({ editModalOpen , setEditModalOpen , selectedAddress , setAddress}) => {
 
@@ -161,11 +162,15 @@ const EditAddress = ({ editModalOpen , setEditModalOpen , selectedAddress , setA
         console.log("Payload ==> " , palyload  )
 
         try {
+
+          const header = getToken(); 
+
           let response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
             }/user/updateshippingaddress`,
-            palyload
+            palyload ,
+            header
           );
 
           console.log(response)
@@ -273,7 +278,7 @@ const EditAddress = ({ editModalOpen , setEditModalOpen , selectedAddress , setA
 
 
   return (
-    <div>
+    <div className="z-50">
       <Toaster/>
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
               <div className="bg-white p-4 rounded-md w-[500px] h-auto">

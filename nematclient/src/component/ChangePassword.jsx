@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
+import getToken from './auth/GetToken';
+
+console.log(getToken());
 
 const ChangePassword = () => {
 
@@ -66,15 +69,17 @@ const ChangePassword = () => {
              customer_id:customer_id_Store,
         }
           
-        
-
         try {
-            
-          //Calling Backend Server To Check he is Valid USer or Not. 
+        
+        const header = getToken()
+
           let response = await axios.post(
               `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/skipchangedefaultpassword`,
-              payload
+              payload,
+              header
           );
+
+          console.log("response " , response)
 
           if(response.status === 200){
             navigate("/home")
@@ -112,9 +117,12 @@ const ChangePassword = () => {
             NewPassword:values.confirmPWD,
         };
         try{
+
+          const header = getToken()
           let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/changepassword`,
-            palyload
+            palyload ,
+            header
           );
 
           // console.log("chnage password -> " , response)

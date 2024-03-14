@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { formattedAmount } from "./common/FormatAmount";
 import { AiFillCloseCircle } from "react-icons/ai";
+import getToken from "./auth/GetToken";
 
 const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData }) => {
   const [loading, setLoading] = useState(true);
@@ -25,9 +26,12 @@ const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData })
         user_id: user.customer_id,
       };
 
+      const header = getToken()
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/getproductoncart`,
-        payload
+        payload,
+        header
       );
 
       console.log("product Pop Data ==> ", response.data);
@@ -89,6 +93,9 @@ const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData })
         console.log("multipliedValue ===> ", multipliedValue);
 
         try {
+
+          const header = getToken()
+
           const payload = {
             subcategory_id: productData.SubCategoryId,
             product_id: productData._id,
@@ -98,7 +105,8 @@ const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData })
 
           let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/add`,
-            payload
+            payload,
+            header
           );
 
           console.log(response.data);
@@ -138,9 +146,12 @@ const ProductAddModal = ({ productId, user, setProductModal , setLoadCartData })
           user_id: user.customer_id,
       }
 
+      const header = getToken()
+
       let response = await axios.post(
          `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/removeproduct`,
-            payload
+            payload,
+            header
       )
 
       console.log(response.data);

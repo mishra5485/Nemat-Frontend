@@ -19,6 +19,10 @@ import Flower from "../assets/HomePage/Flower.png";
 import { useDispatch } from "react-redux";
 import { setCategoryDataStore } from "../slices/categorySlice";
 
+import getToken from "./auth/GetToken";
+
+
+
 
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
@@ -90,8 +94,10 @@ const Home = () => {
   
   const getAllHomePageData = async () => {
     try {
+      const header = getToken()
       let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getdata`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homepage/getdata`,
+        header
       );
 
       // console.log("allDataResponse.data", allDataResponse.data);

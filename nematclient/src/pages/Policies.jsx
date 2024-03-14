@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import NavBars from "../component/common/NavBars";
 import DottedLineGold from "../assets/HomePage/DottedLineGold.png";
 import PolicyDetails from "../component/common/PolicyDetails";
+import getToken from "../component/auth/GetToken";
 
 const Policies = () => {
   const [policiesData, setPoliciesData] = useState([]);
@@ -15,8 +16,12 @@ const Policies = () => {
 
   const getAllPoliciesData = async () => {
     try {
+
+      const header = getToken()
+
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getall`,
+        header
       );
 
       console.log(response.data);

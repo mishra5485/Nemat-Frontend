@@ -12,6 +12,7 @@ import Footer from "../component/footer/footer";
 import { useSelector } from "react-redux";
 import ProgressBar from "../component/common/ProgressBar";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../component/auth/GetToken";
 
 const Series = () => {
   const { _id } = useParams();
@@ -97,11 +98,15 @@ const Series = () => {
     }
 
     try {
+
+      const header = getToken();
+
       let response = await axios.post(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/subcategorypage/getdata/${perPage}/${page}`,
-        payload
+        payload , 
+        header
       );
 
       setSeriesData(response.data);
@@ -238,9 +243,13 @@ const Series = () => {
       toast.error("Select Quantity");
     } else {
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/add`,
-          payload
+          payload , 
+          header
         );
 
         if (response.status === 200) {
@@ -297,9 +306,13 @@ const Series = () => {
     // console.log("PAyload ===> " , payload)
 
     try {
+
+      const header = getToken()
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/removeproduct`,
-        payload
+        payload ,
+        header
       );
 
       if (response.status === 200) {

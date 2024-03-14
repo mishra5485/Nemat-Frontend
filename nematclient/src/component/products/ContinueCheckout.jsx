@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { GoDownload } from "react-icons/go";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../auth/GetToken";
 
 const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
   console.log("selectedAddressId ===> ", selectedAddressId);
@@ -26,11 +27,16 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
     console.log(payload);
 
     try {
+
+      const header = getToken()
+
       setLoading(true);
+
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/placeorder`,
         payload,
+        header,
         {
           responseType: "blob",
         }

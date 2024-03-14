@@ -6,6 +6,7 @@ import * as yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import Footer from "../component/footer/footer";
 import { FaWhatsapp } from "react-icons/fa";
+import getToken from "../component/auth/GetToken";
 
 const ContactUs = () => {
   const [loading, setLoading] = useState(true);
@@ -89,8 +90,12 @@ const ContactUs = () => {
 
   const getallInfo = async () => {
     try {
+
+      const header = getToken()
+
       let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admincontactusform/get`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admincontactusform/get`,
+        header
       );
 
       console.log("allDataResponse.data", allDataResponse.data);
@@ -242,7 +247,7 @@ const ContactUs = () => {
                           type="text"
                           placeholder="Mobile Number"
                           value={values.userMobileNo}
-                          id="userMobileNo"
+                          id="userMobileNo" 
                           onChange={handleChange}
                           onBlur={handleBlur}
                         ></input>
