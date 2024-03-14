@@ -5,12 +5,15 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import getToken from "../../common/getToken";
 
 const Policies = () => {
   const [loading, setLoading] = useState(true);
   const [showform, setShowForm] = useState();
   const [policiesdata, setPoliciesData] = useState([]);
   const navigate = useNavigate()
+
+  const header = getToken()
 
   useEffect(() => {
     fetchAllData();
@@ -19,7 +22,7 @@ const Policies = () => {
   const fetchAllData = async () => {
     try {
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getall`,header
       );
 
       if (response.status === 200) {
@@ -60,7 +63,8 @@ const Policies = () => {
         try {
           let response = await axios.post(
             `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/create`,
-            payload
+            payload , 
+            header
           );
 
           if (response.status === 200) {
@@ -103,7 +107,7 @@ const Policies = () => {
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/policies/deletebyId/${_id}`
+        }/policies/deletebyId/${_id}` , header
       );
 
       if (deleteData.status === 200) {

@@ -5,69 +5,72 @@ import toast, { Toaster } from "react-hot-toast";
 import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import axios from "axios";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const Smtp = () => {
 
 
-   const [loading, setLoading] = useState(true);
-   const [showPassword, setShowPassword] = useState(false);
-   const [isSmtpData  , setIsSmtpData] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSmtpData, setIsSmtpData] = useState([])
 
-   const showHandler = () => {
-      setShowPassword(!showPassword);
-    };
+  const header = getToken()
 
-   useEffect(() => {
-      getSmtpData()
-   },[]) 
+  const showHandler = () => {
+    setShowPassword(!showPassword);
+  };
 
-   const getSmtpData = async() => {
-       try {
-         let responseHeader = await axios.get(
-         `${import.meta.env.VITE_REACT_APP_BASE_URL}/smtp/get`
-         );
+  useEffect(() => {
+    getSmtpData()
+  }, [])
 
-      if(responseHeader.status === 200){
-         setIsSmtpData(responseHeader.data);
-         setLoading(false)
+  const getSmtpData = async () => {
+    try {
+      let responseHeader = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/smtp/get`, header
+      );
+
+      if (responseHeader.status === 200) {
+        setIsSmtpData(responseHeader.data);
+        setLoading(false)
       }
 
     } catch (error) {
-       setLoading(false)
+      setLoading(false)
       console.log(error);
     }
-   }
+  }
 
-   const SmtpObject = yup.object({
-    port:yup.number()
-    .typeError("Please enter a valid number")
-    .integer("Please enter a valid number")
-    .min(111)
-    .required("Enter the Port Number"),
-    host:yup.string().min(3).required("Please Enter Host "),
-    username:yup.string().min(3).required("Please Enter UserName "),
-    smtpPassword:yup.string().min(3).required("Please Enter the SMTPPassword "),
-    encryption:yup.string().min(3).required("Please Enter The Encryption key")
-    
+  const SmtpObject = yup.object({
+    port: yup.number()
+      .typeError("Please enter a valid number")
+      .integer("Please enter a valid number")
+      .min(111)
+      .required("Enter the Port Number"),
+    host: yup.string().min(3).required("Please Enter Host "),
+    username: yup.string().min(3).required("Please Enter UserName "),
+    smtpPassword: yup.string().min(3).required("Please Enter the SMTPPassword "),
+    encryption: yup.string().min(3).required("Please Enter The Encryption key")
+
   });
 
-    const initialValues = loading
+  const initialValues = loading
     ? {
-        port: "",
-        host: "",
-        username: "",
-        smtpPassword: "",
-        encryption: "",
-      }
+      port: "",
+      host: "",
+      username: "",
+      smtpPassword: "",
+      encryption: "",
+    }
     : {
-        port: isSmtpData.Port,
-        host: isSmtpData.Host,
-        username:isSmtpData.Username,
-        smtpPassword: isSmtpData.Password,
-        encryption: isSmtpData.Encryption,
-      };
+      port: isSmtpData.Port,
+      host: isSmtpData.Host,
+      username: isSmtpData.Username,
+      smtpPassword: isSmtpData.Password,
+      encryption: isSmtpData.Encryption,
+    };
 
-   const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+  const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
     useFormik({
       initialValues,
       validationSchema: SmtpObject,
@@ -76,19 +79,19 @@ const Smtp = () => {
       onSubmit: async (values) => {
         const _id = isSmtpData._id;
         const payload = {
-            Port:values.port,
-            Host:values.host,
-            Username:values.username,
-            Password:values.smtpPassword,
-            Encryption:values.encryption
+          Port: values.port,
+          Host: values.host,
+          Username: values.username,
+          Password: values.smtpPassword,
+          Encryption: values.encryption
         };
 
         try {
           let response = await axios.post(
-            `${
-              import.meta.env.VITE_REACT_APP_BASE_URL
+            `${import.meta.env.VITE_REACT_APP_BASE_URL
             }/smtp/update/${_id}`,
-            payload
+            payload,
+            header
           );
 
           if (response.status === 200) {
@@ -119,7 +122,7 @@ const Smtp = () => {
 
   return (
 
-       <div>
+    <div>
       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
         <h1>STMP Config</h1>
       </div>
@@ -127,11 +130,11 @@ const Smtp = () => {
 
       <div>
         {loading ? (
-          <p><LoadingSpinner/></p>
+          <p><LoadingSpinner /></p>
         ) : (
           <form
-           onSubmit={handleSubmit}
-           className="mt-6"
+            onSubmit={handleSubmit}
+            className="mt-6"
           >
             <div>
               <div className="mb-4">
@@ -151,12 +154,12 @@ const Smtp = () => {
                 />
               </div>
 
-               <div className="mb-4">
+              <div className="mb-4">
                 <label
                   htmlFor="adminmobile"
                   className="block text-sm font-medium text-gray-600"
                 >
-                  Host 
+                  Host
                 </label>
                 <input
                   type="text"
@@ -211,34 +214,34 @@ const Smtp = () => {
               </div> */}
 
               <div className="mb-4">
-                          <label
-                            htmlFor=""
-                            className="mobile:text-xl  "
-                          >
-                            {" "}
-                            Password{" "}
-                          </label>
-                          <div className=" flex justify-center items-center border  rounded-md ">
-                            <input
-                              className=" flex h-10 w-full  "
-                              type={showPassword ? "text" : "password"}
-                              placeholder="Password"
-                              value={values.smtpPassword}
-                              id="smtpPassword"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              >
-                               </input>
+                <label
+                  htmlFor=""
+                  className="mobile:text-xl  "
+                >
+                  {" "}
+                  Password{" "}
+                </label>
+                <div className=" flex justify-center items-center border  rounded-md ">
+                  <input
+                    className=" flex h-10 w-full  "
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={values.smtpPassword}
+                    id="smtpPassword"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  >
+                  </input>
 
-                            <span className="overflow-hidden">
-                              {showPassword ? (
-                                <IoMdEye onClick={showHandler} size={20} />
-                              ) : (
-                                <IoIosEyeOff onClick={showHandler} size={20} />
-                              )}
-                            </span>
-                          </div>
-                        </div>
+                  <span className="overflow-hidden">
+                    {showPassword ? (
+                      <IoMdEye onClick={showHandler} size={20} />
+                    ) : (
+                      <IoIosEyeOff onClick={showHandler} size={20} />
+                    )}
+                  </span>
+                </div>
+              </div>
 
               <div className="mb-4">
                 <label
@@ -257,17 +260,17 @@ const Smtp = () => {
                 />
               </div>
               <button
-              className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
-               type="submit"
-            >
-              Update
-            </button>
+                className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 "
+                type="submit"
+              >
+                Update
+              </button>
             </div>
           </form>
         )}
       </div>
     </div>
-  
+
 
   )
 }

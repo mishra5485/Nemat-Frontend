@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { IoMdAddCircle } from "react-icons/io";
+import getToken from "../../common/getToken";
 
 const DiscountSlabe = () => {
   const [inputSets, setInputSets] = useState([{ id: 1 }]);
@@ -15,6 +16,7 @@ const DiscountSlabe = () => {
   const [loading, setLoading] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   
+  const header = getToken()
 
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const DiscountSlabe = () => {
   const fetchData = async () => {
     try {
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`,header
       );
 
       setTableDiscountSlabs(response.data);
@@ -131,7 +133,7 @@ const addInputSet = (e) => {
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/cartdiscountscheme/create`,
-          payload
+          payload , header
         );
 
         console.log(response);
@@ -175,7 +177,6 @@ const addInputSet = (e) => {
   );
 };
 
-  const handleForm = () => {};
 
   const editHandlerDir = (discountSlabe_ID) => {
     navigate(`/dashboard/discountSlabe/Slabs_edit/${discountSlabe_ID}`);
@@ -188,7 +189,7 @@ const addInputSet = (e) => {
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/cartdiscountscheme/deletebyId/${discountSlabe_ID}`
+        }/cartdiscountscheme/deletebyId/${discountSlabe_ID}` , header
       );
 
       if (deleteData.status === 200) {

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../../common/getToken";
+
 
 
 const Edit_QuantityScheme = () => {
@@ -14,10 +16,8 @@ const Edit_QuantityScheme = () => {
       const [loading, setLoading] = useState(true);
       const navigate = useNavigate();
 
+      const header = getToken()
 
- 
-  
-  
   useEffect(() => {
     fetchDataDsSlabe();
   }, []);
@@ -26,7 +26,7 @@ const Edit_QuantityScheme = () => {
     const response = await axios.get(
       `${
         import.meta.env.VITE_REACT_APP_BASE_URL
-      }/quantityscheme/getbyId/${_id}`
+      }/quantityscheme/getbyId/${_id}` , header
     );
 
     setSlabsData(response.data);
@@ -102,7 +102,8 @@ const Edit_QuantityScheme = () => {
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/quantityscheme/updatebyId/${_id}`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response);

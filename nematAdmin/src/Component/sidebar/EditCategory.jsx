@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const EditCategory = () => {
   const { _id } = useParams();
@@ -21,12 +22,15 @@ const EditCategory = () => {
   useEffect(() => {
     const getCategoryID = async () => {
       try {
+
+        const header = getToken()
+
         let response = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getbyId/${_id}`
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getbyId/${_id}` , header
         );
 
         let cartdiscountschemerespose = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall` , header
         );
 
         setCategoryData(response.data);
@@ -144,11 +148,15 @@ const EditCategory = () => {
       
 
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/category/updatebyId/${_id}`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response);

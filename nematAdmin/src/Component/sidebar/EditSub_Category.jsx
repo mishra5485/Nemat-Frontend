@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const EditSub_Category = () => {
   const { _id } = useParams();
@@ -25,16 +26,19 @@ const EditSub_Category = () => {
 
   const getCategoryID = async () => {
     try {
+
+      const header = getToken()
+
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getbyId/${_id}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getbyId/${_id}` , header
       );
 
       let cartdiscountschemerespose = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall` , header
       );
 
       let QuantitySchemeIdResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall` , header
       );
 
       setSub_CategoryData(response.data);
@@ -51,7 +55,7 @@ const EditSub_Category = () => {
   const getallVendors = async () => {
     try {
       const respones = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall` , header
       );
       if (respones.status === 200) {
         setAllVendors(respones.data);
@@ -220,11 +224,15 @@ const EditSub_Category = () => {
       }
          
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/subcategory/updatebyId/${_id}`,
-          formData
+          formData , 
+          header
         );
 
         //   console.log(response)

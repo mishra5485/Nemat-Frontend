@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import getToken from "../../common/getToken";
 
 const BannerSlider = () => {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,8 @@ const BannerSlider = () => {
 
   const navigate = useNavigate();
 
+  const header = getToken()
+
   useEffect(() => {
     getAllBannerData();
     if (!showForm) {
@@ -26,7 +29,7 @@ const BannerSlider = () => {
   const getAllBannerData = async () => {
     try {
       let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/getall` , header
       );
 
       if (allDataResponse.status === 200) {
@@ -44,7 +47,7 @@ const BannerSlider = () => {
   const getAllCategoryData = async () => {
     try {
       let allDataResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`,header
       );
 
       if (allDataResponse.status === 200) {
@@ -107,7 +110,8 @@ const BannerSlider = () => {
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/create`,
-          formData
+          formData , 
+          header
         );
 
         console.log(response.data);
@@ -164,7 +168,6 @@ const BannerSlider = () => {
     }
   };
 
-  const handleForm = () => {};
 
   const editHandlerDir = (categoryId) => {
     navigate(`/dashboard/website/bannerSlider/edit_bannerslider/${categoryId}`);
@@ -175,7 +178,7 @@ const BannerSlider = () => {
       let deleteBanner = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/homebannerslider/deletebyId/${BannerId}`
+        }/homebannerslider/deletebyId/${BannerId}` , header
       );
 
       if (deleteBanner.status === 200) {
@@ -200,7 +203,7 @@ const BannerSlider = () => {
       const subCategoryResponse = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/product/getsubcategorybyId/${_id}`
+        }/product/getsubcategorybyId/${_id}` , header
       );
 
       console.log("Response:", subCategoryResponse);

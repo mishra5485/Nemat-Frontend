@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import UpdateAboutRoadMap from "./UpdateAboutRoadMap";
+import getToken from "../../common/getToken";
 
 const AboutUs = () => {
   const [imagePreviewMobile, setImagePreviewMobile] = useState(null);
@@ -15,6 +16,10 @@ const AboutUs = () => {
   const [updateData, setUpdateData] = useState(false);
   const [roadMapDataUpdate, setRoadMapDataUpdate] = useState();
   const [callApiAfterUpdate , setCallApiAfterUpdate] = useState(true)
+
+
+
+  const header = getToken()
 
   useEffect(() => {
     if(callApiAfterUpdate){

@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import getToken from "../../common/getToken";
 
 const AdminContact = () => {
   const [loading, setLoading] = useState(true);
   const [adminDetails , setAdminDetails] = useState()
+  const header = getToken()
 
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const AdminContact = () => {
   const getAllAdminContactDetails = async () => {
     try {
       let responseHeader = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admincontactusform/get`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admincontactusform/get`,header
       );
 
       setAdminDetails(responseHeader.data);
@@ -73,7 +75,8 @@ const AdminContact = () => {
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
             }/admincontactusform/updatebyId/${_id}`,
-            payload
+            payload , 
+            header
           );
 
           if (response.status === 200) {

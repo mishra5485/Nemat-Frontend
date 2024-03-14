@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoMdAddCircle } from "react-icons/io";
+import getToken from "../../common/getToken";
 
 const QuantityScheme = () => {
   const [inputSets, setInputSets] = useState([{ id: 1 }]);
@@ -16,6 +16,8 @@ const QuantityScheme = () => {
 
   const navigate = useNavigate();
 
+  const header = getToken()
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,7 +25,7 @@ const QuantityScheme = () => {
   const fetchData = async () => {
     try {
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall` ,header
       );
 
       setTableDiscountSlabs(response.data);
@@ -109,7 +111,8 @@ const QuantityScheme = () => {
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/create`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response);
@@ -149,7 +152,6 @@ const QuantityScheme = () => {
     );
   };
 
-  const handleForm = () => {};
 
   const editHandlerDir = (categoryId) => {
     navigate(`/dashboard/quantityscheme/scheme_edit/${categoryId}`);
@@ -160,7 +162,8 @@ const QuantityScheme = () => {
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/quantityscheme/deletebyId/${quantityScheme_Id}`
+        }/quantityscheme/deletebyId/${quantityScheme_Id}` , 
+        header
       );
 
       if (deleteData.status === 200) {

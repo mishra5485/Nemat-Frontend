@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../../common/getToken";
 
 
 const Edit_DiscountSlabe = () => {
@@ -13,7 +14,7 @@ const Edit_DiscountSlabe = () => {
 
 
   const navigate = useNavigate();
-
+  const header = getToken()
   
   
   useEffect(() => {
@@ -24,7 +25,7 @@ const Edit_DiscountSlabe = () => {
     const response = await axios.get(
       `${
         import.meta.env.VITE_REACT_APP_BASE_URL
-      }/cartdiscountscheme/getbyId/${_id}`
+      }/cartdiscountscheme/getbyId/${_id}`,header
     );
 
     setSlabsData(response.data);
@@ -100,7 +101,8 @@ const Edit_DiscountSlabe = () => {
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/cartdiscountscheme/updatebyId/${_id}`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response);

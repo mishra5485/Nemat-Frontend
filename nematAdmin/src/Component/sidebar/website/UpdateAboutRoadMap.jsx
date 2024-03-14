@@ -3,9 +3,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../../common/getToken";
 
 const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData , setCallApiAfterUpdate}) => {
   const [roadmapImage, setRoadmapImage] = useState(null);
+
+  const header =  getToken()
 
   const updateRoadMapObject = yup.object({
     roadMapheading: yup.string().required("Please Enter Road Map Heading"),
@@ -58,7 +61,8 @@ const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData ,
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/UpdateAboutUsRoadMapData`,
-          formData
+          formData , 
+          header
         );
 
         console.log(response.data);

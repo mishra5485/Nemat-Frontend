@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import getToken from "../../common/getToken";
 
 
 
@@ -14,6 +15,8 @@ const Edit_Policies = () => {
    const [policiesdataById , setPoliciesDataById] = useState([])
    const navigate = useNavigate()
 
+   const header = getToken()
+
    useEffect(() => {
       fetchPoliciesDataById()
    },[])
@@ -23,7 +26,7 @@ const Edit_Policies = () => {
       try {
 
           let response = await axios.get(
-         `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getbyId/${_id}`
+         `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getbyId/${_id}`,header
       )
 
          setPoliciesDataById(response.data)
@@ -79,7 +82,8 @@ const Edit_Policies = () => {
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL}/policies/updatebyId/${_id}`,
-            payload
+            payload , 
+            header
         );
 
         console.log(response.data)

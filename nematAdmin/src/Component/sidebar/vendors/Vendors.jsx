@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import getToken from "../../common/getToken";
 
 const Vendors = () => {
   const [showform, setShowForm] = useState();
@@ -13,6 +14,8 @@ const Vendors = () => {
 
   const navigate = useNavigate();
 
+  const header = getToken()
+
   useEffect(() => {
     getAllVendors();
   }, []);
@@ -20,7 +23,7 @@ const Vendors = () => {
   const getAllVendors = async () => {
     try {
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`,header
       );
 
       setvandors(response.data);
@@ -109,7 +112,8 @@ const Vendors = () => {
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/create`,
-          palyload
+          palyload , 
+          header
         );
 
         console.log(response);
@@ -140,7 +144,6 @@ const Vendors = () => {
     },
   });
 
-  const handleForm = () => {};
 
   console.log(allvandors);
 
@@ -153,7 +156,7 @@ const Vendors = () => {
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/vendor/deletebyId/${vendorId}`
+        }/vendor/deletebyId/${vendorId}`,header
       );
 
       if (deleteData.status === 200) {

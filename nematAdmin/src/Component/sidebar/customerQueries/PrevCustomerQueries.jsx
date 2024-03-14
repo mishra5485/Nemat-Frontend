@@ -2,12 +2,15 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import LoadingSpinner from '../../common/LoadingSpinner'
+import getToken from '../../common/getToken'
 
 const PrevCustomerQueries = () => {
 
    const {_id} = useParams()
    const [contactusdata , setContactUsData] = useState([]);
    const [loading, setLoading] = useState(true);
+
+   const header = getToken()
 
    useEffect(() => {
       querieDataById();
@@ -17,7 +20,7 @@ const PrevCustomerQueries = () => {
       try {
 
          let response = await axios.get(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/usercontactusform/getbyId/${_id}`
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/usercontactusform/getbyId/${_id}`, header
          )
 
          setContactUsData(response.data)

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { OrderStatus } from "../../common/FormatAmount"
+import getToken from "../../common/getToken";
 
 const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) => {
     console.log("checkboxCheck ===>", checkboxCheck);
@@ -14,6 +15,8 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
 
   const [storeDataCase , setStoreDataCase] = useState();
   const [storeDataCheck , setStoreDataCheck] = useState(true)
+
+  const header = getToken()
 
   useEffect(() => {
     if(checkboxCheck == "PlacedOrders"){
@@ -66,7 +69,8 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
 
       let response = await axios.post(
          `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/bulk_cancel`,
-         payload
+         payload , 
+         header
       )
 
       if (response.status === 200) {

@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const Edit_Product = () => {
   const { _id } = useParams();
@@ -25,8 +26,11 @@ const Edit_Product = () => {
 
   const FetchProductDetailId = async () => {
     try {
+
+      const header = getToken()
+
       const productResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/getbyId/${_id}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/getbyId/${_id}`,header
       );
 
       if (productResponse.status === 200) {
@@ -61,8 +65,11 @@ const Edit_Product = () => {
     let allDataLoadedSuccessfully = true;
 
     try {
+
+      const header = getToken()
+
       const categoryResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall` , header
       );
 
       if (categoryResponse.status === 200) {
@@ -231,11 +238,15 @@ const Edit_Product = () => {
       console.log("payload", payload);
 
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/product/updatebyId/${_id}`,
-          formData
+          formData , 
+          header
         );
 
         console.log(response);
@@ -328,13 +339,15 @@ const Edit_Product = () => {
     console.log("_id =>", _id);
 
     try {
+
+      const header = getToken()
+
       const subCategoryResponse = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/product/getsubcategorybyId/${_id}`
+        }/product/getsubcategorybyId/${_id}` , header
       );
 
-      console.log("Response:", subCategoryResponse);
 
       if (subCategoryResponse.status === 200) {
         setAllSub_CategoryData(subCategoryResponse.data);

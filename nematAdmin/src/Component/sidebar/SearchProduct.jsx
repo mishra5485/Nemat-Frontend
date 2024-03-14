@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import getToken from "../common/getToken";
 
 const SearchProduct = ({ allProductData, setFilteredData }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,9 +23,13 @@ const SearchProduct = ({ allProductData, setFilteredData }) => {
           keyword: debouncedSearchTerm,
         };
 
+
+        const header =  getToken() 
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/get/searchData`,
-          payload
+          payload , 
+          header
         );
 
         setFilteredData(response.data);

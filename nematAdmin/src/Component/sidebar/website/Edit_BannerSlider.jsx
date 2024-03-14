@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingSpinner from "../../common/LoadingSpinner";
+import getToken from "../../common/getToken";
 
 const Edit_BannerSlider = () => {
 
@@ -19,6 +20,8 @@ const Edit_BannerSlider = () => {
 
    const navigator = useNavigate();
 
+   const header = getToken()
+
    useEffect(() => {
       getBannerById();
    } , [])
@@ -27,11 +30,11 @@ const Edit_BannerSlider = () => {
       try {
 
          let bannerData = await axios.get(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/getbyId/${_id}`
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/getbyId/${_id}` , header
          )
 
          let categoryData = await axios.get(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`,header
          )
 
          setShowBannerData(bannerData.data);
@@ -44,8 +47,6 @@ const Edit_BannerSlider = () => {
          setLoading(false)
       }
    }
-
-   console.log("showBannerData ===>" , showBannerData)
 
    const bannerObjectSchema = yup.object({
       bannerImageDesktop: yup.string().required(),
@@ -114,7 +115,8 @@ const Edit_BannerSlider = () => {
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL}/homebannerslider/updatebyId/${_id}`,
-            formData
+            formData , 
+            header
         );
 
         console.log(response.data)
@@ -187,7 +189,8 @@ const Edit_BannerSlider = () => {
       const subCategoryResponse = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/product/getsubcategorybyId/${_id}`
+        }/product/getsubcategorybyId/${_id}` , 
+        header
       );
 
       console.log("Response:", subCategoryResponse);

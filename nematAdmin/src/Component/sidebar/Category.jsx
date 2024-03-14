@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const Category = () => {
   const [showModal, setShowModal] = useState(false);
@@ -17,19 +18,27 @@ const Category = () => {
   const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
 
+  const [headerData, setHeaderData] = useState();
+
   useEffect(() => {
     slabdata();
+    var header = getToken();
+    setHeaderData(header);
   }, []);
 
   const slabdata = async () => {
     try {
+      const header = getToken();
+
       let respose = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`,
+        header
       );
       setslabeData(respose.data);
 
       let allCategoryResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`,
+        header
       );
 
       setAllCategoryData(allCategoryResponse.data);
@@ -41,7 +50,7 @@ const Category = () => {
     }
   };
 
-  console.log("allCategoryData => ", allCategoryData);
+  // console.log("allCategoryData => ", allCategoryData);
 
   const categoryObjectSchema = yup.object({
     name: yup.string().min(2).required("Enter Category Name"),
@@ -111,15 +120,17 @@ const Category = () => {
       console.log("PAyload ", palyload);
 
       try {
+        const header = getToken();
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/create`,
-          palyload
+          palyload,
+          header
         );
 
         console.log(response);
 
         if (response.status === 200) {
-          console.log("New Category Created ");
           toast.success("New Category Created");
           slabdata();
           resetForm();
@@ -173,23 +184,33 @@ const Category = () => {
   //   }
   // };
 
-  const handleForm = () => {};
-
   const editHandlerDir = (categoryId) => {
     setShowForm(categoryId);
     navigate(`/dashboard/category/edit/${categoryId}`);
   };
 
+  
   const DeleteHandler = async (categoryId) => {
     try {
+      
+      console.log("headerData inside Delete Function===> " , headerData)
+      
+      const token = localStorage.getItem("token")
+
+      const payload = {
+        token:token
+      }
+
+
       const deleteData = await axios.post(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/category/deletebyId/${categoryId}`
+        }/category/deletebyId/${categoryId}`,
+        payload
       );
 
       if (deleteData.status === 200) {
-        toast.success(" Category Deleted");
+        toast.success(deleteData.data);
         setAllCategoryData([]);
         slabdata();
       }
@@ -215,7 +236,7 @@ const Category = () => {
     }
   };
 
-  console.log(" send Id in URl", showform);
+  // console.log(" send Id in URl", showform);
 
   const privorityCategory = [
     {
@@ -270,199 +291,194 @@ const Category = () => {
 
   return (
     <div className="overflow-hidden">
+      <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-text_Color">
+        <h1>Category Page</h1>
+      </div>
 
-        <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-text_Color">
-
-          <h1>Category Page</h1>
-        </div>
-      
       <Toaster />
       {showModal ? (
         <>
-          <form
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             {/* Input fields */}
             <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <div className="">
-              <label
-                htmlFor="name"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              {errors.name && touched.name ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.name}
-                </p>
-              ) : null}
-            </div>
+              <div className="">
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.name && touched.name ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.name}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="">
-              <label
-                htmlFor="metaTitle"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Meta Title
-              </label>
-              <input
-                type="text"
-                id="metaTitle"
-                name="metaTitle"
-                value={values.metaTitle}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <div className="">
+                <label
+                  htmlFor="metaTitle"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Title
+                </label>
+                <input
+                  type="text"
+                  id="metaTitle"
+                  name="metaTitle"
+                  value={values.metaTitle}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaTitle && touched.metaTitle ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaTitle}
+                  </p>
+                ) : null}
+              </div>
 
-              />
-              {errors.metaTitle && touched.metaTitle ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.metaTitle}
-                </p>
-              ) : null}
-            </div>
+              <div className="md:col-span-2 mb-4">
+                <label
+                  htmlFor="metaDesc"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Description
+                </label>
+                <textarea
+                  id="metaDesc"
+                  name="metaDesc"
+                  value={values.metaDesc}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaDesc && touched.metaDesc ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaDesc}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="md:col-span-2 mb-4">
-              <label
-                htmlFor="metaDesc"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Meta Description
-              </label>
-              <textarea
-                id="metaDesc"
-                name="metaDesc"
-                value={values.metaDesc}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              {errors.metaDesc && touched.metaDesc ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.metaDesc}
-                </p>
-              ) : null}
-            </div>
+              <div className="">
+                <label
+                  htmlFor="metaKeyword"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Keyword
+                </label>
+                <input
+                  type="text"
+                  id="metaKeyword"
+                  onChange={handleChange}
+                  value={values.metaKeyword}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaKeyword && touched.metaKeyword ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaKeyword}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="">
-              <label
-                htmlFor="metaKeyword"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Meta Keyword
-              </label>
-              <input
-                type="text"
-                id="metaKeyword"
-                onChange={handleChange}
-                value={values.metaKeyword}
-                onBlur={handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              {errors.metaKeyword && touched.metaKeyword ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.metaKeyword}
-                </p>
-              ) : null}
-            </div>
+              <div className="">
+                <label
+                  htmlFor="slugUrl"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Slug URL
+                </label>
+                <input
+                  type="text"
+                  id="slugUrl"
+                  name="slugUrl"
+                  value={values.slugUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.slugUrl && touched.slugUrl ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.slugUrl}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="">
-              <label
-                htmlFor="slugUrl"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Slug URL
-              </label>
-              <input
-                type="text"
-                id="slugUrl"
-                name="slugUrl"
-                value={values.slugUrl}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              {errors.slugUrl && touched.slugUrl ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.slugUrl}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="">
-              <label
-                htmlFor="cartDiscount"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Cart Discount Slab
-              </label>
-              <select
-                id="cartDiscount"
-                name="cartDiscount"
-                value={values.cartDiscount}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              >
-                <option value="" disabled>
-                  Select Cart Discount Slab
-                </option>
-                {slabeData?.map((slaboption) => (
-                  <option key={slaboption._id} value={slaboption._id}>
-                    {slaboption.Name}
+              <div className="">
+                <label
+                  htmlFor="cartDiscount"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Cart Discount Slab
+                </label>
+                <select
+                  id="cartDiscount"
+                  name="cartDiscount"
+                  value={values.cartDiscount}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                >
+                  <option value="" disabled>
+                    Select Cart Discount Slab
                   </option>
-                ))}
-              </select>
-              {errors.cartDiscount && touched.cartDiscount ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.cartDiscount}
-                </p>
-              ) : null}
-            </div>
+                  {slabeData?.map((slaboption) => (
+                    <option key={slaboption._id} value={slaboption._id}>
+                      {slaboption.Name}
+                    </option>
+                  ))}
+                </select>
+                {errors.cartDiscount && touched.cartDiscount ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.cartDiscount}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="">
-              <label
-                htmlFor="priority"
-                className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Category Priority
-              </label>
-              <select
-                id="priority"
-                name="priority"
-                value={values.priority}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option value="" disabled>
-                  Select Priority of Category
-                </option>
-                {privorityCategory.map((number) => (
-                  <option key={number.id} value={number.value}>
-                    {number.value}
+              <div className="">
+                <label
+                  htmlFor="priority"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Category Priority
+                </label>
+                <select
+                  id="priority"
+                  name="priority"
+                  value={values.priority}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="" disabled>
+                    Select Priority of Category
                   </option>
-                ))}
-              </select>
-              {errors.priority && touched.priority ? (
-                <p className="font-Marcellus text-start text-red-900">
-                  {errors.priority}
-                </p>
-              ) : null}
-            </div>
+                  {privorityCategory.map((number) => (
+                    <option key={number.id} value={number.value}>
+                      {number.value}
+                    </option>
+                  ))}
+                </select>
+                {errors.priority && touched.priority ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.priority}
+                  </p>
+                ) : null}
+              </div>
 
-            {/* File inputs */}
-            {/* <div className="mb-4">
+              {/* File inputs */}
+              {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
@@ -486,7 +502,7 @@ const Category = () => {
                       )}
                     </div> */}
 
-            {/* <div className="mb-4">
+              {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
@@ -510,22 +526,22 @@ const Category = () => {
                       )}
                     </div> */}
 
-            {/* Submit button */}
-            <div className="flex mt-4">
-              <button
-                type="button"
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 mr-5  text-black border-2 rounded-md hover:bg-gray-600"
-              >
-                Close
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2  bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              >
-                Submit
-              </button>
-            </div>
+              {/* Submit button */}
+              <div className="flex mt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 mr-5  text-black border-2 rounded-md hover:bg-gray-600"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2  bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </form>
         </>
@@ -572,7 +588,6 @@ const Category = () => {
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                       <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="w-full ">
-                          
                           {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
@@ -601,7 +616,6 @@ const Category = () => {
                         filteredData.map((item) => (
                           <tbody key={item._id}>
                             <tr className="border-b dark:border-gray-600 hover:bg-red-400 dark:hover:bg-gray-700">
-                              
                               {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"

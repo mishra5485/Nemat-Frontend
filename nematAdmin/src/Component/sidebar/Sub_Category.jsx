@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../common/LoadingSpinner";
+import getToken from "../common/getToken";
 
 const Sub_Category = () => {
   const [showModal, setShowModal] = useState(false);
@@ -33,12 +34,15 @@ const Sub_Category = () => {
 
   const fetchData = async () => {
     try {
+
+      const header = getToken()
+
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall` , header
       );
 
       const quantityResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall` , header
       );
 
       setQuantityData(quantityResponse.data);
@@ -53,8 +57,11 @@ const Sub_Category = () => {
 
   const getAllSubCategory = async () => {
     try {
+ 
+      const header = getToken()
+
       const SubCategory = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`,header
       );
       if (SubCategory.status === 200) {
         setcategoryData(SubCategory.data);
@@ -88,8 +95,11 @@ const Sub_Category = () => {
 
   const getAllvendor = async () => {
     try {
+
+      const header = getToken()
+
       const respones = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`,header
       );
       if (respones.status === 200) {
         setAllVendors(respones.data);
@@ -251,9 +261,13 @@ const Sub_Category = () => {
       // console.log(" formData image-> ", formData);
 
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/create`,
-          formData
+          formData , 
+          header,
         );
 
         console.log(response);
@@ -326,10 +340,13 @@ const Sub_Category = () => {
 
   const DeleteHandler = async (categoryId) => {
     try {
+
+      const header = getToken()
+
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/subcategory/deletebyId/${categoryId}`
+        }/subcategory/deletebyId/${categoryId}`, header
       );
 
       if (deleteData.status === 200) {

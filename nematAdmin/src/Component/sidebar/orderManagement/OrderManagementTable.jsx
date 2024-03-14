@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OrderManagementList from "./OrderManagementList";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../../common/getToken";
 
 const OrderManagementTable = () => {
 
@@ -52,11 +53,15 @@ const OrderManagementTable = () => {
     };
 
     try {
+
+      const header = getToken();
+
       let response = await axios.post(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/admin_order/get/${pageSize}/${currentPage}`,
-        payload
+        payload,
+        header
       );
 
       setApiData(response.data.OrderObj);
@@ -125,13 +130,14 @@ const OrderManagementTable = () => {
           OrderNumber: passOrderNumber,
         };
 
-        console.log("Payload", payload);
+        const header = getToken();
 
         let response = await axios.post(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/admin_order/get/searchData`,
-          payload
+          payload , 
+          header
         );
 
         console.log(response.data);

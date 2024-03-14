@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../common/LoadingSpinner";
 import SearchProduct from "./SearchProduct";
+import getToken from "../common/getToken";
 
 const Product = () => {
   const [AllCategoryData, setAllCategoryData] = useState();
@@ -49,8 +50,11 @@ const Product = () => {
     let allDataLoadedSuccessfully = true;
 
     try {
+
+      const header = getToken()
+
       const categoryResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall` , header
       );
 
       if (categoryResponse.status === 200) {
@@ -99,10 +103,13 @@ const Product = () => {
   const getAllProductData = async () => {
     if (currentPage < maxData) {
       try {
+
+        const header = getToken()
+
         const FetchAllProductData = await axios.get(
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
-          }/product/get/${pageSize}/${currentPage}`
+          }/product/get/${pageSize}/${currentPage}` , header
         );
 
         if (FetchAllProductData.status === 200) {
@@ -146,8 +153,11 @@ const Product = () => {
 
   const getAllSubCategoryDropDown = async () => {
     try {
+
+      const header = getToken()
+
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getallforfilter`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getallforfilter` , header
       );
 
       // console.log("dropdown", response.data);
@@ -279,9 +289,13 @@ const Product = () => {
 
       // console.log(values.productimg)
       try {
+
+        const header = getToken()
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/create`,
-          formData
+          formData , 
+          header
         );
 
         console.log(response);
@@ -357,7 +371,6 @@ const Product = () => {
   //   setFieldValue("AutheticStepFlag", isChecked === 1 ? 0 : 1);
   // };
 
-  const handleForm = () => {};
 
   const editHandlerDir = (categoryId) => {
     navigate(`/dashboard/product/edit_product/${categoryId}`);
@@ -370,13 +383,15 @@ const Product = () => {
     console.log("_id", _id);
 
     try {
+
+      const header = getToken()
+
       const subCategoryResponse = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/product/getsubcategorybyId/${_id}`
+        }/product/getsubcategorybyId/${_id}` , header
       );
 
-      console.log("Response:", subCategoryResponse);
 
       if (subCategoryResponse.status === 200) {
         setAllSub_CategoryData(subCategoryResponse.data);
@@ -398,10 +413,13 @@ const Product = () => {
 
   const deleteHandler = async (categoryId) => {
     try {
+
+      const header = getToken()
+
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/product/deletebyId/${categoryId}`
+        }/product/deletebyId/${categoryId}` , header
       );
 
       if (deleteData.status === 200) {
@@ -493,11 +511,12 @@ const Product = () => {
         ProductIds: selectedArray,
       };
 
-      console.log("payload", payload);
+      const header = getToken()
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/product/bulkdelete`,
-        payload
+        payload , 
+        header
       );
 
       if (response.status === 200) {

@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from 'axios';
+import getToken from '../../common/getToken';
 
 const Edit_Vendors = () => {
 
@@ -11,6 +12,9 @@ const Edit_Vendors = () => {
    const [loading, setLoading] = useState(true);
    const [vendordata , setVendorData] = useState([])
    const navigator = useNavigate()
+
+
+   const header = getToken()
 
    useEffect(() => {
       getVendor();
@@ -22,7 +26,7 @@ const Edit_Vendors = () => {
    const getVendor = async () => {
        try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getbyId/${_id}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getbyId/${_id}`,header
       );
 
       if (response.status === 200) {
@@ -130,7 +134,8 @@ const Edit_Vendors = () => {
       try {
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/updateVendorById/${_id}`,
-          palyload
+          palyload , 
+          header
         );
 
         console.log(response);
