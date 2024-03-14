@@ -141,6 +141,8 @@ const Search = () => {
         );
 
         console.log(response.data);
+        quantities[index] = '';
+        selectedPackSizes[index] = null;
         setInitialTotal(false);
         setProductDataCart(response.data);
         setTotalQuantity(totalQuantity + multipliedValue);

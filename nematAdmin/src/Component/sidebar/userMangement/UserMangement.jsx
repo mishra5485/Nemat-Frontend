@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserNewComponent from "./UserNewComponent";
 import toast, { Toaster } from "react-hot-toast";
+import getToken from "../../common/getToken";
 
 
 const UserManagement = () => {
@@ -17,6 +18,8 @@ const UserManagement = () => {
   const [flagGetData, setFlagGetData] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const pageSize = 10;
+
+  const header = getToken()
 
   useEffect(() => {
     getAllUserData();
@@ -56,7 +59,8 @@ const UserManagement = () => {
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/users/customer/getall/${pageSize}/${currentPage}`,
-        payload
+        payload , 
+        header
       );
 
       console.log(userData.data);
@@ -137,7 +141,8 @@ const UserManagement = () => {
           `${
             import.meta.env.VITE_REACT_APP_BASE_URL
           }/users/customer/get/searchData`,
-          payload
+          payload,
+          header
         );
 
         console.log(response.data);

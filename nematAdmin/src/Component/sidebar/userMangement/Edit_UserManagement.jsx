@@ -5,6 +5,7 @@ import { MdVerified } from "react-icons/md";
 import toast, { Toaster } from "react-hot-toast";
 import { formattedAmount } from "../../common/FormatAmount";
 import { OrderStatus } from "../../common/FormatAmount";
+import getToken from "../../common/getToken";
 
 const Edit_UserManagement = () => {
   const { _id } = useParams();
@@ -15,6 +16,8 @@ const Edit_UserManagement = () => {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [orderData, setOrderData] = useState([]);
   const [orderStatus , setOrderStatus] = useState([]);
+
+  const header = getToken();
 
   const navigator = useNavigate();
 
@@ -27,7 +30,7 @@ const Edit_UserManagement = () => {
       let userDetails = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/getuserdetails/${_id}`
+        }/users/customer/getuserdetails/${_id}` , header
       );
 
       console.log(userDetails.data.OrderStats);
@@ -48,7 +51,7 @@ const Edit_UserManagement = () => {
       let activateUser = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/activate/${_id}`
+        }/users/customer/activate/${_id}`,header
       );
 
       if (activateUser.status === 200) {
@@ -113,7 +116,7 @@ const Edit_UserManagement = () => {
       let activateUser = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/enable/${_id}`
+        }/users/customer/enable/${_id}`,header
       );
 
       if (activateUser.status === 200) {
@@ -144,7 +147,7 @@ const Edit_UserManagement = () => {
       let activateUser = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/users/customer/disable/${_id}`
+        }/users/customer/disable/${_id}`,header
       );
 
       if (activateUser.status === 200) {

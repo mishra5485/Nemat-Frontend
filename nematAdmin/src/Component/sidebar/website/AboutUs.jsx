@@ -32,7 +32,7 @@ const AboutUs = () => {
   const AboutUsData = async () => {
     try {
       let response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/getData`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/getData`,header
       );
 
       console.log(response.data);

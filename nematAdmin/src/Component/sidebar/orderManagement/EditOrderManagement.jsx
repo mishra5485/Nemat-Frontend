@@ -8,6 +8,7 @@ import { Documents } from "../../common/FormatAmount";
 import { IoClose } from "react-icons/io5";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { MdOutlineFileDownload } from "react-icons/md";
+import getToken from "../../common/getToken";
 
 const EditOrderManagement = () => {
   const [orderData, setOrderData] = useState([]);
@@ -22,6 +23,8 @@ const EditOrderManagement = () => {
 
   const { _id } = useParams();
 
+  const header = getToken()
+
   console.log(_id);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const EditOrderManagement = () => {
       let response = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/admin_order/getOrderById/${_id}`
+        }/admin_order/getOrderById/${_id}`,header
       );
 
       console.log(response.data);
@@ -73,7 +76,7 @@ const EditOrderManagement = () => {
 
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/update_status`,
-        payload
+        payload , header
       );
 
       console.log(response.data);
@@ -132,7 +135,7 @@ const EditOrderManagement = () => {
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/admin_order/upload_documents`,
-        formData
+        formData , header
       );
 
       console.log(response.data);
@@ -168,6 +171,7 @@ const EditOrderManagement = () => {
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/downloadDocuments`,
         payload,
+        header,
         {
           responseType: "blob",
         }
