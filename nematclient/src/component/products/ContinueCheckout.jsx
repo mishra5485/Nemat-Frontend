@@ -18,25 +18,25 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
     setNoData(true);
   };
 
+  const token = localStorage.getItem("token");
+
   const checoutorder = async () => {
     const payload = {
       user_id: user_id,
       shippingAddress_id: selectedAddressId,
+      token: token,
     };
 
     console.log(payload);
 
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       setLoading(true);
-
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/placeorder`,
         payload,
-        header,
         {
           responseType: "blob",
         }
@@ -86,21 +86,16 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
 
   return (
     <div>
-      <div className=" w-[80%] mx-auto text-center cursor-pointer items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 " 
-         onClick={() => {
-            checoutorder();
-          }}
+      <div
+        className=" w-[80%] mx-auto text-center cursor-pointer items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 "
+        onClick={() => {
+          checoutorder();
+        }}
       >
-        <button
-          className="uppercase text-white "
-        >
-          Continue to checkout
-        </button>
+        <button className="uppercase text-white ">Continue to checkout</button>
       </div>
 
-      
-
-      { isModalOpen && (
+      {isModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
           <Toaster />
           {/* Your modal content goes here */}
@@ -137,9 +132,8 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
         </div>
       )}
 
-      {
-        loading && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-md w-[600px] h-[230px] flex flex-col justify-center items-center">
             <div className="w-[100%] h-[95%] font-bold text-xl">
               <div className="w-[90%] text-center mt-2 mx-auto text-text_Color">
@@ -160,9 +154,7 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
             </div>
           </div>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 };

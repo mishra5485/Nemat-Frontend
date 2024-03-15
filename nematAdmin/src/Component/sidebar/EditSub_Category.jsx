@@ -213,7 +213,7 @@ const EditSub_Category = () => {
         PackSizes : JSON.stringify(values.PackSizes)
       }
 
-      console.log( "payload ===> " , payload)
+      // console.log( "payload ===> " , payload)
 
       if (Image !== null) {
         formData.append("Image", values.seriesImage);
@@ -238,7 +238,7 @@ const EditSub_Category = () => {
         //   console.log(response)
 
         if (response.status === 200) {
-          console.log(" Category Updated ");
+          // console.log(" Category Updated ");
           toast.success(response.data);
           // navigate("/dashboard/sub_category");
           
@@ -580,7 +580,7 @@ const EditSub_Category = () => {
                         onChange={(e) => {
                            const updatedPackSizes = [...values.PackSizes];
                            updatedPackSizes[index].nameConvention = e.target.value;
-                           console.log(updatedPackSizes); 
+                          //  console.log(updatedPackSizes); 
                            setFieldValue('PackSizes', updatedPackSizes);                  
                           }}
                           onPaste={(e) => e.preventDefault()}

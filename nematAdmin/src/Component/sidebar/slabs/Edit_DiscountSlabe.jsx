@@ -94,7 +94,7 @@ const Edit_DiscountSlabe = () => {
         })),
       };
 
-      console.log("Payload is here ->", payload);
+      // console.log("Payload is here ->", payload);
 
       try {
         let response = await axios.post(
@@ -105,10 +105,10 @@ const Edit_DiscountSlabe = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log("New Category Created ");
+          // console.log("New Category Created ");
           toast.success("Updated Successfully")
           // navigator("/dashboard/discountSlabe")
           fetchData();

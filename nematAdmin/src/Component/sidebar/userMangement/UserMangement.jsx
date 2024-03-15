@@ -63,7 +63,7 @@ const UserManagement = () => {
         header
       );
 
-      console.log(userData.data);
+      // console.log(userData.data);
 
       setApiData(userData.data.CustomerData);
       setOriginalData(userData.data.CustomerData);
@@ -135,7 +135,7 @@ const UserManagement = () => {
           keyword: debouncedSearchTerm,
         };
 
-        console.log("Payload", payload);
+        // console.log("Payload", payload);
 
         let response = await axios.post(
           `${
@@ -145,7 +145,7 @@ const UserManagement = () => {
           header
         );
 
-        console.log(response.data);
+        // console.log(response.data);
         setApiData(response.data);
         setLoading(false);
       } catch (error) {

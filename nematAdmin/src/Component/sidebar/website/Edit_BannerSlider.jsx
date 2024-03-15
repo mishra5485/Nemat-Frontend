@@ -91,7 +91,7 @@ const Edit_BannerSlider = () => {
 
     onSubmit:async(values) => {
 
-       console.log("Form submitted with values:", values);
+      //  console.log("Form submitted with values:", values);
 
       const formData = new FormData();
       formData.append("DesktopbannerImage", values.bannerImageDesktop);
@@ -119,10 +119,10 @@ const Edit_BannerSlider = () => {
             header
         );
 
-        console.log(response.data)
+        // console.log(response.data)
 
         if (response.status === 200) {
-          console.log("New Banner is  Created ");
+          // console.log("New Banner is  Created ");
           toast.success("Updated Successfully")
           getAllBannerData();
           setShowForm(true)
@@ -183,7 +183,7 @@ const Edit_BannerSlider = () => {
     // console.log(category_ID === undefined);
     // const _id = category_ID === undefined ? event.target.value  : category_ID;
 
-    console.log("_id =>", _id);
+    // console.log("_id =>", _id);
 
     try {
       const subCategoryResponse = await axios.get(
@@ -193,7 +193,7 @@ const Edit_BannerSlider = () => {
         header
       );
 
-      console.log("Response:", subCategoryResponse);
+      // console.log("Response:", subCategoryResponse);
 
       if (subCategoryResponse.status === 200) {
         setAllSub_CategoryData(subCategoryResponse.data);

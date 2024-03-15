@@ -38,7 +38,7 @@ const Fragrance = () => {
       }
    }
 
-   console.log(fragrances)
+  //  console.log(fragrances)
 
    const fragranceObjectSchema = yup.object({
       name:yup.string().required(),
@@ -65,7 +65,7 @@ const Fragrance = () => {
 
     onSubmit:async(values) => {
 
-       console.log("Form submitted with values:", values);
+      //  console.log("Form submitted with values:", values);
 
        const payload = {
          Name:values.name,
@@ -79,10 +79,10 @@ const Fragrance = () => {
             payload
         );
 
-        console.log(response.data)
+        // console.log(response.data)
 
         if (response.status === 200) {
-          console.log("New Fragrance  is  Added ");
+          // console.log("New Fragrance  is  Added ");
           toast.success("Updated Successfully")
           setShowForm(true)
           getAllFragrance();
@@ -117,7 +117,7 @@ const Fragrance = () => {
 
   const deleteFragrance = async(fragranceID) => {
 
-      console.log("Delte is here with id " , fragranceID)
+      // console.log("Delte is here with id " , fragranceID)
 
       try {
          let deleteBanner = await axios.get(
@@ -129,7 +129,7 @@ const Fragrance = () => {
        getAllFragrance();
     }
 
-    console.log("Data Deleted ");
+    // console.log("Data Deleted ");
 
       } catch (error) {
          toast.error("Not Deleted")

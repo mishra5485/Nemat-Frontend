@@ -95,7 +95,7 @@ const Smtp = () => {
           );
 
           if (response.status === 200) {
-            console.log("New Category Created ");
+            // console.log("New Category Created ");
             toast.success(response.data);
           }
         } catch (error) {

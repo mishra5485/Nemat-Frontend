@@ -70,7 +70,7 @@ const DashboardComponantData = () => {
         payload
       );
 
-      console.log("New  Data is here ===> ", response.data);
+      // console.log("New  Data is here ===> ", response.data);
       setOrderManagement(response.data.OrderData);
       setFilteredOrders(response.data.OrderData);
       setOrderStatus(response.data.OrderStats);
@@ -96,7 +96,7 @@ const DashboardComponantData = () => {
     }
   };
 
-  console.log("LOaddding ", loading);
+  // console.log("LOaddding ", loading);
 
   const formatDate = (date) => {
     const formattedDate = new Date(date);
@@ -138,7 +138,7 @@ const DashboardComponantData = () => {
 
       setLoading(true);
 
-      console.log("PAyload ==> ", payload);
+      // console.log("PAyload ==> ", payload);
 
       const dateDifference = moment(values.toDate).diff(
         moment(values.fromDate),
@@ -157,7 +157,7 @@ const DashboardComponantData = () => {
         );
 
         if (response.status === 200) {
-          console.log(response.data);
+          // console.log(response.data);
           setFilteredOrders([]);
           setOrderManagement([]);
           setOrderStatus([]);
@@ -189,7 +189,7 @@ const DashboardComponantData = () => {
   });
 
   const filehandlerselect = async (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const fillterData = event.target.value;
 
     try {

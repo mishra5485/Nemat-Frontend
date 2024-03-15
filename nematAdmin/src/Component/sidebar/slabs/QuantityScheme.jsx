@@ -38,7 +38,7 @@ const QuantityScheme = () => {
     }
   };
 
-  console.log(TableDiscountSlabs);
+  // console.log(TableDiscountSlabs);
 
   const addInputSet = (e) => {
     e.preventDefault();
@@ -106,7 +106,7 @@ const QuantityScheme = () => {
       //    formData.append(`DiscountSlabs[${index}][discountPercent]`, slab.discountPercent);
       //    });
 
-      console.log("Payload is here ->", payload);
+      // console.log("Payload is here ->", payload);
 
       try {
         let response = await axios.post(
@@ -115,11 +115,11 @@ const QuantityScheme = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
           toast.success("New Discount Slabs is Created ");
-          console.log("New Category Created ");
+          // console.log("New Category Created ");
           setShowForm(false);
           fetchData();
         }

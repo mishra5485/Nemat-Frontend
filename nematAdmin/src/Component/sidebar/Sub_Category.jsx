@@ -66,7 +66,7 @@ const Sub_Category = () => {
       if (SubCategory.status === 200) {
         setcategoryData(SubCategory.data);
         setFilteredData(SubCategory.data);
-        console.log(SubCategory.data);
+        // console.log(SubCategory.data);
         toast.success(data);
         setLoading(false);
       }
@@ -215,7 +215,7 @@ const Sub_Category = () => {
     initialValues,
     validationSchema: categoryObjectSchema,
     onSubmit: async (values, action) => {
-      console.log("Submitt button here");
+      // console.log("Submitt button here");
 
       const formData = new FormData();
       formData.append("Name", values.name);
@@ -239,7 +239,7 @@ const Sub_Category = () => {
         formData.delete("Priority", values.priority);
       }
 
-      console.log("packsizes ==> ", values.packSizes);
+      // console.log("packsizes ==> ", values.packSizes);
 
       // const payload = {
       //   // Name: values.name,
@@ -270,10 +270,10 @@ const Sub_Category = () => {
           header,
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log("New Sub_Category Created ");
+          // console.log("New Sub_Category Created ");
           toast.success("New Sub_Category Created  ");
           getAllSubCategory();
           setShowModal(false);

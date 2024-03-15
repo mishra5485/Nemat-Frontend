@@ -66,7 +66,7 @@ const OrderManagementTable = () => {
 
       setApiData(response.data.OrderObj);
       setOriginalData(response.data.OrderObj);
-      console.log(response.data);
+      // console.log(response.data);
       setLoading(false);
       if (currentPage == 0) {
         setMaxData(Math.ceil(response.data.TotalOrderCount / pageSize));
@@ -84,7 +84,7 @@ const OrderManagementTable = () => {
           status === 401 ||
           status === 400
         ) {
-          console.log(error.response);
+          // console.log(error.response);
           toast.error(data);
           setApiData(null);
           setOriginalData(null)
@@ -140,7 +140,7 @@ const OrderManagementTable = () => {
           header
         );
 
-        console.log(response.data);
+        // console.log(response.data);
         setApiData(response.data);
         setLoading(false);
       } catch (error) {
@@ -156,7 +156,7 @@ const OrderManagementTable = () => {
             status === 401 ||
             status === 400
           ) {
-            console.log(error.response);
+            // console.log(error.response);
             toast.error(data)
             setLoading(false);
           }

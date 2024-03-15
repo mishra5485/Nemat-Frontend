@@ -9,7 +9,7 @@ import getToken from "../../common/getToken";
 
 const Edit_UserManagement = () => {
   const { _id } = useParams();
-  console.log(_id);
+  // console.log(_id);
   const [PrevUserID, setPrevUserID] = useState();
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,7 +33,7 @@ const Edit_UserManagement = () => {
         }/users/customer/getuserdetails/${_id}` , header
       );
 
-      console.log(userDetails.data.OrderStats);
+      // console.log(userDetails.data.OrderStats);
 
       setPrevUserID(userDetails.data.CustomerData);
       setOrderData(userDetails.data.OrderData);

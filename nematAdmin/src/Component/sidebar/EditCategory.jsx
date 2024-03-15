@@ -99,7 +99,7 @@ const EditCategory = () => {
     validationSchema: categoryObjectSchema,
     enableReinitialize: true,
     onSubmit: async (values, action) => {
-      console.log('Submitting form:', values);
+      // console.log('Submitting form:', values);
 
       // const formData = new FormData();
       // formData.append("Name", values.name);
@@ -125,7 +125,7 @@ const EditCategory = () => {
           delete payload.Name
       }
 
-      console.log(payload)
+      // console.log(payload)
       // const payload = {
       //   Name:values.name,
       //   MetaTitle:values.metaTitle,
@@ -159,10 +159,10 @@ const EditCategory = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log(" Category Updated ");
+          // console.log(" Category Updated ");
           navigate("/dashboard/category");
         }
       } catch (error) {

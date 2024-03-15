@@ -31,7 +31,7 @@ const AdminContact = () => {
     }
   }
 
-  console.log("adminDetails===> " , adminDetails)
+  // console.log("adminDetails===> " , adminDetails)
 
   const ContactObject = yup.object({
     adminemail:yup.string().email().required("Please Enter Email Address "),
@@ -80,7 +80,7 @@ const AdminContact = () => {
           );
 
           if (response.status === 200) {
-            console.log("New Category Created ");
+            // console.log("New Category Created ");
             toast.success(response.data);
           }
         } catch (error) {

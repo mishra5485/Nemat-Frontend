@@ -61,7 +61,7 @@ const BannerSlider = () => {
     }
   };
 
-  console.log("allCategoryData =====>", allCategoryData);
+  // console.log("allCategoryData =====>", allCategoryData);
 
   const bannerObjectSchema = yup.object({
     desktopbannerImage: yup.string().required(),
@@ -97,7 +97,7 @@ const BannerSlider = () => {
     enableReinitialize: true,
 
     onSubmit: async (values) => {
-      console.log("Form submitted with values:", values);
+      // console.log("Form submitted with values:", values);
 
       const formData = new FormData();
       formData.append("DesktopbannerImage", values.desktopbannerImage);
@@ -114,10 +114,10 @@ const BannerSlider = () => {
           header
         );
 
-        console.log(response.data);
+        // console.log(response.data);
 
         if (response.status === 200) {
-          console.log("New Banner is  Created ");
+          // console.log("New Banner is  Created ");
           toast.success("Updated Successfully");
           getAllBannerData();
           setShowForm(true);
@@ -186,7 +186,7 @@ const BannerSlider = () => {
         getAllBannerData();
       }
 
-      console.log("Data Deleted ");
+      // console.log("Data Deleted ");
     } catch (error) {
       console.log(error);
       toast.error(error.data);
@@ -194,10 +194,10 @@ const BannerSlider = () => {
   };
 
   const handlerChangefunction = async (event) => {
-    console.log("Selected _id:", event);
+    // console.log("Selected _id:", event);
 
     const _id = event.target.value;
-    console.log("_id", _id);
+    // console.log("_id", _id);
 
     try {
       const subCategoryResponse = await axios.get(
@@ -206,7 +206,7 @@ const BannerSlider = () => {
         }/product/getsubcategorybyId/${_id}` , header
       );
 
-      console.log("Response:", subCategoryResponse);
+      // console.log("Response:", subCategoryResponse);
 
       if (subCategoryResponse.status === 200) {
         setAllSub_CategoryData(subCategoryResponse.data);
@@ -226,7 +226,7 @@ const BannerSlider = () => {
     }
   };
 
-  console.log("AllSub_CategoryData ==== >", AllSub_CategoryData);
+  // console.log("AllSub_CategoryData ==== >", AllSub_CategoryData);
 
   return (
     <div>

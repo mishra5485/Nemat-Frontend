@@ -69,14 +69,14 @@ const Edit_Policies = () => {
 
     onSubmit:async(values) => {
 
-       console.log("Form submitted with values:", values);
+      //  console.log("Form submitted with values:", values);
 
       const payload = {
         Name : values.heading,
         Data : values.Description,
       }
 
-      console.log("payload ===>" , payload)
+      // console.log("payload ===>" , payload)
 
       try {
         let response = await axios.post(
@@ -86,7 +86,7 @@ const Edit_Policies = () => {
             header
         );
 
-        console.log(response.data)
+        // console.log(response.data)
 
         if (response.status === 200) {
           toast.success(response.data)

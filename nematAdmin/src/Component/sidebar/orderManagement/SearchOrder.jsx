@@ -28,7 +28,7 @@ const SearchOrder = () => {
           OrderNumber: passOrderNumber,
         };
 
-        console.log("Payload" , payload)
+        // console.log("Payload" , payload)
 
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/get/searchData`,

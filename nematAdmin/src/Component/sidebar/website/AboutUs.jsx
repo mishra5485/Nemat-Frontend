@@ -35,7 +35,7 @@ const AboutUs = () => {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/aboutus/getData`,header
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       setAboutUsData(response.data);
       _id = response.data._id;
       setLoading(false);
@@ -137,7 +137,7 @@ const AboutUs = () => {
           formData
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
           toast.success(response.data);
@@ -198,11 +198,11 @@ const AboutUs = () => {
     setNewImage(true);
     setFieldValue("familyImage", []);
     setAllImageFile(newImage);
-    console.log("newImage =====>", newImage);
+    // console.log("newImage =====>", newImage);
   };
 
   const handleUpdate = (data) => {
-    console.log("Data For Update ", data);
+    // console.log("Data For Update ", data);
     setRoadMapDataUpdate(data);
     setUpdateData(true);
   };

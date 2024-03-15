@@ -201,7 +201,7 @@ const Edit_Product = () => {
     enableReinitialize: true,
 
     onSubmit: async (values) => {
-      console.log("I am inside Sumbit Page ");
+      // console.log("I am inside Sumbit Page ");
 
       const formData = new FormData();
       [...allImageFile].forEach((image) => {
@@ -235,7 +235,7 @@ const Edit_Product = () => {
         SubCategoryId: values.sub_CategoryId,
       };
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       try {
 
@@ -249,10 +249,10 @@ const Edit_Product = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log("New Product Created ");
+          // console.log("New Product Created ");
           toast.success(response.data);
           resetForm();
         }
@@ -277,7 +277,7 @@ const Edit_Product = () => {
     },
   });
 
-  console.log("ProductData => ", ProductData);
+  // console.log("ProductData => ", ProductData);
 
   // const handleFileChange = (event, field) => {
   //   const file = event.target.files[0];
@@ -323,7 +323,7 @@ const Edit_Product = () => {
     console.log("newImage =====>", newImage);
   };
 
-  console.log("allImageFile ===>", allImageFile);
+  // console.log("allImageFile ===>", allImageFile);
 
   // const handleDeleteImage = (index) => {
   //   const updatedImages = values.productimg.filter((_, i) => i !== index);
@@ -336,7 +336,7 @@ const Edit_Product = () => {
     // console.log(category_ID === undefined);
     // const _id = category_ID === undefined ? event.target.value  : category_ID;
 
-    console.log("_id =>", _id);
+    // console.log("_id =>", _id);
 
     try {
 

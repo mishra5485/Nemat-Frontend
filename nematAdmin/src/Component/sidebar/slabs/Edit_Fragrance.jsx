@@ -65,7 +65,7 @@ const Edit_Fragrance = () => {
 
     onSubmit:async(values) => {
 
-       console.log("Form submitted with values:", values);
+      //  console.log("Form submitted with values:", values);
 
        const payload = {
          Name:values.name,
@@ -79,10 +79,10 @@ const Edit_Fragrance = () => {
             payload
         );
 
-        console.log(response.data)
+        // console.log(response.data)
 
         if (response.status === 200) {
-          console.log("New Fragrance  is  Added ");
+          // console.log("New Fragrance  is  Added ");
           toast.success("Updated Successfully")
           setShowForm(true)
           getAllFragrance();

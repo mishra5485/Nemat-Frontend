@@ -56,7 +56,7 @@ const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData ,
          Description : values.roadmapdesc
       }
       
-      console.log("Payload " , payload)
+      // console.log("Payload " , payload)
 
       try {
         let response = await axios.post(
@@ -65,7 +65,7 @@ const UpdateAboutRoadMap = ({ roadMapDataUpdate , aboutUsdata  , setUpdateData ,
           header
         );
 
-        console.log(response.data);
+        // console.log(response.data);
 
         if (response.status === 200) {
           toast.success(response.data);

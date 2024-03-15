@@ -7,7 +7,7 @@ import { OrderStatus } from "../../common/FormatAmount"
 import getToken from "../../common/getToken";
 
 const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) => {
-    console.log("checkboxCheck ===>", checkboxCheck);
+    // console.log("checkboxCheck ===>", checkboxCheck);
 
   // const [orderData , setOrderData] = useState(selectedArrays)
   const [selectedArray, setSelectedArray] = useState([]);
@@ -52,7 +52,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
   };
 
   const handleDeleteCheckBox = async() => {
-    console.log("Selected Items:", selectedArray);
+    // console.log("Selected Items:", selectedArray);
 
     if (selectedArray.length == 0) {
       toast.error("Item is Not selected");
@@ -65,7 +65,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
          OrderIds: selectedArray
       }
 
-      console.log("payload" , payload);
+      // console.log("payload" , payload);
 
       let response = await axios.post(
          `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/bulk_cancel`,
@@ -82,7 +82,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
     }
 
 
-    console.log( " orderData ===> " ,selectedArrays)
+    // console.log( " orderData ===> " ,selectedArrays)
 
       
     } catch (error) {

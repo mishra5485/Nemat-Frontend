@@ -25,7 +25,7 @@ const PrevCustomerQueries = () => {
 
          setContactUsData(response.data)
          setLoading(false)
-         console.log(response.data)
+        //  console.log(response.data)
 
       } catch (error) {
             if (error.response) {

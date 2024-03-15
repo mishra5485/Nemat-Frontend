@@ -117,7 +117,7 @@ const Category = () => {
         delete palyload.Priority;
       }
 
-      console.log("PAyload ", palyload);
+      // console.log("PAyload ", palyload);
 
       try {
         const header = getToken();
@@ -128,7 +128,7 @@ const Category = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
           toast.success("New Category Created");
@@ -193,7 +193,7 @@ const Category = () => {
   const DeleteHandler = async (categoryId) => {
     try {
       
-      console.log("headerData inside Delete Function===> " , headerData)
+      // console.log("headerData inside Delete Function===> " , headerData)
       
       const token = localStorage.getItem("token")
 

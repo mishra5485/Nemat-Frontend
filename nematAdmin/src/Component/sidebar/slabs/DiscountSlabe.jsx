@@ -126,7 +126,7 @@ const addInputSet = (e) => {
       //    formData.append(`DiscountSlabs[${index}][discountPercent]`, slab.discountPercent);
       //    });
 
-      console.log("Payload is here ->", payload);
+      // console.log("Payload is here ->", payload);
 
       try {
         let response = await axios.post(
@@ -136,11 +136,11 @@ const addInputSet = (e) => {
           payload , header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
           toast.success("New Discount Slabs is Created ");
-          console.log("New Category Created ");
+          // console.log("New Category Created ");
           setShowForm(false);
           fetchData();
           resetForm();
@@ -183,7 +183,7 @@ const addInputSet = (e) => {
   };
 
   const deleteHandler = async (discountSlabe_ID) => {
-    console.log("discountSlabe_ID ====>", discountSlabe_ID);
+    // console.log("discountSlabe_ID ====>", discountSlabe_ID);
 
     try {
       const deleteData = await axios.get(

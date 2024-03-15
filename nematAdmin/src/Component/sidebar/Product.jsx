@@ -124,7 +124,7 @@ const Product = () => {
           }
           setLoading(false);
 
-          console.log("ProductApi ", FetchAllProductData.data);
+          // console.log("ProductApi ", FetchAllProductData.data);
         }
       } catch (error) {
         if (error.response) {
@@ -298,10 +298,10 @@ const Product = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log("New Product Created ");
+          // console.log("New Product Created ");
           toast.success("New Product Created");
           resetForm();
           setImages([]);
@@ -348,7 +348,7 @@ const Product = () => {
   // };
 
   const handleFileChangeMultiples = (e) => {
-    console.log("handleFileChangeMultiples");
+    // console.log("handleFileChangeMultiples");
     const files = e.target.files;
 
     // Use map to create an array of URLs for each file
@@ -377,10 +377,10 @@ const Product = () => {
   };
 
   const handlerChangefunction = async (event) => {
-    console.log("Selected _id:", event);
+    // console.log("Selected _id:", event);
 
     const _id = event.target.value;
-    console.log("_id", _id);
+    // console.log("_id", _id);
 
     try {
 
@@ -499,7 +499,7 @@ const Product = () => {
   // console.log("Selected Items:", selectedArray);
 
   const handleDeleteCheckBox = async () => {
-    console.log("Selected Items:", selectedArray);
+    // console.log("Selected Items:", selectedArray);
 
     if (selectedArray.length == 0) {
       toast.error("Item is Not selected");
@@ -541,7 +541,7 @@ const Product = () => {
           status === 401 ||
           status === 400
         ) {
-          console.log(error.response);
+          // console.log(error.response);
           toast.error(data);
         }
       }

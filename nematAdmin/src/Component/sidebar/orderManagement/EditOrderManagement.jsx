@@ -25,7 +25,7 @@ const EditOrderManagement = () => {
 
   const header = getToken()
 
-  console.log(_id);
+  // console.log(_id);
 
   useEffect(() => {
     getOrderDataById();
@@ -39,7 +39,7 @@ const EditOrderManagement = () => {
         }/admin_order/getOrderById/${_id}`,header
       );
 
-      console.log(response.data);
+      // console.log(response.data)
       setOrderData(response.data);
       setCurrentState(response.data.Status);
       setDownloadDocument(response.data.Documents);
@@ -66,7 +66,7 @@ const EditOrderManagement = () => {
 
   const handleStatusChange = async (event) => {
     const selectedId = parseInt(event.target.value);
-    console.log("Selected ID:", selectedId);
+    // console.log("Selected ID:", selectedId);
 
     try {
       const payload = {
@@ -79,7 +79,7 @@ const EditOrderManagement = () => {
         payload , header
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       setCurrentState(selectedId);
       toast.success(response.data);
     } catch (error) {
@@ -106,7 +106,7 @@ const EditOrderManagement = () => {
   };
 
   const filehandlerselect = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setUploadFileOrderState(event.target.value);
     setFileUploadModal(true);
   };
@@ -122,7 +122,7 @@ const EditOrderManagement = () => {
         order_id: _id,
         Documents: file,
       };
-      console.log("payload ", payload);
+      // console.log("payload ", payload);
 
       const formData = new FormData();
       [...file].forEach((file) => {
@@ -138,7 +138,7 @@ const EditOrderManagement = () => {
         formData , header
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       toast.success(response.data);
       setModal(false);
       getOrderDataById();
@@ -171,7 +171,6 @@ const EditOrderManagement = () => {
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/downloadDocuments`,
         payload,
-        header,
         {
           responseType: "blob",
         }

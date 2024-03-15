@@ -123,9 +123,9 @@ const Edit_Vendors = () => {
         Bank_Add: values.back_add,
       };
 
-      console.log("PAyload ", palyload);
+      // console.log("PAyload ", palyload);
 
-      console.log(vendorName)
+      // console.log(vendorName)
 
       if (values.name === vendorName) {
         delete palyload.Name;
@@ -138,7 +138,7 @@ const Edit_Vendors = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
          //  resetForm();
@@ -165,7 +165,7 @@ const Edit_Vendors = () => {
     },
   });
 
-  console.log(vendordata)
+  // console.log(vendordata)
 
   return (
     <div>

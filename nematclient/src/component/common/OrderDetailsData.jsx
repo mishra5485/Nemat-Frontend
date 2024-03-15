@@ -26,7 +26,7 @@ const OrderDetailsData = ({ data, _id }) => {
 
   const [cancelOrderModal, setCancelOrderModal] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [orderIdForCacelAndReorder , setOrderIdForCacelAndReorder] = useState();
+  const [orderIdForCacelAndReorder, setOrderIdForCacelAndReorder] = useState();
 
   useEffect(() => {
     setOpenOrderData(data);
@@ -60,22 +60,23 @@ const OrderDetailsData = ({ data, _id }) => {
   ];
 
   const HandlerDownload = async (DocumentID, OrderId, UserId) => {
-    const payload = {
-      user_id: UserId,
-      order_id: OrderId,
-      document_id: DocumentID,
-    };
-
     setClicked(true);
 
     try {
-
       const header = getToken();
+
+      const token=localStorage.getItem("token")
+        
+      const payload = {
+        user_id: UserId,
+        order_id: OrderId,
+        document_id: DocumentID,
+        token: token,
+      };
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/downloadDocuments`,
         payload,
-        header,
         {
           responseType: "blob",
         }
@@ -145,8 +146,7 @@ const OrderDetailsData = ({ data, _id }) => {
 
   // Reorder Api Calling
   const reorderApiCallHandler = async (orderId, User_id, flag) => {
-
-    console.log("cacel Api logs ==> " , orderId , User_id, flag)
+    console.log("cacel Api logs ==> ", orderId, User_id, flag);
 
     try {
       const payload = {
@@ -162,7 +162,7 @@ const OrderDetailsData = ({ data, _id }) => {
       if (flag === 1) {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/reorder`,
-          payload , 
+          payload,
           header
         );
 
@@ -170,7 +170,7 @@ const OrderDetailsData = ({ data, _id }) => {
       } else {
         response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/order/cancelorder`,
-          payload , 
+          payload,
           header
         );
 
@@ -208,9 +208,8 @@ const OrderDetailsData = ({ data, _id }) => {
   };
 
   const cacelOrderHandler = (orderId) => {
-
-    console.log("Order ID when Modal open " , orderId)
-    setOrderIdForCacelAndReorder(orderId)
+    console.log("Order ID when Modal open ", orderId);
+    setOrderIdForCacelAndReorder(orderId);
     setCancelOrderModal(!cancelOrderModal);
   };
 
@@ -273,7 +272,7 @@ const OrderDetailsData = ({ data, _id }) => {
                           <button
                             type="button"
                             className="w-full text-text_Color2 border-2 md:hidden xl:block p-2 border-text_Color rounded-3xl"
-                            onClick={() => cacelOrderHandler( opneorder._id, )}
+                            onClick={() => cacelOrderHandler(opneorder._id)}
                           >
                             Cancel
                           </button>
@@ -299,7 +298,7 @@ const OrderDetailsData = ({ data, _id }) => {
                                       reorderApiCallHandler(
                                         orderIdForCacelAndReorder,
                                         opneorder.user_id,
-                                          0
+                                        0
                                       )
                                     }
                                     className="uppercase p-2 bg-text_Color2 text-white rounded-3xl w-[50%]"

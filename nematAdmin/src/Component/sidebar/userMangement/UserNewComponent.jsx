@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserNewComponent = ({ selectedArray }) => {
-  console.log("Inside UserComponet ", selectedArray);
+  // console.log("Inside UserComponet ", selectedArray);
 
 
   return (

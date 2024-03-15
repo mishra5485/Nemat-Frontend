@@ -65,7 +65,7 @@ const CustomerQueries = () => {
       navigate(`/dashboard/customer-queries/prev-queries/${querieId}`)
   }
 
-   console.log("allcustomerData === > " ,  allcustomerData)
+  //  console.log("allcustomerData === > " ,  allcustomerData)
 
   return (
     <div>

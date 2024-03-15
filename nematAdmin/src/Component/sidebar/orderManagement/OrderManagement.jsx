@@ -27,7 +27,7 @@ const OrderManagement = () => {
 
       setOrderManagement(response.data);
       setFilteredOrders(response.data)
-      console.log(response.data);
+      // console.log(response.data);
       setLoading(false)
     } catch (error) {
       if (error.response) {

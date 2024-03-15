@@ -107,7 +107,7 @@ const Vendors = () => {
         Bank_Add: values.back_add,
       };
 
-      console.log("PAyload ", palyload);
+      // console.log("PAyload ", palyload);
 
       try {
         let response = await axios.post(
@@ -116,7 +116,7 @@ const Vendors = () => {
           header
         );
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
           resetForm();
@@ -145,7 +145,7 @@ const Vendors = () => {
   });
 
 
-  console.log(allvandors);
+  // console.log(allvandors);
 
   const editHandlerDir = (vendorId) => {
     navigate(`/dashboard/vendors/edit_vendor/${vendorId}`);

@@ -39,7 +39,7 @@ const  Admin_login = () => {
             password: values.password,
       };
 
-      console.log(palyload)
+      // console.log(palyload)
 
       try {
 
@@ -48,7 +48,7 @@ const  Admin_login = () => {
               palyload
             );
 
-             console.log("response -> ",response)
+            //  console.log("response -> ",response)
             if (response.status === 200) {
                 dispatch(setAddmin(response.data))
                 const AdminLogin = response.data

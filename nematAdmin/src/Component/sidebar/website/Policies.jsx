@@ -36,7 +36,7 @@ const Policies = () => {
     }
   };
 
-  console.log("policiesdata ===> ", policiesdata);
+  // console.log("policiesdata ===> ", policiesdata);
 
   const PoliciesObject = yup.object({
     heading: yup.string().min(3).required("Please Enter the heading"),
