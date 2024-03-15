@@ -63,35 +63,8 @@ const Sidebar1 = () => {
   };
 
   const logout = async () => {
-    try {
-      let response = await axios.post(
-        //   ${import.meta.env.VITE_REACT_APP_BASE_URL}/user/logout,s
-        {
-          username: userData.username,
-        },
-      );
-      if (response.status === 200) {
         localStorage.clear();
         navigate("/");
-        dispatch(logoutAsync());
-      }
-    } catch (error) {
-      console.log(error);
-      if (error.response) {
-        const { status, data } = error.response;
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 400
-        ) {
-          toast.error(data);
-          //  throw new Error(API Error: Status ${status});
-        }
-      }
-    }
   };
 
   return (
@@ -166,6 +139,21 @@ const Sidebar1 = () => {
               </button> */}
             </div>
             <ul className="space-y-2 font-medium">
+              <NavLink to={"/dashboard"}>
+                <li>
+                  <button
+                    type="button"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example"
+                  >
+                    <GrDocumentUser />
+
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                      DashBoard
+                    </span>
+                  </button>
+                </li>
+              </NavLink>
               <li>
                 <button
                   type="button"

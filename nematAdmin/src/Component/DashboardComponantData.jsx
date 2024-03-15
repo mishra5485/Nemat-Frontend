@@ -8,6 +8,7 @@ import { formattedAmount } from "./common/FormatAmount";
 import { OrderStatus } from "./common/FormatAmount";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./common/LoadingSpinner";
+import getToken from "./common/getToken";
 
 const DashboardComponantData = () => {
   const [OrderManagement, setOrderManagement] = useState([]);
@@ -64,10 +65,13 @@ const DashboardComponantData = () => {
       const payload = {
         filterString: "Last 7 Days",
       };
+      
+      const header = getToken();
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
-        payload
+        payload , 
+        header
       );
 
       // console.log("New  Data is here ===> ", response.data);
@@ -136,8 +140,7 @@ const DashboardComponantData = () => {
         To: formatDate(values.toDate),
       };
 
-      setLoading(true);
-
+      
       // console.log("PAyload ==> ", payload);
 
       const dateDifference = moment(values.toDate).diff(
@@ -149,11 +152,16 @@ const DashboardComponantData = () => {
         toast.error("Date range cannot exceed 30 days");
         return;
       }
-
+      
       try {
+        
+        setLoading(true);
+        const header = getToken()
+
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
-          payload
+          payload,
+          header
         );
 
         if (response.status === 200) {
@@ -199,13 +207,16 @@ const DashboardComponantData = () => {
         filterString: fillterData,
       };
 
+      const header = getToken()
+
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
-        payload
+        payload,
+        header
       );
 
       if (response.status === 200) {
-        console.log("Filltered Data is here ===> ", response.data);
+        // console.log("Filltered Data is here ===> ", response.data);
         setFilteredOrders([]);
         setOrderManagement([]);
         setOrderStatus([]);
@@ -243,8 +254,6 @@ const DashboardComponantData = () => {
     setFilteredOrders(filtered);
   };
 
-  const handleForm = () => {};
-
   const editHandlerDir = (orderId) => {
     navigate(`/dashboard/order-mangement/view_order/${orderId}`);
   };
@@ -256,7 +265,8 @@ const DashboardComponantData = () => {
         <select
           id="docStatus"
           onChange={filehandlerselect}
-          className="w-[25%] h-11 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-1  px-2 mb-4 "
+           defaultValue="Last 7 Days"
+          className="w-[25%] h-11 bg-gray-100 mt-6 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-1  px-2 mb-4 "
         >
           <option>Select Date</option>
           {dropDownData.map((filterData) => (
@@ -268,10 +278,10 @@ const DashboardComponantData = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="w-[50%] shadow-md rounded-md mb-4 "
+          className="w-[50%] rounded-md mb-4 "
         >
           <div className="w-[100%]">
-            <div className="flex justify-between text-text_Color ">
+            <div className="flex justify-between  ">
               <div className="flex flex-col w-full pr-3 ">
                 <label htmlFor="fromDate" className="text-gray-700">
                   From Date
@@ -290,7 +300,6 @@ const DashboardComponantData = () => {
                   }`}
                   style={{
                     border: "1px solid #60713A", // Set border color to #60713A // Set background color to #60713A
-                    color: "#60713A", // Set text color to white, assuming #ffffff contrasts well with #60713A
                   }}
                 />
                 {touched.fromDate && errors.fromDate && (
@@ -322,7 +331,7 @@ const DashboardComponantData = () => {
 
               <button
                 type="submit"
-                className="w-full mt-6 pr-3 lg:w-auto bg-text_Color2 text-white font-semibold py-2 px-4 rounded-xl"
+                className="w-full mt-6 pr-3 lg:w-auto bg-[#868686] text-white font-semibold py-2 px-4 rounded-xl"
               >
                 Submit
               </button>
@@ -334,7 +343,7 @@ const DashboardComponantData = () => {
      
       {orderStatus && orderStatus.length !== 0 ? (
         <div className="mt-6">
-          <h1 className="mt-6 text-2xl text-text_Color  font-bold mb-4">
+          <h1 className="mt-6 text-2xl  font-bold mb-4">
             Order Status
           </h1>
           <div className="flex justify-between mx-auto">
@@ -343,8 +352,8 @@ const DashboardComponantData = () => {
                 key={index}
                 className="w-[95%] flex justify-center items-center "
               >
-                <div className="p-3 border-2 border-text_Color rounded-xl w-[90%] flex flex-col justify-between ">
-                <p className="text-start text-xl h-[45px] text-text_Color  font-semibold w-[90%]">
+                <div className="p-3 border-2 border-black  rounded-xl w-[90%] flex flex-col justify-between ">
+                <p className="text-start text-xl h-[45px]   font-semibold w-[90%]">
                   {orderData.Name} :-
                 </p>
                 <h1 className="text-3xl text-start text-text_Color mt-2 font-bold">
@@ -375,7 +384,7 @@ const DashboardComponantData = () => {
                         placeholder="Search for Order Number"
                         required=""
                         onChange={handleSearch}
-                        className="border-[1px] border-text_Color text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2 "
+                        className="border-[1px] border-black text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2 "
                       />
                     </div>
                   </form>
@@ -388,13 +397,15 @@ const DashboardComponantData = () => {
                     <LoadingSpinner />
                   </p>
                 ) : (
-                  <div className="overflow-x-auto  border-[1px] border-text_Color rounded-lg">
+                  <div className="overflow-x-auto     rounded-lg">
                    <table className="w-full text-sm text-left rounded-2xl  ">
-                      <thead className="text-xs w-full text-white border-[1px] uppercase bg-text_Color2 rounded-2xl">
+                      <thead className="text-xs w-full  uppercase bg-gray-200 rounded-2xl">
                         <tr className="w-full ">
-                          <th></th>
-                          <th scope="col" className="p-4">
+                            <th scope="col" className="p-4">
                             Order Number
+                          </th>
+                           <th scope="col" className="p-4">
+                            Order Date
                           </th>
                           <th scope="col" className="p-4">
                             Company Name
@@ -417,27 +428,17 @@ const DashboardComponantData = () => {
                         filteredOrders?.map((item) => (
                           <tbody key={item._id}>
                             <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                              <td className="p-4 w-4">
-                                <div className="flex items-center">
-                                  <input
-                                    id="checkbox-table-search-1"
-                                    type="checkbox"
-                                    onClick={handleForm}
-                                    className="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                  />
-                                  <label
-                                    htmlFor="checkbox-table-search-1"
-                                    className="sr-only"
-                                  >
-                                    checkbox
-                                  </label>
-                                </div>
-                              </td>
                               <th
                                 scope="row"
                                 className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
                                 {item.OrderNo}
+                              </th>
+                              <th
+                                scope="row"
+                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                              >
+                                {item.OrderedDate}
                               </th>
 
                               <td className="px-4 py-3">

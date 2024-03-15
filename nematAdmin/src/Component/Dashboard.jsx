@@ -15,8 +15,8 @@ const Dashboard = () => {
       <SlideBar/>
       <div className="p-4 sm:ml-64">
         <Outlet/>
-        {/* {isDashboardPage && <DashboardComponantData/>} */}
-        { isDashboardPage && <OrderManagementTable/>}
+        {isDashboardPage && <DashboardComponantData/>}
+        {/* { isDashboardPage && <OrderManagementTable/>} */}
       </div>
     </div>
   );
