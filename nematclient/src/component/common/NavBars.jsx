@@ -140,7 +140,7 @@ const NavBars = () => {
 
   const seriesPageById = (_id) => {
     navigate(`/series/${_id}`);
-    SetShowNavbar(!showNavbar);
+    // SetShowNavbar(!showNavbar);
     setIsHovered(false);
   };
 
