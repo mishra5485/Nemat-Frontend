@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import UserNewComponent from "./UserNewComponent";
 import toast, { Toaster } from "react-hot-toast";
 import getToken from "../../common/getToken";
-
+import CreateUser from "./CreateUser";
 
 const UserManagement = () => {
   const [userDatas, setUserDatas] = useState();
@@ -17,9 +17,10 @@ const UserManagement = () => {
   const [flagSend, setFlagSend] = useState("1");
   const [flagGetData, setFlagGetData] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [companyCreationModal, setCompanyCreationModal] = useState(false);
   const pageSize = 10;
 
-  const header = getToken()
+  const header = getToken();
 
   useEffect(() => {
     getAllUserData();
@@ -59,7 +60,7 @@ const UserManagement = () => {
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/users/customer/getall/${pageSize}/${currentPage}`,
-        payload , 
+        payload,
         header
       );
 
@@ -73,7 +74,6 @@ const UserManagement = () => {
       }
 
       setLoading(false);
-
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -89,7 +89,7 @@ const UserManagement = () => {
         ) {
           console.log(error.response);
           setApiData(null);
-          setOriginalData(null)
+          setOriginalData(null);
           toast.error(data);
           setLoading(false);
         }
@@ -129,7 +129,6 @@ const UserManagement = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-    
       try {
         const payload = {
           keyword: debouncedSearchTerm,
@@ -162,7 +161,7 @@ const UserManagement = () => {
             status === 400
           ) {
             console.log(error.response);
-            toast.error(data)
+            toast.error(data);
             setLoading(false);
           }
         }
@@ -175,22 +174,37 @@ const UserManagement = () => {
     } else {
       setApiData(originalData);
     }
-  }, [debouncedSearchTerm , originalData]);
-
+  }, [debouncedSearchTerm, originalData]);
 
   // console.log("currentPage" , currentPage)
   // console.log("MAx value " , maxData)
 
   return (
     <div className="overflow-x-auto">
-      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+      <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black flex justify-between">
         <h1>Company Management</h1>
+        {
+           !companyCreationModal && (
+              <div className="">
+          <button
+            className="bg-[#868686] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={() => setCompanyCreationModal(true)}
+          >
+            + Register Company
+          </button>
+        </div>
+           ) 
+        }
+        
       </div>
 
-      <Toaster/>
+      <Toaster />
 
       {loading ? (
         <p>Loading......</p>
+      ) : companyCreationModal ? (
+        <CreateUser setCompanyCreationModal={setCompanyCreationModal}/>
       ) : (
         <div className="bg-white dark:bg-gray-800">
           <div className="bg-white dark:bg-gray-800">
@@ -230,35 +244,33 @@ const UserManagement = () => {
               </div>
             </nav>
           </div>
-          {
-            apiData && (
-              <>
-                 <UserNewComponent selectedArray={apiData} />
-                 
-                <div className="flex  px-4 py-3">
-                  {currentPage !== 0 && (
-                    <button
-                      onClick={goToPrevPage}
-                      disabled={currentPage === 0 || loading}
-                      className="bg-gray-200 mr-5 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded"
-                    >
-                      Prev
-                    </button>
-                 )}
+          {apiData && (
+            <>
+              <UserNewComponent selectedArray={apiData} />
 
-                  {currentPage + 1 !== maxData && (
-                    <button
-                      onClick={goToNextPage}
-                      disabled={loading}
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded"
-                    >
-                      Next
-                    </button>
-                  )}
-                </div>
-              </>
-            )
-          }
+              <div className="flex  px-4 py-3">
+                {currentPage !== 0 && (
+                  <button
+                    onClick={goToPrevPage}
+                    disabled={currentPage === 0 || loading}
+                    className="bg-gray-200 mr-5 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded"
+                  >
+                    Prev
+                  </button>
+                )}
+
+                {currentPage + 1 !== maxData && (
+                  <button
+                    onClick={goToNextPage}
+                    disabled={loading}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded"
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

@@ -387,7 +387,7 @@ const Sidebar1 = () => {
                     <FaUserPlus size={20}/>
 
                     <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                      User Mangement
+                      Company Mangement
                     </span>
                   </button>
                 </li>
