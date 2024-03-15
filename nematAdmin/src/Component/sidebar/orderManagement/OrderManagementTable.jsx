@@ -9,7 +9,7 @@ const OrderManagementTable = () => {
   const [apiData, setApiData] = useState(null);
    const [originalData, setOriginalData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [checkboxCheck, setCheckboxCheck] = useState("PlacedOrders");
+  const [checkboxCheck, setCheckboxCheck] = useState("0");
   const [flagSend, setFlagSend] = useState("0");
   const [flagGetData, setFlagGetData] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -48,9 +48,13 @@ const OrderManagementTable = () => {
   const getallOrder = async () => {
     const statusCheck = parseInt(flagSend);
 
+    setCheckboxCheck(statusCheck)
+
     const payload = {
       flag: statusCheck,
     };
+
+    // console.log(flag , "flag")
 
     try {
 
@@ -227,7 +231,7 @@ const OrderManagementTable = () => {
               <>
                 <OrderManagementList
                   selectedArrays={apiData}
-                  checkboxCheck={flagSend}
+                  checkboxCheck={checkboxCheck}
                   setFlagGetData={setFlagGetData}
                 />
 

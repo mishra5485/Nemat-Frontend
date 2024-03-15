@@ -19,7 +19,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
   const header = getToken()
 
   useEffect(() => {
-    if(checkboxCheck == "PlacedOrders"){
+    if(checkboxCheck == "0"){
       setStoreDataCase(selectedArrays)
     }
   },[checkboxCheck])
@@ -133,7 +133,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            {checkboxCheck === "PlacedOrders" && (
+            {checkboxCheck === "0" && (
               <th scope="col" className="p-4">
                 <div className="flex items-center">
                   <input
@@ -178,7 +178,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
               className="bg-white border-b hover:bg-gray-200"
               key={item.id}
             >
-              {checkboxCheck == "PlacedOrders" && (
+              {checkboxCheck == "0" && (
                 <td className="p-4 w-4">
                   <div className="flex items-center">
                     <input
@@ -227,7 +227,7 @@ const OrderManagementList = ({ selectedArrays, checkboxCheck , setFlagGetData}) 
         </tbody>
       </table>
 
-      {checkboxCheck == "PlacedOrders" &&  selectedArray.length != 0 &&  (
+      {checkboxCheck == "0" &&  selectedArray.length != 0 &&  (
         <div className="w-[100%] flex justify-end ">
           <button
             className="px-10 mt-4 text-white bg-[#868686] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  py-2.5 text-center me-2 mb-2"
