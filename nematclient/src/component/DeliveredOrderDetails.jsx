@@ -58,7 +58,7 @@ const DeliveredOrderDetails = () => {
   return (
     <div>
        {loading ? (
-        <p>Loa</p>
+        <p></p>
       ) : (
         <>
           {nodata ? (

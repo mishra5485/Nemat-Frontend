@@ -109,7 +109,7 @@ const AboutUs = () => {
     <div onClick={() => checkHandler()} >
       <NavBars />
       {loading ? (
-        <p>Loaddding </p>
+        <p></p>
       ) : (
         <div id="mainSection" className="aboutSection" >
           <div className="heroSection">

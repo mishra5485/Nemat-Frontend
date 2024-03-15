@@ -41,22 +41,6 @@ const Home = () => {
   const baseURL = import.meta.env.VITE_REACT_APP_BASE_URL;
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // const handleScroll = () => {
-  //   //   const currentScrollPos = window.pageYOffset;
-  //   //   const isScrolledUp = prevScrollPos > currentScrollPos;
-
-  //   //   setIsNavVisible(isScrolledUp || currentScrollPos < 0); // Show navbar when at the top
-
-  //   //   setPrevScrollPos(currentScrollPos);
-  //   // };
-
-  //   // window.addEventListener('scroll', handleScroll);
-  //   // return () => {
-  //   //   window.removeEventListener('scroll', handleScroll);
-  //   // };
-  // }, []);
-
   useEffect(() => {
     // Automatically change banner after 10 seconds
     const changeBanner = () => {
@@ -163,142 +147,65 @@ const Home = () => {
   
 
   return (
-    <div className="mt-0  overflow-auto custom-scrollbar">
-      {loading ? <p>Loaddding </p> : <NavBars />}
-
-      {loading ? (
-        <p>Loading </p>
-      ) : (
+     <div className="mt-0 overflow-auto custom-scrollbar">
+      {!loading && <NavBars />}
+      
+      {!loading && (
         <div className="relative">
-          <Slider
-            {...settings}
-            ref={sliderRef}
-            className="overflow-hidden z-10 cursor-pointer"
-          >
+          <Slider {...settings} ref={sliderRef} className="overflow-hidden z-10 cursor-pointer">
             {BannerData.map((bannerItem) => (
-              <div
-                key={bannerItem._id}
-                className="w-full h-[85vh] object-cover sm:bg-center overflow-hidden relative"
-                onClick={() => seriesPageById(bannerItem.SubcategoryId)}
-              >
-                <img
-                  src={`${baseURL}/${
-                    isMobile
-                      ? bannerItem.MobilebannerImage
-                      : bannerItem.DesktopbannerImage
-                  }`}
-                  alt={bannerItem.Heading}
-                  className="w-full h-full object-cover"
-                  style={{ maxWidth: "100%", maxHeight: "100%" }}
-                />
-                {/* <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center">
-              <h1 className="font-Abel md:text-start font-[25px] text-2xl">
-                {bannerItem.Heading}
-              </h1>
-              <h1 className="font-Abel font-[35px] text-3xl overflow-hidden">
-                {bannerItem.SubHeading}
-              </h1>
-              <p className="w-[80%] md:w-[350px] md:text-start mobile:text-center font-Marcellus text-base">
-                {bannerItem.Description}
-              </p>
-              <button className="w-[137px] h-[43px] bg-bg_green rounded-3xl">
-                SHOP NOW
-              </button>
-            </div> */}
+              <div key={bannerItem._id} className="w-full h-[85vh] object-cover sm:bg-center overflow-hidden relative" onClick={() => seriesPageById(bannerItem.SubcategoryId)}>
+                <img src={`${baseURL}/${isMobile ? bannerItem.MobilebannerImage : bannerItem.DesktopbannerImage}`} alt={bannerItem.Heading} className="w-full h-full object-cover" style={{ maxWidth: "100%", maxHeight: "100%" }} />
               </div>
             ))}
           </Slider>
           <div className="absolute bottom-4 left-0 right-0 flex justify-center">
             <div className="flex space-x-2 ">
               {[...Array(3)].map((_, dotIndex) => (
-                <span
-                  key={dotIndex}
-                  className={`h-2 w-2 rounded-full bg-black ${
-                    dotIndex === currentSlide % 3 ? "opacity-100" : "opacity-50"
-                  }`}
-                  onClick={() =>
-                    sliderRef.current &&
-                    sliderRef.current.slickGoTo(currentSlide + dotIndex)
-                  }
-                ></span>
+                <span key={dotIndex} className={`h-2 w-2 rounded-full bg-black ${dotIndex === currentSlide % 3 ? "opacity-100" : "opacity-50"}`} onClick={() => sliderRef.current && sliderRef.current.slickGoTo(currentSlide + dotIndex)}></span>
               ))}
             </div>
           </div>
         </div>
       )}
-      <div>
-        {loading ? (
-          <p>Loading </p>
-        ) : (
-          <div>
-            {categoryData.map((category, index) => (
-              <div key={index}>
-                {index % 2 == 0 ? (
-                  <div key={index} className="p-2 py-5   w-full mb-2">
-                    <img src={DottedLineGold} className="w-full" />
-                    {/* <Goldenline image={DottedLineGold} /> */}
-                  </div>
-                ) : (
-                  <div key={index} className="p-2 py-5  w-full mb-2">
-                    <img src={Flower} className="w-full object-cover" />
-                    {/* <RightToLeftanm image={FlowerPattern2} /> */}
-                  </div>
-                )}
-                <div key={category._id}>
-                  <ProductHeader title={category.Name} />
-                  <div className="w-full flex justify-center items-center mt-8">
-                    <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
-                      {category.SubCategories &&
-                        category.SubCategories.map((subcategories) => (
-                          <div
-                            key={subcategories._id}
-                            className=" flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 "
-                            onClick={() => seriesPageById(subcategories._id)}
-                          >
-                            <div className="hover:scale-110 transition-transform duration-300">
-                            <img
-                              src={`${
-                                import.meta.env.VITE_REACT_APP_BASE_URL
-                              }/${subcategories.Image}`}
-                              className=" mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
-                              alt={subcategories?.title}
-                            />
-                            <h1
-                              className=" font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
-                              style={{ minHeight: "3em" }}
-                            >
-                              {subcategories.Name}
-                            </h1>
-                            </div>
-                            <button className="w-[137px] uppercase h-[43px] hover:bg-[#293821] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
-                              Order NOW
-                            </button>
-                          </div>
-                        ))}
-                    </div>
+
+      {!loading && (
+        <div>
+          {categoryData.map((category, index) => (
+            <div key={index}>
+              <div key={index} className={`p-2 py-5 w-full mb-2 ${index % 2 === 0 ? "" : ""}`}>
+                <img src={index % 2 === 0 ? DottedLineGold : Flower} className="w-full" />
+              </div>
+              <div key={category._id}>
+                <ProductHeader title={category.Name} />
+                <div className="w-full flex justify-center items-center mt-8">
+                  <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
+                    {category.SubCategories && category.SubCategories.map((subcategories) => (
+                      <div key={subcategories._id} className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 " onClick={() => seriesPageById(subcategories._id)}>
+                        <div className="hover:scale-110 transition-transform duration-300">
+                          <img src={`${baseURL}/${subcategories.Image}`} className="mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center" alt={subcategories?.title} />
+                          <h1 className="font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis" style={{ minHeight: "3em" }}>{subcategories.Name}</h1>
+                        </div>
+                        <button className="w-[137px] uppercase h-[43px] hover:bg-[#293821] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">Order NOW</button>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {loading ? (
-        <p>Loading </p>
-      ) : (
-        <>
-          <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} />
-        </>
-      )}
-
-      {isModalOpen  && !loading && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 my-auto flex items-center justify-center z-50">
-          <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen}/>
+            </div>
+          ))}
         </div>
       )}
 
-      {loading ? <p>Loading </p> : <Footer categoryData={categoryData} />}
+      {!loading && <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
+
+      {isModalOpen && !loading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 my-auto flex items-center justify-center z-50">
+          <Discountslabe Dssprays={Dssprays} agarbattisDs={agarbattisDs} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        </div>
+      )}
+
+      {!loading && <Footer categoryData={categoryData} />}
     </div>
   );
 };

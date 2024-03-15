@@ -154,7 +154,7 @@ const Cart = () => {
       </div>
 
       {loading ? (
-        <p>Loaddding....</p>
+        <p></p>
       ) : (
         <>
           {nodata ? (

@@ -133,7 +133,7 @@ const ContactUs = () => {
       <NavBars />
       <Toaster />
       {loading ? (
-        <p>Loading..</p>
+        <p></p>
       ) : (
         <div className="md:flex">
           <div className="sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-[100%] mobile:flex mobile:flex-col mobile:justify-center mobile:items-center mobile: w-[100%]  md:items-start md:ml-[3%] md:text-start md:text-lg text-text_Color  font-Marcellus  md:w-[60%]">

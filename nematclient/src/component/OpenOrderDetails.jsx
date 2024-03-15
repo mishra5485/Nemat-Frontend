@@ -69,7 +69,7 @@ const OpenOrderDetails = () => {
     // <div className="sm:mt-4 mobile:mt-4 md:h-auto md:ml-[7%]   ">
       <div>
       {loading ? (
-        <p>Loaddding....</p>
+        <p></p>
       ) : (
         <>
           {nodata ? (

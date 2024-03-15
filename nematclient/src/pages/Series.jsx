@@ -366,7 +366,7 @@ const Series = () => {
         <NavBars />
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <div className="mt-8 mb-8">
           {/* Top Section  */}
