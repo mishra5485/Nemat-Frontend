@@ -63,6 +63,8 @@ const ProfileDetails = () => {
   };
 
 
+  console.log("profileData ==> " ,  profileData)
+
   const UpdateProfileObject = yup.object({
     name: yup.string().min(2).required("Please Enter your Name"),
     CNcountryCode: yup
@@ -185,17 +187,17 @@ const ProfileDetails = () => {
               </label>
               <div className="mobile:mt-0 mobile:flex sm:flex">
                 <input
-                  className="mobile:flex mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                  className="mobile:flex text-lg mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                   type="text"
                   placeholder="Enter Username"
                   value={profileData.CustomerName}
                   id="name"
                 ></input>
-                <RiEdit2Line
+                {/* <RiEdit2Line
                   size={25}
                   color="#60713A"
                   className="z-0 sm:mt-2 mobile:mt-2 md:mt-4 -ml-6 "
-                />
+                /> */}
               </div>
             </div>
 
@@ -210,7 +212,7 @@ const ProfileDetails = () => {
               </label>
               <div className="mobile:mt-0 mobile:flex sm:flex md:w-full">
                 <input
-                  className="mobile:flex mobile:h-10 mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                  className="mobile:flex mobile:h-10 text-lg mobile:w-full sm:flex sm:h-10 sm:w-full text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                   type="text"
                   placeholder="Enter Username"
                   id="email"
@@ -275,26 +277,14 @@ const ProfileDetails = () => {
                     Country Code
                   </label>
                   <div className="md:w-[90%]">
-                    <select
-                      className="flex h-10 w-[100%] text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                    <input
+                      className="flex h-10 w-[100%] text-lg font-Marcellus  text-center text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2  placeholder:text-[#642F29] focus:outline-none"
                       id="CNcountryCode"
-                      value={values.CNcountryCode}
+                      value= {` + ${profileData.Country_MobileNumber}`}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     >
-                      <option value="" disabled>
-                        Select Country Code
-                      </option>
-                      {counntryCode.map((country, index) => (
-                        <option
-                          key={index}
-                          value={country.code}
-                          className="text-text_Color text-center"
-                        >
-                          ({country.code})
-                        </option>
-                      ))}
-                    </select>
+                    </input>
 
                     {errors.CNcountryCode && touched.CNcountryCode ? (
                       <p className="font-Marcellus text-red-900">
@@ -313,7 +303,7 @@ const ProfileDetails = () => {
                   </label>
                   <div className="">
                     <input
-                      className="flex mobile:h-10 sm:h-10 w-full text-text_Color font-semibold sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg disabled:opacity-50"
+                      className="flex mobile:h-10 text-lg sm:h-10 w-full text-text_Color font-Marcellus sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg disabled:opacity-50"
                       type="text"
                       placeholder=" Mobile Number"
                       id="mobileNumber"
@@ -342,26 +332,14 @@ const ProfileDetails = () => {
                     Country Code
                   </label>
                   <div className="md:w-[90%]">
-                    <select
-                      className="flex h-10 w-[100%] text-text_Color  border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2 text-sm placeholder:text-[#642F29] focus:outline-none"
+                    <input
+                      className="flex h-10 w-[100%] font-Marcellus text-lg text-center text-text_Color  border-b-[1px] border-b-[#642F29] bg-transparent px-3 py-2  placeholder:text-[#642F29] focus:outline-none"
                       id="CNlandlineNumber"
-                      value={values.CNlandlineNumber}
+                      value={` +  ${profileData?.Country_LandlineNumber}`}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     >
-                      <option value="" disabled>
-                        Select Country Code
-                      </option>
-                      {counntryCode.map((country, index) => (
-                        <option
-                          key={index}
-                          value={country.code}
-                          className="text-text_Color text-center  "
-                        >
-                          ({country.code})
-                        </option>
-                      ))}
-                    </select>
+                    </input>
 
                     {errors.CNlandlineNumber && touched.CNlandlineNumber ? (
                       <p className="font-Marcellus text-red-900">
@@ -380,7 +358,7 @@ const ProfileDetails = () => {
                   </label>
                   <div className="">
                     <input
-                      className="flex h-10 w-full text-text_Color font-semibold font-roxborough  sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm disabled:opacity-50"
+                      className="flex h-10 w-full text-text_Color font-Marcellus  sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-sm disabled:opacity-50"
                       type="text"
                       placeholder=" Mobile Number"
                       id="landlineNumber"
