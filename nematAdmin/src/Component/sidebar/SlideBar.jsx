@@ -63,8 +63,8 @@ const Sidebar1 = () => {
   };
 
   const logout = async () => {
-        localStorage.clear();
-        navigate("/");
+      localStorage.clear();
+      navigate("/");
   };
 
   return (
