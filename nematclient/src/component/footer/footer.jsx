@@ -9,17 +9,19 @@ import { useSelector } from "react-redux";
 const footer = () => {
   
 
+  const { user } = useSelector((store) => store.profile);
+   const _id = user?.customer_id;
 
   const detailsPage = [
     {
       id:1,
       title:"About",
-      link:`https://nemat.digitalcube.tech/nemat/about`
+      link:`/ourfamily`
     },
     {
       id:2,
       title:"Policies",
-      link:`https://nemat.digitalcube.tech/nemat/about`
+      link:`/policies`
     },
     {
       id:3,
@@ -29,7 +31,7 @@ const footer = () => {
     {
       id:4,
       title:"Account",
-      link:`https://nemat.digitalcube.tech/nemat/about`
+      link:`/profile/${_id}`
     },
   ]
 
@@ -231,7 +233,7 @@ const footer = () => {
                     <div key={text.id} className="flex  py-5">
                         <h1 
                         onClick={() => handleLinkClick(text.link)}
-                        className="md:px-3">{text.title}</h1>
+                        className="md:px-3 cursor-pointer">{text.title}</h1>
                     </div>
                   ))
                 }
