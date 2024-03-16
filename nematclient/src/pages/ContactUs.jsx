@@ -129,7 +129,7 @@ const ContactUs = () => {
   console.log("admininfo ===> ", admininfo);
 
   return (
-    <div className="w-[100%] h-auto mb-7">
+    <div className="w-[100%] h-auto">
       <NavBars />
       <Toaster />
       {loading ? (
