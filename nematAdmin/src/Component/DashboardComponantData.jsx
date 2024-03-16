@@ -9,12 +9,17 @@ import { OrderStatus } from "./common/FormatAmount";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./common/LoadingSpinner";
 import getToken from "./common/getToken";
+import { FaFileDownload } from "react-icons/fa";
 
 const DashboardComponantData = () => {
   const [OrderManagement, setOrderManagement] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [orderStatus, setOrderStatus] = useState([]);
+  const [downloadReport, setDownloadReport] = useState("Last 7 Days");
+  const [prevDownloadState, setPrevDownloadState] = useState("Last 7 Days");
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
 
@@ -65,12 +70,12 @@ const DashboardComponantData = () => {
       const payload = {
         filterString: "Last 7 Days",
       };
-      
+
       const header = getToken();
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
-        payload , 
+        payload,
         header
       );
 
@@ -140,7 +145,6 @@ const DashboardComponantData = () => {
         To: formatDate(values.toDate),
       };
 
-      
       // console.log("PAyload ==> ", payload);
 
       const dateDifference = moment(values.toDate).diff(
@@ -152,11 +156,10 @@ const DashboardComponantData = () => {
         toast.error("Date range cannot exceed 30 days");
         return;
       }
-      
+
       try {
-        
         setLoading(true);
-        const header = getToken()
+        const header = getToken();
 
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
@@ -197,8 +200,10 @@ const DashboardComponantData = () => {
   });
 
   const filehandlerselect = async (event) => {
-    // console.log(event.target.value);
+    console.log(event.target.value);
     const fillterData = event.target.value;
+    const prevSelectedValue = downloadReport;
+    setDownloadReport(fillterData);
 
     try {
       setLoading(true);
@@ -207,7 +212,7 @@ const DashboardComponantData = () => {
         filterString: fillterData,
       };
 
-      const header = getToken()
+      const header = getToken();
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
@@ -217,6 +222,8 @@ const DashboardComponantData = () => {
 
       if (response.status === 200) {
         // console.log("Filltered Data is here ===> ", response.data);
+        setPrevDownloadState(prevSelectedValue);
+        setDownloadReport(fillterData);
         setFilteredOrders([]);
         setOrderManagement([]);
         setOrderStatus([]);
@@ -241,21 +248,103 @@ const DashboardComponantData = () => {
           console.log(error.response);
           toast.error(data);
           setLoading(false);
+          setDownloadReport(prevSelectedValue);
+          event.target.value = prevSelectedValue;
         }
       }
     }
   };
 
   const handleSearch = (event) => {
+    console.log("search value", event.target.value);
+
     const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
     const filtered = OrderManagement.filter((item) =>
       item.OrderNo.includes(searchTerm)
     );
     setFilteredOrders(filtered);
   };
 
+  console.log("form Data ", values.fromDate);
+  console.log("To Data ", values.toDate);
+
   const editHandlerDir = (orderId) => {
     navigate(`/dashboard/order-mangement/view_order/${orderId}`);
+  };
+
+  const handlerDownloadReport = async () => {
+    const token = localStorage.getItem("token");
+
+    let payload;
+
+   if ((values.fromDate !== null && values.fromDate !== "") && (values.toDate !== null && values.toDate !== "")) {
+  // If both fromDate and toDate are not null and not empty strings
+  payload = {
+    From: formatDate(values.fromDate),
+    To: formatDate(values.toDate),
+    token: token,
+  };
+} else {
+  // If either fromDate or toDate is null or an empty string
+  payload = {
+    filterString: downloadReport,
+    token: token,
+  };
+}
+
+    console.log("payload", payload);
+
+    try {
+      let response = await axios.post(
+        `${
+          import.meta.env.VITE_REACT_APP_BASE_URL
+        }/admin_dashboard/getexcelreportsdata`,
+        payload,
+        {
+          responseType: "blob",
+        }
+      );
+
+      console.log("response", response.data);
+
+      const blob = new Blob([response.data], { type: "application/xml" });
+
+      // Create a URL for the Blob object
+      const url = URL.createObjectURL(blob);
+
+      // Create a temporary link element
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.setAttribute("download", "report.xml");
+      tempLink.style.display = "none"; // Hide the link
+      document.body.appendChild(tempLink);
+      tempLink.click();
+
+      // Clean up
+      document.body.removeChild(tempLink);
+      URL.revokeObjectURL(url);
+
+      resetForm()
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          console.log(error.response);
+          // setLoading(false);
+          // toast.error(data);
+        }
+      }
+    }
   };
 
   return (
@@ -265,7 +354,7 @@ const DashboardComponantData = () => {
         <select
           id="docStatus"
           onChange={filehandlerselect}
-           defaultValue="Last 7 Days"
+          defaultValue="Last 7 Days"
           className="w-[25%] h-11 bg-gray-100 mt-6 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-1  px-2 mb-4 "
         >
           <option>Select Date</option>
@@ -276,10 +365,7 @@ const DashboardComponantData = () => {
           ))}
         </select>
 
-        <form
-          onSubmit={handleSubmit}
-          className="w-[50%] rounded-md mb-4 "
-        >
+        <form onSubmit={handleSubmit} className="w-[50%] rounded-md mb-4 ">
           <div className="w-[100%]">
             <div className="flex justify-between  ">
               <div className="flex flex-col w-full pr-3 ">
@@ -340,12 +426,9 @@ const DashboardComponantData = () => {
         </form>
       </div>
 
-     
       {orderStatus && orderStatus.length !== 0 ? (
         <div className="mt-6">
-          <h1 className="mt-6 text-2xl  font-bold mb-4">
-            Order Status
-          </h1>
+          <h1 className="mt-6 text-2xl  font-bold mb-4">Order Status</h1>
           <div className="flex justify-between mx-auto">
             {orderStatus.map((orderData, index) => (
               <div
@@ -353,13 +436,13 @@ const DashboardComponantData = () => {
                 className="w-[95%] flex justify-center items-center "
               >
                 <div className="p-3 border-2 border-black  rounded-xl w-[90%] flex flex-col justify-between ">
-                <p className="text-start text-xl h-[45px]   font-semibold w-[90%]">
-                  {orderData.Name} :-
-                </p>
-                <h1 className="text-3xl text-start text-text_Color mt-2 font-bold">
-                  {orderData.Value}
-                </h1>
-                  </div>
+                  <p className="text-start text-xl h-[45px]   font-semibold w-[90%]">
+                    {orderData.Name} :-
+                  </p>
+                  <h1 className="text-3xl text-start text-text_Color mt-2 font-bold">
+                    {orderData.Value}
+                  </h1>
+                </div>
               </div>
             ))}
           </div>
@@ -370,9 +453,9 @@ const DashboardComponantData = () => {
         <section className=" p-3 sm:p-5 antialiased mt-4">
           <div className="mx-auto   ">
             <div className=" relative ">
-              
-                <div className="w-full md:w-1/2 mb-4">
-                  <form className="flex items-center">
+              <div className="w-full flex justify-between  mb-4">
+                <form className="flex w-full justify-between">
+                  <div className="w-[50%]">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
                     </label>
@@ -387,9 +470,21 @@ const DashboardComponantData = () => {
                         className="border-[1px] border-black text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2 "
                       />
                     </div>
-                  </form>
+                  </div>
+                </form>
+                <div
+                  type="button"
+                  onClick={handlerDownloadReport}
+                  className="pr-4 w-[50%] flex justify-end"
+                >
+                  <button className="bg-[#868686] p-2 rounded-lg text-white w-[100%] flex justify-center items-center ">
+                    Download Report{" "}
+                    <span className="pl-2">
+                      <FaFileDownload size={20} />
+                    </span>
+                  </button>
                 </div>
-             
+              </div>
 
               <div className="">
                 {loading ? (
@@ -398,13 +493,13 @@ const DashboardComponantData = () => {
                   </p>
                 ) : (
                   <div className="overflow-x-auto     rounded-lg">
-                   <table className="w-full text-sm text-left rounded-2xl  ">
+                    <table className="w-full text-sm text-left rounded-2xl  ">
                       <thead className="text-xs w-full  uppercase bg-gray-200 rounded-2xl">
                         <tr className="w-full ">
-                            <th scope="col" className="p-4">
+                          <th scope="col" className="p-4">
                             Order Number
                           </th>
-                           <th scope="col" className="p-4">
+                          <th scope="col" className="p-4">
                             Order Date
                           </th>
                           <th scope="col" className="p-4">
