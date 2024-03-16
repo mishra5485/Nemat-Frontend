@@ -106,7 +106,7 @@ const AboutUs = () => {
   }
 
   return (
-    <div onClick={() => checkHandler()} >
+    <div >
       <NavBars />
       {loading ? (
         <p></p>
@@ -187,7 +187,7 @@ const AboutUs = () => {
                     }}
                   >
                     <div className="flex justify-between mt-4 mobile:w-full">
-                      <button onClick={handlePrev} className="mobile:w-[5%]" >
+                      <button type="button" onClick={handlePrev} className="mobile:w-[5%]" >
                         <FaChevronLeft size={25} />
                       </button>
                       <div className="md:w-[60%] md:h-[35%] mobile:w-[80%] md:m-auto md:mt-[3%] flex">

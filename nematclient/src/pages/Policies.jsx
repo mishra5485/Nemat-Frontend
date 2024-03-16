@@ -5,6 +5,7 @@ import NavBars from "../component/common/NavBars";
 import DottedLineGold from "../assets/HomePage/DottedLineGold.png";
 import PolicyDetails from "../component/common/PolicyDetails";
 import getToken from "../component/auth/GetToken";
+import Footer from "../component/footer/footer";
 
 const Policies = () => {
   const [policiesData, setPoliciesData] = useState([]);
@@ -81,6 +82,7 @@ const Policies = () => {
           {selectedPolicie && <PolicyDetails policie={selectedPolicie} />}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
