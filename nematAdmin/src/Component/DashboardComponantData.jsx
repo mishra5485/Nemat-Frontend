@@ -18,6 +18,7 @@ const DashboardComponantData = () => {
   const [orderStatus, setOrderStatus] = useState([]);
   const [downloadReport, setDownloadReport] = useState("Last 7 Days");
   const [prevDownloadState, setPrevDownloadState] = useState("Last 7 Days");
+  const [customDate, setCustomDate] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -43,6 +44,10 @@ const DashboardComponantData = () => {
     {
       id: 4,
       Value: "Last 30 Days",
+    },
+    {
+      id: 5,
+      Value: "Custom",
     },
   ];
 
@@ -145,8 +150,6 @@ const DashboardComponantData = () => {
         To: formatDate(values.toDate),
       };
 
-      // console.log("PAyload ==> ", payload);
-
       const dateDifference = moment(values.toDate).diff(
         moment(values.fromDate),
         "days"
@@ -202,54 +205,60 @@ const DashboardComponantData = () => {
   const filehandlerselect = async (event) => {
     console.log(event.target.value);
     const fillterData = event.target.value;
-    const prevSelectedValue = downloadReport;
-    setDownloadReport(fillterData);
 
-    try {
-      setLoading(true);
+    if (fillterData === "Custom") {
+      setCustomDate(true);
+    } else {
+      const prevSelectedValue = downloadReport;
+      setDownloadReport(fillterData);
+      setCustomDate(false);
 
-      const payload = {
-        filterString: fillterData,
-      };
+      try {
+        setLoading(true);
 
-      const header = getToken();
+        const payload = {
+          filterString: fillterData,
+        };
 
-      let response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
-        payload,
-        header
-      );
+        const header = getToken();
 
-      if (response.status === 200) {
-        // console.log("Filltered Data is here ===> ", response.data);
-        setPrevDownloadState(prevSelectedValue);
-        setDownloadReport(fillterData);
-        setFilteredOrders([]);
-        setOrderManagement([]);
-        setOrderStatus([]);
-        setOrderManagement(response.data.OrderData);
-        setFilteredOrders(response.data.OrderData);
-        setOrderStatus(response.data.OrderStats);
-        setLoading(false);
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
+        let response = await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_dashboard/getdata`,
+          payload,
+          header
+        );
 
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          console.log(error.response);
-          toast.error(data);
+        if (response.status === 200) {
+          // console.log("Filltered Data is here ===> ", response.data);
+          setPrevDownloadState(prevSelectedValue);
+          setDownloadReport(fillterData);
+          setFilteredOrders([]);
+          setOrderManagement([]);
+          setOrderStatus([]);
+          setOrderManagement(response.data.OrderData);
+          setFilteredOrders(response.data.OrderData);
+          setOrderStatus(response.data.OrderStats);
           setLoading(false);
-          setDownloadReport(prevSelectedValue);
-          event.target.value = prevSelectedValue;
+        }
+      } catch (error) {
+        if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            console.log(error.response);
+            toast.error(data);
+            setLoading(false);
+            setDownloadReport(prevSelectedValue);
+            event.target.value = prevSelectedValue;
+          }
         }
       }
     }
@@ -266,9 +275,6 @@ const DashboardComponantData = () => {
     setFilteredOrders(filtered);
   };
 
-  console.log("form Data ", values.fromDate);
-  console.log("To Data ", values.toDate);
-
   const editHandlerDir = (orderId) => {
     navigate(`/dashboard/order-mangement/view_order/${orderId}`);
   };
@@ -278,20 +284,25 @@ const DashboardComponantData = () => {
 
     let payload;
 
-   if ((values.fromDate !== null && values.fromDate !== "") && (values.toDate !== null && values.toDate !== "")) {
-  // If both fromDate and toDate are not null and not empty strings
-  payload = {
-    From: formatDate(values.fromDate),
-    To: formatDate(values.toDate),
-    token: token,
-  };
-} else {
-  // If either fromDate or toDate is null or an empty string
-  payload = {
-    filterString: downloadReport,
-    token: token,
-  };
-}
+    if (
+      values.fromDate !== null &&
+      values.fromDate !== "" &&
+      values.toDate !== null &&
+      values.toDate !== ""
+    ) {
+      // If both fromDate and toDate are not null and not empty strings
+      payload = {
+        From: formatDate(values.fromDate),
+        To: formatDate(values.toDate),
+        token: token,
+      };
+    } else {
+      // If either fromDate or toDate is null or an empty string
+      payload = {
+        filterString: downloadReport,
+        token: token,
+      };
+    }
 
     console.log("payload", payload);
 
@@ -325,7 +336,7 @@ const DashboardComponantData = () => {
       document.body.removeChild(tempLink);
       URL.revokeObjectURL(url);
 
-      resetForm()
+      resetForm();
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -365,65 +376,67 @@ const DashboardComponantData = () => {
           ))}
         </select>
 
-        <form onSubmit={handleSubmit} className="w-[50%] rounded-md mb-4 ">
-          <div className="w-[100%]">
-            <div className="flex justify-between  ">
-              <div className="flex flex-col w-full pr-3 ">
-                <label htmlFor="fromDate" className="text-gray-700">
-                  From Date
-                </label>
-                <input
-                  id="fromDate"
-                  name="fromDate"
-                  type="date"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.fromDate}
-                  className={`w-full px-4 py-2 rounded-md border ${
-                    touched.fromDate && errors.fromDate
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  }`}
-                  style={{
-                    border: "1px solid #60713A", // Set border color to #60713A // Set background color to #60713A
-                  }}
-                />
-                {touched.fromDate && errors.fromDate && (
-                  <div className="text-red-500">{errors.fromDate}</div>
-                )}
-              </div>
+        {customDate && (
+          <form onSubmit={handleSubmit} className="w-[50%] rounded-md mb-4 ">
+            <div className="w-[100%]">
+              <div className="flex justify-between  ">
+                <div className="flex flex-col w-full pr-3 ">
+                  <label htmlFor="fromDate" className="text-gray-700">
+                    From Date
+                  </label>
+                  <input
+                    id="fromDate"
+                    name="fromDate"
+                    type="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.fromDate}
+                    className={`w-full px-4 py-2 rounded-md border ${
+                      touched.fromDate && errors.fromDate
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    style={{
+                      border: "1px solid #60713A", // Set border color to #60713A // Set background color to #60713A
+                    }}
+                  />
+                  {touched.fromDate && errors.fromDate && (
+                    <div className="text-red-500">{errors.fromDate}</div>
+                  )}
+                </div>
 
-              <div className="flex flex-col w-full pr-3">
-                <label htmlFor="toDate" className="text-gray-700">
-                  To Date
-                </label>
-                <input
-                  id="toDate"
-                  name="toDate"
-                  type="date"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.toDate}
-                  className={`w-full px-4 py-2 rounded-md border ${
-                    touched.toDate && errors.toDate
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  }`}
-                />
-                {touched.toDate && errors.toDate && (
-                  <div className="text-red-500">{errors.toDate}</div>
-                )}
-              </div>
+                <div className="flex flex-col w-full pr-3">
+                  <label htmlFor="toDate" className="text-gray-700">
+                    To Date
+                  </label>
+                  <input
+                    id="toDate"
+                    name="toDate"
+                    type="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.toDate}
+                    className={`w-full px-4 py-2 rounded-md border ${
+                      touched.toDate && errors.toDate
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                  />
+                  {touched.toDate && errors.toDate && (
+                    <div className="text-red-500">{errors.toDate}</div>
+                  )}
+                </div>
 
-              <button
-                type="submit"
-                className="w-full mt-6 pr-3 lg:w-auto bg-[#868686] text-white font-semibold py-2 px-4 rounded-xl"
-              >
-                Submit
-              </button>
+                <button
+                  type="submit"
+                  className="w-full mt-6 pr-3 lg:w-auto bg-[#868686] text-white font-semibold py-2 px-4 rounded-xl"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        )}
       </div>
 
       {orderStatus && orderStatus.length !== 0 ? (
