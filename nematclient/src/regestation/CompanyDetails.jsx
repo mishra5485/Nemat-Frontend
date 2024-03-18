@@ -18,7 +18,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 
 const CompanyDetails = () => {
-  const [nextdiv, setnextDiv] = useState(true);
+  const [nextdiv, setnextDiv] = useState(false);
   const [isChecked, setIsChecked] = useState(1);
   const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
@@ -608,22 +608,42 @@ const CompanyDetails = () => {
                           </div>
                         </div>
 
-                        <div className="flex mt-7 md:gap-2 gap-1 md:w-full md:text-lg">
+                        <div className="flex mt-7 md:gap-2 gap-1 md:w-full md:text-lg items-center">
                           <input
-                            className=""
                             type="checkbox"
                             id="whatappcheck"
-                            checked={isChecked == 1}
+                            className="hidden"
+                            checked={isChecked === 1}
                             onChange={handleCheckboxChange}
                           />
-                          {/* {console.log(values.whatappcheck)} */}
                           <label
                             htmlFor="whatappcheck"
-                            className={`w-full text-lg cursor-pointer font-Marcellus text-[#642F29] md:text-xlw das d ${
-                              isChecked ? "checked" : ""
-                            }`}
+                            className="relative cursor-pointer flex items-center"
                           >
-                            Receive discounts and order updates on WhatsApp
+                            <div
+                              className={`w-6 h-6 border-[1px] border-text_Color2 rounded-md ${
+                                isChecked === 1 ? "bg-text_Color2" : ""
+                              }`}
+                            >
+                              {isChecked === 1 && (
+                                <svg
+                                  className="w-4 h-4 text-white absolute inset-0 mt-1.5 ml-1"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M5 13l4 4L19 7"
+                                  />
+                                </svg>
+                              )}
+                            </div>
+                            <span className="ml-2 text-text_Color font-Marcellus">
+                              Receive discounts and order updates on WhatsApp
+                            </span>
                           </label>
                         </div>
 
