@@ -18,7 +18,7 @@ import RightToLeftanm from "../style/RightToLeftanm";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 
 const CompanyDetails = () => {
-  const [nextdiv, setnextDiv] = useState(false);
+  const [nextdiv, setnextDiv] = useState(true);
   const [isChecked, setIsChecked] = useState(1);
   const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
@@ -627,7 +627,7 @@ const CompanyDetails = () => {
                             >
                               {isChecked === 1 && (
                                 <svg
-                                  className="w-4 h-4 text-white absolute inset-0 mt-1.5 ml-1"
+                                  className="w-4 h-4 text-white absolute inset-0 mt-1.5 ml-1 sm:mt-1 mobile:mt-4 lg:mt-1.5"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   stroke="currentColor"
@@ -635,7 +635,7 @@ const CompanyDetails = () => {
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    strokeWidth={2}
+                                    strokeWidth={3}
                                     d="M5 13l4 4L19 7"
                                   />
                                 </svg>
