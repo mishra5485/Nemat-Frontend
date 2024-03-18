@@ -331,9 +331,9 @@ const Search = () => {
                       <div className="mobile:w-[55%] sm:w-[55%]">
                         <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                           {product.Name}{" "}
-                          <span className="px-2 bg-text_Color text-white rounded-xl md:ml-3">
+                          {/* <span className="px-2 bg-text_Color text-white rounded-xl md:ml-3">
                             i
-                          </span>
+                          </span> */}
                         </h1>
                       </div>
                       <button

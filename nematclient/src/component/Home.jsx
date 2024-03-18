@@ -160,7 +160,7 @@ const Home = () => {
             ))}
           </Slider>
           <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-            <div className="flex space-x-2 ">
+            <div className="flex space-x-2  ">
               {[...Array(3)].map((_, dotIndex) => (
                 <span key={dotIndex} className={`h-2 w-2 rounded-full bg-black ${dotIndex === currentSlide % 3 ? "opacity-100" : "opacity-50"}`} onClick={() => sliderRef.current && sliderRef.current.slickGoTo(currentSlide + dotIndex)}></span>
               ))}
@@ -182,8 +182,8 @@ const Home = () => {
                   <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
                     {category.SubCategories && category.SubCategories.map((subcategories) => (
                       <div key={subcategories._id} className="flex w-full flex-col justify-center cursor-pointer gap-y-3 items-center mb-2 " onClick={() => seriesPageById(subcategories._id)}>
-                        <div className="hover:scale-110 transition-transform duration-300">
-                          <img src={`${baseURL}/${subcategories.Image}`} className="mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center" alt={subcategories?.title} />
+                        <div className="">
+                          <img src={`${baseURL}/${subcategories.Image}`} className="hover:scale-110 transition-transform duration-300 mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center" alt={subcategories?.title} />
                           <h1 className="font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis" style={{ minHeight: "3em" }}>{subcategories.Name}</h1>
                         </div>
                         <button className="w-[137px] uppercase h-[43px] hover:bg-[#293821] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">Order NOW</button>

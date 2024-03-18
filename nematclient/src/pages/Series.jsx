@@ -467,12 +467,12 @@ const Series = () => {
                     className="mobile:overflow-hidden sm:overflow-hidden md:overflow-hidden "
                   >
                     {product.ProductOtherImage.map((images, imageIndex) => (
-                      <div key={imageIndex} className="mt-8 md:relative ">
+                      <div key={imageIndex} className="mt-8 ">
                         <img
                           src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                             images.OtherImagesName
                           }`}
-                          className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover  md:w-[320px] md:h-[245px] md:object-contain hover:scale-110 transition-transform duration-300 "
+                          className="mobile:h-[90%] mobile:w-[70%] mobile:mx-auto mobile:object-cover sm:h-[90%] sm:w-[70%] sm:mx-auto sm:object-cover  md:w-[320px] md:h-[245px] md:mx-auto md:object-contain hover:scale-110 transition-transform duration-300 lg:w-[400px] "
                           alt={`Slide ${imageIndex + 1}`}
                         />
                       </div>
@@ -500,13 +500,13 @@ const Series = () => {
                     <div className="mobile:w-[55%] sm:w-[55%]">
                       <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                         {product.Name}{" "}
-                        <span className="px-3 bg-text_Color text-white rounded-full mobile:ml-2 md:ml-3">
+                        {/* <span className="px-3 bg-text_Color text-white rounded-full mobile:ml-2 md:ml-3">
                           i
-                        </span>
+                        </span> */}
                       </h1>
                     </div>
                     <button
-                      className="mobile:flex mobile:justify-end mobile:items-center mobile:mr-3 mobile:px-4 mobile:p-2 sm:p-2 sm:flex sm:justify-end sm:items-center sm:mr-3 sm:px-4  border-2 rounded-3xl  font-Marcellus text-text_Color2
+                      className="mobile:flex mobile:justify-end mobile:items-center mobile:mr-3 mobile:px-4 mobile:p-2 sm:p-2 sm:flex sm:justify-end sm:items-center sm:mr-3 sm:px-4  border-2 border-text_Color2 rounded-3xl  font-Marcellus text-text_Color2
                      "
                       onClick={() => removeproductCart(product._id, index)}
                     >
@@ -530,7 +530,7 @@ const Series = () => {
                             ) : (
                               <button
                                 key={packsize._id}
-                                className={`mobile:p-2 border-2 mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
+                                className={`mobile:p-2  mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
                                   selectedPackSizes[index] === packsize
                                     ? "bg-text_Color text-white"
                                     : ""
@@ -564,14 +564,14 @@ const Series = () => {
                       </div>
                       <div className="mt-1 ml-[1%] md:w-[59%] md:my-auto ">
                         <button
-                          className="mobile:w-full sm:w-full mobile:p-3 sm:p-3 border-2 rounded-3xl font-Marcellus bg-text_Color2 text-white"
+                          className="mobile:w-full sm:w-full mobile:p-3 sm:p-3  rounded-3xl font-Marcellus bg-text_Color2 text-white"
                           onClick={() => addToCart(index)}
                         >
                           ADD TO CART - {calculateTotalUnits(index)} PCS
                         </button>
                       </div>
                     </div>
-                    <button className="mobile:w-full sm:w-full p-1 border-2 rounded-3xl mt-3 bg-Cream font-Marcellus ">
+                    <button className="mobile:w-full sm:w-full p-1  rounded-3xl mt-3 bg-Cream font-Marcellus ">
                       Total Units In Cart:{" "}
                       {initialTotal
                         ? product?.TotalQuantityInCart
@@ -582,7 +582,7 @@ const Series = () => {
                       PCS
                     </button>
                   </div>
-                  <h1>Total Cart Values {totalvalue}</h1>
+                  {/* <h1>Total Cart Values {totalvalue}</h1> */}
                 </div>
               </div>
             ))}
