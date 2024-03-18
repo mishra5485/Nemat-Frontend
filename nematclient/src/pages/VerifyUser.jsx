@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // import verifyImage from "../../../assets/verified.gif"
 
 
@@ -10,6 +11,8 @@ const VerifyUser = () => {
    const { _id } = useParams()
    const [displayData , setDisplayData ] = useState(false)
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate()
 
    useEffect(() => {
       verifyUser();
@@ -28,19 +31,22 @@ const VerifyUser = () => {
          toast.success("You are verify")
          setDisplayData(true)
          setLoading(false)
+         handlerWait()
       }
 
       } catch (error) {
          toast.error("You need to verify")
          setLoading(false)
       }
-
-      
-      
-
    }
 
-  return (
+   const handlerWait =  () => {
+      setTimeout(() => {
+         navigate("/")
+      },2000)
+   }
+
+   return (
       <div>
          <Toaster/>
          {loading ? (
