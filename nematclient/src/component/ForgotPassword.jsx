@@ -7,7 +7,7 @@ import logo from "../assets/loginImages/nematEnterprisesLogo.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../slices/profileSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
 import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
     // };
 
       const objectSchem = yup.object({
-        email: yup.string().min(5).email("Please Enter Valid Email").required("Enter the current Password"),
+        email: yup.string().min(5).email("Please Enter Valid Email").required("Enter the Email Id"),
         // newpassword: yup.string().min(5).required("Enter the New Password"),
         // confirmPWD: yup
         //   .string()
@@ -101,9 +101,9 @@ const ForgotPassword = () => {
             {/* Image section with Logo */}
             <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
             <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
-                <Link to={"/"}>
+                <Navigate to={"/"}>
                   <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
-                </Link>
+                </Navigate>
               </div>  
             </div>
 
@@ -142,7 +142,7 @@ const ForgotPassword = () => {
                           <input
                             className="flex h-10 w-full text-xl font-Marcellus text-text_Color  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                             type="email"
-                            placeholder="Enter Username"
+                            placeholder="Enter Email"
                             value={values.email}
                             id="email"
                             onChange={handleChange}
