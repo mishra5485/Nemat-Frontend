@@ -265,15 +265,22 @@ const DashboardComponantData = () => {
   };
 
   const handleSearch = (event) => {
-    console.log("search value", event.target.value);
+  console.log("search value", event.target.value);
 
-    const searchTerm = event.target.value;
-    setSearchTerm(searchTerm);
+  const searchTerm = event.target.value;
+  setSearchTerm(searchTerm);
+
+  if (searchTerm.trim() === "") {
+    setFilteredOrders(OrderManagement);
+  } else {
     const filtered = OrderManagement.filter((item) =>
-      item.OrderNo.includes(searchTerm)
+      item.OrderNo == searchTerm
     );
+
+    console.log("filteredfiltered ===>", filtered);
     setFilteredOrders(filtered);
-  };
+  }
+};
 
   const editHandlerDir = (orderId) => {
     navigate(`/dashboard/order-mangement/view_order/${orderId}`);
