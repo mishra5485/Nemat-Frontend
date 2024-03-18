@@ -495,3 +495,9 @@ html {
     transform: rotate(360deg);
   }
 }
+
+
+.hover\:zoom-in:hover {
+  transform: scale(1.1);
+  /* Zoom in by 10% */
+}

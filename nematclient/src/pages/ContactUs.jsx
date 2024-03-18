@@ -135,7 +135,8 @@ const ContactUs = () => {
       {loading ? (
         <p></p>
       ) : (
-        <div className="md:flex">
+        <div className="w-[100%]">
+        <div className="md:flex md:w-[96%] lg:w-[90%] mx-auto lg:mt-10">
           <div className="sm:flex sm:flex-col sm:justify-center sm:items-center sm:w-[100%] mobile:flex mobile:flex-col mobile:justify-center mobile:items-center mobile: w-[100%]  md:items-start md:ml-[3%] md:text-start md:text-lg text-text_Color  font-Marcellus  md:w-[60%]">
             <h1 className="font-roxborough sm:text-3xl mobile:text-3xl md:text-5xl overflow-hidden text-text_Color font-semibold ">
               Contact Us{" "}
@@ -168,7 +169,7 @@ const ContactUs = () => {
             >
               <button
                 type="button"
-                className="text-white bg-[#1eba57] hover:bg-[#1eba57]/90 focus:ring-4 focus:outline-none focus:ring-[#1eba57]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 mt-6"
+                className="text-white bg-[#60713A] focus:ring-4 focus:outline-none focus:ring-[#1eba57]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 mt-6"
               >
                 <FaWhatsapp className="pr-2" size={25} />
                 Whatsapp Us
@@ -176,7 +177,7 @@ const ContactUs = () => {
             </a>
           </div>
 
-          <div className="mobile:w-[100%] mobile:mt-10 mobile:flex mobile:flex-col mobile:justify-center mobile:items-center mobile:mb-8 sm:w-[100%] sm:mt-10 sm:flex sm:flex-col sm:justify-center sm:items-center sm:mb-8  md:border-l-2 md:border-[#642F29] ">
+          <div className="mobile:w-[100%] text-text_Color font-Marcellus  mobile:mt-10 mobile:flex mobile:flex-col mobile:justify-center mobile:items-center mobile:mb-8 sm:w-[100%] sm:mt-10 sm:flex sm:flex-col sm:justify-center sm:items-center sm:mb-8  md:border-l-2 md:border-[#642F29] ">
             <h1 className="mobile:uppercase mobile:text-xl  sm:uppercase font-roxborough sm:text-xl font-semibold md:w-[90%] md:text-start md:text-3xl text-text_Color">
               Write Us a Message
             </h1>
@@ -187,7 +188,7 @@ const ContactUs = () => {
                     <div className="md:w-[50%]">
                       <div className="mobile:mt-0 ">
                         <input
-                          className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                          className="flex h-10 w-full  text-lg  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                           type="text"
                           placeholder="Enter First Name"
                           value={values.firstName}
@@ -205,7 +206,7 @@ const ContactUs = () => {
                     <div className="sm:mt-3 mobile:mt-3 md:mt-0 md:w-[50%]">
                       <div className="mobile:mt-0 ">
                         <input
-                          className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                          className="flex h-10 w-full text-lg border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                           type="text"
                           placeholder="Enter Last Name"
                           value={values.lastName}
@@ -225,7 +226,7 @@ const ContactUs = () => {
                     <div className="sm:mt-6 mobile:mt-6 md:mt-3 md:w-[50%]">
                       <div className="mobile:mt-0 ">
                         <input
-                          className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                          className="flex h-10 w-full text-lg border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                           type="text"
                           placeholder="Email"
                           value={values.userEmail}
@@ -243,7 +244,7 @@ const ContactUs = () => {
                     <div className="sm:mt-6 mobile:mt-6 md:mt-3 md:w-[50%]">
                       <div className="mobile:mt-0 ">
                         <input
-                          className="flex h-10 w-full  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                          className="flex h-10 w-full text-lg border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                           type="text"
                           placeholder="Mobile Number"
                           value={values.userMobileNo}
@@ -263,7 +264,7 @@ const ContactUs = () => {
                   <div className="mt-6">
                     <div className="mobile:mt-0">
                       <textarea
-                        className="flex h-20 w-full border-b-2 border-b-[#642F29] bg-transparent text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 resize-none"
+                        className="flex h-20 w-full text-lg border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 resize-none"
                         rows="3"
                         placeholder="Enter Message"
                         value={values.userMessage}
@@ -281,13 +282,14 @@ const ContactUs = () => {
                 </div>
                 <button
                   type="submit"
-                  className="text-xl inline-flex sm:w-full mobile:w-full mobile:mt-8 md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
+                  className="text-xl inline-flex sm:w-full mobile:w-full mobile:mt-8 md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus leading-17 tracking-normal text-center"
                 >
                   Submit
                 </button>
               </form>
             </div>
           </div>
+        </div>
         </div>
       )}
       <Footer />

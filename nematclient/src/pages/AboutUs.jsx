@@ -139,7 +139,8 @@ const AboutUs = () => {
             <img src={DottedLineGold} className="w-full" />
           </div>
 
-          <div className="w-full mobile:mt-4 mobile:mb-4 h-auto z-10 bg-Cream md:flex md:justify-between relative"  >
+          <div className="w-full bg-Cream">
+          <div className="w-[90%] mx-auto mobile:mt-4 mobile:mb-4 h-auto z-10 bg-Cream md:flex md:justify-between relative"  >
             {aboutUsData.RoadMapData?.map((roadmapdata, index) => (
               <div
                 key={index}
@@ -170,11 +171,12 @@ const AboutUs = () => {
               </div>
             ))}
           </div>
+          </div>   
 
           {/* RoadMapModal open Section */}
           {roadmapModal && (
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
-              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%] lg:h-auto">
+              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%] lg:h-[40rem]">
                 <div className="h-[92%]">
                 {roadmapdataModal.map((data, index) => (
                   <div
@@ -208,7 +210,7 @@ const AboutUs = () => {
                         className="text-xl md:w-[90%] mx-auto"
                         title={data.Heading}
                       />
-                      <p className="md:w-[98%] text-base mt-2 font-roxborough text-text_Color font-semibold mx-auto text-center">
+                      <p className="md:w-[98%]   text-base mt-2 font-roxborough text-text_Color font-semibold mx-auto text-center">
                         {data.Description}
                       </p>
                     </div>
@@ -250,11 +252,6 @@ const AboutUs = () => {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="p-2 py-5  w-full mb-2">
-            <img src={Flower} className="w-full object-cover" />
-            {/* <RightToLeftanm image={FlowerPattern2} /> */}
           </div>
         </div>
       )}
