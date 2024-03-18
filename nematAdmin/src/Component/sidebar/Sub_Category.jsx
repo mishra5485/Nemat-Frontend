@@ -34,15 +34,16 @@ const Sub_Category = () => {
 
   const fetchData = async () => {
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall` , header
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/getall`,
+        header
       );
 
       const quantityResponse = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall` , header
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/quantityscheme/getall`,
+        header
       );
 
       setQuantityData(quantityResponse.data);
@@ -57,11 +58,11 @@ const Sub_Category = () => {
 
   const getAllSubCategory = async () => {
     try {
- 
-      const header = getToken()
+      const header = getToken();
 
       const SubCategory = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`,header
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/getall`,
+        header
       );
       if (SubCategory.status === 200) {
         setcategoryData(SubCategory.data);
@@ -95,11 +96,11 @@ const Sub_Category = () => {
 
   const getAllvendor = async () => {
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       const respones = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`,header
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/vendor/getall`,
+        header
       );
       if (respones.status === 200) {
         setAllVendors(respones.data);
@@ -261,13 +262,12 @@ const Sub_Category = () => {
       // console.log(" formData image-> ", formData);
 
       try {
-
-        const header = getToken()
+        const header = getToken();
 
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/subcategory/create`,
-          formData , 
-          header,
+          formData,
+          header
         );
 
         // console.log(response);
@@ -340,13 +340,13 @@ const Sub_Category = () => {
 
   const DeleteHandler = async (categoryId) => {
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       const deleteData = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/subcategory/deletebyId/${categoryId}`, header
+        }/subcategory/deletebyId/${categoryId}`,
+        header
       );
 
       if (deleteData.status === 200) {
@@ -447,377 +447,369 @@ const Sub_Category = () => {
 
   return (
     <div className="text-center">
-       <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
-
-          <h1>Sub-Category Page</h1>
-        </div>
+      <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
+        <h1>Sub-Category Page</h1>
+      </div>
       <Toaster />
       {showModal ? (
-        <>         
-                  <form
-                    onSubmit={handleSubmit}
+        <>
+          <form onSubmit={handleSubmit}>
+            {/* Input fields */}
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
+              <div className="mb-4">
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.name && touched.name ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.name}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="cartDiscount"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Category deside
+                </label>
+                <select
+                  id="category"
+                  name="category"
+                  value={values.category}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="" disabled>
+                    Select Category
+                  </option>
+                  {categorySelection?.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.Name}
+                    </option>
+                  ))}
+                </select>
+                {errors.category && touched.category ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.category}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="metaTitle"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Title
+                </label>
+                <input
+                  type="text"
+                  id="metaTitle"
+                  name="metaTitle"
+                  value={values.metaTitle}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaTitle && touched.metaTitle ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaTitle}
+                  </p>
+                ) : null}
+              </div>
+              <br />
+              <div className="md:col-span-2 mb-4">
+                <label
+                  htmlFor="metaDesc"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Description
+                </label>
+                <textarea
+                  id="metaDesc"
+                  name="metaDesc"
+                  value={values.metaDesc}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaDesc && touched.metaDesc ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaDesc}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="metaKeyword"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Meta Keyword
+                </label>
+                <input
+                  type="text"
+                  id="metaKeyword"
+                  onChange={handleChange}
+                  value={values.metaKeyword}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.metaKeyword && touched.metaKeyword ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.metaKeyword}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="slugUrl"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Slug URL
+                </label>
+                <input
+                  type="text"
+                  id="slugUrl"
+                  name="slugUrl"
+                  value={values.slugUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.slugUrl && touched.slugUrl ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.slugUrl}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="vendor"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Vendor Selection
+                </label>
+                <select
+                  id="vendor"
+                  name="vendor"
+                  value={values.vendor}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="" disabled>
+                    Select Vendor{" "}
+                  </option>
+                  {allvendor?.map((allvendorName) => (
+                    <option key={allvendorName._id} value={allvendorName._id}>
+                      {allvendorName.Name}
+                    </option>
+                  ))}
+                </select>
+                {errors.vendor && touched.vendor ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.vendor}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="cartDiscount"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Quantity Schemeld
+                </label>
+                <select
+                  id="quantity"
+                  name="quantity"
+                  value={values.quantity}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="" disabled>
+                    Select Quantity Schemeld{" "}
+                  </option>
+                  {quantityData?.map((quantity) => (
+                    <option key={quantity._id} value={quantity._id}>
+                      {quantity.Name}
+                    </option>
+                  ))}
+                </select>
+                {errors.quantity && touched.quantity ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.quantity}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="cartDiscount"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Category Priority
+                </label>
+                <select
+                  id="priority"
+                  name="priority"
+                  value={values.priority}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="">Select Priority of Sub_Category</option>
+                  {privoritySub_Category.map((number) => (
+                    <option key={number.id} value={number.value}>
+                      {number.value}
+                    </option>
+                  ))}
+                </select>
+                {errors.priority && touched.priority ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.priority}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="slugUrl"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  ML
+                </label>
+                <input
+                  type="text"
+                  id="sub_category_ML"
+                  name="sub_category_ML"
+                  value={values.sub_category_ML}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.sub_category_ML && touched.sub_category_ML ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.sub_category_ML}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="slugUrl"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  SGST
+                </label>
+                <input
+                  type="text"
+                  id="sub_category_SGST"
+                  name="sub_category_SGST"
+                  value={values.sub_category_SGST}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.sub_category_SGST && touched.sub_category_SGST ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.sub_category_SGST}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="slugUrl"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  CGST
+                </label>
+                <input
+                  type="text"
+                  id="sub_category_CGST"
+                  name="sub_category_CGST"
+                  value={values.sub_category_CGST}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.sub_category_CGST && touched.sub_category_CGST ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.sub_category_CGST}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="flex mt-4">
+                <div className="mb-4 flex flex-col text-center">
+                  <label
+                    htmlFor="packSizes"
+                    className="block text-sm font-medium text-gray-600"
                   >
-                    {/* Input fields */}
-                    <div className="grid gap-6 mb-6 md:grid-cols-2">
-                    <div className="mb-4">
-                      <label
-                        htmlFor="name"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.name && touched.name ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.name}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="cartDiscount"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Category deside
-                      </label>
-                      <select
-                        id="category"
-                        name="category"
-                        value={values.category}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option value="" disabled>
-                          Select Category
-                        </option>
-                        {categorySelection?.map((category) => (
-                          <option key={category._id} value={category._id}>
-                            {category.Name}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.category && touched.category ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.category}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="metaTitle"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Meta Title
-                      </label>
-                      <input
-                        type="text"
-                        id="metaTitle"
-                        name="metaTitle"
-                        value={values.metaTitle}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.metaTitle && touched.metaTitle ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.metaTitle}
-                        </p>
-                      ) : null}
-                    </div>
-                      <br/>
-                    <div className="md:col-span-2 mb-4">
-                      <label
-                        htmlFor="metaDesc"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Meta Description
-                      </label>
-                      <textarea
-                        id="metaDesc"
-                        name="metaDesc"
-                        value={values.metaDesc}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.metaDesc && touched.metaDesc ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.metaDesc}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="metaKeyword"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Meta Keyword
-                      </label>
-                      <input
-                        type="text"
-                        id="metaKeyword"
-                        onChange={handleChange}
-                        value={values.metaKeyword}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.metaKeyword && touched.metaKeyword ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.metaKeyword}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="slugUrl"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Slug URL
-                      </label>
-                      <input
-                        type="text"
-                        id="slugUrl"
-                        name="slugUrl"
-                        value={values.slugUrl}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.slugUrl && touched.slugUrl ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.slugUrl}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="vendor"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Vendor Selection
-                      </label>
-                      <select
-                        id="vendor"
-                        name="vendor"
-                        value={values.vendor}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option value="" disabled>
-                          Select Vendor{" "}
-                        </option>
-                        {allvendor?.map((allvendorName) => (
-                          <option
-                            key={allvendorName._id}
-                            value={allvendorName._id}
-                          >
-                            {allvendorName.Name}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.vendor && touched.vendor ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.vendor}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="cartDiscount"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Quantity Schemeld
-                      </label>
-                      <select
-                        id="quantity"
-                        name="quantity"
-                        value={values.quantity}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option value="" disabled>
-                          Select Quantity Schemeld{" "}
-                        </option>
-                        {quantityData?.map((quantity) => (
-                          <option key={quantity._id} value={quantity._id}>
-                            {quantity.Name}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.quantity && touched.quantity ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.quantity}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="cartDiscount"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Category Priority
-                      </label>
-                      <select
-                        id="priority"
-                        name="priority"
-                        value={values.priority}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option value="">
-                          Select Priority of Sub_Category
-                        </option>
-                        {privoritySub_Category.map((number) => (
-                          <option key={number.id} value={number.value}>
-                            {number.value}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.priority && touched.priority ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.priority}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="slugUrl"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        ML
-                      </label>
-                      <input
-                        type="text"
-                        id="sub_category_ML"
-                        name="sub_category_ML"
-                        value={values.sub_category_ML}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.sub_category_ML && touched.sub_category_ML ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.sub_category_ML}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="slugUrl"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        SGST
-                      </label>
-                      <input
-                        type="text"
-                        id="sub_category_SGST"
-                        name="sub_category_SGST"
-                        value={values.sub_category_SGST}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.sub_category_SGST && touched.sub_category_SGST ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.sub_category_SGST}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="mb-4">
-                      <label
-                        htmlFor="slugUrl"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        CGST
-                      </label>
-                      <input
-                        type="text"
-                        id="sub_category_CGST"
-                        name="sub_category_CGST"
-                        value={values.sub_category_CGST}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.sub_category_CGST && touched.sub_category_CGST ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.sub_category_CGST}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="flex mt-4">
-                      <div className="mb-4 flex flex-col text-center">
-                        <label
-                          htmlFor="packSizes"
-                          className="block text-sm font-medium text-gray-600"
-                        >
-                          PackSizes
-                        </label>
-                        <div className="flex flex-col gap-2">
-                          {values.packSizes.map((packSize, index) => (
-                            <div key={index} className="flex ">
-                              <div className="mr-3">
-                                <input
-                                  type="text"
-                                  id={`packSize${index + 1}`}
-                                  name={`packSizes[${index}].size`}
-                                  value={packSize.size}
-                                  onChange={handleChange}
-                                  className="mt-1 p-2 w-full border rounded-md"
-                                  placeholder="Enter the PackSize"
-                                />
-                                {errors.packSizes?.[index]?.size && (
-                                  <div className="text-red-500">
-                                    {errors.packSizes[index].size}
-                                  </div>
-                                )}
-                              </div>
-                              <div>
-                                <input
-                                  type="text"
-                                  id={`packName${index + 1}`}
-                                  name={`packSizes[${index}].nameConvention`}
-                                  value={packSize.nameConvention}
-                                  onChange={handleChange}
-                                  className="mt-1 p-2 w-full border rounded-md"
-                                  placeholder="Enter Pack Size Name "
-                                />
-                                {errors.packSizes?.[index]?.nameConvention && (
-                                  <div className="text-red-500">
-                                    {errors.packSizes[index].nameConvention}
-                                  </div>
-                                )}
-                              </div>
+                    PackSizes
+                  </label>
+                  <div className="flex flex-col gap-2">
+                    {values.packSizes.map((packSize, index) => (
+                      <div key={index} className="flex ">
+                        <div className="mr-3">
+                          <input
+                            type="text"
+                            id={`packSize${index + 1}`}
+                            name={`packSizes[${index}].size`}
+                            value={packSize.size}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            placeholder="Enter the PackSize"
+                          />
+                          {errors.packSizes?.[index]?.size && (
+                            <div className="text-red-500">
+                              {errors.packSizes[index].size}
                             </div>
-                          ))}
+                          )}
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            id={`packName${index + 1}`}
+                            name={`packSizes[${index}].nameConvention`}
+                            value={packSize.nameConvention}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            placeholder="Enter Pack Size Name "
+                          />
+                          {errors.packSizes?.[index]?.nameConvention && (
+                            <div className="text-red-500">
+                              {errors.packSizes[index].nameConvention}
+                            </div>
+                          )}
                         </div>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-                    {/* File inputs */}
-                    {/* <div className="mb-4">
+              {/* File inputs */}
+              {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput1"
                         className="block text-sm font-medium text-gray-600"
@@ -841,7 +833,7 @@ const Sub_Category = () => {
                       )}
                     </div> */}
 
-                    {/* <div className="mb-4">
+              {/* <div className="mb-4">
                       <label
                         htmlFor="fileInput2"
                         className="block text-sm font-medium text-gray-600"
@@ -865,52 +857,51 @@ const Sub_Category = () => {
                       )}
                     </div> */}
 
-                    <div className="mb-4">
-                      <label
-                        htmlFor="seriesImage"
-                        className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Sub-Category Series Image
-                      </label>
-                      <input
-                        type="file"
-                        id="seriesImage"
-                        onChange={(e) => handleFileChange(e, "seriesImage")}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                      {errors.seriesImage && touched.seriesImage ? (
-                        <p className="font-Marcellus text-start text-red-900">
-                          {errors.seriesImage}
-                        </p>
-                      ) : null}
-                      {seriesImage && (
-                        <img
-                          src={seriesImage}
-                          alt="Banner Mobile"
-                          className="mt-2 w-[400px] h-[300px] object-contain flex justify-center items-center"
-                        />
-                      )}
-                    </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="seriesImage"
+                  className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Sub-Category Series Image
+                </label>
+                <input
+                  type="file"
+                  id="seriesImage"
+                  onChange={(e) => handleFileChange(e, "seriesImage")}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                {errors.seriesImage && touched.seriesImage ? (
+                  <p className="font-Marcellus text-start text-red-900">
+                    {errors.seriesImage}
+                  </p>
+                ) : null}
+                {seriesImage && (
+                  <img
+                    src={seriesImage}
+                    alt="Banner Mobile"
+                    className="mt-2 w-[400px] h-[300px] object-contain flex justify-center items-center"
+                  />
+                )}
+              </div>
 
-                    {/* Submit button */}
-                    <div className="md:col-span-2 mb-4 flex justify-end mt-4 mr-9">
-                      <button
-                        type="button"
-                        onClick={() => setShowModal(false)}
-                        className="px-8 py-2 mr-6 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-8 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                    </div>
-                  </form>
-                
+              {/* Submit button */}
+              <div className="md:col-span-2 mb-4 flex justify-end mt-4 mr-9">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="px-8 py-2 mr-6 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="px-8 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
         </>
       ) : (
         <section className=" p-3 sm:p-5 antialiased">
@@ -975,7 +966,6 @@ const Sub_Category = () => {
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                       <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="w-full ">
-                          
                           {/* <th scope="col" className="p-4">
                           Mobile Image{" "}
                         </th>
@@ -1011,8 +1001,7 @@ const Sub_Category = () => {
                       ) : (
                         filteredData?.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black hover:font-bold dark:hover:bg-gray-700">
-                              
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 hover:text-black hover:font-bold dark:hover:bg-gray-700">
                               {/* <th
                               scope="row"
                               className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"

@@ -615,7 +615,7 @@ const Category = () => {
                       ) : (
                         filteredData.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 dark:hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                               {/* <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"

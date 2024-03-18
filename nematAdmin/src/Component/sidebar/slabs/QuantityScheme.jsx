@@ -395,7 +395,7 @@ const QuantityScheme = () => {
 
                       {filteredData?.map((item) => (
                         <tbody key={item._id}>
-                          <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black dark:hover:bg-gray-700">
+                          <tr className="border-b dark:border-gray-600 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700">
                             <td className="px-4 py-3">
                               <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                                 {item.Name}

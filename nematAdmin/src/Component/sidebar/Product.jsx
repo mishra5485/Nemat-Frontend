@@ -1106,7 +1106,7 @@ const Product = () => {
                       ) : (
                         filteredData?.map((item) => (
                           <tbody key={item._id}>
-                            <tr className="border-b dark:border-gray-600 hover:bg-red-400 hover:text-black hover:font-bold dark:hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-100 hover:text-black hover:font-bold dark:hover:bg-gray-700">
                               <td className="p-4 w-4">
                                 <div className="flex items-center">
                                   <input
