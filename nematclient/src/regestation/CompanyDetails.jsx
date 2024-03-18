@@ -19,7 +19,7 @@ import FlowerPattern2 from "../assets/loginImages/FlowerPattern2.png";
 
 const CompanyDetails = () => {
   const [nextdiv, setnextDiv] = useState(true);
-  const [isChecked, setIsChecked] = useState(0);
+  const [isChecked, setIsChecked] = useState(1);
   const [sentReview, setSentReview] = useState(false);
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const CompanyDetails = () => {
     email: "",
     countryCode: "",
     mobileNo: "",
-    whatappcheck: "0",
+    whatappcheck: "1",
     countryCode1: "",
     landlineNo: "",
   };
@@ -58,8 +58,8 @@ const CompanyDetails = () => {
       onSubmit: async (values, actions) => {
         // console.log("values inside sumit -> ",values);
 
-        const numericCountryCode = values.countryCode.replace(/\D/g, '');
-        const numericCountryCode1 = values.countryCode1.replace(/\D/g, '');
+        const numericCountryCode = values.countryCode.replace(/\D/g, "");
+        const numericCountryCode1 = values.countryCode1.replace(/\D/g, "");
 
         const payload = {
           CompanyName: values.camponeyname,
@@ -85,10 +85,8 @@ const CompanyDetails = () => {
         }
 
         try {
-           const response = await axios.post(
-            `${
-              import.meta.env.VITE_REACT_APP_BASE_URL
-            }/user/register`,
+          const response = await axios.post(
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/register`,
             payload
           );
 
@@ -158,7 +156,10 @@ const CompanyDetails = () => {
           <div className="h-full mt-[1%] flex flex-col justify-evenly overflow-x-hidden">
             {nextdiv && sentReview === false ? (
               <div className="frame_554 flex  items-center sm:w-full md:w-[120%] md:justify-between xl:w-[80%] mobile:w-[150%] mobile:pl-[3%] mobile:flex mobile:justify-start  justify-evenly mt-3   ">
-                <div className="frame_551 gap-2 flex  items-end">
+                <div
+                  onClick={() => setnextDiv(true)}
+                  className="frame_551 gap-2 flex  items-end"
+                >
                   <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                     1
                   </div>
@@ -416,7 +417,10 @@ const CompanyDetails = () => {
                     <div className="sm:w-[90%]  mobile:w-[90%] mobile:mx-auto md:flex md:flex-col md:justify-evenly mobile:h-auto md:h-[100vh] md:w-[90%] ">
                       <div>
                         <div className="inline-flex items-center gap-[30px] md:ml-0 sm:ml-0 mobile:ml-[-40%] relative">
-                          <div className="inline-flex items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']">
+                          <div
+                            className="inline-flex cursor-pointer items-end gap-[13px] relative flex-[0_0_auto] font-['Marcellus']"
+                            onClick={() => setnextDiv(true)}
+                          >
                             <div className="flex flex-col w-[25px] h-[25px] items-center justify-center gap-[10px] px-[10px] py-[0.5px] relative bg-[#60713a] rounded-[70px]">
                               <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                                 1
@@ -561,11 +565,8 @@ const CompanyDetails = () => {
                                   <option value="" disabled>
                                     Select Country
                                   </option>
-                                  {counntryCode.map((country , index) => (
-                                    <option
-                                      key={index}
-                                      value={country.code}
-                                    >
+                                  {counntryCode.map((country, index) => (
+                                    <option key={index} value={country.code}>
                                       {country.name} ({country.code})
                                     </option>
                                   ))}
@@ -612,12 +613,17 @@ const CompanyDetails = () => {
                             className=""
                             type="checkbox"
                             id="whatappcheck"
-                            checked={isChecked === 1}
+                            checked={isChecked == 1}
                             onChange={handleCheckboxChange}
                           />
                           {/* {console.log(values.whatappcheck)} */}
-                          <label className="w-full text-sm font-Marcellus text-[#642F29] md:text-xlw das d">
-                            Recieve discounts and order updates on whatapp
+                          <label
+                            htmlFor="whatappcheck"
+                            className={`w-full text-lg cursor-pointer font-Marcellus text-[#642F29] md:text-xlw das d ${
+                              isChecked ? "checked" : ""
+                            }`}
+                          >
+                            Receive discounts and order updates on WhatsApp
                           </label>
                         </div>
 
@@ -632,22 +638,19 @@ const CompanyDetails = () => {
                                 Country{" "}
                               </label>
                               <div className="mt-2 mobile:w-[90%]">
-                                 <select
+                                <select
                                   className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                                   placeholder=" Country Code"
-                                id="countryCode1"
-                                value={values.countryCode1}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                  id="countryCode1"
+                                  value={values.countryCode1}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
                                 >
                                   <option value="" disabled>
                                     Select Country
                                   </option>
-                                  {counntryCode.map((country , index) => (
-                                    <option
-                                      key={index}
-                                      value={country.code}
-                                    >
+                                  {counntryCode.map((country, index) => (
+                                    <option key={index} value={country.code}>
                                       {country.name} ({country.code})
                                     </option>
                                   ))}
