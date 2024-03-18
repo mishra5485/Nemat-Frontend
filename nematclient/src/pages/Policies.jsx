@@ -58,7 +58,7 @@ const Policies = () => {
         <NavBars />
       </div>
       <div className="w-full h-auto">
-        <div className="w-full h-[10.75rem] bg-Cream text-text_Color font-roxborough font-bold text-xl flex justify-center items-center">
+        <div className="w-full uppercase h-[10.75rem] bg-LightCream text-text_Color font-roxborough font-bold text-xl flex justify-center items-center">
           <h1>our policies</h1>
         </div>
 
@@ -68,7 +68,7 @@ const Policies = () => {
 
        <div className="w-[90%] mx-auto flex items-center justify-center gap-x-8 uppercase text-text_Color font-roxborough font-semibold">
         {policiesData.map((policy) => (
-          <div key={policy._id} className="flex">
+          <div key={policy._id} className="flex text-xl">
             <h2
               className={`cursor-pointer ${selectedPolicie === policy ? "underline" : ""}`}
               onClick={() => handleClick(policy)}

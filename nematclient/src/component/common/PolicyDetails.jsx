@@ -12,13 +12,13 @@ const PolicyDetails = ({policie }) => {
     <style>
     {`
       h6 {
-        font-size: 30px; 
+        font-size: 22px; 
         margin-bottom: 5px;
         font-family: 'Marcellus', serif; 
         font-weight: bold; 
       }
       p {
-        font-size: 20px; 
+        font-size: 16px; 
         margin-bottom: 5px; 
       }
     `}
