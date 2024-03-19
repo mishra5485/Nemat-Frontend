@@ -501,3 +501,18 @@ html {
   transform: scale(1.1);
   /* Zoom in by 10% */
 }
+
+.slider {
+  transition: transform 0.5s ease;
+  /* Add transition for smooth animation */
+}
+
+.slick-prev {
+  left: 0;
+  /* Adjust position of the Prev button */
+}
+
+.slick-next {
+  right: 0;
+  /* Adjust position of the Next button */
+}
