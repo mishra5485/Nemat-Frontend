@@ -195,7 +195,7 @@ const Category = () => {
       
       // console.log("headerData inside Delete Function===> " , headerData)
       
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("Admintoken")
 
       const payload = {
         token:token
