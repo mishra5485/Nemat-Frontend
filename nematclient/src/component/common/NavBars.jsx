@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 // import logo from "../assets/HomePage/Frame.png";
-import logo from "../../assets/HomePage/Frame.png";
+import logo from "../../assets/HomePage/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
