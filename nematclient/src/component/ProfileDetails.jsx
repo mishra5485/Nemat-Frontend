@@ -395,7 +395,7 @@ const ProfileDetails = () => {
             {/* Address  */}
 
             <div className="mt-5 md:flex md:w-full md:gap-x-8">
-              <div className="w-[50%]">
+              <div className="md:w-[50%] mobile:w-[90%]">
                 <div className="flex justify-between md:w-full">
                   <h1 className="text-text_Color font-roxborough font-bold text-xl">
                     Shipping Address{" "}
@@ -410,16 +410,17 @@ const ProfileDetails = () => {
                   address.map((addres, index) => (
                     <div
                       key={index}
-                      className="text-text_Color mt-3 mobile:w-[75%] sm:w-[75%] md:w-full flex"
+                       onClick={() => handlerEdit(addres)}
+                      className="text-text_Color cursor-pointer mt-3 mobile:w-[100%] sm:w-[75%] md:w-full flex"
                     >
                       <p
                         className="text-text_Color font-Marcellus w-[90%] cursor-pointer"
-                        onClick={() => handlerEdit(addres)}
+                       
                       >
                         {index + 1}. {addres.StreetAddress}{" "}
                         {addres.LocationName} {addres.City} {addres.ZipCode}
                       </p>
-                      <p>
+                      <p className="">
                         <RiEdit2Line size={25} color="#60713A" className="" />
                       </p>
                     </div>
