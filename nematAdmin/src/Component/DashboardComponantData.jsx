@@ -326,7 +326,7 @@ const DashboardComponantData = () => {
 
       console.log("response", response.data);
 
-      const blob = new Blob([response.data], { type: "application/xml" });
+      const blob = new Blob([response.data], { type: "application/xlsx" });
 
       // Create a URL for the Blob object
       const url = URL.createObjectURL(blob);
@@ -334,7 +334,7 @@ const DashboardComponantData = () => {
       // Create a temporary link element
       const tempLink = document.createElement("a");
       tempLink.href = url;
-      tempLink.setAttribute("download", "report.xml");
+      tempLink.setAttribute("download", "report.xlsx");
       tempLink.style.display = "none"; // Hide the link
       document.body.appendChild(tempLink);
       tempLink.click();
