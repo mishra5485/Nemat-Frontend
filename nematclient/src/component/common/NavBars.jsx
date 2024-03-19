@@ -268,7 +268,7 @@ const NavBars = () => {
                 </div>
                 <div className="flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  font-Marcellus relative ">
                   <h1
-                    className="flex items-center relative hover:underline cursor-pointer font-semibold"
+                    className="flex items-center font-Marcellus text-text_Color relative hover:underline cursor-pointer font-semibold"
                     onMouseEnter={() => setIsHovered(true)}
                   >
                     SHOP
@@ -285,12 +285,12 @@ const NavBars = () => {
                     </span>
                   </h1>
                   <Link to={"/ourfamily"}>
-                    <h1 className="hover:underline cursor-pointer font-semibold">
+                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-semibold">
                       ABOUT
                     </h1>
                   </Link>
                   <Link to={"/contactus"}>
-                    <h1 className="hover:underline cursor-pointer font-semibold ">
+                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-semibold ">
                       CONTACT
                     </h1>
                   </Link>

@@ -80,7 +80,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
         {qunantityData?.SchemeValues?.map((data) => (
           <div
             key={data._id}
-            className="w-full relative font-roxborough font-semibold text-lg"
+            className="w-full relative font-roxborough text-text_Color font-semibold text-lg"
           >
             <h1>{data.min}</h1>
             <h1 className="">PCS</h1>
@@ -149,7 +149,7 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
                 key={data._id}
                 className="w-full flex h-full font-Marcellus "
               >
-                <h1 className="w-full flex  text-center justify-center items-center text-2xl font-semibold">
+                <h1 className="w-full flex  text-text_Color2 text-center justify-center items-center text-2xl font-semibold">
                   Rs.{data.value} / PC
                 </h1>
               </div>
@@ -158,9 +158,9 @@ const ProgressBar = ({ qunantityData, totalvalue }) => {
         }
         <div className="mt-1 text-center font-Marcellus text-xl">
           {nextValue !== null ? (
-            <div>
-              Buy <span className="font-bold">{nextSlabe}</span> more pcs to unlock Rs.{" "}
-              <span className="font-bold">{nextValue.value}</span>/pc rate
+            <div className="text-text_Color ">
+              Buy <span className="font-bold text-text_Color2">{nextSlabe}</span> more pcs to unlock Rs.{" "}
+              <span className="font-bold text-text_Color2">{nextValue.value}</span>/pc rate
             </div>
           ) : null}
         </div>

@@ -165,12 +165,12 @@ const Home = () => {
       
       {/* Previous button */}
       <button className="z-30  absolute top-1/2 left-0 transform -translate-y-1/2" onClick={handlePrev}>
-       <FaChevronLeft size={35} color="white" />
+       <FaChevronLeft size={35} color="#642F29" />
       </button>
       
       {/* Next button */}
       <button className="z-30 absolute top-1/2 right-0 transform -translate-y-1/2" onClick={handleNext}>
-        <FaChevronRight size={35} color="white"/>
+        <FaChevronRight size={35} color="#642F29"/>
       </button>
     </div>
       )}
@@ -189,7 +189,9 @@ const Home = () => {
                 />
               </div>
               <div key={category._id}>
-                <ProductHeader title={category.Name} />
+                <div className="font-bold uppercase text-text_Color">
+                  <ProductHeader title={category.Name} />
+                </div>
                 <div className="w-full flex justify-center items-center mt-8">
                   <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
                     {category.SubCategories &&
@@ -206,7 +208,7 @@ const Home = () => {
                               alt={subcategories?.title}
                             />
                             <h1
-                              className="font-roxborough text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
+                              className="font-roxborough font-bold text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
                               style={{ minHeight: "3em" }}
                             >
                               {subcategories.Name}

@@ -150,7 +150,7 @@ const footer = () => {
         backgroundRepeat: "no-repeat",
          backgroundSize: "cover",
       }}
-      className="w-full sm:h-auto mobile:h-auto bg-center flex mobile:flex-col sm:flex-col justify-center items-center"
+      className="w-full sm:h-auto mobile:h-auto bg-center flex mobile:flex-col sm:flex-col justify-center items-center "
     >
       <div className="w-[90%] h-full overflow-hidden  ">
         <div className="w-full mobile:h-[20%] mobile:mt-[60%] sm:mt-[18%]  mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
@@ -227,7 +227,7 @@ const footer = () => {
             {/* {Details Page Link } */}
             <div className="md:flex justify-between md:border-t-2 ">
 
-            <div className="flex justify-between border-t-2 border-b-2   md:border-none mt-3 border-[#FFFBF0] font-Marcellus " >
+            <div className="flex justify-between border-t-[1px] border-b-[1px] border-opacity-10 md:border-none mt-3 border-[#FFFBF0] font-Marcellus " >
                 {
                   detailsPage.map((text) => (
                     <div key={text.id} className="flex  py-5">

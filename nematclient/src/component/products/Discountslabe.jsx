@@ -43,7 +43,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs , isModalOpen , setIsModalOpen})
               Dssprays.DiscountSlabs.map((item, index) => (
                 <div
                   key={item._id}
-                  className="w-full mobile:h-[128px] sm:h-[80px] md:h-[50px] flex justify-between items-center text-center border-t-[1px] border-text_Color border-b-[1px]"
+                  className={`w-full mobile:h-[128px] sm:h-[80px] md:h-[50px] flex justify-between items-center text-center border-t-${index === 1 ? '1' : '0'}px border-text_Color ${index === (Dssprays.DiscountSlabs.length - 1) ? '' : 'border-b-[1px]'}`}
                 >
                   {index === 0 ? (
                     <p className="w-[34%] pr-4 text-start pl-3">{`Upto Rs. ${item.to}`}</p>
