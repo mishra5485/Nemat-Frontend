@@ -307,7 +307,7 @@ const Cart = () => {
                           <h1 className="font-roxborough font-semibold">
                             {data.Name}
                           </h1>
-                          <p className="font-Marcellus">
+                          <p className="font-Marcellus font-normal">
                             {formattedAmount(data.totalSeriesPrice)}
                           </p>
                         </div>
@@ -315,7 +315,7 @@ const Cart = () => {
                           <p className="font-roxborough font-semibold">
                             Discount
                           </p>
-                          <p className="font-Marcellus">
+                          <p className="font-Marcellus font-normal">
                             {data.DiscountPercent}% ( -
                             {formattedAmount(data.DiscountAmount)} )
                           </p>
@@ -325,13 +325,13 @@ const Cart = () => {
                             {" "}
                             Sub total after discount:
                           </p>
-                          <p className="font-Marcellus">
+                          <p className="font-Marcellus font-normal">
                             {formattedAmount(data.AmountAfterDiscount)}
                           </p>
                         </div>
                         <div className="flex justify-between w-[90%] mx-auto mt-3">
                           <p className="font-roxborough font-semibold">GST:</p>
-                          <p className="font-Marcellus">
+                          <p className="font-Marcellus font-normal">
                             {data.GST}% ( +
                             {formattedAmount(data.GSTAdditionAmount)} )
                           </p>
@@ -341,7 +341,7 @@ const Cart = () => {
                             <p className="font-roxborough font-semibold">
                               Total :-{" "}
                             </p>
-                            <p className="font-Marcellus">
+                            <p className="font-Marcellus font-normal">
                               {formattedAmount(data.Total)}
                             </p>
                           </div>
@@ -411,7 +411,7 @@ const Cart = () => {
                                       >
                                         {data.totalSeriesPrice >= total.from &&
                                         data.totalSeriesPrice <= total.to ? (
-                                          <h1 className="">
+                                          <h1 className="  font-semibold">
                                             Spend{" "}
                                             {formattedAmount(
                                               total.to - data.totalSeriesPrice
@@ -427,7 +427,7 @@ const Cart = () => {
                                     (total) =>
                                       data.totalSeriesPrice >= total.from
                                   ) && (
-                                    <div className="w-[80%] mx-auto text-white font-Marcellus">
+                                    <div className="w-[80%] mx-auto text-white font-Marcellus font-semibold">
                                       <h1>
                                         Congratulations You Reach Your max Limit
                                       </h1>
@@ -449,7 +449,7 @@ const Cart = () => {
                             <p className="font-roxborough font-semibold">
                               {total.name} Sub Total
                             </p>
-                            <p className="font-Marcellus">
+                            <p className="font-Marcellus font-normal">
                               {" "}
                               {formattedAmount(total.amountAfterSGSTCGST)}
                             </p>
@@ -468,7 +468,7 @@ const Cart = () => {
                           <p className="font-roxborough font-semibold">
                             Grand Total
                           </p>
-                          <p className="font-Marcellus">
+                          <p className="font-Marcellus font-normal">
                             {formattedAmount(CGtotal.totalAmount)}
                           </p>
                         </div>
