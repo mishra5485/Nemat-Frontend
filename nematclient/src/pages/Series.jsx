@@ -372,11 +372,13 @@ const Series = () => {
           {/* Top Section  */}
           <div className="md:w-[70%] md:mx-auto">
             <div className="w-[80%] mx-auto">
+              <div className="text-text_Color font-bold uppercase">
               <ProductHeader
                 title={title}
                 className="flex justify-center items-center"
-              />
-              <p className="text-center mt-4 font-Marcellus text-text_Color ">
+                />
+                </div>
+              <p className="text-center  mt-4 font-Marcellus text-text_Color ">
                 You can select different products in this series to avail the
                 schemes below
               </p>
@@ -421,8 +423,8 @@ const Series = () => {
 
             <Toaster className="w-[30%] h-[50px]" />
             <div className="w-[100%] flex flex-col justify-center items-center  mt-4 ">
-              <div className="w-[90%] flex bg-LightCream  border  font-Marcellus  uppercase">
-                <p className="w-[50%] text-center border-r p-3 ">
+              <div className="w-[90%] flex bg-LightCream  border-[1px] border-borderColorBeige font-Marcellus  uppercase">
+                <p className="w-[50%] text-center border-r-[1px] p-3  border-borderColorBeige ">
                   Order Quantity
                 </p>
                 <p className="w-[50%] text-center p-3">Price per PC</p>
@@ -430,20 +432,20 @@ const Series = () => {
               {qunantityData?.SchemeValues?.map((data, index) => (
                 <div
                   key={data._id}
-                  className="w-[90%] bg-LightCream border-l border-r font-Marcellus"
+                  className="w-[90%] border-borderColorBeige border-l-[1px] b border-r-[1px] font-Marcellus"
                 >
                   <div className="flex">
                     {data.max !== undefined ? (
-                      <p className="w-[50%] text-center border-r p-1.5">{`${data.min}-${data.max} pcs`}</p>
+                      <p className="w-[50%] text-center border-r-[1px] border-borderColorBeige  p-1.5">{`${data.min}-${data.max} pcs`}</p>
                     ) : (
-                      <p className="w-[50%] text-center border-r p-1.5 border-b">{`${data.min} & Above`}</p>
+                      <p className="w-[50%] text-center border-r-[1px] border-borderColorBeige p-1.5 border-b">{`${data.min} & Above`}</p>
                     )}
                     {qunantityData.SchemeValues.length === index + 1 ? (
-                      <p className="w-[50%] text-center p-1.5 border-b ">
+                      <p className="w-[50%] text-center p-1.5 border-b-[1px] border-borderColorBeige">
                         ₹ {data.value} PC
                       </p>
                     ) : (
-                      <p className="w-[50%] text-center p-1.5 ">
+                      <p className="w-[50%] text-center p-1.5  ">
                         ₹ {data.value} PC
                       </p>
                     )}
@@ -498,7 +500,7 @@ const Series = () => {
                 <div className="md:w-[100%]">
                   <div className="flex mobile:justify-between mobile:mt-6  sm:justify-between sm:mt-6 md:w-[100%] ">
                     <div className="mobile:w-[55%] sm:w-[55%]">
-                      <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-semibold text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
+                      <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-bold md:text-xl lg::text-3xl text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                         {product.Name}{" "}
                         {/* <span className="px-3 bg-text_Color text-white rounded-full mobile:ml-2 md:ml-3">
                           i
@@ -516,7 +518,7 @@ const Series = () => {
                   <div>
                     <div className="mobile:w-[100%] sm:w-[100%]">
                       <div>
-                        <h1 className="font-roxborough text-text_Color">
+                        <h1 className="font-roxborough font-semibold text-text_Color">
                           Select Pack Size:
                         </h1>
                       </div>
@@ -530,7 +532,7 @@ const Series = () => {
                             ) : (
                               <button
                                 key={packsize._id}
-                                className={`mobile:p-2  mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
+                                className={`mobile:p-2  text-text_Color font-normal mobile:mr-1.5 rounded-3xl mobile:flex mobile:w-[100%] mobile:justify-center mobile:items-center sm:p-2 sm:mr-1.5 sm:flex sm:w-[100%] sm:justify-center sm:items-center bg-Cream font-Marcellus ${
                                   selectedPackSizes[index] === packsize
                                     ? "bg-text_Color text-white"
                                     : ""
@@ -540,7 +542,7 @@ const Series = () => {
                                 }
                               >
                                 {/* Render packsize information */}
-                                {packsize.size}  {(packsize.nameConvention)}
+                                {packsize.size}  ({packsize.nameConvention})
                               </button>
                             )
                         )}
@@ -555,7 +557,7 @@ const Series = () => {
                           <input
                             type="text"
                             id={`quantity_${index}`}
-                            className="p-2 border-[1px] rounded-3xl border-text_Color mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
+                            className="p-2 border-[1px] font-Marcellus rounded-3xl border-text_Color mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
                             value={quantities[index]}
                             onChange={(event) => validateInput(event, index)}
                             required
@@ -564,14 +566,14 @@ const Series = () => {
                       </div>
                       <div className="mt-1 ml-[1%] md:w-[59%] md:my-auto ">
                         <button
-                          className="mobile:w-full sm:w-full mobile:p-3 sm:p-3  rounded-3xl font-Marcellus bg-text_Color2 text-white"
+                          className="mobile:w-full sm:w-full mobile:p-3 sm:p-3  rounded-3xl font-Marcellus font-normal bg-text_Color2 text-white"
                           onClick={() => addToCart(index)}
                         >
                           ADD TO CART - {calculateTotalUnits(index)} PCS
                         </button>
                       </div>
                     </div>
-                    <button className="mobile:w-full sm:w-full p-1  rounded-3xl mt-3 bg-Cream font-Marcellus ">
+                    <button className="mobile:w-full text-text_Color font-normal sm:w-full p-1  rounded-3xl mt-3 bg-Cream font-Marcellus ">
                       Total Units In Cart:{" "}
                       {initialTotal
                         ? product?.TotalQuantityInCart

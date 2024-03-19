@@ -15,6 +15,7 @@ export default {
         Cream: "#FEEEE2",
         LightCream: "#FFFBF0",
         CartRightColor: "#F6F5F0",
+        borderColorBeige: "#C28E5E",
       },
       screens: {
         mobile: "220px",
@@ -40,5 +41,3 @@ export default {
     require("tailwind-scrollbar"),
   ],
 };
-
-
