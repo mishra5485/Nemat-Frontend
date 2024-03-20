@@ -65,8 +65,8 @@ const OrderDetailsData = ({ data, _id }) => {
     try {
       const header = getToken();
 
-      const token=localStorage.getItem("token")
-        
+      const token = localStorage.getItem("token");
+
       const payload = {
         user_id: UserId,
         order_id: OrderId,
@@ -224,10 +224,10 @@ const OrderDetailsData = ({ data, _id }) => {
           <div className="text-text_Color">
             {openOrderData.map((opneorder, index) => (
               <div key={index} className="">
-                <div className="flex justify-between items-center mobile:pt-4 sm:pt-4 sm:pb-4 mobile:pb-4 md:pb-0 sm:border-b-2 mobile:border-b-2 md:border-none border-text_Color ">
+                <div className="flex justify-between items-center mobile:pt-4 sm:pt-4 sm:pb-4 mobile:pb-4 md:pb-0 sm:border-b-[1px] mobile:border-b-[1px] md:border-none border-text_Color ">
                   <div className="md:flex ">
                     <div className="flex md:justify-start md:items-center mobile:w-full sm:w-full mobile:justify-between mobile:items-center ">
-                      <h1 className="font-roxborough text-xl xl:mt-2 font-bold">
+                      <h1 className="font-roxborough text-lg xl:mt-2 font-bold">
                         Order No : {opneorder.OrderNumber}
                       </h1>
 
@@ -262,7 +262,7 @@ const OrderDetailsData = ({ data, _id }) => {
                           toggleOrderVisibilitydesktop(index);
                         }}
                         disabled={clicked}
-                        className="w-[50%] md:hidden xl:block uppercase  font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2  rounded-3xl mt-1"
+                        className="w-[50%] md:hidden uppercase xl:block font-normal   font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2  rounded-3xl mt-1"
                       >
                         Documents
                       </button>
@@ -271,10 +271,10 @@ const OrderDetailsData = ({ data, _id }) => {
                         <div className="w-[50%] md:hidden xl:block  mb-3  mt-1">
                           <button
                             type="button"
-                            className="w-full text-text_Color2 border-2 md:hidden xl:block p-2 border-text_Color rounded-3xl"
+                            className="w-full text-text_Color2 border-[1px] md:hidden xl:block p-2 uppercase font-Marcellus font-normal border-text_Color2 rounded-3xl"
                             onClick={() => cacelOrderHandler(opneorder._id)}
                           >
-                            Cancel
+                            Cancel Order
                           </button>
                           {cancelOrderModal && (
                             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-5 flex items-center justify-center z-50">
@@ -324,7 +324,7 @@ const OrderDetailsData = ({ data, _id }) => {
                         //   Cancel
                         // </button>
                         <button
-                          className="w-[50%] uppercase font-Marcellus md:hidden xl:block  bg-text_Color2 text-white mb-3  mt-1 p-2 rounded-3xl"
+                          className="w-[50%] uppercase font-Marcellus md:hidden xl:block  text-text_Color2 border-[1px] border-text_Color2 mb-3  mt-1 p-2 rounded-3xl"
                           onClick={() =>
                             reorderApiCallHandler(
                               opneorder._id,
@@ -384,10 +384,10 @@ const OrderDetailsData = ({ data, _id }) => {
                           <div className="w-[50%] mt-3">
                             <button
                               type="button"
-                              className="w-full text-text_Color2 border-2  border-text_Color  py-2 rounded-3xl"
+                              className="w-full text-text_Color2 border-[1px]  border-text_Color2 font-Marcellus font-normal uppercase  py-2 rounded-3xl"
                               onClick={() => cacelOrderHandler()}
                             >
-                              Cancel
+                              Cancel Order
                             </button>
                             {cancelOrderModal && (
                               <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
@@ -426,7 +426,7 @@ const OrderDetailsData = ({ data, _id }) => {
                           </div>
                         ) : (
                           <button
-                            className="w-[50%] uppercase font-Marcellus  bg-text_Color2 text-white  mt-3 rounded-3xl"
+                            className="w-[50%] uppercase font-Marcellus  text-text_Color2 border-[1px] border-text_Color2  mt-3 rounded-3xl"
                             onClick={() =>
                               reorderApiCallHandler(
                                 opneorder._id,
@@ -489,18 +489,20 @@ const OrderDetailsData = ({ data, _id }) => {
                     </div>
 
                     {/* Product Displays */}
-                    <div className="mt-5 border-t-2 border-b-2 border-text_Color  p-3 uppercase flex justify-between font-Marcellus font-semibold text-text_Color">
+                    <div className="mt-5 mobile:border-t-[1px] sm:border-t-[1px] md:border-t-0  border-b-[1px] border-text_Color  p-3 uppercase flex justify-between font-Marcellus font-normal md:text-lg text-text_Color">
                       <p className="w-[70%]">Series</p>
-                      <p className="w-[20%] text-center">Quantity</p>
+                      <p className="mobile:w-[30%] md:w-[20%] mobile:text-center sm:text-center">
+                        Quantity
+                      </p>
                     </div>
 
                     <div>
                       {opneorder.OrderData.map((Order, index) => (
                         <div
                           key={Order._id}
-                          className="border-b-2 pb-4 border-[#C28E5E] pt-3"
+                          className=" pb-4 pt-3"
                         >
-                          <div className="text-text_Color2 flex justify-between p-3 font-Marcellus font-semibold  text-xl ">
+                          <div className="text-text_Color2 flex justify-between p-3 font-Marcellus font-normal  text-lg ">
                             <h1
                               className="w-[70%] flex items-start"
                               onClick={() => toggleProductVisibility(index)}
@@ -525,7 +527,11 @@ const OrderDetailsData = ({ data, _id }) => {
                               {Order.Products.map((product, index) => (
                                 <div
                                   key={product._id}
-                                  className="p-3 text-text_Color font-roxborough font-semibold "
+                                  className={`p-3 text-text_Color font-Marcellus font-normal ${
+                                    index === Order.Products.length - 1
+                                      ? "border-b-[1px] border-[#C28E5E]"
+                                      : ""
+                                  }`}
                                 >
                                   <div className="flex justify-between">
                                     <h1 className="w-[70%]">
@@ -554,7 +560,7 @@ const OrderDetailsData = ({ data, _id }) => {
                       className="mobile:w-[50%] h-full flex items-center sm:w-[30%] md:w-[20%] md:text-xs lg:text-sm xl:text-base  bg-Cream  mobile:flex-shrink-0 sm:flex-shrink-0 "
                     >
                       <h1
-                        className={`flex items-center  w-full ${
+                        className={`flex items-center font-roxborough font-bold  w-full ${
                           opneorder.status <= index - 1
                             ? "text-gray-400"
                             : "text-text_Color"

@@ -73,7 +73,7 @@ const OpenOrderDetails = () => {
       ) : (
         <>
           {nodata ? (
-            <p className='mt-4 w-[86%] mx-auto text-xl font-Marcellus font-bold'>No Open Orders Found</p>
+            <p className='mt-4 w-[100%] text-center mx-auto text-xl font-Marcellus font-bold'>No Open Orders Found</p>
           ) : (
             <OrderDetailsData data={openOrderData} _id={_id}/>
           )}
