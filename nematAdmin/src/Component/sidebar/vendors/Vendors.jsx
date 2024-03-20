@@ -264,7 +264,7 @@ const Vendors = () => {
                 <textarea
                   id="address"
                   name="address"
-                  rows="2"
+                  rows="4"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   onChange={handleChange}
                   value={values.address}
@@ -327,7 +327,7 @@ const Vendors = () => {
                 <textarea
                   id="back_add"
                   name="back_add"
-                  rows="2"
+                  rows="4"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   onChange={handleChange}
                   value={values.back_add}
@@ -353,7 +353,7 @@ const Vendors = () => {
                 onClick={() => setShowForm(false)}
                 className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
               >
-                Discard
+                Cancel
               </button>
             </div>
           </form>
@@ -372,7 +372,7 @@ const Vendors = () => {
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
                       <input
                         type="text"
-                        placeholder="Search for products"
+                        placeholder="Search Vendor Name"
                         required=""
                          onChange={(event) => handleSearch(event)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -457,7 +457,7 @@ const Vendors = () => {
                                     onClick={() => deleteVendor(item._id)}
                                     className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                                   >
-                                    Delete
+                                    Cancel
                                   </button>
                                 </div>
                               </td>

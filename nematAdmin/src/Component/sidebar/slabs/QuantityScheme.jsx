@@ -298,7 +298,7 @@ const QuantityScheme = () => {
                             e.target.value
                           )
                         }
-                        placeholder="Jane"
+                        placeholder="eg:-100"
                       />
                      
                     </div>
@@ -354,7 +354,7 @@ const QuantityScheme = () => {
                       <input
                         type="text"
                         id="simple-search"
-                        placeholder="Search for products"
+                        placeholder="Search Quantity Name"
                         onChange={(event) => handleSearch(event)}
                         required=""
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -382,10 +382,10 @@ const QuantityScheme = () => {
                       <thead className="text-xs w-[100wh] text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="w-full ">
                           <th scope="col" className="p-4">
-                            Discount Slabs Names{" "}
+                             Names{" "}
                           </th>
                           <th scope="col" className="p-4">
-                            Discount Slabs variation
+                            {""} variation
                           </th>
                           <th scope="col" className="p-4">
                             Actions

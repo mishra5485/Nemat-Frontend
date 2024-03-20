@@ -63,7 +63,7 @@ const SearchProduct = ({ allProductData, setFilteredData }) => {
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search Product Name "
             id="camponeyname"
             value={searchTerm}
             onChange={handleChange}

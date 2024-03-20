@@ -171,7 +171,7 @@ const Edit_Policies = () => {
               type="button"
                onClick={() => navigate('/dashboard/website/policies')}
             >
-              Go Back
+              Close
             </button>
           </div>
             </form>

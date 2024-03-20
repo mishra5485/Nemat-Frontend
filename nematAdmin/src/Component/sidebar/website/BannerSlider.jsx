@@ -240,7 +240,7 @@ const BannerSlider = () => {
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                 <div className="w-full md:w-1/2">
-                  <form className="flex items-center">
+                  {/* <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
                     </label>
@@ -249,12 +249,12 @@ const BannerSlider = () => {
                       <input
                         type="text"
                         id="simple-search"
-                        placeholder="Search for products"
+                        placeholder="Search Banner Name"
                         required=""
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       />
                     </div>
-                  </form>
+                  </form> */}
                 </div>
                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                   <button
@@ -277,10 +277,10 @@ const BannerSlider = () => {
                         <tr className="w-full ">
                           
                           <th scope="col" className="p-4">
-                            Mobile View Banner{" "}
+                            Mobile  Banner{" "}
                           </th>
                           <th scope="col" className="p-4">
-                            Desktop View Banner
+                            Desktop  Banner
                           </th>
                           <th scope="col" className="p-4">
                             Banner Heading
@@ -410,7 +410,7 @@ const BannerSlider = () => {
                 htmlFor="cartDiscount"
                 className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
               >
-                Category deside
+               Select Category 
               </label>
               <select
                 id="CategoryId"
@@ -528,7 +528,7 @@ const BannerSlider = () => {
               onClick={() => setShowForm(true)}
               className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
             >
-              Discard
+              Close
             </button>
           </div>
         </form>

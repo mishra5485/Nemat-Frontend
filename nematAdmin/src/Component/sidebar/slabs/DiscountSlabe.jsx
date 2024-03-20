@@ -234,7 +234,7 @@ const addInputSet = (e) => {
       {console.log(errors)}
 
       <div className="mt-4 mb-2 font-bold text-4xl text-start pb-6 border-b-2 border-black">
-          <h1>Discount Slabe</h1>
+          <h1>Discount Slab</h1>
         </div>
 
       {showForm ? (
@@ -259,7 +259,7 @@ const addInputSet = (e) => {
                 onChange={handleChange}
                 value={values.name}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[50%] p-2.5  "
-                placeholder="Enter Discount Slabe Name"
+                placeholder="Enter  Name"
               />
             </div>
 
@@ -378,7 +378,7 @@ const addInputSet = (e) => {
                       <input
                         type="text"
                         id="simple-search"
-                        placeholder="Search for products"
+                        placeholder="Search DiscountSlab Name"
                         required=""
                         onChange={(event) => handleSearch(event)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -392,7 +392,7 @@ const addInputSet = (e) => {
                     type="button"
                     onClick={() => setShowForm(true)}
                   >
-                    + Create Discount-Slabs
+                    + Create Discount-Slab
                   </button>
                 </div>
               </div>
@@ -407,10 +407,10 @@ const addInputSet = (e) => {
                         <tr className="w-full ">
                           
                           <th scope="col" className="p-4">
-                            Discount Slabs Names{" "}
+                            Names{" "}
                           </th>
                           <th scope="col" className="p-4">
-                            Discount Slabs variation
+                             variation
                           </th>
                           <th scope="col" className="p-4">
                             Actions

@@ -1,40 +1,35 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from 'react-router-dom';
-import LoadingSpinner from '../../common/LoadingSpinner';
-import getToken from '../../common/getToken';
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../common/LoadingSpinner";
+import getToken from "../../common/getToken";
 
 const CustomerQueries = () => {
+  const [loading, setLoading] = useState(true);
+  const [allcustomerData, setAllCustomerData] = useState([]);
+  const [filtereData, setFilteredData] = useState([]);
 
-   const [loading, setLoading] = useState(true);
-   const [allcustomerData , setAllCustomerData] = useState([])
-   const [filtereData, setFilteredData] = useState([]);
+  const navigate = useNavigate();
 
+  const header = getToken();
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    getAllCustomerData();
+  }, []);
 
-    const header = getToken()
+  const getAllCustomerData = async () => {
+    try {
+      let response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/usercontactusform/getall`,
+        header
+      );
 
-   useEffect(() => {
-      getAllCustomerData()
-   },[])
-
-   const getAllCustomerData = async () => {
-      try {
-         
-
-         let response = await axios.get(
-            `${import.meta.env.VITE_REACT_APP_BASE_URL}/usercontactusform/getall`,header
-         )
-
-
-         setAllCustomerData(response.data)
-         setFilteredData(response.data)
-         setLoading(false)
-
-      } catch (error) {
-         if (error.response) {
+      setAllCustomerData(response.data);
+      setFilteredData(response.data);
+      setLoading(false);
+    } catch (error) {
+      if (error.response) {
         const { status, data } = error.response;
 
         if (
@@ -48,22 +43,23 @@ const CustomerQueries = () => {
         ) {
           console.log(error.response);
           toast.error(data);
-          setLoading(false)
+          setLoading(false);
         }
       }
-      }
-   }
+    }
+  };
 
-    const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); 
-    const filtered = allcustomerData.filter(item => item.Name.toLowerCase().includes(searchTerm)); 
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    const filtered = allcustomerData.filter((item) =>
+      item.Name.toLowerCase().includes(searchTerm)
+    );
     setFilteredData(filtered);
   };
 
-
-   const editHandlerDir = (querieId) => {
-      navigate(`/dashboard/customer-queries/prev-queries/${querieId}`)
-  }
+  const editHandlerDir = (querieId) => {
+    navigate(`/dashboard/customer-queries/prev-queries/${querieId}`);
+  };
 
   //  console.log("allcustomerData === > " ,  allcustomerData)
 
@@ -75,7 +71,7 @@ const CustomerQueries = () => {
       <Toaster />
 
       <div>
-         <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
+        <section className=" dark:bg-gray-900 p-3 sm:p-5 antialiased">
           <div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 ">
@@ -89,20 +85,21 @@ const CustomerQueries = () => {
                       <input
                         type="text"
                         id="simple-search"
-                        placeholder="Search for Order Number"
+                        placeholder="Search Name"
                         required=""
-                         onChange={handleSearch}
+                        onChange={handleSearch}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       />
                     </div>
                   </form>
                 </div>
-                
               </div>
 
               <div className="">
                 {loading ? (
-                  <p><LoadingSpinner/></p>
+                  <p>
+                    <LoadingSpinner />
+                  </p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -112,7 +109,7 @@ const CustomerQueries = () => {
                             Name
                           </th>
                           <th scope="col" className="p-4">
-                            Email Id 
+                            Email Id
                           </th>
                           <th scope="col" className="p-4">
                             Mobile No.
@@ -133,17 +130,18 @@ const CustomerQueries = () => {
                                 scope="row"
                                 className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
-                               {item.Name}
+                                {item.Name}
                               </th>
 
+                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {item.Email}
+                              </td>
                               <td className="px-4 py-3">
                                 <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                                   {item.MobileNo}
                                 </span>
                               </td>
-                              <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {item.Email}
-                              </td>
+
                               <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div className="flex items-center space-x-4">
                                   <button
@@ -153,8 +151,6 @@ const CustomerQueries = () => {
                                   >
                                     Prev
                                   </button>
-
-                                 
                                 </div>
                               </td>
                             </tr>
@@ -169,9 +165,8 @@ const CustomerQueries = () => {
           </div>
         </section>
       </div>
-      
     </div>
-  )
-}
+  );
+};
 
-export default CustomerQueries
+export default CustomerQueries;

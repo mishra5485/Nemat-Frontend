@@ -273,7 +273,7 @@ const Edit_BannerSlider = () => {
                 htmlFor="cartDiscount"
                 className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
               >
-                Category deside
+              Select  Category 
               </label>
               <select
                 id="CategoryId"
@@ -421,7 +421,7 @@ const Edit_BannerSlider = () => {
               onClick={()=> navigator("/dashboard/website/bannerSlider")}
               className="mt-4 border-2 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
             >
-              Discard
+              Close
             </button>
           </div>
         </form>

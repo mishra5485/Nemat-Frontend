@@ -151,7 +151,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="camponeyname"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              CompanyName <span> *</span>
+              CompanyName <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -174,7 +174,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="gstno"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              GstNo <span> *</span>
+              GstNo <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -197,13 +197,14 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="address"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company_StreetAddress <span> *</span>
+              Company_StreetAddress <span className="text-red-600"> *</span>
             </label>
             <textarea
               id="address"
               name="address"
               value={values.address}
               onChange={handleChange}
+              rows="3"
               onBlur={handleBlur}
               className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
@@ -219,7 +220,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="city"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company_City <span> *</span>
+              Company_City <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -241,7 +242,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="state"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company_State <span> *</span>
+              Company_State <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -264,7 +265,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="zipcode"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company_ZipCode <span> *</span>
+              Company_ZipCode <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -296,7 +297,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="fullname"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Customer Name <span> *</span>
+              Customer Name <span className="text-red-600"> *</span>
             </label>
             <input
               type="text"
@@ -319,7 +320,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="email"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Email <span> *</span>
+              Email <span className="text-red-600"> *</span>
             </label>
             <input
               type="email"
@@ -342,7 +343,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="countryCode"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              Country_MobileNumber <span> *</span>
+              Country_MobileNumber <span className="text-red-600"> *</span>
             </label>
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -373,7 +374,7 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
               htmlFor="mobileNo"
               className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
             >
-              MobileNumber <span> *</span>
+              MobileNumber <span className="text-red-600"> *</span> 
             </label>
             <input
               type="text"
@@ -446,19 +447,20 @@ const CreateUser = ({setCompanyCreationModal , setCallApiAfterCreate}) => {
           </div>
 
           <div className="flex mt-4">
-            <button
-              type="button"
-              onClick={() => setCompanyCreationModal(false)}
-              className="px-4 py-2 mr-5  text-black border-2 rounded-md hover:bg-gray-600"
-            >
-              Close
-            </button>
-            <button
+             <button
               type="submit"
               className="px-4 py-2  bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Create
+              Submit
             </button>
+            <button
+              type="button"
+              onClick={() => setCompanyCreationModal(false)}
+              className="px-4 py-2 ml-5  text-black border-2 rounded-md hover:bg-gray-600"
+            >
+              Close
+            </button>
+           
           </div>
         </div>
       </form>

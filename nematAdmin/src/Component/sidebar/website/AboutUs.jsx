@@ -537,7 +537,7 @@ const AboutUs = () => {
             </div>
 
             <button type="submit" onClick={handleSubmit}
-              className="bg-blue-500 mt-7 w-full py-3 rounded-3xl hover:bg-blue-700 text-white font-bold  px-4  focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 mt-7 w-[25%] py-3 rounded-3xl hover:bg-blue-700 text-white font-bold  px-4  focus:outline-none focus:shadow-outline"
             >
               Update
             </button>
