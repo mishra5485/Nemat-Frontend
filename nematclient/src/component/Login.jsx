@@ -3,7 +3,7 @@ import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import loginBG from "../assets/loginImages/loginImage.png";
 import { useFormik } from "formik";
 // import * as yup from "yup";
-import logo from "../assets/loginImages/nematEnterprisesLogo.png";
+import logo from "../assets/HomePage/logo.svg";
 import axios from "axios";
 import ChangePassword from "./ChangePassword";
 import { useDispatch } from "react-redux";
@@ -133,7 +133,7 @@ const Login = () => {
       {/* Form div section for Login Details */}
       <div className="sm:w-full  min-h-[65%] flex justify-center items-center m-auto">
         <div className="sm:w-[95%] mobile:w-[95%] md:w-[90%] md:h-[100%] ">
-          <h2 className="overflow-hidden sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-4xl md:text-start md:mb-6  ">
+          <h2 className="overflow-hidden uppercase sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-6 font-medium  ">
             {changePassword ? "Log in" : "Change Default Password"}
           </h2>
           {
@@ -156,9 +156,9 @@ const Login = () => {
                     </label>
                     <div className="mobile:mt-0 ">
                       <input
-                        className="flex h-10 w-full font-Marcellus text-text_Color text-xl border-b-2 border-b-[#642F29] bg-transparent placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                        className="flex h-10 w-full font-Marcellus font-normal text-text_Color text-lg border-b-[1px] border-b-[#642F29] bg-transparent placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
                         type="email"
-                        placeholder="Enter Your email "
+                        placeholder="Enter your email here "
                         value={values.email}
                         id="email"
                         onChange={handleChange}
@@ -180,11 +180,11 @@ const Login = () => {
                         {" "}
                         Password{" "}
                       </label>
-                      <div className=" flex justify-center items-center border-b-2 border-b-[#642F29] ">
+                      <div className=" flex justify-center items-center border-b-[1px] border-b-[#642F29] ">
                         <input
-                          className="flex h-10 w-full font-Marcellus text-text_Color text-xl bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none disabled:cursor-not-allowed disabled:opacity-50  "
+                          className="flex h-10 w-full font-Marcellus text-text_Color text-lg font-normal bg-transparent md:placeholder:text-lg placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none disabled:cursor-not-allowed disabled:opacity-50  "
                           type={showPassword ? "text" : "password"}
-                          placeholder="Password"
+                          placeholder="Password must be atleast 6 chracters"
                           value={values.password}
                           id="password"
                           onChange={handleChange}
@@ -209,9 +209,8 @@ const Login = () => {
                   <div className="flex flex-col">
                     <p className=" text-sm font-Marcellus text-[#642F29] text-center md:text-start md:pb-5 mt-[20px] gap-6">
                       <Link
-                        to="/forgot"
-                        title=""
-                        className=" font-Marcellus text-base underline  text-[#642F29] transition-all duration-200 hover:underline md:text-xl"
+                        to='/forgotPasswordCheak'
+                        className=" font-Marcellus font-normal text-base underline  text-[#642F29]  md:text-xl"
                       >
                         FORGOT PASSWORD
                       </Link>
@@ -219,11 +218,11 @@ const Login = () => {
 
                     <button
                       type="submit"
-                      className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
+                      className="inline-flex sm:w-full md:w-[25%] h-[43px] font-normal mt-1  items-center justify-center hover:bg-hoverBGGreen  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center  transition-all duration-200 hover:text-white"
                     >
                       {/* {clicked ? 'Logging in...' : 'LOG IN'} */} LOG IN
                     </button>
-                    <p className=" text-sm md:text-start font-Marcellus text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
+                    <p className=" text-sm md:text-start font-Marcellus font-normal text-[#642F29] text-center mt-[15px] md:pt-4 md:text-lg gap-6">
                       Don&apos;t have an account? {""}
                       <Link
                         to="/companydetails"
