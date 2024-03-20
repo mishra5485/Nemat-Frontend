@@ -62,7 +62,7 @@ const DeliveredOrderDetails = () => {
       ) : (
         <>
           {nodata ? (
-            <p className='mt-4 w-[86%] mx-auto text-xl font-Marcellus font-bold'>No Delivered Orders Found</p>
+            <p className='mt-4 w-[100%] text-center mx-auto text-xl font-Marcellus font-bold'>No Delivered Orders Found</p>
           ) : ( 
             <div>
               <OrderDetailsData data={data} _id={_id}/>

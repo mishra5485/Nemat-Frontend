@@ -6,6 +6,7 @@ import { VscAccount } from "react-icons/vsc";
 import ProfileDetails from "../component/ProfileDetails";
 import { useSelector } from "react-redux";
 import OrderDetails from "../component/OrderDetails";
+import { PiUserLight } from "react-icons/pi";
 
 const Profile = () => {
 
@@ -25,12 +26,12 @@ const Profile = () => {
 
       <div className="w-full">
         <div className="w-[90%] mx-auto ">
-          <div className="flex w-full mt-8 text-text_Color font-roxborough font-bold border-b-2 pb-5 border-text_Color ">
-            <VscAccount
-              size={25}
-              className="bg-Cream rounded-full my-auto mr-5 ml-2"
+          <div className="flex w-full mt-8 text-text_Color font-roxborough font-bold border-b-[1px] pb-5 border-text_Color ">
+            <PiUserLight
+              size={30}
+              className="bg-Cream rounded-full my-auto mr-5 p-1 ml-2"
             />
-            <h1 className="text-2xl">{Company_Name}</h1>
+            <h1 className="text-2xl uppercase">{Company_Name}</h1>
           </div>
 
           <div className="mt-8 text-white md:flex md:w-full ">

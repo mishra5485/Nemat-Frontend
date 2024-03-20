@@ -241,7 +241,7 @@ const Search = () => {
         <NavBars />
       </div>
       <div className="w-full mt-8">
-        <h1 className=" lg:w-[30%] md:w-[40%] sm:w-[60%] mobile:w-[90%] mx-auto text-3xl font-Marcellus text-text_Color font-semibold text-center">
+        <h1 className=" lg:w-[30%] md:w-[40%] overflow-hidden sm:w-[60%] mobile:w-[90%] mx-auto text-3xl font-Marcellus text-text_Color font-semibold text-center">
           SEARCH WHAT YOU’RE LOOKING FOR
         </h1>
         <div className="md:w-[50%] lg:w-[40%] sm:w-[70%] mobile:w-[85%] mx-auto mt-8 border-b-2 border-b-[#642F29] ">
@@ -265,8 +265,10 @@ const Search = () => {
 
       {seriesData && seriesData.length > 0 && (
         <div className="mt-10">
+          <div className="font-bold uppercase text-text_Color">
           <ProductHeader title={"Series"} />
-          <div className="w-full flex justify-center items-center mt-8">
+          </div>
+          <div className="w-full flex justify-center items-center mt-6">
             <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
               {seriesData &&
                 seriesData.map((subcategories) => (
@@ -308,7 +310,9 @@ const Search = () => {
 
           {/* Product Page Data */}
           <div>
+            <div className="font-bold uppercase text-text_Color">
             <ProductHeader title={"Products"} />
+            </div>
             <div className="md:w-[100%] ">
               {productData?.map((product, index) => (
                 <div

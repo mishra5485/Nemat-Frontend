@@ -18,6 +18,8 @@ import { logout } from "../../slices/profileSlice";
 import { BiSolidUser } from "react-icons/bi";
 import { RxExit } from "react-icons/rx";
 import { setcategoryEmpty } from "../../slices/categorySlice";
+import { LuUser2 } from "react-icons/lu";
+import { AiOutlineUser } from "react-icons/ai";
 
 const NavBars = () => {
   const [showNavbar, SetShowNavbar] = useState(true);
@@ -181,7 +183,7 @@ const NavBars = () => {
                   size={30}
                   onClick={() => navigate("/cart")}
                 />
-                <CgProfile size={30} />
+                <LuUser2 size={30} />
               </div>
               <div className="w-[143px] h-[66px]">
                 <Link to={"/home"}>
@@ -324,7 +326,7 @@ const NavBars = () => {
                     onMouseEnter={() => setShowTooltip(true)}
                   >
                     <Link className="profile-link">
-                      <CgProfile size={25} />
+                      <AiOutlineUser size={25} />
                     </Link>
                   </div>
                 </div>
@@ -333,27 +335,27 @@ const NavBars = () => {
 
             {/* Profile on Hover  */}
             <div
-              className=" z-40 flex  justify-end items-end w-[90%] mx-auto "
+              className=" z-40 flex  justify-end items-end w-[91%] mx-auto  "
               onMouseLeave={() => setShowTooltip(false)}
             >
               {showTooltip && (
-                <div className="">
+                <div className="-mt-1.5">
                   <div
                     className="flex cursor-pointer "
                     onClick={() => profileHandler()}
                   >
-                    <BiSolidUser className="my-auto mr-2" size={15} />
+                    <AiOutlineUser className="my-auto mr-2 text-text_Color" size={20} />
                     <button
                       type="button"
-                      className="cursor-pointer text-lg font-Marcellus"
+                      className="cursor-pointer text-text_Color text-lg font-normal font-Marcellus"
                     >
                       Profile
                     </button>
                   </div>
                   <div className="flex cursor-pointer">
-                    <RxExit className="my-auto mr-2" size={15} />
+                    <RxExit className="my-auto mr-2 text-text_Color" size={20} />
                     <p
-                      className="cursor-pointer text-lg font-Marcellus"
+                      className="cursor-pointer text-lg text-text_Color font-normal font-Marcellus"
                       onClick={() => setIsModal(true)}
                     >
                       Logout
@@ -406,7 +408,7 @@ const NavBars = () => {
                       <div className="flex justify-between items-center p-3 ">
                         <h1
                           className=" font-Marcellus text-text_Color2 text-xl  "
-                          style={{ minHeight: "3em" }}
+                          style={{ minHeight: "1.5em" }}
                         >
                           {category.Name}
                         </h1>
@@ -418,7 +420,7 @@ const NavBars = () => {
                             category.SubCategories.map((subcategories) => (
                               <li
                                 key={subcategories._id}
-                                className="hover:underline cursor-pointer"
+                                className="hover:underline cursor-pointer pb-[3px]"
                                 onClick={() =>
                                   seriesPageById(subcategories._id)
                                 }

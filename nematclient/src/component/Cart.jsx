@@ -162,17 +162,7 @@ const Cart = () => {
                 <h1 className="font-roxborough  mb-6 text-text_Color text-2xl w-full text-start font-semibold">
                   Your Cart
                 </h1>
-                <div className="mt-8 md:w-[55%] pb-3 border-b-2 border-text_Color mobile:w-full sm:w-full text-xl font-Marcellus font-normal text-text_Color">
-                  <div className="w-full flex">
-                       <p className="w-[40%]">Series</p>
-                       <div className="flex justify-between w-[60%]">
-                        <p>Quantity</p>
-                        <p>Price/pc</p>
-                        <p>Total</p>
-                       </div>
-                  </div>
-                </div>
-                <div className="w-[55%] mt-16 ">
+                <div className="w-[100%] mt-16 ">
                     <h1 className="text-center text-2xl text-text_Color font-roxborough font-bold">YOUR CART IS EMPTY</h1>
                     <div className="w-full mx-auto flex justify-center mt-2">
                       <button 

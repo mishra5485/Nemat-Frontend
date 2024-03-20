@@ -13,7 +13,7 @@ const Discountslabe = ({ Dssprays, agarbattisDs , isModalOpen , setIsModalOpen})
   return (
     <div className="flex w-[100%]  flex-col justify-center items-center  mt-8 bg-Cream ">
       
-      <div className="mt-10 flex">
+      <div className="mt-10 flex font-bold uppercase text-text_Color">
         <ProductHeader title={"DISCOUNT SLABS"} className="pt-4 " />
       </div>
       {
