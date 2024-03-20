@@ -16,6 +16,7 @@ export default {
         LightCream: "#FFFBF0",
         CartRightColor: "#F6F5F0",
         borderColorBeige: "#C28E5E",
+        hoverBGGreen: "#425711",
       },
       screens: {
         mobile: "220px",
