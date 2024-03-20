@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import DottedLineGold from "../assets/HomePage/DottedLineGold.png";
+import DottedLineGold from "../assets/HomePage/DottedLineGold1.png";
 import { useMediaQuery } from "react-responsive";
 import "../App.css";
 import Discountslabe from "./products/Discountslabe";
@@ -208,13 +208,13 @@ const Home = () => {
                               alt={subcategories?.title}
                             />
                             <h1
-                              className="font-roxborough font-bold text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
+                              className="font-roxborough uppercase font-bold text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
                               style={{ minHeight: "3em" }}
                             >
                               {subcategories.Name}
                             </h1>
                           </div>
-                          <button className="w-[137px] uppercase h-[43px] hover:bg-[#293821] bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
+                          <button className="w-[137px] uppercase h-[43px] hover:bg-hoverBGGreen bg-bg_green rounded-3xl font-Marcellus text-white mb-7">
                             Order NOW
                           </button>
                         </div>
