@@ -1,12 +1,8 @@
-import  { useState } from "react";
-import { IoMdEye, IoIosEyeOff } from "react-icons/io";
 import loginBG from "../assets/loginImages/loginImage.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import logo from "../assets/loginImages/nematEnterprisesLogo.png";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "../slices/profileSlice";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import InfiniteScrollImage from "../style/InfiniteScrollImage.jsx";
@@ -98,12 +94,13 @@ const ForgotPassword = () => {
     <div>
       <div className='w-full h-full overflow-hidden object-cover md:flex md:w-full md:h-[100vh]'>
             <Toaster/>
+            {console.log("Say Hi Forgot")}
             {/* Image section with Logo */}
             <div style={{ backgroundImage: `url(${loginBG})` , backgroundRepeat: 'no-repeat',  }} className= 'mobile:w-full sm:w-full  sm:h-[45vh] mobile::bg-center mobile:h-[40vh] mobile:bg-cover sm:bg-center mobile:bg-center sm:bg-cover sm:object-cover  bg-green-700 md:h-[100%]  md:bg-slate-600 md:min-w-[45%] flex-wrap object-cover -z-10 md:max-w-[80%] lg:w-[40%]' > 
             <div className="flex w-[100%] mt-2 sm:mt-5 sm:  md:h-[20%] justify-center items-center   ">
-                <Navigate to={"/"}>
+                <Link to={"/"}>
                   <img src={logo} className="sm:w-[100%] z-10 mobile:h-[80px] mobile:w-[107px] sm:h-[90px] md:w-[150px] md:h-[105px] " alt="" />
-                </Navigate>
+                </Link>
               </div>  
             </div>
 
@@ -235,7 +232,7 @@ const ForgotPassword = () => {
 
                         <button
                           type="submit"
-                          className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-"
+                          className="inline-flex sm:w-full md:w-[25%] h-[43px]  mt-1  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center  hover:bg-hoverBGGreen transition-all duration-200 hover:text-white hover:bg-"
                         >
                             Submit
                         </button> 

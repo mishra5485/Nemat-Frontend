@@ -80,13 +80,13 @@ const PasswordUpdated = () => {
                       
                             </div>
                           </div>
-                           <h1 className="sm:mt-[26px] mobile:mt-[26px] font-roxborough text-[20px] leading-31 ">Request Sent Successfully</h1>
+                           <h1 className="sm:mt-[26px] mobile:mt-[26px] text-text_Color font-roxborough font-medium text-[20px] leading-31 ">Request Sent Successfully</h1>
 
-                           <p className='text-center mt-[30px] font-Marcellus text-16 leading-22 tracking-tight'>
+                           <p className='text-center mt-[30px] text-text_Color font-Marcellus font-normal text-16 leading-22 tracking-tight'>
                               Lorem ipsum dolor sit amet consectetur. Viverra morbi molestie est venenatis turpis varius venenatis. Felis quisque congue massa consectetur eleifend. Enim velit fermentum nulla urna.
                            </p>
 
-                            <Link to= {"/"} className="inline-flex mobile:w-[100%] sm:w-full md:w-[25%] h-[43px]  mobile:mt-[7%]  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center hover:animate-pulse hover:bg-green-700 transition-all duration-200 hover:text-white hover:bg-">
+                            <Link to= {"/"} className="inline-flex mobile:w-[100%] sm:w-full md:w-[25%] h-[43px]  mobile:mt-[7%]  items-center justify-center  rounded-3xl bg-[#60713A]  leading-7 text-white font-Marcellus text-base  leading-17 tracking-normal text-center  hover:bg-hoverBGGreen transition-all duration-200 hover:text-white hover:bg-">
                            <button className=''>
                                 NEXT
                               </button>

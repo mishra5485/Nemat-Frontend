@@ -133,7 +133,7 @@ const Login = () => {
       {/* Form div section for Login Details */}
       <div className="sm:w-full  min-h-[65%] flex justify-center items-center m-auto">
         <div className="sm:w-[95%] mobile:w-[95%] md:w-[90%] md:h-[100%] ">
-          <h2 className="overflow-hidden uppercase sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-6 font-medium  ">
+          <h2 className={`overflow-hidden  ${changePassword && "uppercase"} sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-6 font-medium  `}>
             {changePassword ? "Log in" : "Change Default Password"}
           </h2>
           {

@@ -163,7 +163,7 @@ const CompanyDetails = () => {
                   <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                     1
                   </div>
-                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">
+                  <div className="text-[#60713a] font-Marcellus font-normal leading-[149.3%] mobile:mr-1">
                     Company details
                   </div>
                 </div>
@@ -184,7 +184,7 @@ const CompanyDetails = () => {
                   <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                     2
                   </div>
-                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%] mobile:mr-1">
+                  <div className="text-[#60713a] font-Marcellus font-normal leading-[149.3%] mobile:mr-1">
                     Contact info
                   </div>
                 </div>
@@ -205,7 +205,7 @@ const CompanyDetails = () => {
                   <div className="flex flex-col justify-center items-center gap-2.5 pt-[0.5px] pb-[0.5px] px-2 w-[1.5625rem] h-[1.5625rem] rounded-full bg-[#60713a] text-white font-['Marcellus'] leading-[149.3%]">
                     3
                   </div>
-                  <div className="text-[#60713a] font-['Marcellus'] leading-[149.3%]">
+                  <div className="text-[#60713a] font-Marcellus font-normal leading-[149.3%]">
                     Request sent
                   </div>
                 </div>
@@ -217,7 +217,7 @@ const CompanyDetails = () => {
                 <div className="sm:w-[90%] sm:mx-auto mobile:w-[90%] mobile:mx-auto md:h-[100%] overflow-hidden">
                   <div className="mt-[2%] overflow-hidden">
                     <div className="overflow-hidden">
-                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-2 ">
+                      <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough font-medium md:text-2xl md:text-start md:mb-2 ">
                         Request Your Account
                       </h1>
                     </div>
@@ -227,7 +227,7 @@ const CompanyDetails = () => {
                         <div className="md:w-[50%]">
                           <label
                             htmlFor=""
-                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                            className="mobile:text-xl font-Marcellus md:text-lg font-normal text-[#642F29] "
                           >
                             {" "}
                             Company name <span className="text-red-600">
@@ -236,7 +236,7 @@ const CompanyDetails = () => {
                           </label>
                           <div className="">
                             <input
-                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  text-sm placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
+                              className="flex h-10 w-full text-text_Color text-base font-Marcellus font-normal  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-base md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="Company name"
                               id="camponeyname"
@@ -245,7 +245,7 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.camponeyname && touched.camponeyname ? (
-                              <p className="font-Marcellus text-red-900">
+                              <p className="font-Marcellus text-base font-normal text-red-900">
                                 {errors.camponeyname}
                               </p>
                             ) : null}
@@ -254,14 +254,14 @@ const CompanyDetails = () => {
                         <div className="sm:mt-7 mobile:mt-7 md:mt-0 md:w-[50%]">
                           <label
                             htmlFor=""
-                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                            className="mobile:text-xl font-Marcellus font-normal  text-[#642F29] md:text-lg"
                           >
                             {" "}
                             GST No <span className="text-red-600">*</span>{" "}
                           </label>
                           <div className="sm:mt-[28px] md:mt-0">
                             <input
-                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50 "
+                              className="flex h-10 w-full text-text_Color text-base font-normal font-Marcellus  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-base md:mt-2 disabled:opacity-50 "
                               type="text"
                               placeholder="GST No"
                               id="gstno"
@@ -270,7 +270,7 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.gstno && touched.gstno ? (
-                              <p className="font-Marcellus text-red-900">
+                              <p className="font-Marcellus text-base  font-normal text-red-900">
                                 {errors.gstno}
                               </p>
                             ) : null}
@@ -280,7 +280,7 @@ const CompanyDetails = () => {
                     </div>
 
                     <div className="sm:mt-[50px] mobile:mt-[50px] md:mt-[3%]">
-                      <h1 className="sm:text-2xl sm:text-center  mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-[2%] ">
+                      <h1 className="sm:text-2xl sm:text-center  mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-2xl md:text-start md:mb-[2%] ">
                         ADD GST Address
                       </h1>
                     </div>
@@ -289,7 +289,7 @@ const CompanyDetails = () => {
                       <div>
                         <label
                           htmlFor=""
-                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                          className="mobile:text-xl font-Marcellus font-normal md:text-lg text-[#642F29] "
                         >
                           {" "}
                           Street address <span className="text-red-600">
@@ -298,7 +298,7 @@ const CompanyDetails = () => {
                         </label>
                         <div className="">
                           <input
-                            className="flex h-10 w-full text-text_Color text-xl font-Marcellus  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50 "
+                            className="flex h-10 w-full text-text_Color text-base font-normal font-Marcellus  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-base md:mt-[1%] disabled:opacity-50 "
                             type="text"
                             placeholder="Address"
                             id="address"
@@ -307,7 +307,7 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.address && touched.address ? (
-                            <p className="font-Marcellus text-red-900">
+                            <p className="font-Marcellus text-base font-normal text-red-900">
                               {errors.address}
                             </p>
                           ) : null}
@@ -317,14 +317,14 @@ const CompanyDetails = () => {
                         <div className=" md:w-[50%]">
                           <label
                             htmlFor=""
-                            className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                            className="mobile:text-xl font-Marcellus font-normal md:text-lg   text-[#642F29] "
                           >
                             {" "}
                             State<span className="text-red-600">*</span>{" "}
                           </label>
                           <div className="md:w-[100%]">
                             <input
-                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
+                              className="flex h-10 w-full text-text_Color text-base font-normal font-Marcellus border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-base md:mt-[1%] disabled:opacity-50"
                               type="text"
                               placeholder="State"
                               id="state"
@@ -333,7 +333,7 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.state && touched.state ? (
-                              <p className="font-Marcellus text-red-900">
+                              <p className="font-Marcellus text-base font-normal text-red-900">
                                 {errors.state}
                               </p>
                             ) : null}
@@ -343,14 +343,14 @@ const CompanyDetails = () => {
                         <div className="sm:mt-[30px] mobile:mt-[30px] md:mt-0 md:w-[50%]">
                           <label
                             htmlFor=""
-                            className="sm:mt-[30px] mobile:mt-[30px]  md:mt-0 mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                            className="sm:mt-[30px] mobile:mt-[30px]  font-normal md:text-lg  md:mt-0 mobile:text-xl font-Marcellus  text-[#642F29]"
                           >
                             {" "}
                             City <span className="text-red-600">*</span>{" "}
                           </label>
                           <div className="">
                             <input
-                              className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-[1%] disabled:opacity-50"
+                              className="flex h-10 w-full text-text_Color text-base font-normal font-Marcellus border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-base md:mt-[1%] disabled:opacity-50"
                               type="text"
                               placeholder="City"
                               id="city"
@@ -359,7 +359,7 @@ const CompanyDetails = () => {
                               onBlur={handleBlur}
                             ></input>
                             {errors.city && touched.city ? (
-                              <p className="font-Marcellus text-red-900">
+                              <p className="font-Marcellus text-base font-normal text-red-900">
                                 {" "}
                                 {errors.city}
                               </p>
@@ -370,14 +370,14 @@ const CompanyDetails = () => {
                       <div className="sm:mt-[30px] mobile:mt-[30px] md:mt-[2%]">
                         <label
                           htmlFor=""
-                          className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                          className="mobile:text-xl  font-normal md:text-lg font-Marcellus  text-[#642F29]"
                         >
                           {" "}
                           ZipCode <span className="text-red-600">*</span>{" "}
                         </label>
                         <div className="">
                           <input
-                            className="flex h-10 w-full text-text_Color text-xl font-Marcellus border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                            className="flex h-10 w-full text-text_Color text-base font-normal md:placeholder:text-base font-Marcellus border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                             type="text"
                             placeholder="ZipCode"
                             onChange={handleChange}
@@ -386,7 +386,7 @@ const CompanyDetails = () => {
                             onBlur={handleBlur}
                           ></input>
                           {errors.zipcode && touched.zipcode ? (
-                            <p className="font-Marcellus text-red-900">
+                            <p className="font-Marcellus text-base font-normal text-red-900">
                               {errors.zipcode}
                             </p>
                           ) : null}
@@ -426,7 +426,7 @@ const CompanyDetails = () => {
                                 1
                               </div>
                             </div>
-                            <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            <div className="relative w-fit font-Marcellus font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
                               Company details
                             </div>
                           </div>
@@ -449,7 +449,7 @@ const CompanyDetails = () => {
                                 2
                               </div>
                             </div>
-                            <div className="relative w-fit font-['Marcellus'] text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            <div className="relative w-fit font-Marcellus font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
                               Contact info
                             </div>
                           </div>
@@ -472,14 +472,14 @@ const CompanyDetails = () => {
                                 3
                               </div>
                             </div>
-                            <div className="relative w-fit font-['Marcellus'] font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
+                            <div className="relative w-fit font-Marcellus font-normal text-[#60713a] text-[16px] tracking-[0] leading-[23.9px] whitespace-nowrap">
                               Request sent
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="">
-                        <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough md:text-3xl md:text-start md:mb-8 md:mt-6">
+                        <h1 className="sm:text-2xl sm:text-center mobile:text-center mobile:text-xl  leading-tight text-[#642F29]  font-roxborough font-normal md:text-2xl md:text-start md:mb-8 md:mt-6">
                           Contact Info
                         </h1>
 
@@ -488,7 +488,7 @@ const CompanyDetails = () => {
                             <div className="md:w-[50%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Full Name{" "}
@@ -496,7 +496,7 @@ const CompanyDetails = () => {
                               </label>
                               <div className="">
                                 <input
-                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   type="text"
                                   placeholder="Full Name"
                                   id="fullname"
@@ -505,7 +505,7 @@ const CompanyDetails = () => {
                                   onBlur={handleBlur}
                                 ></input>
                                 {errors.fullname && touched.fullname ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.fullname}
                                   </p>
                                 ) : null}
@@ -514,7 +514,7 @@ const CompanyDetails = () => {
                             <div className="sm:mt-7 mobile:mt-7 md:mt-0 md:w-[50%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Email{" "}
@@ -524,7 +524,7 @@ const CompanyDetails = () => {
                               </label>
                               <div className="">
                                 <input
-                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   type="email"
                                   placeholder="Enter Email"
                                   id="email"
@@ -533,7 +533,7 @@ const CompanyDetails = () => {
                                   onBlur={handleBlur}
                                 ></input>
                                 {errors.email && touched.email ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.email}
                                   </p>
                                 ) : null}
@@ -547,7 +547,7 @@ const CompanyDetails = () => {
                             <div className="w-[35%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl  font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Country <span className="text-red-600">
@@ -556,7 +556,7 @@ const CompanyDetails = () => {
                               </label>
                               <div className="mobile:w-[90%] ">
                                 <select
-                                  className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full md:w-[100%] text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%] border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   id="countryCode"
                                   value={values.countryCode}
                                   onChange={handleChange}
@@ -573,7 +573,7 @@ const CompanyDetails = () => {
                                 </select>
 
                                 {errors.countryCode && touched.countryCode ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.countryCode}
                                   </p>
                                 ) : null}
@@ -582,7 +582,7 @@ const CompanyDetails = () => {
                             <div className="md:w-[65%] mobile:w-[50%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl  font-Marcellus  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl  font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Mobile Number{" "}
@@ -590,7 +590,7 @@ const CompanyDetails = () => {
                               </label>
                               <div className="">
                                 <input
-                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29] bg-transparent  placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   type="text"
                                   placeholder=" Mobile Number"
                                   id="mobileNo"
@@ -599,7 +599,7 @@ const CompanyDetails = () => {
                                   onBlur={handleBlur}
                                 ></input>
                                 {errors.mobileNo && touched.mobileNo ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.mobileNo}
                                   </p>
                                 ) : null}
@@ -652,14 +652,14 @@ const CompanyDetails = () => {
                             <div className="w-[35%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl font-Marcellus  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Country{" "}
                               </label>
                               <div className="mt-2 mobile:w-[90%]">
                                 <select
-                                  className="flex h-10 w-full md:w-[100%] text-lg font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%]   border-b-2 border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full md:w-[100%] text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color sm:w-[90%] mobile:w-[100%] border-b-[1px] border-b-[#642F29] bg-transparent   placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   placeholder=" Country Code"
                                   id="countryCode1"
                                   value={values.countryCode1}
@@ -676,7 +676,7 @@ const CompanyDetails = () => {
                                   ))}
                                 </select>
                                 {errors.countryCode1 && touched.countryCode1 ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.countryCode1}
                                   </p>
                                 ) : null}
@@ -685,14 +685,14 @@ const CompanyDetails = () => {
                             <div className="md:w-[65%] mobile:w-[50%]">
                               <label
                                 htmlFor=""
-                                className="mobile:text-xl font-Marcellus w-full  text-[#642F29] md:text-xl"
+                                className="mobile:text-xl font-Marcellus font-normal  text-[#642F29] md:text-lg"
                               >
                                 {" "}
                                 Landline Number{" "}
                               </label>
                               <div className="mt-2">
                                 <input
-                                  className="flex h-10 w-full text-lg font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-2 border-b-[#642F29]    placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed md:placeholder:text-lg md:mt-2 disabled:opacity-50"
+                                  className="flex h-10 w-full text-base font-normal md:placeholder:text-base font-Marcellus text-text_Color sm:w-[100%] mobile:w-[100%]  border-b-[1px] border-b-[#642F29]    placeholder:text-[#642F29] placeholder:font-Marcellus focus:outline-none  disabled:cursor-not-allowed  md:mt-2 disabled:opacity-50"
                                   type="text"
                                   placeholder=" Landline Number "
                                   id="landlineNo"
@@ -701,7 +701,7 @@ const CompanyDetails = () => {
                                   onBlur={handleBlur}
                                 ></input>
                                 {errors.landlineNo && touched.landlineNo ? (
-                                  <p className="font-Marcellus text-red-900">
+                                  <p className="font-Marcellus text-base font-normal text-red-900">
                                     {errors.landlineNo}
                                   </p>
                                 ) : null}
