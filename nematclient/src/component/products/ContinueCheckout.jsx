@@ -100,7 +100,7 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
           <Toaster />
           {/* Your modal content goes here */}
           <div className="bg-white p-4 rounded-md w-[600px] h-[230px]">
-            <div className="w-[90%] h-[90%] m-auto">
+            <div className="w-[100%] h-[100%] flex flex-col justify-center items-center">
               <div className="w-[80%] text-center mx-auto text-text_Color">
                 <h1 className="text-text_Color font-roxborough font-semibold text-xl">
                   We have received your order
