@@ -694,7 +694,7 @@ const Product = () => {
                 htmlFor="sub_CategoryId"
                 className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
               >
-                Select Sub-Category
+                Select Series
               </label>
               <select
                 id="sub_CategoryId"
@@ -1038,7 +1038,7 @@ const Product = () => {
                     value={selectedCategory}
                   >
                     <option value="" disabled>
-                      Select Sub-Category
+                      Select Series
                     </option>
                     <option value="All">All</option>
                     {subCategoryData?.map((subcategory) => (

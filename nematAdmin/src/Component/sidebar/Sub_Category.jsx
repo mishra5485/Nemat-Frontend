@@ -448,7 +448,7 @@ const Sub_Category = () => {
   return (
     <div className="text-center">
       <div className="mt-4 mb-6 font-bold text-4xl text-start pb-6 border-b-2 border-black">
-        <h1>Sub-Category Page</h1>
+        <h1>Series Page</h1>
       </div>
       <Toaster />
       {showModal ? (
@@ -862,7 +862,7 @@ const Sub_Category = () => {
                   htmlFor="seriesImage"
                   className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Sub-Category Series Image
+                  Series Series Image
                 </label>
                 <input
                   type="file"
@@ -918,7 +918,7 @@ const Sub_Category = () => {
                       <input
                         type="text"
                         id="simple-search"
-                        placeholder="Search Sub-Category Name"
+                        placeholder="Search Series Name"
                         required=""
                         onChange={(event) => handleSearch(event)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -951,7 +951,7 @@ const Sub_Category = () => {
                     type="button"
                     onClick={() => setShowModal(true)}
                   >
-                    + Create Sub-Category
+                    + Create Series
                   </button>
                 </div>
               </div>

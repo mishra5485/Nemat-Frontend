@@ -494,7 +494,7 @@ const Edit_Product = () => {
                 htmlFor="category"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Select Sub-Category
+                Select Series
               </label>
               <select
                 id="sub_CategoryId"
