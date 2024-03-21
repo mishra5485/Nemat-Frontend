@@ -23,7 +23,7 @@ const EditOrderManagement = () => {
 
   const { _id } = useParams();
 
-  const header = getToken()
+  const header = getToken();
 
   // console.log(_id);
 
@@ -36,10 +36,11 @@ const EditOrderManagement = () => {
       let response = await axios.get(
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
-        }/admin_order/getOrderById/${_id}`,header
+        }/admin_order/getOrderById/${_id}`,
+        header
       );
 
-      // console.log(response.data)
+      console.log(response.data);
       setOrderData(response.data);
       setCurrentState(response.data.Status);
       setDownloadDocument(response.data.Documents);
@@ -76,7 +77,8 @@ const EditOrderManagement = () => {
 
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/admin_order/update_status`,
-        payload , header
+        payload,
+        header
       );
 
       // console.log(response.data);
@@ -135,7 +137,8 @@ const EditOrderManagement = () => {
         `${
           import.meta.env.VITE_REACT_APP_BASE_URL
         }/admin_order/upload_documents`,
-        formData , header
+        formData,
+        header
       );
 
       // console.log(response.data);
@@ -270,35 +273,43 @@ const EditOrderManagement = () => {
               </div>
             </div>
 
-            <div className="w-[50%] flex justify-between mt-4  mb-3 px-3 text-lg">
-              {orderData.Status !== 5 ? (
-                <div className="mb-4 w-[90%]">
-                  <label
-                    htmlFor="status"
-                    className="block text-black dark:text-gray-300 mb-2 font-bold"
-                  >
-                    Update Order Status
-                  </label>
-                  <select
-                    id="status"
-                    value={currentState}
-                    onChange={handleStatusChange}
-                    className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
-                  >
-                    {statusData.map((status) => (
-                      <option key={status.id} value={status.id}>
-                        {status.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              ) : (
-                <p className="text-red-500 font-semibold">
-                  Order Status: Cancelled
-                </p>
-              )}
-            </div>
+            <div className="flex justify-between items-center">
+              <div className="w-[50%] flex justify-between mt-4  mb-3 px-3 text-lg">
+                {orderData.Status !== 5 ? (
+                  <div className="mb-4 w-[90%]">
+                    <label
+                      htmlFor="status"
+                      className="block text-black dark:text-gray-300 mb-2 font-bold"
+                    >
+                      Update Order Status
+                    </label>
+                    <select
+                      id="status"
+                      value={currentState}
+                      onChange={handleStatusChange}
+                      className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
+                    >
+                      {statusData.map((status) => (
+                        <option key={status.id} value={status.id}>
+                          {status.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <p className="text-red-500 font-semibold">
+                    Order Status: Cancelled
+                  </p>
+                )}
+              </div>
 
+              <div className="w-[50%] mt-6">
+                <p className="text-black mb-2 w-[50%]">
+                  Mobile No:-{" "}
+                  <span className="font-semibold">{orderData.MobileNumber}</span>
+                </p>
+              </div>
+            </div>
             <hr />
 
             <div className="flex">
@@ -353,6 +364,7 @@ const EditOrderManagement = () => {
                 </div>
               </div>
             </div>
+
             <hr />
 
             <div className="w-full  justify-between mt-5 px-3 text-lg">
@@ -411,7 +423,7 @@ const EditOrderManagement = () => {
                     htmlFor="docStatus"
                     className="block text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Select Document Type 
+                    Select Document Type
                   </label>
                   <IoClose size={25} onClick={() => setModal(false)} />
                 </div>
@@ -421,7 +433,7 @@ const EditOrderManagement = () => {
                   className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 mb-4 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
                 >
                   <option disabled selected value="">
-                    Select Document Type 
+                    Select Document Type
                   </option>
                   {Documents.map((status) => (
                     <option key={status.id} value={status.title}>
