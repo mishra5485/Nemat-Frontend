@@ -46,6 +46,7 @@ const ContactUs = () => {
       initialValues,
       validationSchema: objectSchema,
       onSubmit: async (values) => {
+
         const palyload = {
           Name: `${values.firstName} ${values.lastName}`,
           Email: values.userEmail,
@@ -53,14 +54,19 @@ const ContactUs = () => {
           Message: values.userMessage,
         };
         try {
+
+          
+          const header = getToken()
+
           let response = await axios.post(
             `${
               import.meta.env.VITE_REACT_APP_BASE_URL
             }/usercontactusform/create`,
-            palyload
+            palyload,
+            header
           );
 
-          console.log(response);
+          // console.log(response);
 
           if (response.status === 200) {
             toast.success(response.data);
@@ -98,7 +104,7 @@ const ContactUs = () => {
         header
       );
 
-      console.log("allDataResponse.data", allDataResponse.data);
+      // console.log("allDataResponse.data", allDataResponse.data);
 
       if (allDataResponse.status === 200) {
         setAdminInfo(allDataResponse.data);
@@ -126,7 +132,7 @@ const ContactUs = () => {
     }
   };
 
-  console.log("admininfo ===> ", admininfo);
+  // console.log("admininfo ===> ", admininfo);
 
   return (
     <div className="w-[100%] h-auto">
