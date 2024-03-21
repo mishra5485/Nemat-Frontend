@@ -47,7 +47,7 @@ const OrderDetailsData = ({ data, _id }) => {
     },
     {
       id: 3,
-      status: "Packend ",
+      status: "Packed ",
     },
     {
       id: 4,
@@ -258,13 +258,28 @@ const OrderDetailsData = ({ data, _id }) => {
 
                       <button
                         type="button"
-                        onClick={() => {
-                          toggleOrderVisibilitydesktop(index);
-                        }}
+                        onClick={() => toggleOrderVisibilitydesktop(index)}
                         disabled={clicked}
-                        className="w-[50%] md:hidden uppercase xl:block font-normal   font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2  rounded-3xl mt-1"
+                        className="w-[50%] md:hidden uppercase xl:block font-normal font-Marcellus text-white bg-text_Color2 p-2 mb-3 mr-2 rounded-3xl mt-1"
                       >
-                        Documents
+                        <div className="flex justify-center items-center">
+                          
+                          Documents
+                          <div className="ml-2 mt-1">
+                            {/* Icon toggles based on openIndex */}
+                            {openIndex === index ? (
+                              <FaAngleUp
+                                size={20}
+                                onClick={() => toggleOrderVisibilitydesktop(index)}
+                              />
+                            ) : (
+                              <FaAngleDown
+                                size={20}
+                                onClick={() => toggleOrderVisibilitydesktop(index)}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </button>
 
                       {opneorder.status <= 0 ? (
@@ -527,11 +542,10 @@ const OrderDetailsData = ({ data, _id }) => {
                               {Order.Products.map((product, index) => (
                                 <div
                                   key={product._id}
-                                  className={`p-3 text-text_Color font-Marcellus font-normal ${
-                                    index === Order.Products.length - 1
+                                  className={`p-3 text-text_Color font-Marcellus font-normal ${index === Order.Products.length - 1
                                       ? "border-b-[1px] border-[#C28E5E]"
                                       : ""
-                                  }`}
+                                    }`}
                                 >
                                   <div className="flex justify-between">
                                     <h1 className="w-[70%]">
@@ -560,11 +574,10 @@ const OrderDetailsData = ({ data, _id }) => {
                       className="mobile:w-[50%] h-full flex items-center sm:w-[30%] md:w-[20%] md:text-xs lg:text-sm xl:text-base  bg-Cream  mobile:flex-shrink-0 sm:flex-shrink-0 "
                     >
                       <h1
-                        className={`flex items-center font-roxborough font-bold  w-full ${
-                          opneorder.status <= index - 1
+                        className={`flex items-center font-roxborough font-bold  w-full ${opneorder.status <= index - 1
                             ? "text-gray-400"
                             : "text-text_Color"
-                        }`}
+                          }`}
                       >
                         <FaCircleCheck className="mx-1" /> {status.status}
                         {index !== statusData.length - 1 && (
