@@ -174,14 +174,14 @@ const Cart = () => {
             </div>
           ) : (
             <div className="mt-10 w-[100%]">
-              <div className="w-[90%] mx-auto ">
-                <h1 className="font-roxborough px-5 mb-6 text-text_Color text-2xl w-full text-start font-semibold">
+              <div className="w-[94%] mx-auto ">
+                <h1 className="font-roxborough mb-6 text-text_Color text-2xl w-full text-start font-semibold">
                   Your Cart
                 </h1>
 
                 {/* Order Products display  */}
-                <div className="md:flex md:w-[100%] md:mx-auto px-5">
-                  <div className="mt-8 md:w-[50%]  md:mt-0">
+                <div className="md:flex md:w-[100%] md:mx-auto">
+                  <div className="mt-8 md:w-[50%] mr-[8%] md:mt-0">
                     {productDisplay.map((product, index) => (
                       <div key={product.CartDiscountSchemeId} className="">
                         <div className="mobile:flex mobile:w-full mobile:justify-between sm:flex sm:w-full sm:justify-between">
@@ -202,7 +202,7 @@ const Cart = () => {
                           </div>
                         </div>
 
-                        <div className="mobile:w-full mobile:flex  mobile:justify-between mobile:mt-3 mobile:mb-2 font-Marcellus text-text_Color text-sm mobile:pb-3 border-b-2 border-text_Color sm:w-full sm:flex sm:justify-between sm:mt-3 sm:mb-2 sm:pb-3 ">
+                        <div className="mobile:w-full mobile:flex  mobile:justify-between mobile:mt-3 mobile:mb-2 font-Marcellus text-text_Color text-sm mobile:pb-3 border-b-[1px] border-text_Color sm:w-full sm:flex sm:justify-between sm:mt-3 sm:mb-2 sm:pb-3 ">
                           <h1>Quantity:{product.totalQuantity}</h1>
                           <h1>
                             Total: {formattedAmount(product.TotalSeriesPrice)}
@@ -304,7 +304,7 @@ const Cart = () => {
                     />
                   </div>
 
-                  <div className="mobile:w-[96%] sm:w-[96%]  mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
+                  <div className="mobile:w-[96%] sm:w-[96%] md:h-fit mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
                     <h1 className="mobile:text-center sm:text-center mt-6 font-roxborough text-text_Color font-bold text-xl">
                       Order Summary
                     </h1>
