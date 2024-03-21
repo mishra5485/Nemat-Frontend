@@ -270,7 +270,7 @@ const NavBars = () => {
                 </div>
                 <div className="flex gap-x-4 sm:hidden mobile:hidden md:flex lg:flex  font-Marcellus relative ">
                   <h1
-                    className="flex items-center font-Marcellus text-text_Color relative hover:underline cursor-pointer font-semibold"
+                    className="flex items-center font-Marcellus text-text_Color relative hover:underline cursor-pointer font-medium"
                     onMouseEnter={() => setIsHovered(true)}
                   >
                     SHOP
@@ -287,12 +287,12 @@ const NavBars = () => {
                     </span>
                   </h1>
                   <Link to={"/ourfamily"}>
-                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-semibold">
+                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-medium">
                       ABOUT
                     </h1>
                   </Link>
                   <Link to={"/contactus"}>
-                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-semibold ">
+                    <h1 className="hover:underline text-text_Color font-Marcellus cursor-pointer font-medium ">
                       CONTACT
                     </h1>
                   </Link>
@@ -308,7 +308,7 @@ const NavBars = () => {
                 </div>
                 <div className="flex items-center gap-x-4 sm:hidden mobile:hidden md:flex lg:flex font-Marcellus text-text_Color">
                   <Link to={"/policies"}>
-                    <h1 className="cursor-pointer font-semibold">POLICIES</h1>
+                    <h1 className="cursor-pointer font-medium">POLICIES</h1>
                   </Link>
                   <Link>
                   <Link to={"/search"}>
@@ -420,7 +420,7 @@ const NavBars = () => {
                             category.SubCategories.map((subcategories) => (
                               <li
                                 key={subcategories._id}
-                                className="hover:underline cursor-pointer pb-[3px]"
+                                className="hover:underline cursor-pointer pb-[5px]"
                                 onClick={() =>
                                   seriesPageById(subcategories._id)
                                 }

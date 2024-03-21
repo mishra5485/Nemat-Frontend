@@ -372,13 +372,13 @@ const Series = () => {
           {/* Top Section  */}
           <div className="md:w-[70%] md:mx-auto">
             <div className="w-[80%] mx-auto">
-              <div className="text-text_Color font-bold uppercase">
+              <div className="text-text_Color font-bold text-3xl uppercase">
               <ProductHeader
                 title={title}
-                className="flex justify-center items-center"
+                className="flex justify-center  items-center"
                 />
                 </div>
-              <p className="text-center  mt-4 font-Marcellus text-text_Color ">
+              <p className="text-center  mt-4 font-Marcellus font-medium text-lg text-text_Color ">
                 You can select different products in this series to avail the
                 schemes below
               </p>
@@ -424,28 +424,28 @@ const Series = () => {
             <Toaster className="w-[30%] h-[50px]" />
             <div className="w-[100%] flex flex-col justify-center items-center  mt-4 ">
               <div className="w-[90%] flex bg-LightCream  border-[1px] border-borderColorBeige font-Marcellus  uppercase">
-                <p className="w-[50%] text-center border-r-[1px] p-3  border-borderColorBeige ">
+                <p className="w-[50%] text-center border-r-[1px] p-3 font-normal text-lg text-text_Color border-borderColorBeige ">
                   Order Quantity
                 </p>
-                <p className="w-[50%] text-center p-3">Price per PC</p>
+                <p className="w-[50%] text-center text-text_Color font-normal text-lg p-3">Price per PC</p>
               </div>
               {qunantityData?.SchemeValues?.map((data, index) => (
                 <div
                   key={data._id}
-                  className="w-[90%] border-borderColorBeige border-l-[1px] b border-r-[1px] font-Marcellus"
+                  className="w-[90%] border-borderColorBeige border-l-0.5 b border-r-0.5 font-Marcellus font-normal"
                 >
                   <div className="flex">
                     {data.max !== undefined ? (
-                      <p className="w-[50%] text-center border-r-[1px] border-borderColorBeige  p-1.5">{`${data.min}-${data.max} pcs`}</p>
+                      <p className="w-[50%] text-center text-text_Color font-normal border-r-0.5 border-borderColorBeige  p-1.5">{`${data.min}-${data.max} pcs`}</p>
                     ) : (
-                      <p className="w-[50%] text-center border-r-[1px] border-borderColorBeige p-1.5 border-b">{`${data.min} & Above`}</p>
+                      <p className="w-[50%] text-center text-text_Color font-normal border-r-0.5 border-borderColorBeige p-1.5 border-b">{`${data.min} & Above`}</p>
                     )}
                     {qunantityData.SchemeValues.length === index + 1 ? (
-                      <p className="w-[50%] text-center p-1.5 border-b-[1px] border-borderColorBeige">
+                      <p className="w-[50%] text-center text-text_Color font-normal p-1.5 border-b-0.5 border-borderColorBeige">
                         ₹ {data.value} PC
                       </p>
                     ) : (
-                      <p className="w-[50%] text-center p-1.5  ">
+                      <p className="w-[50%] text-text_Color font-normal text-center p-1.5  ">
                         ₹ {data.value} PC
                       </p>
                     )}
@@ -500,7 +500,7 @@ const Series = () => {
                 <div className="md:w-[100%]">
                   <div className="flex mobile:justify-between mobile:mt-6  sm:justify-between sm:mt-6 md:w-[100%] ">
                     <div className="mobile:w-[55%] sm:w-[55%]">
-                      <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxborough text-lg font-bold md:text-xl lg::text-3xl text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
+                      <h1 className="mobile:w-full mobile:h-full mobile:flex mobile:items-center  font-roxboroughnormal text-lg font-semibold md:text-xl lg:text-3xl text-text_Color sm:w-full sm:h-full sm:flex sm:items-center">
                         {product.Name}{" "}
                         {/* <span className="px-3 bg-text_Color text-white rounded-full mobile:ml-2 md:ml-3">
                           i
@@ -508,7 +508,7 @@ const Series = () => {
                       </h1>
                     </div>
                     <button
-                      className="mobile:flex mobile:justify-end mobile:items-center mobile:mr-3 mobile:px-4 mobile:p-2 sm:p-2 sm:flex sm:justify-end sm:items-center sm:mr-3 sm:px-4  border-2 border-text_Color2 rounded-3xl  font-Marcellus text-text_Color2
+                      className="mobile:flex uppercase mobile:justify-end mobile:items-center mobile:mr-3 mobile:px-4 mobile:p-2 sm:p-2 sm:flex sm:justify-end sm:items-center sm:mr-3 sm:px-4  border-2 border-text_Color2 rounded-3xl  font-Marcellus text-text_Color2
                      "
                       onClick={() => removeproductCart(product._id, index)}
                     >
@@ -542,7 +542,7 @@ const Series = () => {
                                 }
                               >
                                 {/* Render packsize information */}
-                                {packsize.size}  ({packsize.nameConvention})
+                                {packsize.size} pcs  ({packsize.nameConvention})
                               </button>
                             )
                         )}
@@ -557,9 +557,10 @@ const Series = () => {
                           <input
                             type="text"
                             id={`quantity_${index}`}
-                            className="p-2 border-[1px] font-Marcellus rounded-3xl border-text_Color mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
+                            className="p-2 border-[1px] placeholder:text-text_Color placeholder:font-Marcellus text-text_Color font-Marcellus rounded-3xl border-text_Color mobile:w-[100%] sm:w-[100%] mobile:p-2 sm:p-2"
                             value={quantities[index]}
                             onChange={(event) => validateInput(event, index)}
+                            placeholder="0"
                             required
                           />
                         </div>

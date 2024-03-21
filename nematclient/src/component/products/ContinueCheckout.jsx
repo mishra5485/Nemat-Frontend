@@ -87,7 +87,7 @@ const ContinueCheckout = ({ user, selectedAddressId, setNoData }) => {
   return (
     <div>
       <div
-        className=" w-[80%] mx-auto text-center cursor-pointer items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 "
+        className=" w-[96%] mx-auto text-center cursor-pointer items-center p-2 rounded-3xl bg-text_Color2 font-Marcellus text-lg mb-5 "
         onClick={() => {
           checoutorder();
         }}

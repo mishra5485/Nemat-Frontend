@@ -59,14 +59,14 @@ const Policies = () => {
       </div>
       <div className="w-full h-auto">
         <div className="w-full uppercase h-[10.75rem] bg-LightCream text-text_Color font-roxborough font-bold text-xl flex justify-center items-center">
-          <h1>our policies</h1>
+          <h1 className="ml-[2%]">our policies</h1>
         </div>
 
         <div className="p-2 py-3  w-full mb-2">
           <img src={DottedLineGold} className="w-full" />
         </div>
 
-       <div className="w-[90%] mx-auto flex items-center justify-center gap-x-8 uppercase text-text_Color font-roxborough font-semibold">
+       <div className="w-[90%] mx-auto flex mt-8 items-center justify-center gap-x-8 uppercase text-text_Color font-roxborough font-semibold">
         {policiesData.map((policy) => (
           <div key={policy._id} className="flex text-xl">
             <h2
@@ -78,7 +78,7 @@ const Policies = () => {
           </div>
         ))}
       </div>
-        <div className="w-[90%] mx-auto mt-5">
+        <div className="w-[90%] mx-auto mt-16">
           {selectedPolicie && <PolicyDetails policie={selectedPolicie} />}
         </div>
       </div>
