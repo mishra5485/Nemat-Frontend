@@ -15,9 +15,10 @@ import { useNavigate } from "react-router-dom";
 import Flower from "../assets/HomePage/Flower.png";
 import { useDispatch } from "react-redux";
 import { setCategoryDataStore } from "../slices/categorySlice";
-import { FaChevronLeft , FaChevronRight  } from "react-icons/fa6";
+import { BsChevronLeft , BsChevronRight  } from "react-icons/bs";
 
 import getToken from "./auth/GetToken";
+import HomePageDSPop from "./HomePageDSPop";
 
 const Home = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
@@ -115,7 +116,7 @@ const Home = () => {
   const settings = {
   dots: false,
   infinite: true,
-  speed: 500,
+  speed: 600,
   slidesToShow: 1,
   slidesToScroll: 1,
   afterChange: (index) => setCurrentSlide(index),
@@ -165,18 +166,18 @@ const Home = () => {
       
       {/* Previous button */}
       <button className="z-30  absolute top-1/2 left-0 transform -translate-y-1/2" onClick={handlePrev}>
-       <FaChevronLeft size={35} color="#642F29" />
+       <BsChevronLeft  size={35} color="#642F29" />
       </button>
       
       {/* Next button */}
       <button className="z-30 absolute top-1/2 right-0 transform -translate-y-1/2" onClick={handleNext}>
-        <FaChevronRight size={35} color="#642F29"/>
+        <BsChevronRight  size={35} color="#642F29"/>
       </button>
     </div>
       )}
 
       {!loading && (
-        <div>
+        <div className="">
           {categoryData.map((category, index) => (
             <div key={index}>
               <div
@@ -188,11 +189,11 @@ const Home = () => {
                   className="w-full"
                 />
               </div>
-              <div key={category._id}>
-                <div className="font-bold uppercase text-text_Color">
+              <div className="mt-10 " key={category._id}>
+                <div className="font-roxborough font-mid_semi mobile:text-2xl md:text-3xl text-text_Color">
                   <ProductHeader title={category.Name} />
                 </div>
-                <div className="w-full flex justify-center items-center mt-8">
+                <div className="w-full flex justify-center items-center">
                   <div className="w-[90%] sm:grid-cols-3 sm:grid mobile:grid mobile:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mx-auto">
                     {category.SubCategories &&
                       category.SubCategories.map((subcategories) => (
@@ -205,10 +206,11 @@ const Home = () => {
                             <img
                               src={`${baseURL}/${subcategories.Image}`}
                               className="hover:scale-110 transition-transform duration-300 mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[370px] object-contain mobile:h-[250px] items-center"
+                              // className="hover:scale-110 transition-transform duration-300 mobile:p-2 sm:p-5 md:p-5 flex justify-center md:h-[400px] lg:h-[450px] lg:w-[350px] object-contain mobile:h-[250px] items-center"
                               alt={subcategories?.title}
                             />
                             <h1
-                              className="font-roxborough uppercase font-bold text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
+                              className="font-roxboroughnormal font-medium uppercase mobile:text-lg md:text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
                               style={{ minHeight: "3em" }}
                             >
                               {subcategories.Name}
@@ -238,7 +240,7 @@ const Home = () => {
 
       {isModalOpen && !loading && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 my-auto flex items-center justify-center z-50">
-          <Discountslabe
+          <HomePageDSPop
             Dssprays={Dssprays}
             agarbattisDs={agarbattisDs}
             isModalOpen={isModalOpen}
