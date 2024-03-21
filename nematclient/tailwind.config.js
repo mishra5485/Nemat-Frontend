@@ -4,9 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        roxboroughnormal: ["Roxborough CF Bold", "serif"],
         roxborough: ["Roxborough  CF Thin"],
         Marcellus: ["Marcellus"],
         Abel: ["Abel, sans-serif"],
+      },
+      fontWeight: {
+        mid_semi: "520",
       },
       colors: {
         bg_green: "#60713a",
@@ -23,6 +27,9 @@ export default {
       },
       borderRadius: {
         iFull: "9999px",
+      },
+      borderWidth: {
+        0.5: "0.5px",
       },
     },
   },
