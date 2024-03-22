@@ -373,7 +373,7 @@ const Search = () => {
                                 }
                               >
                                 {/* Render packsize information */}
-                                {packsize.size} {packsize.nameConvention}
+                                {packsize.size} pcs ({packsize.nameConvention})
                               </button>
                             )
                           )}

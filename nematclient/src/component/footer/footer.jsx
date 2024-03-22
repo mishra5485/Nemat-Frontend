@@ -6,9 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const footer = () => {
+const footer = ({check}) => {
   const { user } = useSelector((store) => store.profile);
   const _id = user?.customer_id;
+
+  // console.log("Checking" , check);
+
+  if(check === undefined || check === null){
+    check = false;
+  }
 
   const detailsPage = [
     {
@@ -137,11 +143,11 @@ const footer = () => {
         <div
           className="w-full sm:h-auto mobile:h-auto bg-center relative  flex mobile:flex-col sm:flex-col justify-center items-center "
         >
-          <div className="w-full  ">  
+          <div className={`w-full ${check ? "bg-Cream " : ""} `}>  
             <img src={FooterImage} alt="" className="md:object-fill"/>
           </div>
           <div className="w-[100%] mobile:-mt-2 sm:-mt-2 md:-mt-2 lg:-mt-6 h-full overflow-hidden bg-text_Color2 ">
-            <div className="w-full mt-2 mobile:flex sm:flex mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
+            <div className="w-full mt-2 mobile:flex sm:flex  mobile:justify-center mobile:items-center sm:items-center md:justify-center md:w-[100%] ">
               <Link to={"/home"}>
                 <img src={logo} className="w-[163px] h-[100px] " />
               </Link>
@@ -160,12 +166,12 @@ const footer = () => {
                             : toggleSubSeries(category._id)
                         }
                       >
-                        <button
-                          className="font-Marcellus  text-lg hover:underline "
+                        <p
+                          className="font-Marcellus  text-lg  "
                           type="button"
                         >
                           {category.Name}
-                        </button>
+                        </p>
                         {isSmallScreen && (
                           <p>
                             {showAngle[category._id] ? (
@@ -189,7 +195,7 @@ const footer = () => {
 
                                 <li
                                   
-                                  className="hover:underline p-2 "
+                                  className="hover:underline p-2  cursor-pointer"
                                   onClick={() =>
                                     seriesPageById(subcategories._id)
                                   }
@@ -208,7 +214,7 @@ const footer = () => {
                             category.SubCategories.map((subcategories) => (
                               <li
                                 key={subcategories._id}
-                                className="hover:underline py-1.5 text-LightCream opacity-70"
+                                className="hover:underline py-1.5 cursor-pointer text-LightCream opacity-70"
                                 onClick={() =>
                                   seriesPageById(subcategories._id)
                                 }

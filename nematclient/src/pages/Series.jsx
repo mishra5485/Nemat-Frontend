@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBars from "../component/common/NavBars";
 import ProductHeader from "../component/common/ProductHeader";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,6 +12,7 @@ import { useSelector } from "react-redux";
 import ProgressBar from "../component/common/ProgressBar";
 import toast, { Toaster } from "react-hot-toast";
 import getToken from "../component/auth/GetToken";
+import { LuChevronRight , LuChevronLeft} from "react-icons/lu";
 
 const Series = () => {
   const { _id } = useParams();
@@ -487,13 +487,13 @@ const Series = () => {
                       onClick={() => handlePrev(index)}
                       className="mobile:ml-[3%] sm:ml-[3%]"
                     >
-                      <FaAngleLeft size={25} />
+                      <LuChevronLeft size={25} />
                     </button>
                     <button
                       onClick={() => handleNext(index)}
                       className="mobile:w-full mobile:flex  mobile:justify-end  mobile:mr-[3%] sm:w-full sm:flex sm:justify-end sm:mr-[3%] "
                     >
-                      <FaAngleRight size={25} />
+                      <LuChevronRight color="#60713A" size={25} />
                     </button>
                   </div>
                 </div>
