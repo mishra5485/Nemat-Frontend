@@ -249,7 +249,7 @@ const Home = () => {
         </div>
       )}
 
-      {!loading && <Footer categoryData={categoryData} />}
+      {!loading && <Footer check={true} />}
     </div>
   );
 };

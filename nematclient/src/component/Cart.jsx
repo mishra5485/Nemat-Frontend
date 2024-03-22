@@ -10,8 +10,8 @@ import ContinueCheckout from "./products/ContinueCheckout";
 import { toast } from "react-hot-toast";
 import DeliveredAddAddress from "./DeliveredAddAddress";
 import ProductAddModal from "./ProductAddModal";
-import NoProductFound from "../assets/HomePage/empty-cart.webp"
-import getToken  from "./auth/GetToken";
+import NoProductFound from "../assets/HomePage/empty-cart.webp";
+import getToken from "./auth/GetToken";
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
@@ -58,11 +58,11 @@ const Cart = () => {
         user_id: user.customer_id,
       };
 
-      const header = getToken()
+      const header = getToken();
 
       let response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cart/getcartpagedata`,
-        payload , 
+        payload,
         header
       );
 
@@ -73,7 +73,7 @@ const Cart = () => {
       setAddress(response.data.ShippingAddress);
       setLoading(false);
 
-      console.log(response.data);
+      console.log(response.data.ShippingAddress);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -100,8 +100,7 @@ const Cart = () => {
 
   const getAllDiscountSlabe = async () => {
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       const response = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/cartdiscountscheme/getall`,
@@ -158,19 +157,24 @@ const Cart = () => {
       ) : (
         <>
           {nodata ? (
-           <div className="w-[90%] mx-auto mt-10">
-                <h1 className="font-roxborough  mb-6 text-text_Color text-2xl w-full text-start font-semibold">
-                  Your Cart
+            <div className="w-[90%] mx-auto mt-10">
+              <h1 className="font-roxborough  mb-6 text-text_Color text-2xl w-full text-start font-semibold">
+                Your Cart
+              </h1>
+              <div className="w-[100%] mt-16 ">
+                <h1 className="text-center text-2xl text-text_Color font-roxborough font-bold">
+                  YOUR CART IS EMPTY
                 </h1>
-                <div className="w-[100%] mt-16 ">
-                    <h1 className="text-center text-2xl text-text_Color font-roxborough font-bold">YOUR CART IS EMPTY</h1>
-                    <div className="w-full mx-auto flex justify-center mt-2">
-                      <button 
-                        type="button"
-                        onClick={()=> navigate("/home")}
-                      className="px-6 border-[1px] rounded-3xl border-text_Color py-2  text-text_Color font-Marcellus font-normal">Continue shopping</button>
-                    </div>
+                <div className="w-full mx-auto flex justify-center mt-2">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/home")}
+                    className="px-6 border-[1px] rounded-3xl border-text_Color py-2  text-text_Color font-Marcellus font-normal"
+                  >
+                    Continue shopping
+                  </button>
                 </div>
+              </div>
             </div>
           ) : (
             <div className="mt-10 w-[100%]">
@@ -181,7 +185,7 @@ const Cart = () => {
 
                 {/* Order Products display  */}
                 <div className="md:flex md:w-[100%] md:mx-auto">
-                  <div className="mt-8 md:w-[50%] mr-[8%] md:mt-0">
+                  <div className="mt-8 md:w-[58%] mr-[7%] md:mt-0">
                     {productDisplay.map((product, index) => (
                       <div key={product.CartDiscountSchemeId} className="">
                         <div className="mobile:flex mobile:w-full mobile:justify-between sm:flex sm:w-full sm:justify-between">
@@ -189,7 +193,7 @@ const Cart = () => {
                             onClick={() =>
                               seriesPageHandler(product.SubCategoryId)
                             }
-                            className="text-bg_green text-xl font-Marcellus font-semibold cursor-pointer"
+                            className="text-bg_green text-xl uppercase font-Marcellus font-normal cursor-pointer"
                           >
                             {product.seriesName}
                           </h1>
@@ -203,8 +207,8 @@ const Cart = () => {
                         </div>
 
                         <div className="mobile:w-full mobile:flex  mobile:justify-between mobile:mt-3 mobile:mb-2 font-Marcellus text-text_Color text-sm mobile:pb-3 border-b-[1px] border-text_Color sm:w-full sm:flex sm:justify-between sm:mt-3 sm:mb-2 sm:pb-3 ">
-                          <h1>Quantity:{product.totalQuantity}</h1>
-                          <h1>
+                          <h1 className="font-Marcellus text-lg font-normal text-text_Color">Quantity:{product.totalQuantity}</h1>
+                          <h1 className="font-Marcellus text-lg font-normal text-text_Color">
                             Total: {formattedAmount(product.TotalSeriesPrice)}
                           </h1>
                         </div>
@@ -231,18 +235,18 @@ const Cart = () => {
                                       className="mobile:w-full mobile:h-full mobile:object-contain sm:w-full sm:h-full sm:object-contain "
                                     />
                                   </div>
-                                  <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-text_Color font-medium mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center">
+                                  <div className="mobile:w-[60%]  cursor-pointer font-Marcellus text-lg font-normal text-text_Color  mobile:h-full mobile:flex mobile:flex-col mobile:justify-center sm:w-[60%] sm:h-full sm:flex sm:flex-col sm:justify-center">
                                     <h1 className="">
                                       {cartProduct.product_name}
                                     </h1>
-                                    <p className="mt-2">
+                                    <p className="mt-2 font-Marcellus text-lg font-normal text-text_Color">
                                       Price/pc ₹ {product.PricePerPiece}
                                     </p>
 
-                                    <p className="p-2 bg-Cream rounded-3xl mt-2">
-                                      Quantity: {cartProduct.quantity}{" "}
+                                    <p className="py-2 bg-Cream md:w-[50%] rounded-3xl mt-2">
+                                      <span className="ml-2 font-Marcellus text-lg font-normal text-text_Color">Quantity: {cartProduct.quantity}{" "}</span>
                                     </p>
-                                    <p className="mt-2">
+                                    <p className="mt-2 font-Marcellus text-lg font-normal text-text_Color">
                                       Total:{" "}
                                       {formattedAmount(
                                         cartProduct.totalproductprice
@@ -267,12 +271,33 @@ const Cart = () => {
                             {product.UpsellString !== null ? (
                               <div className="mobile:w-full sm:w-full mt-6 mb-14 border-t-2 border-text_Color border-b-2 cursor-pointer md:hidden sm:block mobile:block font-Marcellus">
                                 <p
-                                  className="p-3"
                                   onClick={() =>
                                     seriesPageHandler(product.SubCategoryId)
                                   }
+                                  className="p-3 uppercase text-text_Color font-Marcellus font-normal"
                                 >
-                                  {product.UpsellString}
+                                  {product.UpsellString.split(" ").map(
+                                    (word, index) => {
+                                      if (
+                                        index === 11 ||
+                                        index === 12 ||
+                                        index === 13
+                                      ) {
+                                        return (
+                                          <span
+                                            key={index}
+                                            style={{
+                                              color: "#C28E5E",
+                                            }}
+                                          >
+                                            {word}{" "}
+                                          </span>
+                                        );
+                                      } else {
+                                        return word + " ";
+                                      }
+                                    }
+                                  )}
                                 </p>
                               </div>
                             ) : null}
@@ -281,14 +306,35 @@ const Cart = () => {
 
                         {/* Desktop View Slider  */}
                         {product.UpsellString !== null ? (
-                          <div className="mobile:w-full sm:w-full mt-6 mb-14  cursor-pointer sm:hidden  mobile:hidden md:block md:bg-Cream  font-Marcellus">
+                          <div className="mobile:w-full sm:w-full mt-6 mb-14 cursor-pointer sm:hidden mobile:hidden md:block md:bg-Cream font-Marcellus">
                             <p
                               onClick={() =>
                                 seriesPageHandler(product.SubCategoryId)
                               }
-                              className="p-3"
+                              className="p-3 uppercase text-text_Color font-Marcellus font-normal"
                             >
-                              {product.UpsellString}
+                              {product.UpsellString.split(" ").map(
+                                (word, index) => {
+                                  if (
+                                    index === 11 ||
+                                    index === 12 ||
+                                    index === 13
+                                  ) {
+                                    return (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          color: "#C28E5E",
+                                        }}
+                                      >
+                                        {word}{" "}
+                                      </span>
+                                    );
+                                  } else {
+                                    return word + " ";
+                                  }
+                                }
+                              )}
                             </p>
                           </div>
                         ) : null}
@@ -304,17 +350,17 @@ const Cart = () => {
                     />
                   </div>
 
-                  <div className="mobile:w-[96%] sm:w-[96%] md:h-fit mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[45%] md:mt-0">
+                  <div className="mobile:w-[96%] sm:w-[96%] md:h-fit mobile:mx-auto mobile:h-auto sm:mx-auto sm:h-auto bg-CartRightColor mt-10 md:w-[38%] md:mt-0">
                     <h1 className="mobile:text-center sm:text-center mt-6 font-roxborough text-text_Color font-bold text-xl">
                       Order Summary
                     </h1>
-                    {/* Left Side Part  */}
+                    {/* Left Side Part  */} 
                     {orderSummarydetails.map((data, index) => (
                       <div key={index} className="mt-6  text-text_Color">
                         <div className="flex justify-between w-[90%] mx-auto">
                           <h1 className="font-roxborough font-semibold">
                             {data.Name}
-                          </h1>
+                          </h1> 
                           <p className="font-Marcellus font-normal">
                             {formattedAmount(data.totalSeriesPrice)}
                           </p>
@@ -379,17 +425,17 @@ const Cart = () => {
                                         // Store the next value in the variable
                                         if (nextMatch) {
                                           nextDiscountPercent =
-                                            nextMatch.discountPercent;  
+                                            nextMatch.discountPercent;
                                         }
 
                                         return (
                                           <div key={index}>
-                                            <div className="px-4 bg-text_Color2">
+                                            <div className="px-4 bg-text_Color2 ">
                                               <h1
                                                 className={
                                                   nextDiscountPercent
-                                                    ? "bg-text_Color2 p-2 text-white font-roxborough"
-                                                    : "p-2"
+                                                    ? "bg-text_Color2 p-2 text-white font-roxborough font-semibold"
+                                                    : "p-2 "
                                                 }
                                               >
                                                 {DSPercentage.discountPercent}%
@@ -401,7 +447,7 @@ const Cart = () => {
                                       return (
                                         <div key={index}>
                                           <div className="px-4">
-                                            <h1 className="p-2 font-roxborough">
+                                            <h1 className="p-2 font-roxborough font-semibold">
                                               {DSPercentage.discountPercent}%
                                             </h1>
                                           </div>
@@ -415,12 +461,12 @@ const Cart = () => {
                                     (total, index) => (
                                       <div
                                         key={index}
-                                        className="w-[80%] mx-auto text-white font-Marcellus"
+                                        className="w-[80%] mx-auto text-white"
                                       >
                                         {data.totalSeriesPrice >= total.from &&
                                         data.totalSeriesPrice <= total.to ? (
-                                          <h1 className="  font-semibold">
-                                            Spend{" "}
+                                          <h1 className=" font-roxborough font-medium">
+                                            Spend
                                             {formattedAmount(
                                               total.to - data.totalSeriesPrice
                                             )}{" "}
@@ -442,7 +488,7 @@ const Cart = () => {
                                     </div>
                                   )}
                                 </div>
-                              </div>  
+                              </div>
                             )}
                           </div>
                         ))}
