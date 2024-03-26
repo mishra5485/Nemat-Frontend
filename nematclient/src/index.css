@@ -517,3 +517,13 @@ html {
   right: 0;
   /* Adjust position of the Next button */
 }
+
+
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optional: Define scrollbar styles for other browsers */
+.overflow-x-auto {
+  scrollbar-width: none; /* Firefox */
+}

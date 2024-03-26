@@ -2,8 +2,6 @@ import React from 'react'
 
 const PolicyDetails = ({policie }) => {
 
-
-   console.log("policie ===> " , policie )
    const htmlContent = policie.Data;
 
   return (
@@ -12,14 +10,17 @@ const PolicyDetails = ({policie }) => {
     <style>
     {`
       h6 {
-        font-size: 22px; 
+        font-size: 20px; 
         margin-bottom: 5px;
         font-family: 'Marcellus', serif; 
         font-weight: bold; 
+        margin-top: 15px;
       }
       p {
         font-size: 16px; 
         margin-bottom: 5px; 
+        font-family: 'Marcellus', serif;
+        font-weight:400;
         margin-top: 8px;
       }
     `}

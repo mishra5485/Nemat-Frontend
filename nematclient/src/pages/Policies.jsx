@@ -6,6 +6,7 @@ import DottedLineGold from "../assets/HomePage/DottedLineGold.png";
 import PolicyDetails from "../component/common/PolicyDetails";
 import getToken from "../component/auth/GetToken";
 import Footer from "../component/footer/footer";
+import Flower from "../assets/HomePage/Flower.png";
 
 const Policies = () => {
   const [policiesData, setPoliciesData] = useState([]);
@@ -17,8 +18,7 @@ const Policies = () => {
 
   const getAllPoliciesData = async () => {
     try {
-
-      const header = getToken()
+      const header = getToken();
 
       let response = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/policies/getall`,
@@ -63,26 +63,36 @@ const Policies = () => {
         </div>
 
         <div className="p-2 py-3  w-full mb-2">
-          <img src={DottedLineGold} className="w-full" />
+          <img src={Flower} className="w-full" />
         </div>
 
-       <div className="w-[90%] mx-auto flex mt-8 items-center justify-center gap-x-8 uppercase text-text_Color font-roxborough font-semibold">
-        {policiesData.map((policy) => (
-          <div key={policy._id} className="flex text-xl">
-            <h2
-              className={`cursor-pointer ${selectedPolicie === policy ? "underline" : ""}`}
-              onClick={() => handleClick(policy)}
-            >
-              {policy.Name}
-            </h2>
-          </div>
-        ))}
+
+        {/* HEADIND SECTION */}
+        <div className="w-full mobile:h-[50%]">
+  <div className="md:w-[90%] mobile:w-[90%] mx-auto flex mt-8 md:items-center md:justify-center gap-x-8 uppercase text-text_Color font-roxborough font-semibold overflow-x-auto ">
+    {policiesData.map((policy) => (
+      <div key={policy._id} className="flex-shrink-0">
+        <h2
+          className={`cursor-pointer whitespace-nowrap overflow-hidden md:text-2xl mobile:text-lg sm:text-lg ${
+            selectedPolicie === policy ? "underline" : "opacity-50"
+          }`}
+          onClick={() => handleClick(policy)}
+        >
+          {policy.Name}
+        </h2>
       </div>
-        <div className="w-[90%] mx-auto mt-16">
+    ))}
+  </div>
+</div>
+
+
+
+
+        <div className="w-[90%] mx-auto mt-11">
           {selectedPolicie && <PolicyDetails policie={selectedPolicie} />}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
