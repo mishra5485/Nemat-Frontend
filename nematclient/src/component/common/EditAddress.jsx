@@ -278,9 +278,9 @@ const EditAddress = ({ editModalOpen , setEditModalOpen , selectedAddress , setA
 
 
   return (
-    <div className="z-50">
+    <div className="">
       <Toaster/>
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-40">
               <div className="bg-white p-4 rounded-md w-[500px] h-auto">
                 <div className="flex w-[90%] mx-auto">
                   <h2 className="w-[100%] mx-auto text-xl font-bold mb-4 text-text_Color2 font-roxborough ">
