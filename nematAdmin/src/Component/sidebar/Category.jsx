@@ -89,16 +89,6 @@ const Category = () => {
     initialValues,
     validationSchema: categoryObjectSchema,
     onSubmit: async (values, action) => {
-      // const formData = new FormData();
-      // formData.append("Name", values.name);
-      // formData.append("MetaTitle", values.metaTitle);
-      // formData.append("MetaDesc", values.metaDesc);
-      // formData.append("MetaKeyWord", values.metaKeyword);
-      // formData.append("SlugUrl", values.slugUrl);
-      // // formData.append("MobilebannerImage", values.bannerImageMobile);
-      // // formData.append("DesktopbannerImage", values.bannerImageDesktop);
-      // formData.append("CartDiscountSlab", values.cartDiscount);
-
       const palyload = {
         Name: values.name,
         MetaTitle: values.metaTitle,
@@ -107,40 +97,31 @@ const Category = () => {
         SlugUrl: values.slugUrl,
         CartDiscountSlab: values.cartDiscount,
         Priority: values.priority,
-        // image:values.bannerImageMobile,
-        // bannerImage:values.bannerImageDesktop,
       };
-
-      // console.log(" formData image-> ", formData.image);
-
+  
       if (values.priority === "") {
         delete palyload.Priority;
       }
-
-      // console.log("PAyload ", palyload);
-
+  
       try {
         const header = getToken();
-
+  
         let response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BASE_URL}/category/create`,
           palyload,
           header
         );
-
-        // console.log(response);
-
+  
         if (response.status === 200) {
           toast.success("New Category Created");
           slabdata();
           resetForm();
-          setFieldValue(null);
           setShowModal(false);
         }
       } catch (error) {
         if (error.response) {
           const { status, data } = error.response;
-
+  
           if (
             status === 404 ||
             status === 403 ||
@@ -150,7 +131,6 @@ const Category = () => {
             status === 401 ||
             status === 400
           ) {
-            console.log(error.response);
             toast.error(data);
           }
         }
@@ -183,6 +163,20 @@ const Category = () => {
   //     }
   //   }
   // };
+
+  const generateSlug = (name) => {
+    return name.trim().toLowerCase().replace(/\s+/g, '_');
+  };
+  
+
+    useEffect(() => {
+    if (values.name) {
+      const slug = generateSlug(values.name);
+      setFieldValue('slugUrl', slug);
+    }
+  }, [values.name, setFieldValue]);
+
+
 
   const editHandlerDir = (categoryId) => {
     setShowForm(categoryId);

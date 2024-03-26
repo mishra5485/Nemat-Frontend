@@ -548,6 +548,18 @@ const Product = () => {
     }
   };
 
+  const generateSlug = (name) => {
+    return name.trim().toLowerCase().replace(/\s+/g, '_');
+  };
+
+  useEffect(() => {
+    if (values.productName) {
+      const slug = generateSlug(values.productName);
+      console.log("slug" , slug)
+      setFieldValue('slugUrl', slug);
+    }
+  }, [values.productName, setFieldValue]);
+
   return (
     <div className="text-center">
       <Toaster />

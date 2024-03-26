@@ -331,8 +331,6 @@ const Sub_Category = () => {
     }
   };
 
-  const handleForm = () => {};
-
   const editHandlerDir = (categoryId) => {
     setShowForm(categoryId);
     navigate(`/dashboard/sub_category/sub_edit/${categoryId}`);
@@ -374,6 +372,19 @@ const Sub_Category = () => {
       }
     }
   };
+
+  const generateSlug = (name) => {
+    return name.trim().toLowerCase().replace(/\s+/g, '_');
+  };
+  
+
+  useEffect(() => {
+    if (values.name) {
+      const slug = generateSlug(values.name);
+      console.log("slug" , slug)
+      setFieldValue('slugUrl', slug);
+    }
+  }, [values.name, setFieldValue]);
 
   const privoritySub_Category = [
     {
