@@ -9,6 +9,7 @@ import ProductHeader from "../component/common/ProductHeader";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import getToken from "../component/auth/GetToken";
 import RoadMapImage from "../assets/HomePage/Vector 30.png";
+import mobileRoadMapImage from "../assets/HomePage/mobileaboutusline.png";
 
 const AboutUs = () => {
   const [aboutUsData, setAboutUsData] = useState([]);
@@ -16,8 +17,8 @@ const AboutUs = () => {
   const [roadmapModal, setRoadMapModal] = useState(false);
   const [roadmapdataModal, setRoadMapDataModal] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [isMobile, setIsMobile] = useState(false);
+  const [isMobileroad, setIsMobileroad] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,6 +32,23 @@ const AboutUs = () => {
 
   useEffect(() => {
     AboutUsData();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileroad(window.innerWidth <= 768); // Adjust this threshold as needed
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial check on component mount
+    handleResize();
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const AboutUsData = async () => {
@@ -81,13 +99,12 @@ const AboutUs = () => {
     }
   };
 
-   const handleModalOpen = (index) => {
+  const handleModalOpen = (index) => {
     console.log("Modal opened for index:", index);
     setCurrentIndex(index);
-    // setRoadMapDataModal(aboutUsData.RoadMapData[index]); 
+    // setRoadMapDataModal(aboutUsData.RoadMapData[index]);
     setRoadMapModal(true);
   };
-
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -101,12 +118,11 @@ const AboutUs = () => {
     );
   };
 
- 
-  // const checkHandler = () => {
-  //   if (roadmapModal) {
-  //     setRoadMapModal(false);
-  //   }
-  // };
+  const checkHandler = () => {
+    if (roadmapModal) {
+      setRoadMapModal(false);
+    }
+  };
 
   return (
     <div>
@@ -115,7 +131,7 @@ const AboutUs = () => {
         <p></p>
       ) : (
         <div id="mainSection" className="aboutSection">
-          <div className="heroSection">
+          <div className="heroSection" onClick={() => checkHandler()}>
             <div className="banner">
               <img
                 className="desktop"
@@ -145,11 +161,11 @@ const AboutUs = () => {
           <div className="w-full bg-Cream">
             <div className="w-[90%] mx-auto mobile:mt-4 mobile:mb-4 h-auto z-10 bg-Cream md:flex md:justify-between relative">
               {/* Add the SVG background image here */}
-              <div className="absolute inset-0 ">
+              <div className="absolute inset-0 overflow-hidden">
                 <img
-                  src={RoadMapImage}
+                  src={isMobileroad ? mobileRoadMapImage : RoadMapImage}
                   alt="RoadMap Background"
-                  className="w-[85%] ml-7 flex justify-center h-full object-contain z-20"
+                  className={`w-[85%] ${isMobileroad ? "mobile:ml-4 mobile:mt-3  sm:mt-8 sm:h-[92%] mobile:h-[92.5%]" : "ml-7 flex justify-center h-full mt-10  object-contain"}   z-20`}
                 />
               </div>
               {/* End of SVG background */}
@@ -167,12 +183,11 @@ const AboutUs = () => {
                     marginTop: getMarginTop(index),
                     ...(window.innerWidth <= 740 && { marginTop: "20px" }),
                   }}
-                  
                 >
-                  <div 
-                    className="relative" 
-                 style={{ paddingTop: '50px' }}
-                  onClick={() => handleModalOpen(index)}>
+                  <div
+                    className="relative md:pt-[50px] mobile:pt-0 sm:pt-0"
+                    onClick={() => handleModalOpen(index)}
+                  >
                     <img
                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                         roadmapdata?.ImagePath
@@ -186,8 +201,7 @@ const AboutUs = () => {
                     <p className="text-center font-Marcellus text-text_Color">
                       {roadmapdata.Year}
                     </p>
-                    <p 
-                    className="text-center underline uppercase font-semibold mt-2 font-Marcellus text-text_Color2 cursor-pointer">
+                    <p className="text-center underline uppercase font-semibold mt-2 font-Marcellus text-text_Color2 cursor-pointer">
                       know more
                     </p>
                   </div>
