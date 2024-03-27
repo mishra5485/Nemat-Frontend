@@ -42,7 +42,7 @@ const AboutUs = () => {
         header
       );
 
-      console.log("About Us Data ===> ", response.data);
+      // console.log("About Us Data ===> ", response.data);
       setAboutUsData(response.data);
       setRoadMapDataModal(response.data.RoadMapData);
       setLoading(false);
@@ -81,6 +81,14 @@ const AboutUs = () => {
     }
   };
 
+   const handleModalOpen = (index) => {
+    console.log("Modal opened for index:", index);
+    setCurrentIndex(index);
+    // setRoadMapDataModal(aboutUsData.RoadMapData[index]); 
+    setRoadMapModal(true);
+  };
+
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === roadmapdataModal.length - 1 ? 0 : prevIndex + 1
@@ -93,16 +101,12 @@ const AboutUs = () => {
     );
   };
 
-  const handleModalOpen = (index) => {
-    setCurrentIndex(index);
-    setRoadMapModal(true);
-  };
-
-  const checkHandler = () => {
-    if (roadmapModal) {
-      setRoadMapModal(false);
-    }
-  };
+ 
+  // const checkHandler = () => {
+  //   if (roadmapModal) {
+  //     setRoadMapModal(false);
+  //   }
+  // };
 
   return (
     <div>
@@ -145,16 +149,16 @@ const AboutUs = () => {
                 <img
                   src={RoadMapImage}
                   alt="RoadMap Background"
-                  className="w-[90%] flex justify-center h-full object-contain z-20"
+                  className="w-[85%] ml-7 flex justify-center h-full object-contain z-20"
                 />
               </div>
               {/* End of SVG background */}
 
               {/* Your road map items */}
-              {aboutUsData.RoadMapData?.map((roadmapdata, index) => (
+              {aboutUsData.RoadMapData.map((roadmapdata, index) => (
                 <div
                   key={index}
-                  className={`flex w-full mt-[10%] ${
+                  className={`flex w-full mt-[10%] z-50 ${
                     index % 2 === 0
                       ? "mobile:justify-start sm:justify-start md:justify-between"
                       : "mobile:justify-end sm:justify-end md:justify-between"
@@ -163,8 +167,12 @@ const AboutUs = () => {
                     marginTop: getMarginTop(index),
                     ...(window.innerWidth <= 740 && { marginTop: "20px" }),
                   }}
+                  
                 >
-                  <div onClick={() => handleModalOpen(index)} className="">
+                  <div 
+                    className="relative" 
+                 style={{ paddingTop: '50px' }}
+                  onClick={() => handleModalOpen(index)}>
                     <img
                       src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${
                         roadmapdata?.ImagePath
@@ -178,7 +186,8 @@ const AboutUs = () => {
                     <p className="text-center font-Marcellus text-text_Color">
                       {roadmapdata.Year}
                     </p>
-                    <p className="text-center underline uppercase font-semibold mt-2 font-Marcellus text-text_Color2 cursor-pointer">
+                    <p 
+                    className="text-center underline uppercase font-semibold mt-2 font-Marcellus text-text_Color2 cursor-pointer">
                       know more
                     </p>
                   </div>
@@ -190,9 +199,9 @@ const AboutUs = () => {
           {/* RoadMapModal open Section */}
           {roadmapModal && (
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center z-50">
-              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%] lg:h-[40rem]">
-                <div className="h-[92%]">
-                  {roadmapdataModal.map((data, index) => (
+              <div className="bg-white p-4 rounded-md mobile:w-full mobile:h-[80%] md:w-[400px] md:h-[95%] lg:h-[40rem] z-50">
+                <div className="h-[92%] z-50">
+                  {roadmapdataModal?.map((data, index) => (
                     <div
                       key={index}
                       className={index === currentIndex ? "" : "hidden"}
