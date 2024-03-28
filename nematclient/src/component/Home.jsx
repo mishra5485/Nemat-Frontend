@@ -210,7 +210,7 @@ const Home = () => {
                               alt={subcategories?.title}
                             />
                             <h1
-                              className="font-roxboroughnormal font-medium uppercase mobile:text-lg md:text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
+                              className="font-roxboroughnormal font-semibold uppercase mobile:text-lg md:text-xl text-center w-full text-text_Color mb-4 overflow-hidden overflow-ellipsis"
                               style={{ minHeight: "3em" }}
                             >
                               {subcategories.Name}
